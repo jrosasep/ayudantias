@@ -17,6 +17,7 @@ ayudantias/
 │   ├── README.md
 │   └── guia-2/
 │       ├── guia2_campos_electricos_material_estudio.ipynb
+│       ├── guia2_resolucion.pdf
 │       └── guia2_resolucion.tex
 └── fisica-matematica-2/
     ├── README.md
