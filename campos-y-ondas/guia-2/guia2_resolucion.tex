@@ -1,0 +1,1000 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{caption}
+\usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing}
+
+\geometry{letterpaper,left=1.85cm,right=1.85cm,top=2.1cm,bottom=2.1cm,headheight=15pt,headsep=0.45cm}
+
+
+
+\definecolor{headinggray}{RGB}{55,55,55}
+\definecolor{rulegray}{RGB}{150,150,150}
+
+\titleformat{\section}[block]
+  {\Large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.9em}
+
+\titleformat{\subsection}[block]
+  {\large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.45em}
+
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+
+\newcommand{\soluciontitulo}{%
+  \par\medskip
+  \noindent{\large\bfseries Solución.}\par
+  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+}
+
+\newcommand{\resultadofinal}[1]{%
+  \par\medskip
+  \noindent\textbf{Resultado final:} #1\par
+}
+
+\begin{document}
+
+\section*{Problema 1.}
+Una carga de $16\times 10^{-9}\,\mathrm{C}$ está fija en el origen de un eje de coordenadas; una segunda carga, de valor desconocido, está en $x=3\,\mathrm{cm}$; y una tercera, de $12\times 10^{-9}\,\mathrm{C}$, está en $x=6\,\mathrm{cm}$. Si el campo total en $x=8\,\mathrm{cm}$ es $2\times 10^5\,\mathrm{N/C}$ hacia la derecha, determinar la carga desconocida.
+
+\soluciontitulo
+
+Consideramos la recta real graduada en $\mathrm{cm}$, tomando como sentido positivo hacia la derecha. Ubicamos la carga $q_1=16\times 10^{-9}\,\mathrm{C}$ en el origen, es decir, en $x_1=0$; la carga $q_2=q$ en el punto $x_2=3\,\mathrm{cm}$; y la carga $q_3=12\times 10^{-9}\,\mathrm{C}$ en el punto $x_3=6\,\mathrm{cm}$, como se muestra en la figura~\ref{fig:problema1}. Se nos pide calcular el campo eléctrico total en $x_P=8\,\mathrm{cm}$.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=1.15cm,y=1.15cm,>=Latex]
+
+    % Eje
+    \draw[->,thick] (-0.7,0) -- (9.3,0) node[right] {$x\,(\mathrm{cm})$};
+
+    % Cargas y punto de observación $\vec r_P$
+    \filldraw[fill=blue!15,draw=blue!60!black,thick] (0,0) circle (0.16);
+    \filldraw[fill=red!15,draw=red!70!black,thick] (3,0) circle (0.16);
+    \filldraw[fill=blue!15,draw=blue!60!black,thick] (6,0) circle (0.16);
+    \filldraw[fill=green!15,draw=green!50!black,thick] (8,0) circle (0.07);
+
+    % Etiquetas superiores
+    \node[above=10pt,align=center,text=blue!60!black] at (0,0)
+    {$q_1=16\times 10^{-9}\,\mathrm{C}$};
+
+    \node[above=10pt,align=center,text=red!70!black] at (3,0)
+    {$q_2=q$};
+
+    \node[above=10pt,align=center,text=blue!60!black] at (6,0)
+    {$q_3=12\times 10^{-9}\,\mathrm{C}$};
+
+    % Etiquetas inferiores de posiciones
+    \node[below=15pt] at (0,0) {$x_1=0$};
+    \node[below=15pt] at (3,0) {$x_2=3$};
+    \node[below=15pt] at (6,0) {$x_3=6$};
+    \node[below=15pt] at (8,0) {$x_P=8$};
+
+    % Campo total conocido
+    \node[right] at (7.75,0.75) {$\vec E_{\mathrm{tot}}=2\times10^5\,\hat{\imath}\,\mathrm{N/C}$};
+
+    % Distancias
+    \draw[decorate,decoration={brace,mirror,amplitude=5pt},thick]
+        (0,-1.15) -- (8,-1.15)
+        node[midway,below=7pt] {$r_1=x_P-x_1=8\,\mathrm{cm}$};
+
+    \draw[decorate,decoration={brace,mirror,amplitude=5pt},thick]
+        (3,-1.75) -- (8,-1.75)
+        node[midway,below=7pt] {$r_2=x_P-x_2=5\,\mathrm{cm}$};
+
+    \draw[decorate,decoration={brace,mirror,amplitude=5pt},thick]
+        (6,-2.35) -- (8,-2.35)
+        node[midway,below=7pt] {$r_3=x_P-x_3=2\,\mathrm{cm}$};
+
+\end{tikzpicture}
+\caption{Distribución de las tres cargas sobre el eje $x$ y ubicación del punto de observación $x_P=8\,\mathrm{cm}$.}
+\label{fig:problema1}
+\end{figure}
+
+Como aquí se cumple que $x_P>x_i$ para $i=1,2,3$, la contribución de cada carga al campo en $x_P$ puede escribirse como
+\begin{equation*}
+E_i(x_P)=k\,\frac{q_i}{r_i^2},
+\end{equation*}
+donde $r_i=x_P-x_i>0$ es la distancia entre la posición de la i-ésima carga y el punto de observación. En esta expresión, el signo de $q_i$ determina automáticamente el sentido de la contribución sobre el eje $x$.
+
+Note que esta es la magnitud de un campo eléctrico radial generado por una carga neta $q_i$ puntual.
+
+Calculamos las distancias $r_i$ entre el punto de observación $x_P$ con las posiciones de las cargas $x_i$, con $i=1,2,3$:
+\begin{align*}
+    r_1&=x_P-x_1=8\,\mathrm{cm}=0.08\,\mathrm{m},\\
+    r_2&=x_P-x_2=5\,\mathrm{cm}=0.05\,\mathrm{m},\\
+    r_3&=x_P-x_3=2\,\mathrm{cm}=0.02\,\mathrm{m}.
+\end{align*}
+
+Por superposición lineal,
+\begin{align*}
+E_{\mathrm{tot}}
+&=E_1+E_2+E_3\\
+&=k\left(\frac{q_1}{r_1^2}+\frac{q_2}{r_2^2}+\frac{q_3}{r_3^2}\right)\\
+&=k\left(\frac{16\times10^{-9}}{(0.08)^2}+\frac{q}{(0.05)^2}+\frac{12\times10^{-9}}{(0.02)^2}\right).
+\end{align*}
+
+Como el campo total en $x_P$ es $2\times 10^5\,\mathrm{N/C}$ hacia la derecha, se cumple que
+\begin{equation*}
+2\times 10^5
+=
+k\left(\frac{16\times 10^{-9}}{(0.08)^2}+\frac{q}{(0.05)^2}+\frac{12\times 10^{-9}}{(0.02)^2}\right).
+\end{equation*}
+
+Tomando $k=9\times 10^9\,\mathrm{N\,m^2/C^2}$, obtenemos
+\begin{equation*}
+2\times 10^5
+=
+9\times 10^9\left(2.5\times 10^{-6}+\frac{q}{0.0025}+3.0\times 10^{-5}\right).
+\end{equation*}
+
+Dividiendo por $9\times 10^9$,
+\begin{equation*}
+2.222\times 10^{-5}=3.25\times 10^{-5}+\frac{q}{0.0025}.
+\end{equation*}
+
+Luego,
+\begin{equation*}
+\frac{q}{0.0025}=-1.028\times 10^{-5},
+\end{equation*}
+y, por consiguiente,
+\begin{equation*}
+q=-2.57\times 10^{-8}\,\mathrm{C}.
+\end{equation*}
+
+\resultadofinal{$\boxed{q\approx -2.6\times 10^{-8}\,\mathrm{C}\approx -25\times10^{-9}\,\mathrm{C}.}$ La carga desconocida es negativa; por ello, su campo en $x=8\,\mathrm{cm}$ apunta hacia la izquierda y compensa parcialmente las contribuciones hacia la derecha producidas por las otras dos cargas positivas.}
+
+\newpage
+
+\section*{Problema 2.}
+En el sistema de la figura, las cargas puntuales son $q_1=5\times 10^{-7}\,\mathrm{C}$ y $q_2=15\times 10^{-7}\,\mathrm{C}$. Encontrar:
+\begin{enumerate}[label=(\alph*)]
+    \item El campo eléctrico en el punto de observación $\vec r_P=6\,\hat x\,\mathrm{cm}$.
+    \item Los puntos del eje $Y$ donde el campo es cero.
+\end{enumerate}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=0.9cm,y=0.9cm,>=Latex]
+
+    % Ejes
+    \draw[->,thick] (-1.2,0) -- (7.8,0) node[right] {$x\,(\mathrm{cm})$};
+    \draw[->,thick] (0,-4.2) -- (0,4.5) node[above] {$y\,(\mathrm{cm})$};
+
+    % Marcas en los ejes
+    \foreach \x/\lab in {0/{0},3/{3},6/{6}}{
+        \draw (\x,0.10) -- (\x,-0.10);
+        \node[below] at (\x,-0.10) {\lab};
+    }
+
+    \foreach \y/\lab in {-3/{-3},3/{3}}{
+        \draw (0.10,\y) -- (-0.10,\y);
+        \node[left] at (0,\y) {\lab};
+    }
+
+    % Cargas y punto de observación $\vec r_P$
+    \filldraw[fill=blue!15,draw=blue!70!black,thick] (0,3) circle (0.18);
+    \filldraw[fill=blue!15,draw=blue!70!black,thick] (0,-3) circle (0.18);
+    \filldraw[fill=green!15,draw=green!50!black,thick] (6,0) circle (0.10);
+
+    % Etiquetas de las cargas y del punto
+    \node[left=2.5pt,blue!50!black] at (-0.4,3) {$q_1$};
+    \node[left=2.5pt,blue!50!black] at (-0.4,-3) {$q_2$};
+    \node[below right=2pt,green!50!black] at (6,0) {$P$};
+
+    % Líneas auxiliares
+    \draw[dashed] (0,3) -- (6,0);
+    \draw[dashed] (0,-3) -- (6,0);
+
+\end{tikzpicture}
+\caption{Las cargas $q_1$ y $q_2$ se encuentran sobre el eje $Y$, mientras que el punto de observación $\vec r_P$ está ubicado sobre el eje $X$.}
+\label{fig:problema2_general}
+\end{figure}
+
+\newpage
+
+\soluciontitulo
+
+De acuerdo con la figura, las posiciones de las cargas son
+\begin{equation*}
+\vec r_1 = 3\,\hat y\,\mathrm{cm},
+\qquad
+\vec r_2 = -3\,\hat y\,\mathrm{cm},
+\end{equation*}
+mientras que, para el ítem (a), el punto de observación es
+\begin{equation*}
+\vec r_P = 6\,\hat x\,\mathrm{cm}.
+\end{equation*}
+
+\textbf{(a) Campo eléctrico en $\vec r_P$}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=0.9cm,y=0.9cm,>=Latex]
+
+    % Ejes
+    \draw[->,thick] (-1.2,0) -- (8.5,0) node[right] {$x\,(\mathrm{cm})$};
+    \draw[->,thick] (0,-4.2) -- (0,4.5) node[above] {$y\,(\mathrm{cm})$};
+
+    % Marcas
+    \foreach \x/\lab in {0/{0},6/{6}}{
+        \draw (\x,0.10) -- (\x,-0.10);
+        \node[below] at (\x,-0.10) {\lab};
+    }
+    \foreach \y/\lab in {-3/{-3},3/{3}}{
+        \draw (0.10,\y) -- (-0.10,\y);
+        \node[left] at (0,\y) {\lab};
+    }
+
+    % Cargas y punto de observación $\vec r_P$
+    \filldraw[fill=blue!15,draw=blue!70!black,thick] (0,3) circle (0.18);
+    \filldraw[fill=blue!15,draw=blue!70!black,thick] (0,-3) circle (0.18);
+    \filldraw[fill=green!15,draw=green!50!black,thick] (6,0) circle (0.10);
+
+    % Etiquetas
+    \node[left=5pt,blue!70!black] at (-0.4,3) {$q_1$};
+    \node[left=5pt,blue!70!black] at (-0.4,-3) {$q_2$};
+    \node[below right=2pt,green!50!black] at (6,0) {$P$};
+
+    \node[right] at (0.35,3.55) {$\vec r_1=3\,\hat y\,\mathrm{cm}$};
+    \node[right] at (0.35,-3.55) {$\vec r_2=-3\,\hat y\,\mathrm{cm}$};
+    \node[below] at (6,-0.55) {$\vec r_P=6\,\hat x\,\mathrm{cm}$};
+
+    % Segmentos auxiliares
+    \draw[dashed] (0,3) -- (6,0);
+    \draw[dashed] (0,-3) -- (6,0);
+
+    % Campos en P
+    \draw[->,very thick,red!75!black] (6,0) -- ++(1.45,-0.72);
+    \node[right] at (7.60,-0.72) {$\vec E_1$};
+
+    \draw[->,very thick,orange!85!black] (6,0) -- ++(1.80,0.90);
+    \node[right] at (7.95,0.90) {$\vec E_2$};
+
+    \draw[->,very thick,green!50!black] (6,0) -- ++(1.90,0.47);
+    \node[above] at (7.95,0.47) {$\vec E(\vec r_P)$};
+
+\end{tikzpicture}
+\caption{Configuración geométrica correspondiente al cálculo del campo eléctrico en el punto de observación $\vec r_P$.}
+\label{fig:problema2a}
+\end{figure}
+
+Usamos la expresión vectorial del campo eléctrico producido por una carga puntual $q$ situada en la posición $\vec r_0$, evaluado en el punto $\vec r$:
+\begin{equation}\label{2.campo-electrico-formula}
+\vec E(\vec r)=kq\,\frac{\vec r-\vec r_0}{|\vec r-\vec r_0|^3}.
+\end{equation}
+
+El campo total en el punto de observación $\vec r_P$ se obtiene por superposición lineal:
+\begin{equation*}
+\vec E(\vec r_P)=\vec E_1(\vec r_P)+\vec E_2(\vec r_P).
+\end{equation*}
+
+Calculamos primero los vectores desplazamiento desde cada carga hasta el punto de observación $\vec r_P$:
+\begin{align}
+\vec r_{1P}
+&=
+\vec r_P-\vec r_1 
+otag\\
+&=
+6\,\hat x\,\mathrm{cm}-3\,\hat y\,\mathrm{cm} 
+otag\\
+&=
+(0.06\,\hat x-0.03\,\hat y)\,\mathrm{m},
+\label{2.r1p}
+\end{align}
+\begin{align}
+|\vec r_{1P}|
+&=
+\sqrt{(0.06)^2+(0.03)^2} 
+otag\\
+&=
+0.03\sqrt{5}\,\mathrm{m}.
+\label{2.modulor1p}
+\end{align}
+
+De manera análoga,
+\begin{align}
+\vec r_{2P}
+&=
+\vec r_P-\vec r_2 
+otag\\
+&=
+6\,\hat x\,\mathrm{cm}+3\,\hat y\,\mathrm{cm} 
+otag\\
+&=
+(0.06\,\hat x+0.03\,\hat y)\,\mathrm{m},
+\label{2.r2p}
+\end{align}
+\begin{align}
+|\vec r_{2P}|
+&=
+\sqrt{(0.06)^2+(0.03)^2} 
+otag\\
+&=
+0.03\sqrt{5}\,\mathrm{m}.
+\label{2.modulor2p}
+\end{align}
+
+Sustituyendo \eqref{2.r1p}, \eqref{2.modulor1p}, \eqref{2.r2p} y \eqref{2.modulor2p}, junto con
+\begin{equation*}
+q_1=5\times 10^{-7}\,\mathrm{C},
+\qquad
+q_2=15\times 10^{-7}\,\mathrm{C},
+\qquad
+k=9\times 10^9\,\mathrm{N\,m^2/C^2},
+\end{equation*}
+obtenemos
+\begin{align*}
+\vec E(\vec r_P)
+&=
+9\times 10^9\left[
+5\times 10^{-7}\,
+\frac{0.06\,\hat x-0.03\,\hat y}{(0.03\sqrt{5})^3}
++
+15\times 10^{-7}\,
+\frac{0.06\,\hat x+0.03\,\hat y}{(0.03\sqrt{5})^3}
+\right] \\
+&=
+9\times 10^9\,
+\frac{10^{-7}}{(0.03\sqrt{5})^3}
+\left[
+5(0.06\,\hat x-0.03\,\hat y)
++
+15(0.06\,\hat x+0.03\,\hat y)
+\right].
+\end{align*}
+
+Desarrollando el numerador,
+\begin{align*}
+5(0.06\,\hat x-0.03\,\hat y)
++
+15(0.06\,\hat x+0.03\,\hat y)
+&=
+(0.30+0.90)\hat x+(-0.15+0.45)\hat y \\
+&=
+1.20\,\hat x+0.30\,\hat y.
+\end{align*}
+
+Además,
+\begin{equation*}
+(0.03\sqrt{5})^3
+=
+0.03^3(\sqrt{5})^3
+=
+27\times 10^{-6}\,5\sqrt{5}.
+\end{equation*}
+
+Por lo tanto,
+\begin{equation*}
+\vec E(\vec r_P)
+=
+9\times 10^9\,
+\frac{10^{-7}}{27\times 10^{-6}\,5\sqrt{5}}
+\left(1.20\,\hat x+0.30\,\hat y\right),
+\end{equation*}
+y finalmente
+\begin{equation*}
+\vec E(\vec r_P)
+\approx
+(3.58\,\hat x+0.89\,\hat y)\times 10^6\,\mathrm{N/C}.
+\end{equation*}
+
+\resultadofinal{$\boxed{\vec E(\vec r_P)\approx (3.6\,\hat x+0.9\,\hat y)\times 10^6\,\mathrm{N/C}.}$ El campo en el punto de observación $\vec r_P$ apunta principalmente en la dirección $+\hat x$, con una componente positiva menor en la dirección $+\hat y$.}
+
+\newpage
+
+\textbf{(b) Punto(s) del eje $Y$ donde $\vec E=\vec 0$}
+
+Buscamos los puntos del eje $y$ donde el campo eléctrico total se anula. Para ello, consideramos un punto genérico de dicho eje,
+\begin{equation*}
+\vec r_0=y\,\hat y,
+\end{equation*}
+donde $y$ se mide en $\mathrm{cm}$.
+
+El campo total en ese punto es
+\begin{equation}\label{2.b.superposicion}
+\vec E_{\mathrm{tot}}=\vec E_1+\vec E_2.
+\end{equation}
+
+Usando nuevamente la ecuación \eqref{2.campo-electrico-formula}, se tiene
+\begin{equation*}
+\vec E_{\mathrm{tot}}=
+k\left(
+q_1\,\frac{\vec r_0-\vec r_1}{|\vec r_0-\vec r_1|^3}
++
+q_2\,\frac{\vec r_0-\vec r_2}{|\vec r_0-\vec r_2|^3}
+\right).
+\end{equation*}
+
+Imponer $\vec E_{\mathrm{tot}}=\vec 0$ equivale entonces a exigir que
+\begin{equation}\label{2.b.condicion-vectorial}
+q_1\,\frac{\vec r_0-\vec r_1}{|\vec r_0-\vec r_1|^3}
+=-q_2\,\frac{\vec r_0-\vec r_2}{|\vec r_0-\vec r_2|^3}.
+\end{equation}
+
+Como
+\begin{equation*}
+\vec r_1=3\,\hat y\,\mathrm{cm},
+\qquad
+\vec r_2=-3\,\hat y\,\mathrm{cm},
+\end{equation*}
+resulta
+\begin{equation*}
+\vec r_0-\vec r_1=(y-3)\hat y\,\mathrm{cm},
+\qquad
+\vec r_0-\vec r_2=(y+3)\hat y\,\mathrm{cm},
+\end{equation*}
+y sus módulos son
+\begin{equation*}
+|\vec r_0-\vec r_1|=|y-3|,
+\qquad
+|\vec r_0-\vec r_2|=|y+3|.
+\end{equation*}
+
+\textbf{Análisis físico por regiones.}
+
+Antes de resolver la ecuación, conviene determinar en qué región del eje $Y$ es posible que el campo se anule.
+
+\begin{itemize}
+    \item Si $y>3$, el punto está por encima de ambas cargas. Como $q_1$ y $q_2$ son positivas, ambas contribuciones apuntan hacia arriba; por tanto, no pueden cancelarse.
+
+    \item Si $y<-3$, el punto está por debajo de ambas cargas. En ese caso, ambas contribuciones apuntan hacia abajo; nuevamente, no pueden cancelarse.
+
+    \item Por lo tanto, la única región donde las contribuciones pueden tener sentidos opuestos es el intervalo intermedio
+    \begin{equation*}
+    -3<y<3.
+    \end{equation*}
+\end{itemize}
+
+En este intervalo se cumple que
+\begin{equation*}
+|y-3|=3-y,
+\qquad
+|y+3|=y+3.
+\end{equation*}
+
+Entonces, la ecuación \eqref{2.b.condicion-vectorial} queda
+\begin{equation*}
+q_1\,\frac{(y-3)\hat y}{(3-y)^3}
+=
+-q_2\,\frac{(y+3)\hat y}{(y+3)^3}.
+\end{equation*}
+
+Como $y-3=-(3-y)$, obtenemos
+\begin{equation*}
+-q_1\,\frac{\hat y}{(3-y)^2}
+=
+-q_2\,\frac{\hat y}{(y+3)^2}.
+\end{equation*}
+
+Cancelando el signo negativo común y el vector unitario $\hat y$, queda la condición escalar
+\begin{equation*}
+\frac{q_1}{(3-y)^2}
+=
+\frac{q_2}{(y+3)^2}.
+\end{equation*}
+
+Sustituyendo los valores de las cargas,
+\begin{equation*}
+\frac{5}{(3-y)^2}
+=
+\frac{15}{(y+3)^2},
+\end{equation*}
+lo cual equivale a
+\begin{equation*}
+(y+3)^2=3(3-y)^2.
+\end{equation*}
+
+Tomando la raíz positiva, pues ambas expresiones representan distancias positivas en el intervalo considerado,
+\begin{equation*}
+y+3=\sqrt{3}\,(3-y).
+\end{equation*}
+
+Despejando $y$,
+\begin{align*}
+y+\sqrt{3}\,y &= 3\sqrt{3}-3,\\
+y(1+\sqrt{3}) &= 3(\sqrt{3}-1),\\
+y &= 3\,\frac{\sqrt{3}-1}{\sqrt{3}+1}=3(2-\sqrt{3}).
+\end{align*}
+
+Numéricamente,
+\begin{equation*}
+y\approx 0.804\,\mathrm{cm}.
+\end{equation*}
+
+Por lo tanto, el único punto del eje $Y$ donde el campo eléctrico es nulo está dado por
+\begin{equation*}
+\boxed{\vec r_0=0.804\,\hat y\,\mathrm{cm}\approx 0.8\,\hat y\,\mathrm{cm}.}
+\end{equation*}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=0.9cm,y=0.9cm,>=Latex]
+
+    % Ejes
+    \draw[->,thick] (-1.3,0) -- (1.7,0) node[right] {$x$};
+    \draw[->,thick] (0,-4.2) -- (0,4.5) node[above] {$y\,(\mathrm{cm})$};
+
+    % Marcas
+    \foreach \y/\lab in {-3/{-3},3/{3}}{
+        \draw (0.10,\y) -- (-0.10,\y);
+        \node[left] at (0,\y) {\lab};
+    }
+
+    % Cargas y punto genérico
+    \filldraw[fill=blue!15,draw=blue!70!black,thick] (0,3) circle (0.18);
+    \filldraw[fill=blue!15,draw=blue!70!black,thick] (0,-3) circle (0.18);
+    \filldraw[fill=green!15,draw=green!50!black,thick] (0,0.8) circle (0.08);
+
+    % Etiquetas
+    \node[right=4pt,blue!70!black] at (0,3) {$q_1$};
+    \node[right=4pt,blue!70!black] at (0,-3) {$q_2$};
+    \node[left=5pt,green!50!black] at (0,0.8) {$Q$};
+
+    \node[right] at (0.30,1.45) {$\vec r=y\,\hat y$};
+
+    % Campos en Q
+    \draw[->,very thick,purple!70!black] (0,0.8) -- (0,0.10);
+    \node[right] at (0.15,0.35) {$\vec E_1$};
+
+    \draw[->,very thick,teal!70!black] (0,0.8) -- (0,1.55);
+    \node[left] at (-0.15,1.20) {$\vec E_2$};
+
+\end{tikzpicture}
+\caption{Punto del eje $Y$ donde las contribuciones de ambas cargas pueden cancelarse.}
+\label{fig:problema2b}
+\end{figure}
+
+\resultadofinal{$\boxed{y=3(2-\sqrt{3})\,\mathrm{cm}\approx 0.804\,\mathrm{cm}.}$ El punto de anulación se encuentra entre ambas cargas y más próximo a la carga menor, como era esperable físicamente.}
+
+\clearpage
+
+\section*{Problema 3.}
+Una pequeña gota de aceite esférica, con una masa de $1.0\times 10^{-4}\,\mathrm{g}$, posee una carga neta tal que se encuentra estacionaria en los campos gravitacional y eléctrico. Si $E=2\times 10^2\,\mathrm{N/C}$, encontrar dicha carga.
+
+\soluciontitulo
+
+\textbf{Idea física.} Para que la gota permanezca estacionaria, la fuerza neta debe ser nula. Por consiguiente, la fuerza eléctrica debe equilibrar exactamente al peso:
+\begin{equation*}
+\vec F_e+\vec P=\vec 0.
+\end{equation*}
+
+Esto implica que ambas fuerzas deben tener igual magnitud y sentidos opuestos, de modo que
+\begin{equation*}
+|\vec F_e|=|\vec P|.
+\end{equation*}
+
+Ahora bien,
+\begin{equation*}
+|\vec F_e|=|q|E,
+\qquad
+|\vec P|=mg.
+\end{equation*}
+Por lo tanto, la condición de equilibrio para las magnitudes queda dada por
+\begin{equation*}
+|q|E=mg.
+\end{equation*}
+
+Despejando el valor absoluto de la carga,
+\begin{equation*}
+|q|=\frac{mg}{E}.
+\end{equation*}
+
+Convertimos primero la masa al Sistema Internacional:
+\begin{equation*}
+1.0\times 10^{-4}\,\mathrm{g}=1.0\times 10^{-7}\,\mathrm{kg}.
+\end{equation*}
+
+Sustituyendo
+\begin{equation*}
+m=1.0\times 10^{-7}\,\mathrm{kg},
+\qquad
+g=9.8\,\mathrm{m/s^2},
+\qquad
+E=2\times 10^2\,\mathrm{N/C},
+\end{equation*}
+se obtiene
+\begin{equation*}
+|q|
+=
+\frac{(1.0\times 10^{-7})(9.8)}{2\times 10^2}
+=
+4.9\times 10^{-9}\,\mathrm{C}.
+\end{equation*}
+
+Así, la magnitud de la carga es
+\begin{equation*}
+\boxed{|q|=4.9\times 10^{-9}\,\mathrm{C}.}
+\end{equation*}
+
+\textbf{Determinación del signo.} La ecuación anterior fija solamente la \emph{magnitud} de la carga. El signo se determina comparando la dirección del campo eléctrico con la dirección de la fuerza eléctrica necesaria para equilibrar el peso.
+
+Si el campo eléctrico apunta hacia arriba, entonces la fuerza eléctrica que sostiene a la gota debe apuntar también hacia arriba; en ese caso, la carga debe ser positiva y se tiene
+\begin{equation*}
+\boxed{q=4.9\times 10^{-9}\,\mathrm{C}.}
+\end{equation*}
+
+Si, en cambio, el campo eléctrico apuntara hacia abajo, la misma condición de equilibrio exigiría una carga negativa. Es decir, el dato $E=2\times 10^2\,\mathrm{N/C}$ determina la magnitud de la carga, pero el signo depende del sentido del campo aplicado.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex]
+    % placas
+    \fill[red!15] (-2.2,-1.8) rectangle (2.2,-1.45);
+    \fill[blue!12] (-2.2,1.45) rectangle (2.2,1.8);
+    \draw[thick] (-2.2,-1.8) rectangle (2.2,-1.45);
+    \draw[thick] (-2.2,1.45) rectangle (2.2,1.8);
+
+    \node at (-1.7,-1.62) {$+$};
+    \node at (-0.8,-1.62) {$+$};
+    \node at (0,-1.62) {$+$};
+    \node at (0.8,-1.62) {$+$};
+    \node at (1.7,-1.62) {$+$};
+
+    \node at (-1.7,1.62) {$-$};
+    \node at (-0.8,1.62) {$-$};
+    \node at (0,1.62) {$-$};
+    \node at (0.8,1.62) {$-$};
+    \node at (1.7,1.62) {$-$};
+
+    % gota
+    \shade[ball color=gray!35] (0,0) circle (0.42);
+    \node at (0,0) {$q$};
+
+    % campo electrico
+    \foreach \x in {-1.4,-0.7,0,0.7,1.4}{
+        \draw[->,thick,teal!70!black] (\x,-1.2) -- (\x,1.15);
+    }
+    \node[right,teal!70!black] at (1.55,0.35) {$\vec E$};
+
+    % fuerzas
+    \draw[->,very thick,green!50!black] (0,0.45) -- (0,1.8)
+        node[above,black] {$\vec F_e=q\vec E$};
+    \draw[->,very thick,red!75!black] (0,-0.45) -- (0,-1.8)
+        node[below,black] {$\vec P=m\vec g$};
+\end{tikzpicture}
+\caption{Esquema del problema 3. Para que la gota permanezca en reposo, la fuerza eléctrica debe equilibrar exactamente al peso.}
+\end{figure}
+
+\resultadofinal{$\boxed{|q|=4.9\times10^{-9}\,\mathrm{C}.}$ Si el campo eléctrico está dirigido hacia arriba, entonces la carga debe ser positiva: $\boxed{q=4.9\times10^{-9}\,\mathrm{C}.}$}
+
+\clearpage
+
+
+\section*{Problema 8.}
+La figura muestra tres cuerpos metálicos esféricos concéntricos: una esfera interna maciza, de radio $a$, contiene una carga neta $Q$; un cascarón de radios $2a$ y $3a$ contiene una carga neta $-2Q$; finalmente, el cascarón externo de radios $4a$ y $5a$ no contiene carga neta. Se pide resolver los ítems:
+\begin{enumerate}[label=(\alph*)]
+    \item Determinar la ubicación, magnitud y signo de las cargas en cada superficie de los cuerpos esféricos.
+    \item Encontrar la densidad superficial de carga en cada superficie esférica.
+\end{enumerate}
+
+\soluciontitulo
+
+Llamemos
+\begin{equation*}
+Q_a,\qquad Q_{2a},\qquad Q_{3a},\qquad Q_{4a},\qquad Q_{5a}
+\end{equation*}
+a las cargas depositadas respectivamente sobre las superficies de radios $a$, $2a$, $3a$, $4a$ y $5a$.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[>=Latex]
+    \def\ra{0.7}
+    \def\rb{1.4}
+    \def\rc{2.1}
+    \def\rd{2.8}
+    \def\re{3.5}
+
+    % conductor regions
+    \fill[pattern=north east lines,pattern color=gray!70] (0,0) circle (\ra);
+    \fill[pattern=north east lines,pattern color=gray!70,even odd rule] (0,0) circle (\rc) (0,0) circle (\rb);
+    \fill[pattern=north east lines,pattern color=gray!70,even odd rule] (0,0) circle (\re) (0,0) circle (\rd);
+
+    % surfaces
+    \draw[thick] (0,0) circle (\ra);
+    \draw[thick] (0,0) circle (\rb);
+    \draw[thick] (0,0) circle (\rc);
+    \draw[thick] (0,0) circle (\rd);
+    \draw[thick] (0,0) circle (\re);
+
+    % axes
+    \draw[->] (-4,0) -- (4,0);
+    \draw[->] (0,-4) -- (0,4);
+
+    % labels radii
+    \node[below right] at (0.48,-0.48) {$a$};
+    \node[below right] at (0.98,-0.98) {$2a$};
+    \node[below right] at (1.5,-1.5) {$3a$};
+    \node[below right] at (2.0,-2.0) {$4a$};
+    \node[below right] at (2.52,-2.52) {$5a$};
+
+    % unknown charges on surfaces
+    \node[above right=2pt] at (45:\ra) {$Q_a$};
+    \node[above right=2pt] at (45:\rb) {$Q_{2a}$};
+    \node[above right=2pt] at (45:\rc) {$Q_{3a}$};
+    \node[above right=2pt] at (45:\rd) {$Q_{4a}$};
+    \node[above right=2pt] at (45:\re) {$Q_{5a}$};
+\end{tikzpicture}
+\caption{Notación para las cargas sobre las distintas superficies esféricas.}
+\label{fig:problema8-esquema}
+\end{figure}
+
+El razonamiento físico que usaremos es siempre el mismo:
+\begin{enumerate}[label=\arabic*.]
+    \item En equilibrio electrostático, el campo eléctrico es nulo dentro del material conductor.
+    \item En consecuencia, si una superficie gaussiana cerrada se toma completamente dentro de una región metálica, el flujo eléctrico a través de ella es nulo y, por la ley de Gauss, la carga neta encerrada también debe ser cero.
+\end{enumerate}
+
+Además, debido a la simetría esférica del sistema, la carga en cada superficie esférica se distribuye uniformemente sobre dicha superficie. Así, el problema se reduce a determinar cuánto de la carga neta de cada conductor queda sobre su superficie interna y cuánto sobre su superficie externa.
+
+Antes de aplicar la ley de Gauss, registremos las restricciones globales que provienen del enunciado:
+\begin{align*}
+Q_a &= Q,\\
+Q_{2a}+Q_{3a} &= -2Q,\\
+Q_{4a}+Q_{5a} &= 0.
+\end{align*}
+
+\subsection*{(a) Carga en cada superficie}
+
+\textbf{Esfera conductora de radio $a$.}
+
+La esfera interior es un conductor macizo sin cavidad. En un conductor en equilibrio electrostático, toda carga excedente se ubica sobre su superficie. Como la carga neta total de esta esfera es $Q$, se sigue inmediatamente que
+\begin{equation*}
+\boxed{Q_a=Q.}
+\end{equation*}
+
+\textbf{Cascarón de radios $2a$ y $3a$.}
+
+Para encontrar la carga sobre la superficie de radio $2a$, tomamos una superficie gaussiana esférica $\partial V_2$ de radio $r_g$ tal que
+\begin{equation*}
+2a<r_g<3a,
+\end{equation*}
+es decir, completamente contenida dentro del material metálico del segundo conductor.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[>=Latex,scale=1.05]
+
+    \def\ra{0.70}
+    \def\rb{1.45}
+    \def\rc{2.20}
+    \def\rg{1.80}
+
+    % regiones conductoras
+    \fill[gray!20] (0,0) circle (\ra);
+    \fill[gray!20,even odd rule] (0,0) circle (\rc) (0,0) circle (\rb);
+
+    % superficies conductoras
+    \draw[thick] (0,0) circle (\ra);
+    \draw[thick] (0,0) circle (\rb);
+    \draw[thick] (0,0) circle (\rc);
+
+    % superficie gaussiana
+    \draw[blue!70!black,very thick,densely dotted] (0,0) circle (\rg);
+    \foreach \ang in {0,20,...,340}{
+        \fill[blue!70!black] (\ang:\rg) circle (0.03);
+    }
+
+    % ejes
+    \draw[->] (-2.9,0) -- (2.9,0);
+    \draw[->] (0,-2.9) -- (0,2.9);
+
+    % etiquetas radios
+    \node[below right] at (45:\ra) {$a$};
+    \node[below right] at (45:\rb) {$2a$};
+    \node[below right] at (45:\rc) {$3a$};
+
+    % cargas
+    \node[above left=1pt] at (135:\ra) {$Q_a=Q$};
+    \node[above left=1pt] at (145:\rb) {$Q_{2a}$};
+
+    % llamada
+    \draw[->,blue!70!black,thick] (3.5,1.2) -- (25:\rg);
+    \node[align=left,right] at (3.5,1.2)
+    {Superficie gaussiana\\ $\partial V_2$ con $2a<r_g<3a$};
+
+    \node[align=left] at (3.55,-0.5)
+    {$\vec E=\vec 0$ en el metal\\[2pt]
+     $Q_{\mathrm{enc}}=Q_a+Q_{2a}$};
+
+\end{tikzpicture}
+\caption{Superficie gaussiana contenida en el material del cascarón de radios $2a$ y $3a$.}
+\label{fig:gauss-cascaron-2a-3a}
+\end{figure}
+
+Como $\partial V_2$ está enteramente dentro del metal, allí se cumple $\vec E=\vec 0$. Entonces,
+\begin{equation*}
+\oint_{\partial V_2}\vec E\cdot \hat n\,dA=0.
+\end{equation*}
+Por la ley de Gauss,
+\begin{equation*}
+Q_{\mathrm{enc}}(\partial V_2)=0.
+\end{equation*}
+Ahora bien, la carga encerrada por esta superficie es
+\begin{equation*}
+Q_{\mathrm{enc}}(\partial V_2)=Q_a+Q_{2a}.
+\end{equation*}
+Por tanto,
+\begin{equation*}
+Q_a+Q_{2a}=0.
+\end{equation*}
+Sustituyendo $Q_a=Q$, obtenemos
+\begin{equation*}
+Q+Q_{2a}=0,
+\end{equation*}
+de donde
+\begin{equation*}
+\boxed{Q_{2a}=-Q.}
+\end{equation*}
+
+Para hallar la carga sobre la superficie de radio $3a$, usamos la carga neta total del cascarón:
+\begin{equation*}
+Q_{2a}+Q_{3a}=-2Q.
+\end{equation*}
+Como ya sabemos que $Q_{2a}=-Q$, resulta
+\begin{equation*}
+-Q+Q_{3a}=-2Q,
+\end{equation*}
+y, por consiguiente,
+\begin{equation*}
+\boxed{Q_{3a}=-Q.}
+\end{equation*}
+
+\textbf{Cascarón de radios $4a$ y $5a$.}
+
+Ahora tomamos una superficie gaussiana esférica $\partial V_3$ de radio $r_g$ tal que
+\begin{equation*}
+4a<r_g<5a,
+\end{equation*}
+esto es, completamente contenida en el material del conductor externo.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[>=Latex,scale=0.95]
+
+    \def\ra{0.60}
+    \def\rb{1.20}
+    \def\rc{1.80}
+    \def\rd{2.40}
+    \def\re{3.00}
+    \def\rg{2.70}
+
+    % regiones conductoras
+    \fill[gray!20] (0,0) circle (\ra);
+    \fill[gray!20,even odd rule] (0,0) circle (\rc) (0,0) circle (\rb);
+    \fill[gray!20,even odd rule] (0,0) circle (\re) (0,0) circle (\rd);
+
+    % superficies conductoras
+    \draw[thick] (0,0) circle (\ra);
+    \draw[thick] (0,0) circle (\rb);
+    \draw[thick] (0,0) circle (\rc);
+    \draw[thick] (0,0) circle (\rd);
+    \draw[thick] (0,0) circle (\re);
+
+    % superficie gaussiana
+    \draw[blue!70!black,very thick,densely dotted] (0,0) circle (\rg);
+    \foreach \ang in {0,20,...,340}{
+        \fill[blue!70!black] (\ang:\rg) circle (0.028);
+    }
+
+    % ejes
+    \draw[->] (-3.8,0) -- (3.8,0);
+    \draw[->] (0,-3.8) -- (0,3.8);
+
+    % radios
+    \node[below right] at (45:\ra) {$a$};
+    \node[below right] at (45:\rb) {$2a$};
+    \node[below right] at (45:\rc) {$3a$};
+    \node[below right] at (45:\rd) {$4a$};
+    \node[below right] at (45:\re) {$5a$};
+
+    % cargas
+    \node[above left=1pt] at (135:\ra) {$Q_a=Q$};
+    \node[above left=1pt] at (145:\rb) {$Q_{2a}=-Q$};
+    \node[above left=1pt] at (155:\rc) {$Q_{3a}=-Q$};
+    \node[above left=1pt] at (165:\rd) {$Q_{4a}$};
+
+    % llamada
+    \draw[->,blue!70!black,thick] (4.6,1.8) -- (20:\rg);
+    \node[align=left,right] at (4.6,1.8)
+    {Superficie gaussiana\\ $\partial V_3$ con $4a<r_g<5a$};
+
+    \node[align=left] at (4.9,-0.4)
+    {$\vec E=\vec 0$ en el metal\\[2pt]
+     $Q_{\mathrm{enc}}=Q_a+Q_{2a}+Q_{3a}+Q_{4a}$};
+
+\end{tikzpicture}
+\caption{Superficie gaussiana contenida en el material del cascarón externo.}
+\label{fig:gauss-cascaron-4a-5a}
+\end{figure}
+
+De nuevo, como $\partial V_3$ está dentro del material conductor, se tiene $\vec E=\vec 0$ sobre ella, de modo que
+\begin{equation*}
+Q_{\mathrm{enc}}(\partial V_3)=0.
+\end{equation*}
+La carga encerrada por esta superficie es
+\begin{equation*}
+Q_{\mathrm{enc}}(\partial V_3)=Q_a+Q_{2a}+Q_{3a}+Q_{4a}.
+\end{equation*}
+Luego,
+\begin{equation*}
+Q_a+Q_{2a}+Q_{3a}+Q_{4a}=0.
+\end{equation*}
+Sustituyendo los valores ya obtenidos,
+\begin{equation*}
+Q+(-Q)+(-Q)+Q_{4a}=0,
+\end{equation*}
+de donde se concluye que
+\begin{equation*}
+\boxed{Q_{4a}=Q.}
+\end{equation*}
+
+Finalmente, como el conductor externo tiene carga neta total nula,
+\begin{equation*}
+Q_{4a}+Q_{5a}=0.
+\end{equation*}
+Por tanto,
+\begin{equation*}
+Q+Q_{5a}=0,
+\end{equation*}
+y así
+\begin{equation*}
+\boxed{Q_{5a}=-Q.}
+\end{equation*}
+
+Conviene verificar que estos resultados reproducen las cargas netas dadas en el enunciado:
+\begin{align*}
+Q_a &= Q,\\
+Q_{2a}+Q_{3a} &= (-Q)+(-Q)=-2Q,\\
+Q_{4a}+Q_{5a} &= Q+(-Q)=0.
+\end{align*}
+Todo es consistente.
+
+\resultadofinal{$\boxed{Q_a=Q,\qquad Q_{2a}=-Q,\qquad Q_{3a}=-Q,\qquad Q_{4a}=Q,\qquad Q_{5a}=-Q.}$}
+
+\subsection*{(b) Densidad superficial de carga en cada superficie}
+
+Como cada superficie es esférica y la distribución es uniforme por simetría, la densidad superficial en una superficie de radio $R$ viene dada por
+\begin{equation*}
+\sigma=\frac{Q_{\mathrm{sup}}}{4\pi R^2}.
+\end{equation*}
+Aplicando esta fórmula a cada una de las superficies, obtenemos
+\begin{align*}
+\sigma_a &= \frac{Q}{4\pi a^2},\\
+\sigma_{2a} &= \frac{-Q}{4\pi(2a)^2}=-\frac{Q}{16\pi a^2},\\
+\sigma_{3a} &= \frac{-Q}{4\pi(3a)^2}=-\frac{Q}{36\pi a^2},\\
+\sigma_{4a} &= \frac{Q}{4\pi(4a)^2}=\frac{Q}{64\pi a^2},\\
+\sigma_{5a} &= \frac{-Q}{4\pi(5a)^2}=-\frac{Q}{100\pi a^2}.
+\end{align*}
+
+\resultadofinal{$\boxed{\sigma_a = \frac{Q}{4\pi a^2}, \qquad
+\sigma_{2a} = -\frac{Q}{16\pi a^2}, \qquad
+\sigma_{3a} = -\frac{Q}{36\pi a^2}, \qquad
+\sigma_{4a} = \frac{Q}{64\pi a^2}, \qquad
+\sigma_{5a} = -\frac{Q}{100\pi a^2}.}$}
+
+\end{document}
