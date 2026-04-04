@@ -23,6 +23,4 @@ ayudantias/
     ├── README.md
     └── ayudantia-2/
         └── ayudantia_convolucion.ipynb
-```
 
-stribución del material.
