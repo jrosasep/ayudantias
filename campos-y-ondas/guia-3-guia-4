@@ -1,0 +1,933 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage[most]{tcolorbox}
+
+\geometry{letterpaper,left=1.85cm,right=1.85cm,top=2.1cm,bottom=2.1cm,headheight=15pt,headsep=0.45cm}
+
+\definecolor{headinggray}{RGB}{55,55,55}
+\definecolor{rulegray}{RGB}{150,150,150}
+\definecolor{softgray}{RGB}{247,247,247}
+\definecolor{softred}{RGB}{252,246,246}
+
+\titleformat{name=\section,numberless}[block]
+  {\Large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.9em}
+
+\titleformat{name=\subsection,numberless}[block]
+  {\large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.45em}
+
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Campos y Ondas 510245}
+\fancyhead[R]{Gu\'ias 3 y 4 resueltas}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\soluciontitulo}{%
+  \par\medskip
+  \noindent{\large\bfseries Soluci\'on.}\par
+  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+}
+
+\newtcolorbox{comentario}[1][]{%
+  enhanced,
+  breakable,
+  colback=softgray,
+  colframe=rulegray,
+  boxrule=0.45pt,
+  arc=1.5mm,
+  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
+  title=Idea clave,
+  fonttitle=\bfseries,
+  coltitle=headinggray,
+  colbacktitle=white,
+  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
+  boxed title style={frame hidden,interior hidden},
+  #1
+}
+
+\newtcolorbox{alerta}[1][]{%
+  enhanced,
+  breakable,
+  colback=softred,
+  colframe=rulegray,
+  boxrule=0.45pt,
+  arc=1.5mm,
+  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
+  title=Nota,
+  fonttitle=\bfseries,
+  coltitle=headinggray,
+  colbacktitle=white,
+  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
+  boxed title style={frame hidden,interior hidden},
+  #1
+}
+
+\begin{document}
+\begin{center}
+{\LARGE\bfseries\color{headinggray} Problemas resueltos\par}
+\vspace{0.25em}
+{\large Gu\'ias 3 y 4 --- Campos y Ondas\par}
+\vspace{0.35em}
+{\normalsize Jos\'e Rosas\par}
+\end{center}
+\vspace{0.3em}
+\hrule height 0.4pt
+\vspace{1.0em}
+
+\section*{Gu\'ia 3}
+
+
+\subsection*{Problema 1}
+En una regi\'on del espacio existe un campo el\'ectrico uniforme
+\begin{equation*}
+    \vec E=(5\hat{\imath}-3\hat{\jmath}+8\hat{k})\,\text{V/m}.
+\end{equation*}
+Dados los puntos $A(4,0,0)$, $B(4,8,0)$, $C(0,0,0)$ y $D(10,-4,6)$ en cm, calcular $V_{AB}$ y $V_{DC}$. En este problema usaremos la convenci\'on
+\begin{equation*}
+    V_{AB}=V_A-V_B,
+    \qquad
+    V_{DC}=V_D-V_C.
+\end{equation*}
+
+\begin{comentario}
+En un campo el\'ectrico uniforme, la diferencia de potencial entre dos puntos se obtiene a partir del producto escalar entre $\vec E$ y el vector desplazamiento entre esos puntos.
+\end{comentario}
+
+\soluciontitulo
+
+\textbf{1. Datos del problema}
+
+El campo el\'ectrico est\'a dado por
+\begin{equation*}
+    \vec E=(5\hat{\imath}-3\hat{\jmath}+8\hat{k})\,\text{V/m}.
+\end{equation*}
+
+Las posiciones de los puntos, escritas en forma vectorial, son
+\begin{align*}
+    \vec r_A&=4\,\hat{\imath}\,\text{cm}+0\,\hat{\jmath}\,\text{cm}+0\,\hat{k}\,\text{cm},\\
+    \vec r_B&=4\,\hat{\imath}\,\text{cm}+8\,\hat{\jmath}\,\text{cm}+0\,\hat{k}\,\text{cm},\\
+    \vec r_C&=0\,\hat{\imath}\,\text{cm}+0\,\hat{\jmath}\,\text{cm}+0\,\hat{k}\,\text{cm},\\
+    \vec r_D&=10\,\hat{\imath}\,\text{cm}-4\,\hat{\jmath}\,\text{cm}+6\,\hat{k}\,\text{cm}.
+\end{align*}
+
+Como debemos trabajar en unidades SI, pasamos todo a metros:
+\begin{align*}
+    \vec r_A&=0.04\,\hat{\imath}\,\text{m}+0\,\hat{\jmath}\,\text{m}+0\,\hat{k}\,\text{m},\\
+    \vec r_B&=0.04\,\hat{\imath}\,\text{m}+0.08\,\hat{\jmath}\,\text{m}+0\,\hat{k}\,\text{m},\\
+    \vec r_C&=0\,\hat{\imath}\,\text{m}+0\,\hat{\jmath}\,\text{m}+0\,\hat{k}\,\text{m},\\
+    \vec r_D&=0.10\,\hat{\imath}\,\text{m}-0.04\,\hat{\jmath}\,\text{m}+0.06\,\hat{k}\,\text{m}.
+\end{align*}
+
+\textbf{2. Modelo f\'isico}
+
+La diferencia de potencial entre dos puntos se calcula mediante
+\begin{equation*}
+    V(P_2)-V(P_1)=-\int_{P_1}^{P_2}\vec E\cdot d\vec \ell.
+\end{equation*}
+Como el campo el\'ectrico es uniforme, la integral se reduce a
+\begin{equation*}
+    V(P_2)-V(P_1)=-\vec E\cdot(\vec r_2-\vec r_1).
+\end{equation*}
+
+\textbf{3. C\'alculo de $V_{AB}$}
+
+Primero construimos el vector desplazamiento desde $A$ hasta $B$:
+\begin{align*}
+    \Delta \vec r_{AB}
+    &=\vec r_B-\vec r_A\\
+    &=(0.04\,\hat{\imath}+0.08\,\hat{\jmath}+0\,\hat{k})\,\text{m}
+      -(0.04\,\hat{\imath}+0\,\hat{\jmath}+0\,\hat{k})\,\text{m}\\
+    &=0\,\hat{\imath}\,\text{m}+0.08\,\hat{\jmath}\,\text{m}+0\,\hat{k}\,\text{m}.
+\end{align*}
+
+Entonces,
+\begin{equation*}
+    V_B-V_A=-\vec E\cdot\Delta \vec r_{AB}.
+\end{equation*}
+
+Sustituyendo los datos de forma expl\'icita:
+\begin{align*}
+    V_B-V_A
+    &=-\left(5\hat{\imath}-3\hat{\jmath}+8\hat{k}\right)\cdot
+      \left(0\hat{\imath}+0.08\hat{\jmath}+0\hat{k}\right)\\
+    &=-\left[5(0)+(-3)(0.08)+8(0)\right]\\
+    &=-(-0.24)\\
+    &=0.24\,\text{V}.
+\end{align*}
+
+Como el problema pide
+\begin{equation*}
+    V_{AB}=V_A-V_B,
+\end{equation*}
+obtenemos finalmente
+\begin{equation*}
+    \boxed{V_{AB}=-0.24\,\text{V}.}
+\end{equation*}
+
+\textbf{4. C\'alculo de $V_{DC}$}
+
+Ahora construimos el vector desplazamiento desde $D$ hasta $C$:
+\begin{align*}
+    \Delta \vec r_{DC}
+    &=\vec r_C-\vec r_D\\
+    &=(0\,\hat{\imath}+0\,\hat{\jmath}+0\,\hat{k})\,\text{m}
+      -(0.10\,\hat{\imath}-0.04\,\hat{\jmath}+0.06\,\hat{k})\,\text{m}\\
+    &=-0.10\,\hat{\imath}\,\text{m}+0.04\,\hat{\jmath}\,\text{m}-0.06\,\hat{k}\,\text{m}.
+\end{align*}
+
+Entonces,
+\begin{equation*}
+    V_C-V_D=-\vec E\cdot\Delta \vec r_{DC}.
+\end{equation*}
+
+Sustituyendo:
+\begin{align*}
+    V_C-V_D
+    &=-\left(5\hat{\imath}-3\hat{\jmath}+8\hat{k}\right)\cdot
+      \left(-0.10\hat{\imath}+0.04\hat{\jmath}-0.06\hat{k}\right)\\
+    &=-\left[5(-0.10)+(-3)(0.04)+8(-0.06)\right]\\
+    &=-\left[-0.50-0.12-0.48\right]\\
+    &=-(-1.10)\\
+    &=1.10\,\text{V}.
+\end{align*}
+
+Como el problema pide
+\begin{equation*}
+    V_{DC}=V_D-V_C,
+\end{equation*}
+resulta
+\begin{equation*}
+    \boxed{V_{DC}=-1.10\,\text{V}.}
+\end{equation*}
+
+\textbf{5. Resultado final}
+\begin{equation*}
+    \boxed{V_{AB}=-0.24\,\text{V}},
+    \qquad
+    \boxed{V_{DC}=-1.10\,\text{V}}.
+\end{equation*}
+
+\newpage
+
+\subsection*{Problema 2}
+Dos cargas puntuales $q_1=4.0\times 10^{-8}\,\text{C}$ y $q_2=-3.0\times 10^{-8}\,\text{C}$ est\'an separadas $10\,\text{cm}$. De la figura se lee que
+\begin{equation*}
+    r_{1A}=8\,\text{cm},
+    \qquad
+    r_{2A}=6\,\text{cm},
+    \qquad
+    r_{1M}=r_{2M}=5\,\text{cm},
+\end{equation*}
+donde $M$ es el punto medio entre ambas cargas.
+
+Se pide:
+\begin{enumerate}[label=(\alph*)]
+    \item El potencial en el punto $A$ y en el punto $M$.
+    \item El trabajo hecho por un agente externo para transportar una carga de $25\times 10^{-9}\,\text{C}$ desde $A$ hasta $M$.
+\end{enumerate}
+
+\begin{figure}[h!]
+    \centering
+    \begingroup
+    \shorthandoff{<>}
+    \begin{tikzpicture}[scale=0.82, line cap=round, line join=round, ]
+        % puntos principales
+        \coordinate (Q1) at (0,0);
+        \coordinate (Q2) at (10,0);
+        \coordinate (M)  at (5,0);
+        \coordinate (A)  at (6.4,4.8);
+
+        % lados del triángulo
+        \draw[thick] (Q1) -- (A) -- (Q2);
+        \draw[thick] (Q1) -- (Q2);
+
+        % punto medio
+        \fill (M) circle (2.2pt);
+        \node[below=4pt] at (M) {$M$};
+
+        % cargas y punto A
+        \fill[blue!70!black] (Q1) circle (2.5pt);
+        \fill[red!70!black] (Q2) circle (2.5pt);
+        \fill (A) circle (2.2pt);
+
+        \node[below=5pt] at (Q1) {$q_1$};
+        \node[below=5pt] at (Q2) {$q_2$};
+        \node[above=4pt] at (A) {$A$};
+
+        % etiquetas de distancia
+        \node[left] at ($(Q1)!0.5!(A)+(-0.25,0.05)$) {$8\,\text{cm}$};
+        \node[right] at ($(Q2)!0.5!(A)+(0.25,0.05)$) {$6\,\text{cm}$};
+        \node[below] at ($(Q1)!0.5!(Q2)$) {$10\,\text{cm}$};
+    \end{tikzpicture}
+    \endgroup
+    \caption{Geometría usada en el problema 2.}
+\end{figure}
+
+\begin{comentario}
+El potencial el\'ectrico es una magnitud escalar. Por eso, para varias cargas puntuales se suman directamente los t\'erminos $kq/r$ con su signo correspondiente.
+\end{comentario}
+
+\soluciontitulo
+
+\textbf{1. Datos del problema}
+\begin{align*}
+    q_1&=4.0\times 10^{-8}\,\text{C},
+    & q_2&=-3.0\times 10^{-8}\,\text{C},\\
+    r_{1A}&=0.08\,\text{m},
+    & r_{2A}&=0.06\,\text{m},\\
+    r_{1M}&=r_{2M}=0.05\,\text{m},
+    & q_0&=25\times 10^{-9}\,\text{C}.
+\end{align*}
+Adem\'as,
+\begin{equation*}
+    k=9.0\times 10^9\,\text{N m}^2/\text{C}^2.
+\end{equation*}
+
+\textbf{2. Modelo f\'isico}
+
+El potencial debido a varias cargas puntuales es
+\begin{equation*}
+    V(P)=k\sum_i \frac{q_i}{r_i}.
+\end{equation*}
+Para el trabajo del agente externo, bajo un traslado cuasiest\'atico,
+\begin{equation*}
+    W_{\text{ext}}=\Delta U=q_0(V_f-V_i).
+\end{equation*}
+
+\textbf{3. Ecuaciones de trabajo}
+
+En $A$:
+\begin{equation*}
+    V_A=k\left(\frac{q_1}{r_{1A}}+\frac{q_2}{r_{2A}}\right).
+\end{equation*}
+En $M$:
+\begin{equation*}
+    V_M=k\left(\frac{q_1}{r_{1M}}+\frac{q_2}{r_{2M}}\right).
+\end{equation*}
+Finalmente,
+\begin{equation*}
+    W_{\text{ext}}=q_0(V_M-V_A).
+\end{equation*}
+
+\textbf{4. C\'alculo de $V_A$}
+
+Sustituyendo,
+\begin{align*}
+    V_A
+    &=9.0\times 10^9\left(\frac{4.0\times 10^{-8}}{0.08}+\frac{-3.0\times 10^{-8}}{0.06}\right).
+\end{align*}
+Ahora bien,
+\begin{equation*}
+    \frac{4.0\times 10^{-8}}{0.08}=5.0\times 10^{-7},
+    \qquad
+    \frac{3.0\times 10^{-8}}{0.06}=5.0\times 10^{-7}.
+\end{equation*}
+Luego,
+\begin{equation*}
+    V_A=9.0\times 10^9\big(5.0\times 10^{-7}-5.0\times 10^{-7}\big)=0.
+\end{equation*}
+Por consiguiente,
+\begin{equation*}
+    \boxed{V_A=0\,\text{V}}.
+\end{equation*}
+
+\textbf{5. C\'alculo de $V_M$}
+
+Como $M$ es el punto medio, ambas distancias valen $0.05\,\text{m}$, as\'i que
+\begin{align*}
+    V_M
+    &=9.0\times 10^9\left(\frac{4.0\times 10^{-8}}{0.05}+\frac{-3.0\times 10^{-8}}{0.05}\right)\\
+    &=9.0\times 10^9\left(\frac{1.0\times 10^{-8}}{0.05}\right)\\
+    &=9.0\times 10^9\times 2.0\times 10^{-7}\\
+    &=1.8\times 10^3\,\text{V}.
+\end{align*}
+Por tanto,
+\begin{equation*}
+    \boxed{V_M=1800\,\text{V}}.
+\end{equation*}
+
+\textbf{6. C\'alculo del trabajo externo}
+
+Tomando como estado inicial $A$ y como estado final $M$,
+\begin{align*}
+    W_{\text{ext}}
+    &=q_0(V_M-V_A)\\
+    &=(25\times 10^{-9})(1800-0)\\
+    &=4.5\times 10^{-5}\,\text{J}.
+\end{align*}
+En consecuencia,
+\begin{equation*}
+    \boxed{W_{\text{ext}}=4.5\times 10^{-5}\,\text{J}}.
+\end{equation*}
+
+\newpage
+
+\section*{Gu\'ia 4}
+
+\subsection*{Problema 2}
+Se tienen dos capacitores de capacitancias
+\begin{equation*}
+    C_1=4\,\mu\text{F},
+    \qquad
+    C_2=6\,\mu\text{F}.
+\end{equation*}
+
+Se pide:
+\begin{enumerate}[label=(\alph*)]
+    \item Encontrar las capacitancias equivalentes que se pueden obtener al combinarlos en serie y en paralelo.
+    \item Calcular la carga en cada capacitor cuando a la combinaci\'on en serie y a la combinaci\'on en paralelo se le aplica una fuente de diferencia de potencial de $6\,\text{V}$.
+\end{enumerate}
+
+\begin{comentario}
+En paralelo todos los capacitores tienen la misma diferencia de potencial. En serie, todos tienen la misma carga en magnitud.
+\end{comentario}
+
+
+
+\soluciontitulo
+
+\textbf{1. Datos del problema}
+\begin{equation*}
+    C_1=4\,\mu\text{F},
+    \qquad
+    C_2=6\,\mu\text{F},
+    \qquad
+    V=6\,\text{V}.
+\end{equation*}
+
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.0, line cap=round, line join=round]
+            \coordinate (TL) at (-2.3,2.7);
+            \coordinate (BL) at (-2.3,0.2);
+            \coordinate (TR) at (2.6,2.7);
+            \coordinate (BR) at (2.6,0.2);
+
+            % rama izquierda y fuente
+            \draw (TL) -- (BL);
+            \draw (-2.62,2.02) -- (-1.98,2.02);
+            \draw (-2.52,1.45) -- (-2.08,1.45);
+            \node[left] at (-2.62,2.02) {$+$};
+            \node[left] at (-2.52,1.45) {$-$};
+            \node[left] at (-2.78,1.73) {$6\,\text{V}$};
+
+            % rama superior con dos capacitores en serie
+            \draw (TL) -- (-1.15,2.7);
+            \draw (-1.15,3.02) -- (-1.15,2.38);
+            \draw (-0.90,3.02) -- (-0.90,2.38);
+            \draw (-0.90,2.7) -- (0.45,2.7);
+            \draw (0.45,3.02) -- (0.45,2.38);
+            \draw (0.70,3.02) -- (0.70,2.38);
+            \draw (0.70,2.7) -- (TR);
+
+            % rama derecha e inferior
+            \draw (TR) -- (BR);
+            \draw (BR) -- (BL);
+
+            % etiquetas
+            \node[above] at (-1.02,3.12) {$4\,\mu\text{F}$};
+            \node[above] at (0.58,3.12) {$6\,\mu\text{F}$};
+        \end{tikzpicture}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito en serie.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.0, line cap=round, line join=round]
+            \coordinate (TL) at (-2.0,2.7);
+            \coordinate (BL) at (-2.0,0.2);
+            \coordinate (TR) at (1.9,2.7);
+            \coordinate (BR) at (1.9,0.2);
+
+            % rama izquierda y fuente
+            \draw (TL) -- (BL);
+            \draw (-2.32,2.02) -- (-1.68,2.02);
+            \draw (-2.22,1.45) -- (-1.78,1.45);
+            \node[left] at (-2.32,2.02) {$+$};
+            \node[left] at (-2.22,1.45) {$-$};
+            \node[left] at (-2.48,1.73) {$6\,\text{V}$};
+
+            % capacitor equivalente en rama superior
+            \draw (TL) -- (-0.45,2.7);
+            \draw (-0.45,3.02) -- (-0.45,2.38);
+            \draw (-0.20,3.02) -- (-0.20,2.38);
+            \draw (-0.20,2.7) -- (TR);
+
+            % cierre del circuito
+            \draw (TR) -- (BR);
+            \draw (BR) -- (BL);
+
+            % etiqueta
+            \node[above] at (-0.33,3.12) {$2.4\,\mu\text{F}$};
+        \end{tikzpicture}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito equivalente en serie.}
+    \end{minipage}
+    \caption{Conexi\'on en serie y su circuito equivalente.}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.0, line cap=round, line join=round]
+            \coordinate (T) at (0,3.0);
+            \coordinate (B) at (0,0.1);
+            \coordinate (L1) at (-1.25,3.0);
+            \coordinate (L2) at (-1.25,0.1);
+            \coordinate (R1) at (1.25,3.0);
+            \coordinate (R2) at (1.25,0.1);
+
+            % fuente a la izquierda
+            \draw (-2.2,2.55) -- (-2.2,0.55);
+            \draw (-2.52,2.02) -- (-1.88,2.02);
+            \draw (-2.42,1.35) -- (-1.98,1.35);
+            \node[left] at (-2.52,2.02) {$+$};
+            \node[left] at (-2.42,1.35) {$-$};
+            \node[left] at (-2.68,1.68) {$6\,\text{V}$};
+
+            % riel superior e inferior
+            \draw (-2.2,2.55) -- (2.1,2.55);
+            \draw (-2.2,0.55) -- (2.1,0.55);
+
+            % rama izquierda
+            \draw (L1) -- (-1.25,2.0);
+            \draw (-1.55,2.0) -- (-0.95,2.0);
+            \draw (-1.55,1.72) -- (-0.95,1.72);
+            \draw (-1.25,1.72) -- (L2);
+
+            % rama derecha
+            \draw (R1) -- (1.25,2.0);
+            \draw (0.95,2.0) -- (1.55,2.0);
+            \draw (0.95,1.72) -- (1.55,1.72);
+            \draw (1.25,1.72) -- (R2);
+
+            % conexiones a rieles
+            \draw (-1.25,3.0) -- (-1.25,2.55);
+            \draw (-1.25,0.1) -- (-1.25,0.55);
+            \draw (1.25,3.0) -- (1.25,2.55);
+            \draw (1.25,0.1) -- (1.25,0.55);
+
+            % etiquetas
+            \node[above] at (-1.25,2.15) {$4\,\mu\text{F}$};
+            \node[above] at (1.25,2.15) {$6\,\mu\text{F}$};
+        \end{tikzpicture}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito en paralelo.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{tikzpicture}[scale=1.0, line cap=round, line join=round]
+            % fuente a la izquierda
+            \draw (-2.0,2.55) -- (-2.0,0.55);
+            \draw (-2.32,2.02) -- (-1.68,2.02);
+            \draw (-2.22,1.35) -- (-1.78,1.35);
+            \node[left] at (-2.32,2.02) {$+$};
+            \node[left] at (-2.22,1.35) {$-$};
+            \node[left] at (-2.48,1.68) {$6\,\text{V}$};
+
+            % rieles
+            \draw (-2.0,2.55) -- (1.7,2.55);
+            \draw (-2.0,0.55) -- (1.7,0.55);
+
+            % capacitor equivalente
+            \draw (0.2,2.55) -- (0.2,2.0);
+            \draw (-0.1,2.0) -- (0.5,2.0);
+            \draw (-0.1,1.72) -- (0.5,1.72);
+            \draw (0.2,1.72) -- (0.2,0.55);
+            \node[above] at (0.2,2.15) {$10\,\mu\text{F}$};
+        \end{tikzpicture}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito equivalente en paralelo.}
+    \end{minipage}
+    \caption{Conexi\'on en paralelo y su circuito equivalente.}
+\end{figure}
+
+\textbf{2. Modelo f\'isico}
+
+Para la conexi\'on en paralelo,
+\begin{equation*}
+    C_{\text{eq,p}}=C_1+C_2.
+\end{equation*}
+Para la conexi\'on en serie,
+\begin{equation*}
+    \frac{1}{C_{\text{eq,s}}}=\frac{1}{C_1}+\frac{1}{C_2}.
+\end{equation*}
+Adem\'as, para cada capacitor vale
+\begin{equation*}
+    q=CV.
+\end{equation*}
+
+\textbf{3. Ecuaciones de trabajo}
+
+Primero hallamos las capacitancias equivalentes:
+\begin{equation*}
+    C_{\text{eq,p}}=C_1+C_2,
+    \qquad
+    \frac{1}{C_{\text{eq,s}}}=\frac{1}{C_1}+\frac{1}{C_2}.
+\end{equation*}
+Luego,
+\begin{itemize}
+    \item en paralelo: $q_1=C_1V$ y $q_2=C_2V$;
+    \item en serie: $q_1=q_2=q$, con $q=C_{\text{eq,s}}V$.
+\end{itemize}
+
+\textbf{4. C\'alculo de las capacitancias equivalentes}
+
+\underline{Paralelo}
+\begin{equation*}
+    C_{\text{eq,p}}=4\,\mu\text{F}+6\,\mu\text{F}=10\,\mu\text{F}.
+\end{equation*}
+
+\underline{Serie}
+\begin{align*}
+    \frac{1}{C_{\text{eq,s}}}
+    &=\frac{1}{4}+\frac{1}{6}\\
+    &=\frac{3+2}{12}\\
+    &=\frac{5}{12}
+    \qquad (\mu\text{F})^{-1}.
+\end{align*}
+Por lo tanto,
+\begin{equation*}
+    C_{\text{eq,s}}=\frac{12}{5}\,\mu\text{F}=2.4\,\mu\text{F}.
+\end{equation*}
+
+\textbf{5. C\'alculo de las cargas}
+
+\underline{Paralelo}
+
+Cada capacitor tiene la misma ddp de $6\,\text{V}$, as\'i que
+\begin{align*}
+    q_1&=C_1V=(4\,\mu\text{F})(6\,\text{V})=24\,\mu\text{C},\\
+    q_2&=C_2V=(6\,\mu\text{F})(6\,\text{V})=36\,\mu\text{C}.
+\end{align*}
+
+\underline{Serie}
+
+La carga com\'un es
+\begin{equation*}
+    q=C_{\text{eq,s}}V=(2.4\,\mu\text{F})(6\,\text{V})=14.4\,\mu\text{C}.
+\end{equation*}
+Luego,
+\begin{equation*}
+    q_1=q_2=14.4\,\mu\text{C}.
+\end{equation*}
+
+\textbf{6. Resultado final}
+\begin{equation*}
+    \boxed{C_{\text{eq,p}}=10\,\mu\text{F}},
+    \qquad
+    \boxed{C_{\text{eq,s}}=2.4\,\mu\text{F}}.
+\end{equation*}
+\begin{equation*}
+    \boxed{q_1=24\,\mu\text{C},\; q_2=36\,\mu\text{C}\quad \text{(paralelo)}},
+\end{equation*}
+\begin{equation*}
+    \boxed{q_1=q_2=14.4\,\mu\text{C}\quad \text{(serie)}}.
+\end{equation*}
+
+\newpage
+
+\subsection*{Problema 5}
+Los capacitores de la figura est\'an inicialmente cargados y conectados como se indica, con el interruptor $S$ abierto. El punto $c$ est\'a a potencial $200\,\text{V}$ y el punto $d$ est\'a a tierra, de modo que
+\begin{equation*}
+    V_c=200\,\text{V},
+    \qquad
+    V_d=0\,\text{V}.
+\end{equation*}
+
+Se pide:
+\begin{enumerate}[label=(\alph*)]
+    \item La diferencia de potencial $V_{ab}$ con el interruptor abierto.
+    \item El potencial del punto $a$ despu\'es de cerrar $S$.
+\end{enumerate}
+
+\begin{comentario}
+En este problema hay que estudiar dos circuitos distintos: uno con el interruptor abierto y otro con el interruptor cerrado. Al cerrarse el interruptor, la conectividad cambia y por eso tambi\'en cambia el circuito equivalente.
+\end{comentario}
+
+
+\soluciontitulo
+
+\textbf{1. Datos del problema}
+
+En la rama izquierda hay un capacitor de $6\,\mu\text{F}$ entre $c$ y $a$, y uno de $3\,\mu\text{F}$ entre $a$ y $d$. En la rama derecha hay un capacitor de $3\,\mu\text{F}$ entre $c$ y $b$, y uno de $6\,\mu\text{F}$ entre $b$ y $d$. Adem\'as,
+\begin{equation*}
+    V_{cd}=V_c-V_d=200\,\text{V}.
+\end{equation*}
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.05, line cap=round, line join=round]
+        \coordinate (LT) at (-2,4.2);
+        \coordinate (RT) at (2,4.2);
+        \coordinate (LB) at (-2,0);
+        \coordinate (RB) at (2,0);
+        \coordinate (A) at (-2,2.1);
+        \coordinate (B) at (2,2.1);
+        \coordinate (C) at (0,4.2);
+        \coordinate (D) at (0,0);
+        \draw (LT) -- (RT);
+        \draw (LB) -- (RB);
+        \draw (C) -- ++(0,0.8);
+        \filldraw[white] (0,5.0) circle (1.4pt);
+        \node[above right] at (0,5.0) {$200\,\text{V}$};
+        \node[below] at (C) {$c$};
+        \draw (D) -- ++(0,-0.35);
+        \draw (-0.22,-0.35) -- (0.22,-0.35);
+        \draw (-0.15,-0.48) -- (0.15,-0.48);
+        \draw (-0.08,-0.60) -- (0.08,-0.60);
+        \node[above] at (D) {$d$};
+        \draw (LT) -- (-2,3.35);
+        \draw (-2.28,3.35) -- (-1.72,3.35);
+        \draw (-2.28,3.12) -- (-1.72,3.12);
+        \draw (-2,3.12) -- (A);
+        \draw (A) -- (-2,1.25);
+        \draw (-2.28,1.25) -- (-1.72,1.25);
+        \draw (-2.28,1.02) -- (-1.72,1.02);
+        \draw (-2,1.02) -- (LB);
+        \node[left] at (-2.38,3.23) {$6\,\mu\text{F}$};
+        \node[left] at (-2.38,1.14) {$3\,\mu\text{F}$};
+        \draw (RT) -- (2,3.35);
+        \draw (1.72,3.35) -- (2.28,3.35);
+        \draw (1.72,3.12) -- (2.28,3.12);
+        \draw (2,3.12) -- (B);
+        \draw (B) -- (2,1.25);
+        \draw (1.72,1.25) -- (2.28,1.25);
+        \draw (1.72,1.02) -- (2.28,1.02);
+        \draw (2,1.02) -- (RB);
+        \node[right] at (2.38,3.23) {$3\,\mu\text{F}$};
+        \node[right] at (2.38,1.14) {$6\,\mu\text{F}$};
+        \fill (A) circle (1.4pt);
+        \fill (B) circle (1.4pt);
+        \node[left] at (A) {$a$};
+        \node[right] at (B) {$b$};
+        \draw (A) -- (-0.55,2.1);
+        \fill (-0.55,2.1) circle (1.2pt);
+        \draw (0.55,2.1) -- (B);
+        \draw (-0.55,2.1) -- (0.25,2.42);
+        \draw[-latex] (-0.05,1.75) arc[start angle=240,end angle=130,radius=0.45];
+        \filldraw[white] (0.55,2.1) circle (1.4pt);
+        \node[below] at (0.1,1.75) {$S$};
+    \end{tikzpicture}
+    \caption{Circuito original del problema con el interruptor $S$ abierto.}
+\end{figure}
+
+\textbf{2. Modelo f\'isico}
+
+Para dos capacitores en serie,
+\begin{equation*}
+    C_{\text{eq}}=\frac{C_1C_2}{C_1+C_2},
+    \qquad
+    |q_1|=|q_2|=Q.
+\end{equation*}
+En cada capacitor tambi\'en vale
+\begin{equation*}
+    Q=CV,
+    \qquad
+    V=\frac{Q}{C}.
+\end{equation*}
+
+Cuando el interruptor est\'a abierto, las dos ramas son independientes y cada una est\'a sometida a la misma diferencia de potencial $V_{cd}=200\,\text{V}$. Cuando el interruptor se cierra, los puntos $a$ y $b$ pasan a ser el mismo nodo.
+
+\textbf{3. Item (a): c\'alculo de $V_{ab}$ con el interruptor abierto}
+
+Cada rama del circuito es una serie formada por un capacitor de $6\,\mu\text{F}$ y uno de $3\,\mu\text{F}$. Por tanto, en ambas ramas la capacitancia equivalente es
+\begin{equation*}
+    C_{\text{eq}}=\frac{(6)(3)}{6+3}\,\mu\text{F}=2\,\mu\text{F}.
+\end{equation*}
+Como cada rama est\'a conectada entre $c$ y $d$,
+\begin{equation*}
+    Q=C_{\text{eq}}V_{cd}=(2\,\mu\text{F})(200\,\text{V})=400\,\mu\text{C}.
+\end{equation*}
+
+Esto significa que, en cada rama, ambos capacitores quedan cargados con la misma magnitud de carga. Las placas enfrentadas en el nodo intermedio tienen cargas opuestas, de modo que el conductor intermedio se mantiene globalmente neutro.
+
+\medskip
+\underline{Potencial del punto $a$}
+
+En la rama izquierda, el capacitor entre $a$ y $d$ es de $3\,\mu\text{F}$. Entonces
+\begin{equation*}
+    V_a-V_d=\frac{Q}{3\,\mu\text{F}}=\frac{400\,\mu\text{C}}{3\,\mu\text{F}}=133.3\,\text{V}.
+\end{equation*}
+Como $V_d=0$,
+\begin{equation*}
+    V_a=133.3\,\text{V}.
+\end{equation*}
+
+\underline{Potencial del punto $b$}
+
+En la rama derecha, el capacitor entre $b$ y $d$ es de $6\,\mu\text{F}$. Por tanto,
+\begin{equation*}
+    V_b-V_d=\frac{Q}{6\,\mu\text{F}}=\frac{400\,\mu\text{C}}{6\,\mu\text{F}}=66.7\,\text{V}.
+\end{equation*}
+Como $V_d=0$,
+\begin{equation*}
+    V_b=66.7\,\text{V}.
+\end{equation*}
+
+Finalmente,
+\begin{equation*}
+    V_{ab}=V_a-V_b=133.3-66.7=66.6\,\text{V}\approx 66.7\,\text{V}.
+\end{equation*}
+
+Por consiguiente,
+\begin{equation*}
+    \boxed{V_{ab}=66.7\,\text{V}}.
+\end{equation*}
+
+\textbf{4. Item (b): potencial del punto $a$ despu\'es de cerrar $S$}
+
+Al cerrar el interruptor, los puntos $a$ y $b$ quedan unidos, es decir,
+\begin{equation*}
+    V_a=V_b=V_x.
+\end{equation*}
+La conexi\'on toma la forma siguiente.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.05, line cap=round, line join=round]
+        \coordinate (LT) at (-2,4.2);
+        \coordinate (RT) at (2,4.2);
+        \coordinate (LB) at (-2,0);
+        \coordinate (RB) at (2,0);
+        \coordinate (A) at (-2,2.1);
+        \coordinate (B) at (2,2.1);
+        \coordinate (C) at (0,4.2);
+        \coordinate (D) at (0,0);
+        \draw (LT) -- (RT);
+        \draw (LB) -- (RB);
+        \draw (C) -- ++(0,0.8);
+        \filldraw[white] (0,5.0) circle (1.4pt);
+        \node[above right] at (0,5.0) {$200\,\text{V}$};
+        \node[below] at (C) {$c$};
+        \draw (D) -- ++(0,-0.35);
+        \draw (-0.22,-0.35) -- (0.22,-0.35);
+        \draw (-0.15,-0.48) -- (0.15,-0.48);
+        \draw (-0.08,-0.60) -- (0.08,-0.60);
+        \node[above] at (D) {$d$};
+        \draw (LT) -- (-2,3.35);
+        \draw (-2.28,3.35) -- (-1.72,3.35);
+        \draw (-2.28,3.12) -- (-1.72,3.12);
+        \draw (-2,3.12) -- (A);
+        \draw (A) -- (-2,1.25);
+        \draw (-2.28,1.25) -- (-1.72,1.25);
+        \draw (-2.28,1.02) -- (-1.72,1.02);
+        \draw (-2,1.02) -- (LB);
+        \node[left] at (-2.38,3.23) {$6\,\mu\text{F}$};
+        \node[left] at (-2.38,1.14) {$3\,\mu\text{F}$};
+        \draw (RT) -- (2,3.35);
+        \draw (1.72,3.35) -- (2.28,3.35);
+        \draw (1.72,3.12) -- (2.28,3.12);
+        \draw (2,3.12) -- (B);
+        \draw (B) -- (2,1.25);
+        \draw (1.72,1.25) -- (2.28,1.25);
+        \draw (1.72,1.02) -- (2.28,1.02);
+        \draw (2,1.02) -- (RB);
+        \node[right] at (2.38,3.23) {$3\,\mu\text{F}$};
+        \node[right] at (2.38,1.14) {$6\,\mu\text{F}$};
+        \fill (A) circle (1.4pt);
+        \fill (B) circle (1.4pt);
+        \node[left] at (A) {$a$};
+        \node[right] at (B) {$b$};
+        \draw (A) -- (B);
+        \node[below] at (0,1.75) {$S$ cerrado};
+    \end{tikzpicture}
+    \caption{Mismo circuito despu\'es de cerrar el interruptor. Ahora $a$ y $b$ forman un mismo nodo.}
+\end{figure}
+
+Con esta nueva conectividad, los capacitores superiores quedan en paralelo entre $c$ y el nodo central $x$:
+\begin{equation*}
+    C_{cx}=6\,\mu\text{F}+3\,\mu\text{F}=9\,\mu\text{F}.
+\end{equation*}
+De manera an\'aloga, los capacitores inferiores quedan en paralelo entre $x$ y $d$:
+\begin{equation*}
+    C_{xd}=3\,\mu\text{F}+6\,\mu\text{F}=9\,\mu\text{F}.
+\end{equation*}
+
+Por lo tanto, el circuito equivalente queda formado por dos capacitores de $9\,\mu\text{F}$ en serie.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.05, line cap=round, line join=round]
+        \coordinate (C) at (0,4.0);
+        \coordinate (X) at (0,2.0);
+        \coordinate (D) at (0,0);
+        \draw (C) -- ++(0,0.8);
+        \filldraw[white] (0,4.8) circle (1.4pt);
+        \node[above right] at (0,4.8) {$200\,\text{V}$};
+        \node[right] at (C) {$c$};
+        \draw (C) -- (0,3.2);
+        \draw (-0.3,3.2) -- (0.3,3.2);
+        \draw (-0.3,2.95) -- (0.3,2.95);
+        \draw (0,2.95) -- (X);
+        \draw (X) -- (0,1.2);
+        \draw (-0.3,1.2) -- (0.3,1.2);
+        \draw (-0.3,0.95) -- (0.3,0.95);
+        \draw (0,0.95) -- (D);
+        \node[left] at (-0.35,3.08) {$9\,\mu\text{F}$};
+        \node[left] at (-0.35,1.08) {$9\,\mu\text{F}$};
+        \fill (X) circle (1.4pt);
+        \node[right] at (X) {$x$};
+        \draw (D) -- ++(0,-0.35);
+        \draw (-0.22,-0.35) -- (0.22,-0.35);
+        \draw (-0.15,-0.48) -- (0.15,-0.48);
+        \draw (-0.08,-0.60) -- (0.08,-0.60);
+        \node[right] at (D) {$d$};
+    \end{tikzpicture}
+    \caption{Circuito equivalente luego de cerrar $S$.}
+\end{figure}
+
+Como ambos capacitores equivalentes son iguales, la diferencia de potencial total de $200\,\text{V}$ se reparte por igual:
+\begin{equation*}
+    V_{cx}=V_{xd}=100\,\text{V}.
+\end{equation*}
+Puesto que $V_d=0$, se sigue que
+\begin{equation*}
+    V_x=100\,\text{V}.
+\end{equation*}
+Como $V_a=V_b=V_x$, obtenemos finalmente
+\begin{equation*}
+    \boxed{V_a=100\,\text{V}}.
+\end{equation*}
+
+\end{document}
