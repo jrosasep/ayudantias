@@ -1,0 +1,1075 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc}
+\usepackage[most]{tcolorbox}
+
+\geometry{letterpaper,left=1.85cm,right=1.85cm,top=2.1cm,bottom=2.1cm,headheight=15pt,headsep=0.45cm}
+
+\definecolor{headinggray}{RGB}{55,55,55}
+\definecolor{rulegray}{RGB}{150,150,150}
+\definecolor{softgray}{RGB}{247,247,247}
+\definecolor{softred}{RGB}{252,246,246}
+\definecolor{bluevec}{RGB}{29,78,216}
+\definecolor{orangevec}{RGB}{180,83,9}
+\definecolor{redvec}{RGB}{185,28,28}
+\definecolor{greenvec}{RGB}{21,128,61}
+
+\titleformat{name=\section,numberless}[block]
+  {\Large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.9em}
+
+\titleformat{name=\subsection,numberless}[block]
+  {\large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.45em}
+
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Campos y Ondas 510245}
+\fancyhead[R]{Gu\'ia 6 resuelta}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\soluciontitulo}{%
+  \par\medskip
+  \noindent{\large\bfseries Soluci\'on.}\par
+  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+}
+
+\newtcolorbox{comentario}[1][]{%
+  enhanced,
+  breakable,
+  colback=softgray,
+  colframe=rulegray,
+  boxrule=0.45pt,
+  arc=1.5mm,
+  left=1.8mm,right=1.8mm,top=1.1mm,bottom=1.1mm,
+  toptitle=0.9mm,bottomtitle=0.9mm,
+  title={Idea clave},
+  fonttitle=\bfseries,
+  coltitle=headinggray,
+  colbacktitle=softgray,
+  titlerule=0pt,
+  before title={\strut},
+  #1
+}
+
+
+\newtcolorbox{alerta}[1][]{%
+  enhanced,
+  breakable,
+  colback=softred,
+  colframe=rulegray,
+  boxrule=0.45pt,
+  arc=1.5mm,
+  left=1.8mm,right=1.8mm,top=1.1mm,bottom=1.1mm,
+  toptitle=0.9mm,bottomtitle=0.9mm,
+  title={Nota},
+  fonttitle=\bfseries,
+  coltitle=headinggray,
+  colbacktitle=softred,
+  titlerule=0pt,
+  before title={\strut},
+  #1
+}
+
+
+\tikzset{
+    >=Latex,
+    vecV/.style={->,very thick,bluevec},
+    vecB/.style={->,very thick,orangevec},
+    vecF/.style={->,very thick,redvec},
+    vecE/.style={->,very thick,greenvec},
+    panel/.style={draw=rulegray!80,fill=black!2,rounded corners=2pt},
+    cargaPos/.style={circle,draw=bluevec,fill=blue!8,thick,minimum size=8mm,inner sep=0pt},
+    cargaNeg/.style={circle,draw=greenvec,fill=green!8,thick,minimum size=8mm,inner sep=0pt},
+    etiqueta/.style={font=\footnotesize},
+    nota/.style={draw=rulegray,fill=white,rounded corners=1.5pt,align=left,font=\footnotesize,inner xsep=6pt,inner ysep=5pt,line width=0.35pt}
+}
+
+\newcommand{\Bentra}[2]{%
+    \draw[orangevec,line width=0.5pt] (#1,#2) circle (0.10);
+    \draw[orangevec,line width=0.5pt] ($(#1,#2)+(-0.06,-0.06)$)--($(#1,#2)+(0.06,0.06)$);
+    \draw[orangevec,line width=0.5pt] ($(#1,#2)+(-0.06,0.06)$)--($(#1,#2)+(0.06,-0.06)$);
+}
+\newcommand{\Fsale}[2]{%
+    \draw[redvec,very thick] (#1,#2) circle (0.16);
+    \fill[redvec] (#1,#2) circle (0.04);
+}
+\newcommand{\Fentra}[2]{%
+    \draw[redvec,very thick] (#1,#2) circle (0.16);
+    \draw[redvec,very thick] ($(#1,#2)+(-0.095,-0.095)$)--($(#1,#2)+(0.095,0.095)$);
+    \draw[redvec,very thick] ($(#1,#2)+(-0.095,0.095)$)--($(#1,#2)+(0.095,-0.095)$);
+}
+
+\newcommand{\paso}[1]{%
+  \par\medskip
+  \noindent{\bfseries #1}\par
+  \vspace{0.15em}%
+}
+
+\begin{document}
+\shorthandoff{<>}
+\begin{center}
+{\LARGE\bfseries\color{headinggray} Problemas resueltos\par}
+\vspace{0.25em}
+{\large Gu\'ia 6 --- Campos y Ondas\par}
+\vspace{0.35em}
+{\normalsize Jos\'e Rosas\par}
+\end{center}
+\vspace{0.3em}
+\hrule height 0.4pt
+\vspace{1.0em}
+
+\section*{Gu\'ia 6}
+
+\subsection*{Problema 1}
+\paso{1. Enunciado}
+Dibujar la fuerza magn\'etica sobre una carga el\'ectrica que entra a una regi\'on con campo magn\'etico uniforme. Se deben considerar los distintos casos de orientaci\'on de $\vec v$, $\vec B$ y signo de la carga.
+
+\begin{comentario}
+La regla pr\'actica es siempre la misma: primero se calcula la direcci\'on de $\vec v\times\vec B$ como si la carga fuera positiva. Luego se aplica el signo de $q$. Si $q>0$ se conserva ese sentido; si $q<0$ se invierte. La humanidad sobrevivi\'o a esto con los dedos de la mano derecha, as\'i que hay esperanza.
+\end{comentario}
+
+\soluciontitulo
+
+\paso{2. Datos}
+Los datos relevantes no son num\'ericos, sino geom\'etricos:
+\begin{equation*}
+    \vec F_B=q\,\vec v\times\vec B,
+    \qquad
+    |\vec F_B|=|q|vB\sin\theta.
+\end{equation*}
+Aqu\'i $\theta$ es el \~angulo entre $\vec v$ y $\vec B$.
+
+\paso{3. Modelo f\'isico}
+La fuerza magn\'etica es perpendicular a $\vec v$ y a $\vec B$. Por eso, para dibujarla, basta identificar el plano definido por ambos vectores y luego usar el producto cruz. Si $\vec v$ es paralela a $\vec B$, no hay componente perpendicular y la fuerza se anula.
+
+\paso{4. An\'alisis caso por caso}
+Se trabaja con una base cartesiana directa, donde
+\begin{equation*}
+    \hat x\times\hat y=\hat z,
+    \qquad
+    \hat y\times\hat z=\hat x,
+    \qquad
+    \hat z\times\hat x=\hat y.
+\end{equation*}
+
+\textbf{Caso (a): $q>0$, $\vec v=v\hat x$ y $\vec B=-B\hat z$.}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+    \draw[panel] (-0.25,-0.35) rectangle (14.85,6.25);
+    \node[font=\bfseries] at (7.30,5.86) {Caso (a): $q>0$, $\vec v=v\hat x$, $\vec B=-B\hat z$};
+
+    \begin{scope}[opacity=0.62]
+    \foreach \x in {0.9,2.2,3.5,6.7,8.0,9.3}{
+        \foreach \y in {0.85,1.70,3.55,4.40}{
+            \Bentra{\x}{\y}
+        }
+    }
+    \end{scope}
+
+    \node[cargaPos,minimum size=11mm,font=\large] (q) at (5.35,2.55) {$+$};
+    \draw[vecV,line width=1.15pt] (q)--++(3.05,0) node[right] {$\vec v$};
+    \draw[vecF,line width=1.15pt] (q)--++(0,1.70) node[above] {$\vec F_B$};
+
+    \draw[->,thick] (0.55,0.35)--++(1.05,0) node[right] {$\hat x$};
+    \draw[->,thick] (0.55,0.35)--++(0,1.05) node[above] {$\hat y$};
+    \Fsale{0.55}{0.35}
+    \node[anchor=west] at (0.86,0.95) {$+\hat z$ sale};
+
+    \node[nota,anchor=west,text width=3.70cm] at (10.15,3.72)
+    {Se calcula $\vec v\times\vec B$. Como $q>0$, la fuerza conserva ese sentido.};
+    \node[etiqueta,anchor=west] at (10.25,0.95) {$\otimes$: $\vec B$ entrando al plano.};
+\end{tikzpicture}
+\captionof{figure}{Caso (a): la fuerza queda dirigida hacia $+\hat y$.}
+\end{center}
+
+\paso{5. C\'alculo}
+\begin{align*}
+    \vec v\times\vec B
+    &=(v\hat x)\times(-B\hat z)\\
+    &=-vB(\hat x\times\hat z)\\
+    &=-vB(-\hat y)\\
+    &=vB\hat y.
+\end{align*}
+Como $q>0$,
+\begin{equation*}
+    \vec F_B=qvB\hat y.
+\end{equation*}
+
+\textbf{Caso (b): $q<0$, $\vec v=-v\hat x$ y $\vec B=B\hat y$.}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+    \draw[panel] (-0.25,-0.35) rectangle (14.85,6.20);
+    \node[font=\bfseries] at (7.30,5.82) {Caso (b): $q<0$, $\vec v=-v\hat x$, $\vec B=B\hat y$};
+
+    \begin{scope}[opacity=0.72]
+    \foreach \x in {1.05,2.45,3.85,8.10}{
+        \draw[vecB,line width=0.82pt] (\x,0.65)--++(0,0.92);
+        \draw[vecB,line width=0.82pt] (\x,3.48)--++(0,0.92);
+    }
+    \foreach \x in {1.05,2.45,8.10}{
+        \draw[vecB,line width=0.82pt] (\x,2.05)--++(0,0.92);
+    }
+    \end{scope}
+
+    \node[cargaNeg,minimum size=11mm,font=\large] (q) at (6.50,2.55) {$-$};
+    \draw[vecV,line width=1.15pt] (q)--++(-3.00,0) node[left] {$\vec v$};
+
+    \Fsale{6.50}{4.15}
+    \node[redvec,anchor=west] at (6.90,4.15) {$\vec F_B$ sale};
+    \Fentra{9.10}{1.45}
+    \node[etiqueta,anchor=west,text width=4.30cm] at (9.55,1.45) {$\vec v\times\vec B$ entrar\'ia; como $q<0$, la fuerza se invierte.};
+
+    \draw[->,thick] (0.55,0.35)--++(1.05,0) node[right] {$\hat x$};
+    \draw[->,thick] (0.55,0.35)--++(0,1.05) node[above] {$\hat y$};
+    \Fsale{0.55}{0.35}
+    \node[anchor=west] at (0.86,0.95) {$+\hat z$ sale};
+\end{tikzpicture}
+\captionof{figure}{Caso (b): la carga negativa invierte el sentido de $\vec v\times\vec B$.}
+\end{center}
+
+\paso{5. C\'alculo, continuaci\'on}
+\begin{align*}
+    \vec v\times\vec B
+    &=(-v\hat x)\times(B\hat y)\\
+    &=-vB(\hat x\times\hat y)\\
+    &=-vB\hat z.
+\end{align*}
+Como $q=-|q|$,
+\begin{align*}
+    \vec F_B
+    &=(-|q|)(-vB\hat z)\\
+    &=|q|vB\hat z.
+\end{align*}
+La fuerza sale del plano.
+
+\textbf{Caso (c): $\vec v$ paralela o antiparalela a $\vec B$.}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+    \draw[panel] (-0.25,-0.35) rectangle (14.85,6.05);
+    \node[font=\bfseries] at (7.30,5.68) {Caso (c): $\vec v\parallel\vec B$ o antiparalela a $\vec B$};
+
+    \begin{scope}[opacity=0.72]
+    \foreach \y in {0.85,1.65,3.45,4.25}{
+        \draw[vecB,line width=0.82pt] (0.90,\y)--++(1.65,0);
+        \draw[vecB,line width=0.82pt] (3.40,\y)--++(1.65,0);
+        \draw[vecB,line width=0.82pt] (7.10,\y)--++(1.65,0);
+    }
+    \draw[vecB,line width=0.82pt] (0.90,2.55)--++(1.65,0);
+    \draw[vecB,line width=0.82pt] (8.65,2.55)--++(1.65,0);
+    \end{scope}
+
+    \node[cargaPos,minimum size=11mm,font=\large] (q) at (6.50,2.55) {$+$};
+    \draw[vecV,line width=1.15pt] (q)--++(-2.95,0) node[left] {$\vec v$};
+    \node[draw=redvec,fill=white,rounded corners=2pt,text=redvec,font=\large,inner sep=6pt] at (11.70,1.65) {$\vec F_B=\vec0$};
+
+    \draw[->,thick] (0.55,0.35)--++(1.05,0) node[right] {$\hat x$};
+    \draw[->,thick] (0.55,0.35)--++(0,1.05) node[above] {$\hat y$};
+    \node[nota,anchor=west,text width=3.55cm] at (10.15,3.82)
+    {No hay componente perpendicular entre $\vec v$ y $\vec B$.};
+\end{tikzpicture}
+\captionof{figure}{Caso (c): si $\theta=0^\circ$ o $180^\circ$, entonces $\sin\theta=0$.}
+\end{center}
+
+\paso{5. C\'alculo, continuaci\'on}
+Por ejemplo, si $\vec v=-v\hat x$ y $\vec B=B\hat x$, entonces
+\begin{align*}
+    \vec v\times\vec B
+    &=(-v\hat x)\times(B\hat x)\\
+    &=-vB(\hat x\times\hat x)\\
+    &=\vec0.
+\end{align*}
+Equivalentemente,
+\begin{equation*}
+    |\vec F_B|=|q|vB\sin(180^\circ)=0.
+\end{equation*}
+
+\newpage
+
+\textbf{Caso (d): campo magn\'etico inclinado.}
+
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+    \draw[panel] (-0.25,-0.35) rectangle (14.85,6.55);
+    \node[font=\bfseries] at (7.30,6.17) {Caso (d): campo inclinado, $\vec B=B_{\parallel}\hat y+B_{\perp}\hat x$};
+
+    \begin{scope}[opacity=0.60]
+    \foreach \x in {0.85,2.15,3.45}{
+        \draw[vecB,line width=0.78pt] (\x,0.65)--++(0.78,0.78);
+        \draw[vecB,line width=0.78pt] (\x,3.85)--++(0.78,0.78);
+    }
+    \foreach \x in {8.10,9.20}{
+        \draw[vecB,line width=0.78pt] (\x,0.65)--++(0.78,0.78);
+        \draw[vecB,line width=0.78pt] (\x,3.25)--++(0.78,0.78);
+    }
+    \end{scope}
+
+    \node[cargaPos,minimum size=11mm,font=\large] (q) at (5.25,2.58) {$+$};
+    \draw[vecV,line width=1.15pt] (q)--++(0,2.10) node[above] {$\vec v$};
+
+    \draw[vecB,line width=1.15pt] (q)--++(2.45,2.00) node[above right] {$\vec B$};
+    \draw[densely dashed,orangevec,line width=0.95pt] (q)--++(2.45,0) node[midway,below] {$\vec B_{\perp}$};
+    \draw[densely dashed,orangevec,line width=0.95pt] ($(q)+(2.45,0)$)--++(0,2.00) node[midway,right] {$\vec B_{\parallel}$};
+
+    \Fentra{8.85}{2.12}
+    \node[redvec,anchor=west] at (9.20,2.12) {$\vec F_B$ entra};
+
+    \draw[->,thick] (0.55,0.35)--++(1.05,0) node[right] {$\hat x$};
+    \draw[->,thick] (0.55,0.35)--++(0,1.05) node[above] {$\hat y$};
+    \Fsale{0.55}{0.35}
+    \node[anchor=west] at (0.86,0.95) {$+\hat z$ sale};
+
+    \node[nota,anchor=west,text width=3.75cm] at (10.25,4.55)
+    {Solo $\vec B_{\perp}$ participa en el producto cruz.};
+\end{tikzpicture}
+\captionof{figure}{Caso (d): la componente perpendicular del campo fija la fuerza.}
+\end{center}
+
+\paso{5. C\'alculo, continuaci\'on}
+Si $\vec v=v\hat y$ y $\vec B=B_{\parallel}\hat y+B_{\perp}\hat x$, entonces
+\begin{align*}
+    \vec v\times\vec B
+    &=v\hat y\times(B_{\parallel}\hat y+B_{\perp}\hat x)\\
+    &=vB_{\parallel}(\hat y\times\hat y)+vB_{\perp}(\hat y\times\hat x)\\
+    &=\vec0-vB_{\perp}\hat z.
+\end{align*}
+Para $q>0$,
+\begin{equation*}
+    \vec F_B=-qvB_{\perp}\hat z.
+\end{equation*}
+
+\paso{6. Resultado e interpretaci\'on f\'isica}
+\begin{equation*}
+    \boxed{(a)\;\vec F_B\text{ hacia }+\hat y},
+    \qquad
+    \boxed{(b)\;\vec F_B\text{ sale del plano}},
+\end{equation*}
+\begin{equation*}
+    \boxed{(c)\;\vec F_B=\vec0},
+    \qquad
+    \boxed{(d)\;\vec F_B\text{ entra al plano}}.
+\end{equation*}
+La fuerza magn\'etica no apunta necesariamente en la direcci\'on del campo ni de la velocidad; apunta en la direcci\'on perpendicular determinada por el producto cruz.
+
+\newpage
+
+\subsection*{Problema 2}
+\paso{1. Enunciado}
+Una part\'icula cargada entra en un campo magn\'etico uniforme de m\'odulo $0.34\,\mathrm{mT}$ con rapidez $200\,\mathrm{m/s}$, perpendicular al campo. La carga tiene magnitud $3.2\times10^{-19}\,\mathrm C$. Calcular la fuerza magn\'etica que act\'ua sobre ella.
+
+\begin{comentario}
+Como $\vec v\perp\vec B$, el factor angular es $\sin90^\circ=1$. Entonces toda la rapidez participa en la fuerza magn\'etica.
+\end{comentario}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=1.18cm,y=1.18cm,font=\small]
+    \draw[panel] (-3.85,-2.40) rectangle (4.25,2.55);
+    \begin{scope}[opacity=0.58]
+    \foreach \x in {-2.8,-1.45,-0.10,1.65,3.00}{
+        \foreach \y in {-1.45,1.45}{\Bentra{\x}{\y}}
+    }
+    \foreach \x in {-3.15,3.35}{\Bentra{\x}{0.0}}
+    \end{scope}
+    \draw[bluevec,very thick] (0,0) circle (1.38);
+    \node[cargaPos] (q) at (1.38,0) {$+$};
+    \draw[vecV,line width=1.10pt] (q)--++(0,1.10) node[above] {$\vec v$};
+    \draw[vecF,line width=1.10pt] (q)--++(-1.12,0) node[left] {$\vec F_B$};
+    \node[nota,anchor=west,text width=2.42cm] at (1.80,1.10) {$\theta=90^\circ$\\$|\vec F_B|=|q|vB$};
+    \node[etiqueta,anchor=west] at (-3.35,-1.95) {$\otimes$: $\vec B$ entra al plano};
+\end{tikzpicture}
+\caption{Caso perpendicular: la fuerza magn\'etica cambia la direcci\'on de la part\'icula.}
+\end{figure}
+
+\soluciontitulo
+
+\paso{2. Datos}
+\begin{equation*}
+    B=0.34\,\mathrm{mT},
+    \qquad
+    v=200\,\mathrm{m/s},
+    \qquad
+    |q|=3.2\times10^{-19}\,\mathrm C,
+    \qquad
+    \theta=90^\circ.
+\end{equation*}
+Convertimos el campo a unidades SI:
+\begin{equation*}
+    B=0.34\times10^{-3}\,\mathrm T=3.4\times10^{-4}\,\mathrm T.
+\end{equation*}
+
+\paso{3. Modelo f\'isico}
+La magnitud de la fuerza magn\'etica sobre una carga en movimiento es
+\begin{equation*}
+    |\vec F_B|=|q|vB\sin\theta.
+\end{equation*}
+
+\paso{4. An\'alisis}
+Como la velocidad es perpendicular al campo, $\sin90^\circ=1$. Por lo tanto, la expresi\'on que se debe evaluar es
+\begin{equation*}
+    |\vec F_B|=|q|vB.
+\end{equation*}
+
+\paso{5. C\'alculos}
+Sustituimos los datos directamente:
+\begin{align*}
+    |\vec F_B|
+    &=(3.2\times10^{-19})(200)(3.4\times10^{-4})\,\mathrm N\\
+    &=(3.2)(200)(3.4)\times10^{-23}\,\mathrm N\\
+    &=2176\times10^{-23}\,\mathrm N\\
+    &=2.176\times10^{-20}\,\mathrm N.
+\end{align*}
+
+\paso{6. Resultado e interpretaci\'on f\'isica}
+\begin{equation*}
+    \boxed{|\vec F_B|\approx2.18\times10^{-20}\,\mathrm N}.
+\end{equation*}
+La fuerza es perpendicular a la velocidad; por eso modifica la direcci\'on del movimiento, no la rapidez instant\'anea de la part\'icula.
+
+\newpage
+
+\subsection*{Problema 4}
+\paso{1. Enunciado}
+En una regi\'on coexisten un campo el\'ectrico de $500\,\mathrm{N/C}$ y un campo magn\'etico de $0.15\,\mathrm T$, perpendiculares entre s\'i. Una part\'icula de carga $1\,\mathrm{mC}$ se mueve perpendicular a ambos campos y atraviesa la regi\'on sin desviarse. Calcular su velocidad.
+
+\begin{comentario}
+Que la part\'icula no se desv\'ie no significa que no act\'uen fuerzas. Significa que la fuerza el\'ectrica y la fuerza magn\'etica se cancelan exactamente.
+\end{comentario}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=1.16cm,y=1.16cm,font=\small]
+    \draw[panel] (-3.90,-2.30) rectangle (4.05,2.95);
+    \draw[greenvec,thick] (-3.35,1.48)--(3.35,1.48);
+    \draw[greenvec,thick] (-3.35,-1.48)--(3.35,-1.48);
+    \node[greenvec] at (-3.60,1.48) {$+$};
+    \node[greenvec] at (-3.60,-1.48) {$-$};
+
+    \foreach \x in {-2.65,-1.25,0.45,1.85,3.05}{
+        \draw[vecE,line width=0.82pt] (\x,-1.10)--(\x,-0.34);
+        \draw[vecE,line width=0.82pt] (\x,0.34)--(\x,1.10);
+    }
+    \begin{scope}[opacity=0.58]
+    \foreach \x in {-2.65,-1.25,0.45,1.85,3.05}{
+        \Bentra{\x}{-0.74} \Bentra{\x}{0.74}
+    }
+    \end{scope}
+
+    \node[cargaPos] (q) at (-0.85,0) {$+$};
+    \draw[vecV,line width=1.05pt] (-3.05,0)--(-1.20,0);
+    \draw[vecV,line width=1.05pt] (-0.50,0)--(3.10,0) node[right] {$\vec v$};
+    \draw[vecE,line width=1.05pt] (q)--++(0,1.02) node[above left] {$\vec F_E$};
+    \draw[vecB,line width=1.05pt] (q)--++(0,-1.02) node[below left] {$\vec F_B$};
+    \node[nota,anchor=center] at (1.75,2.38) {$\vec F_E+\vec F_B=\vec0$};
+\end{tikzpicture}
+\caption{Selector de velocidades: las fuerzas transversales se equilibran.}
+\end{figure}
+
+\soluciontitulo
+
+\paso{2. Datos}
+\begin{equation*}
+    E=500\,\mathrm{N/C},
+    \qquad
+    B=0.15\,\mathrm T,
+    \qquad
+    q=1\,\mathrm{mC}=10^{-3}\,\mathrm C.
+\end{equation*}
+
+\paso{3. Modelo f\'isico}
+Act\'uan dos fuerzas:
+\begin{equation*}
+    |\vec F_E|=|q|E,
+    \qquad
+    |\vec F_B|=|q|vB,
+\end{equation*}
+porque $\vec v\perp\vec B$.
+
+\paso{4. An\'alisis}
+La condici\'on de no desviaci\'on exige equilibrio transversal:
+\begin{equation*}
+    \vec F_E+\vec F_B=\vec0.
+\end{equation*}
+En magnitudes,
+\begin{equation*}
+    |\vec F_E|=|\vec F_B|.
+\end{equation*}
+Sustituimos las expresiones de cada fuerza:
+\begin{equation*}
+    |q|E=|q|vB.
+\end{equation*}
+Como $q\neq0$, la carga se cancela. Esto es clave: la velocidad seleccionada no depende del valor de la carga.
+
+\paso{5. C\'alculos}
+\begin{align*}
+    |q|E&=|q|vB,\\
+    E&=vB,\\
+    v&=\frac{E}{B}.
+\end{align*}
+Sustituyendo los datos,
+\begin{align*}
+    v&=\frac{500}{0.15}\,\mathrm{m/s}\\
+     &=3333.3\,\mathrm{m/s}.
+\end{align*}
+
+\paso{6. Resultado e interpretaci\'on f\'isica}
+\begin{equation*}
+    \boxed{v\approx3.33\times10^3\,\mathrm{m/s}}.
+\end{equation*}
+El sistema deja pasar sin desviaci\'on solo a las part\'iculas con esta rapidez. Por eso esta configuraci\'on se interpreta como un selector de velocidades.
+
+\newpage
+
+\subsection*{Problema 6}
+\paso{1. Enunciado}
+Calcular la fuerza magn\'etica sobre una carga $q$ que entra en un campo magn\'etico de $4\,\mathrm T$ con rapidez $1500\,\mathrm{km/s}$, formando un \~angulo de $45^\circ$ con el campo magn\'etico.
+
+\begin{alerta}
+El enunciado no entrega el valor num\'erico de $q$. Por eso el resultado debe quedar expresado en funci\'on de $|q|$.
+\end{alerta}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=1.25cm,y=1.25cm,font=\small]
+    \coordinate (O) at (0,0);
+    \draw[panel] (-0.85,-1.35) rectangle (5.60,3.60);
+    \draw[vecB,line width=1.05pt] (-0.45,0)--(4.85,0) node[right] {$\vec B$};
+    \draw[vecV,line width=1.05pt] (O)--(2.85,2.85) node[above right] {$\vec v$};
+    \draw[dashed,rulegray] (2.85,2.85)--(2.85,0);
+    \draw[->,thick,greenvec] (O)--(2.65,0) node[midway,below] {$\vec v_{\parallel}$};
+    \draw[->,thick,bluevec] (3.05,0)--(3.05,2.75) node[midway,right] {$\vec v_{\perp}$};
+    \draw[thick] (0.72,0) arc (0:45:0.72);
+    \node[etiqueta] at (1.03,0.38) {$45^\circ$};
+    \Fsale{0.00}{-0.78}
+    \node[redvec,etiqueta,anchor=west] at (0.38,-0.78) {$\vec F_B$ sale};
+    \node[nota,anchor=west,text width=2.68cm] at (3.45,2.05) {$v_\perp=v\sin45^\circ$\\$|\vec F_B|=|q|Bv_\perp$};
+\end{tikzpicture}
+\caption{Solo la componente de la velocidad perpendicular a $\vec B$ produce fuerza magn\'etica.}
+\end{figure}
+
+\soluciontitulo
+
+\paso{2. Datos}
+\begin{equation*}
+    B=4\,\mathrm T,
+    \qquad
+    v=1500\,\mathrm{km/s}=1.5\times10^6\,\mathrm{m/s},
+    \qquad
+    \theta=45^\circ.
+\end{equation*}
+La carga queda como par\'ametro: $|q|$.
+
+\paso{3. Modelo f\'isico}
+La magnitud de la fuerza magn\'etica es
+\begin{equation*}
+    |\vec F_B|=|q|vB\sin\theta.
+\end{equation*}
+El factor $\sin\theta$ selecciona la parte perpendicular de la velocidad.
+
+\paso{4. An\'alisis}
+Como $\theta=45^\circ$,
+\begin{equation*}
+    v_\perp=v\sin45^\circ=v\frac{\sqrt2}{2}.
+\end{equation*}
+Luego se puede usar $|\vec F_B|=|q|Bv_\perp$.
+
+\paso{5. C\'alculos}
+Primero calculamos la componente perpendicular:
+\begin{align*}
+    v_\perp
+    &=(1.5\times10^6)\frac{\sqrt2}{2}\,\mathrm{m/s}\\
+    &\approx1.06\times10^6\,\mathrm{m/s}.
+\end{align*}
+Entonces,
+\begin{align*}
+    |\vec F_B|
+    &=|q|Bv_\perp\\
+    &=|q|(4)(1.06\times10^6)\,\mathrm N\\
+    &\approx4.24\times10^6|q|\,\mathrm N.
+\end{align*}
+
+\paso{6. Resultado e interpretaci\'on f\'isica}
+\begin{equation*}
+    \boxed{|\vec F_B|\approx4.24\times10^6|q|\,\mathrm N}.
+\end{equation*}
+La componente paralela de la velocidad no contribuye al producto cruz. F\'isicamente, el campo solo curva el movimiento asociado a la componente perpendicular.
+
+\newpage
+
+\subsection*{Problema 9}
+\paso{1. Enunciado}
+Un conductor suspendido por dos cables tiene masa por unidad de longitud $\lambda=0.040\,\mathrm{kg/m}$. El campo magn\'etico es $B=3.6\,\mathrm T$ y entra en el plano de la hoja. Determinar la corriente necesaria para que la tensi\'on de los cables sea cero.
+
+\begin{comentario}
+La condici\'on $T=0$ significa que los cables ya no sostienen el peso del conductor. Quedan como gu\'ia geom\'etrica, pero la fuerza vertical que equilibra al peso debe ser completamente magn\'etica.
+\end{comentario}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=1.05cm,y=1.05cm,font=\small]
+    \draw[panel] (-0.75,-1.55) rectangle (9.80,4.20);
+
+    \begin{scope}[opacity=0.55]
+    \foreach \x in {0.25,1.20,2.15,5.55,6.50,7.45}{
+        \foreach \y in {-0.85,0.35,1.65,2.85}{\Bentra{\x}{\y}}
+    }
+    \end{scope}
+
+    % Soporte superior fijo
+    \draw[thick,black!70] (0.55,3.55)--(5.95,3.55);
+    \foreach \x in {0.75,1.10,...,5.75}{
+        \draw[black!45,line width=0.35pt] (\x,3.55)--++(-0.22,0.28);
+    }
+    \node[etiqueta,anchor=west] at (6.15,3.55) {soporte fijo};
+
+    % cables de suspension
+    \draw[gray!75,thick] (1.35,3.55)--(1.35,0.72);
+    \draw[gray!75,thick] (5.15,3.55)--(5.15,0.72);
+    \node[etiqueta,gray!70,anchor=east] at (1.25,2.35) {$T=0$};
+    \node[etiqueta,gray!70,anchor=west] at (5.25,2.35) {$T=0$};
+
+    % varilla/conductor
+    \draw[line width=5.0pt,black!75,rounded corners=1.5pt] (1.05,0.72)--(5.45,0.72);
+    \draw[vecV,line width=1.10pt] (1.50,1.08)--(3.15,1.08) node[midway,above] {$I$};
+
+    \draw[vecF,line width=1.10pt] (3.25,0.95)--(3.25,2.40) node[left] {$\vec F_B$};
+    \draw[->,very thick,black!70] (3.25,0.48)--(3.25,-1.00) node[left] {$\lambda L\vec g$};
+
+    \node[nota,anchor=west,text width=2.65cm] at (6.55,1.35) {$\vec B$ entra al plano.\\Para que $T=0$, debe cumplirse $F_B=P$.};
+\end{tikzpicture}
+\caption{Conductor suspendido: los cables est\'an presentes, pero la condici\'on buscada es $T=0$.}
+\end{figure}
+
+\soluciontitulo
+
+\paso{2. Datos}
+\begin{equation*}
+    \lambda=0.040\,\mathrm{kg/m},
+    \qquad
+    B=3.6\,\mathrm T,
+    \qquad
+    g=9.8\,\mathrm{m/s^2}.
+\end{equation*}
+La corriente $I$ es la inc\'ognita.
+
+\paso{3. Modelo f\'isico}
+La fuerza magn\'etica sobre un conductor recto es
+\begin{equation*}
+    \vec F_B=I\vec L\times\vec B.
+\end{equation*}
+Como el conductor es perpendicular al campo,
+\begin{equation*}
+    |\vec F_B|=ILB.
+\end{equation*}
+El peso del conductor de largo $L$ es
+\begin{equation*}
+    P=(\lambda L)g.
+\end{equation*}
+
+\paso{4. An\'alisis}
+Si $T=0$, la fuerza magn\'etica debe sostener todo el peso:
+\begin{equation*}
+    |\vec F_B|=P.
+\end{equation*}
+Como ambas cantidades son proporcionales a $L$, conviene trabajar por unidad de longitud:
+\begin{equation*}
+    \frac{|\vec F_B|}{L}=IB,
+    \qquad
+    \frac{P}{L}=\lambda g.
+\end{equation*}
+
+\paso{5. C\'alculos}
+Igualamos fuerza magn\'etica y peso:
+\begin{align*}
+    ILB&=\lambda Lg,\\
+    IB&=\lambda g,\\
+    I&=\frac{\lambda g}{B}.
+\end{align*}
+Sustituyendo los datos,
+\begin{align*}
+    I&=\frac{(0.040)(9.8)}{3.6}\,\mathrm A\\
+     &=\frac{0.392}{3.6}\,\mathrm A\\
+     &\approx0.1089\,\mathrm A.
+\end{align*}
+
+\paso{6. Resultado e interpretaci\'on f\'isica}
+\begin{equation*}
+    \boxed{I\approx0.11\,\mathrm A}.
+\end{equation*}
+El sentido de la corriente debe hacer que $\vec L\times\vec B$ apunte hacia arriba. Si $\vec L=L\hat x$ y $\vec B=-B\hat z$, entonces
+\begin{equation*}
+    \vec L\times\vec B=LB\hat y,
+\end{equation*}
+que es justamente la direcci\'on necesaria para equilibrar el peso.
+
+\newpage
+
+\subsection*{Problema 10}
+\paso{1. Enunciado}
+Un conductor de masa $m=0.1\,\mathrm{kg}$ y largo $L=0.5\,\mathrm m$ descansa sin roce sobre un plano inclinado en $\alpha=10^\circ$. Hay un campo magn\'etico uniforme vertical de magnitud $B=5.2\,\mathrm{mT}$. Determinar la corriente necesaria para que el conductor permanezca en reposo.
+
+\begin{comentario}
+Como no hay roce, el equilibrio importante es paralelo al plano. El peso tira hacia abajo del plano y la fuerza magn\'etica aporta una componente hacia arriba del plano.
+\end{comentario}
+
+
+
+
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[x=0.84cm,y=0.84cm,font=\small]
+    \def\ang{22} % Angulo esquematico para separar visualmente las proyecciones.
+    \draw[panel] (-1.28,-1.25) rectangle (16.10,8.78);
+
+    % Plano inclinado y triangulo geometrico.
+    \coordinate (A) at (0,0);
+    \coordinate (B) at (13.65,0);
+    \coordinate (C) at (13.65,{13.65*tan(\ang)});
+    \draw[thick,black!80,fill=black!3] (A)--(B)--(C)--cycle;
+    \draw[very thick,black!78] (A)--(C);
+    \draw[thick,black!70] (13.00,0)--(13.00,0.65)--(13.65,0.65);
+
+    % Rayado del plano.
+    \foreach \t in {0.65,1.15,...,13.05}{
+        \coordinate (H) at ($(A)!\t/13.65!(C)$);
+        \draw[black!28,line width=0.35pt]
+        ($(H)+({-0.09*sin(\ang)},{0.09*cos(\ang)})$)--($(H)+({0.18*cos(\ang)-0.09*sin(\ang)},{0.18*sin(\ang)+0.09*cos(\ang)})$);
+    }
+
+    % Angulo del plano con la horizontal.
+    \draw[thick,black!70] (1.35,0) arc[start angle=0,end angle=\ang,radius=1.35];
+    \node[etiqueta,fill=white,inner sep=1.5pt] at (1.98,0.31) {$\alpha$};
+
+    % Conductor sobre el plano.
+    \coordinate (S) at (6.95,{6.95*tan(\ang)});
+    \coordinate (O) at ({6.95-0.46*sin(\ang)},{6.95*tan(\ang)+0.46*cos(\ang)});
+    \begin{scope}[shift={(S)},rotate=\ang]
+        \draw[thick,fill=white] (-0.82,0.00) rectangle (0.82,0.92);
+        \draw[black!70,line width=1.20pt] (-0.66,0.46)--(0.66,0.46);
+        \fill[black!75] (0,0.46) circle (0.07);
+    \end{scope}
+
+    % Marco local separado del DCL.
+    \coordinate (E) at (2.12,{2.12*tan(\ang)+0.56});
+    \draw[->,very thick,black]
+        (E)--++({2.05*cos(\ang)},{2.05*sin(\ang)}) node[below right,fill=white,inner sep=1.5pt] {$\hat x$};
+    \draw[->,very thick,black]
+        (E)--++({-1.42*sin(\ang)},{1.42*cos(\ang)}) node[left,fill=white,inner sep=1.5pt] {$\hat y$};
+
+    % Guias paralela y normal que pasan por el conductor.
+    \draw[dashed,black!36,line width=0.75pt]
+        ($(O)+({-2.65*cos(\ang)},{-2.65*sin(\ang)})$)--($(O)+({5.00*cos(\ang)},{5.00*sin(\ang)})$);
+    \draw[dashed,black!36,line width=0.75pt]
+        ($(O)+({1.85*sin(\ang)},{-1.85*cos(\ang)})$)--($(O)+({-2.30*sin(\ang)},{2.30*cos(\ang)})$);
+
+    % Campo magnetico vertical.
+    \draw[vecB,line width=1.20pt] (14.86,0.82)--(14.86,7.05);
+    \node[orangevec,anchor=south] at (14.86,7.22) {$\vec B$ vertical};
+
+    % Fuerza magnetica horizontal y proyeccion paralela.
+    \draw[vecF,line width=1.15pt] (O)--++(3.45,0);
+    \node[redvec,anchor=west,fill=white,inner sep=1.5pt] at ($(O)+(3.58,0.14)$) {$\vec F_B$};
+
+    \draw[vecF,line width=1.05pt]
+        (O)--++({3.05*cos(\ang)},{3.05*sin(\ang)});
+    \node[redvec,anchor=south west,fill=white,inner sep=1.5pt] at ($(O)+({3.12*cos(\ang)+0.28},{3.12*sin(\ang)+0.38})$) {$F_{B,x}=F_B\cos\alpha$};
+    \draw[dotted,redvec,line width=0.85pt]
+        ($(O)+({3.05*cos(\ang)},{3.05*sin(\ang)})$)--($(O)+(3.45,0)$);
+    \draw[redvec,thick] ($(O)+(1.08,0)$) arc[start angle=0,end angle=\ang,radius=1.08];
+    \node[redvec] at ($(O)+(1.30,0.34)$) {$\alpha$};
+
+    % Peso y componentes. Etiquetas fuera de los trazos principales.
+    \draw[->,very thick,black!72] (O)--++(0,-3.28);
+    \node[black!72,anchor=north,fill=white,inner sep=1.5pt] at ($(O)+(0,-3.38)$) {$\vec W=m\vec g$};
+
+    \draw[->,thick,black!72]
+        (O)--++({-2.52*cos(\ang)},{-2.52*sin(\ang)});
+    \node[black!72,anchor=center,fill=white,inner sep=1.5pt] at (4.10,0.48) {$W_x=mg\sin\alpha$};
+
+    \draw[->,thick,black!72]
+        (O)--++({1.78*sin(\ang)},{-1.78*cos(\ang)});
+    \node[black!72,anchor=west,fill=white,inner sep=1.5pt] at ($(O)+({1.78*sin(\ang)+0.22},{-1.78*cos(\ang)-0.02})$) {$W_y=mg\cos\alpha$};
+
+    \draw[dotted,black!50,line width=0.72pt]
+        ($(O)+({-2.52*cos(\ang)},{-2.52*sin(\ang)})$)--++({1.78*sin(\ang)},{-1.78*cos(\ang)});
+    \draw[dotted,black!50,line width=0.72pt]
+        ($(O)+({1.78*sin(\ang)},{-1.78*cos(\ang)})$)--++({-2.52*cos(\ang)},{-2.52*sin(\ang)});
+
+    % Angulo entre el peso vertical y la direccion normal al plano.
+    \draw[black!70,thick] ($(O)+(0,-0.82)$) arc[start angle=-90,end angle={-90+\ang},radius=0.82];
+    \node[black!70] at ($(O)+(0.26,-1.00)$) {$\alpha$};
+
+    % Normal.
+    \draw[->,very thick,black]
+        (O)--++({-1.72*sin(\ang)},{1.72*cos(\ang)});
+    \node[black,anchor=east,fill=white,inner sep=1.5pt] at ($(O)+({-1.72*sin(\ang)-0.12},{1.72*cos(\ang)+0.06})$) {$\vec N$};
+
+    % Nota breve, en una zona vacia del panel.
+    \node[nota,anchor=north west,text width=9.40cm] at (0.40,8.30)
+    {Se proyecta sobre $\hat x$.\\[-1pt]
+    Geom\'etricamente: $F_{B,x}=F_B\cos\alpha$ y $W_x=mg\sin\alpha$.};
+\end{tikzpicture}
+\caption{Diagrama de cuerpo libre en el plano inclinado. El marco local se escoge paralelo y normal al plano para leer directamente las componentes.}
+\end{figure}
+
+
+\soluciontitulo
+
+\paso{2. Datos}
+\begin{equation*}
+    m=0.1\,\mathrm{kg},
+    \qquad
+    L=0.5\,\mathrm m,
+    \qquad
+    \alpha=10^\circ,
+    \qquad
+    B=5.2\,\mathrm{mT}=5.2\times10^{-3}\,\mathrm T.
+\end{equation*}
+
+\paso{3. Modelo f\'isico}
+Elegimos un sistema local con $\hat x$ paralelo al plano inclinado y positivo hacia arriba del plano. La direcci\'on $\hat y$ es normal al plano.
+
+La fuerza magn\'etica sobre el conductor tiene m\'odulo
+\begin{equation*}
+    |\vec F_B|=ILB.
+\end{equation*}
+En esta geometr\'ia, $\vec F_B$ queda horizontal. Como el plano forma un \~angulo $\alpha$ con la horizontal, la componente de $\vec F_B$ sobre el plano es
+\begin{equation*}
+    F_{B,x}=|\vec F_B|\cos\alpha.
+\end{equation*}
+El peso se descompone en
+\begin{equation*}
+    W_x=mg\sin\alpha,
+    \qquad
+    W_y=mg\cos\alpha.
+\end{equation*}
+La componente $W_x$ apunta hacia abajo del plano.
+
+\paso{4. An\'alisis}
+Como no hay roce, basta equilibrar las fuerzas en la direcci\'on paralela al plano. Escogiendo positivo hacia arriba del plano,
+\begin{equation*}
+    F_{B,x}-W_x=0.
+\end{equation*}
+Por lo tanto,
+\begin{equation*}
+    |\vec F_B|\cos\alpha=mg\sin\alpha.
+\end{equation*}
+La direcci\'on normal solo determina el valor de $\vec N$, pero no cambia la corriente necesaria para el equilibrio paralelo al plano.
+
+\paso{5. C\'alculos}
+Sustituimos $|\vec F_B|=ILB$ y despejamos:
+\begin{align*}
+    ILB\cos\alpha&=mg\sin\alpha,\\
+    I&=\frac{mg\sin\alpha}{LB\cos\alpha},\\
+    I&=\frac{mg\tan\alpha}{LB}.
+\end{align*}
+Ahora se sustituyen los datos:
+\begin{align*}
+    I&=\frac{(0.1)(9.8)\tan(10^\circ)}{(0.5)(5.2\times10^{-3})}\,\mathrm A\\
+     &=\frac{(0.98)(0.1763)}{2.6\times10^{-3}}\,\mathrm A\\
+     &=\frac{0.1728}{2.6\times10^{-3}}\,\mathrm A\\
+     &\approx66.46\,\mathrm A.
+\end{align*}
+
+\paso{6. Resultado e interpretaci\'on f\'isica}
+\begin{equation*}
+    \boxed{I\approx6.6\times10^1\,\mathrm A}.
+\end{equation*}
+El sentido de la corriente debe escogerse para que la componente de $\vec F_B$ apunte hacia arriba del plano. Si se invierte la corriente, la fuerza magn\'etica apunta en el sentido contrario y el conductor no queda en equilibrio.
+
+\begin{alerta}
+No se debe usar directamente $ILB=mg\sin\alpha$. La fuerza magn\'etica es horizontal, no paralela al plano; por eso aparece el factor $\cos\alpha$.
+\end{alerta}
+
+\newpage
+
+\subsection*{Problema 11}
+\paso{1. Enunciado}
+Una espira triangular rect\'angula tiene catetos $a=3\,\mathrm{cm}$ y $b=4\,\mathrm{cm}$. El plano de la espira forma un \~angulo $\alpha=45^\circ$ respecto de la direcci\'on $OY$. Circula una corriente $I=12\,\mathrm A$ y el campo magn\'etico uniforme es
+\begin{equation*}
+    \vec B=2.5\,\hat x\,\mathrm{mT}.
+\end{equation*}
+Calcular la fuerza magn\'etica sobre cada lado.
+
+\begin{comentario}
+En cada tramo recto se usa $\vec F=I\vec\ell\times\vec B$. Lo delicado no es la f\'ormula, sino escribir bien cada vector $\vec\ell$ con el sentido de la corriente.
+\end{comentario}
+
+
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[
+    x={(1.18cm,-0.32cm)},
+    y={(0.72cm,0.48cm)},
+    z={(0cm,1.18cm)},
+    scale=1.07,
+    font=\small
+]
+    \coordinate (O) at (0,0,0);
+    \coordinate (A) at (0,0,3.20);
+    \coordinate (C) at (1.78,2.85,0);
+
+    % Ejes de referencia.
+    \draw[->,thick,gray!68] (O)--(4.15,0,0) node[below] {$\hat x$};
+    \draw[->,thick,gray!68] (O)--(0,3.92,0) node[right] {$\hat y$};
+    \draw[->,thick,gray!68] (O)--(0,0,3.92) node[above] {$\hat z$};
+
+    % Espira triangular.
+    \draw[thick,black!84] (O)--(A)--(C)--cycle;
+    \fill (O) circle (1.35pt) node[left] {$O$};
+    \fill (A) circle (1.35pt) node[above left] {$A$};
+    \fill (C) circle (1.35pt) node[right] {$C$};
+
+    % Corriente en cada lado.
+    \draw[vecV,line width=1.08pt] ($(A)!0.12!(O)$)--($(A)!0.40!(O)$) node[left,pos=0.55,fill=white,inner sep=1pt] {$I$};
+    \draw[vecV,line width=1.08pt] ($(O)!0.15!(C)$)--($(O)!0.44!(C)$);
+    \draw[vecV,line width=1.08pt] ($(C)!0.13!(A)$)--($(C)!0.42!(A)$);
+
+    % Campo magnetico uniforme: flechas paralelas a x, fuera de la espira.
+    \draw[vecB,line width=1.08pt] (-0.45,3.55,2.85)--(2.34,3.55,2.85);
+    \node[orangevec,anchor=west,fill=white,inner sep=1.5pt] at (2.44,3.55,2.85) {$\vec B=B\hat x$};
+    % Puntos medios para ubicar las fuerzas fuera de las aristas.
+    \coordinate (Ma) at ($(O)!0.52!(A)$);
+    \coordinate (Mb) at ($(O)!0.58!(C)$);
+    \coordinate (Mh) at ($(C)!0.48!(A)$);
+
+    % Fuerzas magneticas: perpendiculares a B y al tramo con corriente.
+    \draw[vecF,line width=1.15pt] ($(Ma)+(0,-0.12,0)$)--++(0,-1.25,0);
+    \node[redvec,anchor=east,fill=white,inner sep=1.5pt] at ($(Ma)+(0,-1.42,0.04)$) {$\vec F_a$};
+
+    \draw[vecF,line width=1.15pt] ($(Mb)+(0.10,0.20,0.46)$)--++(0,0,-1.30);
+    \node[redvec,anchor=north,fill=white,inner sep=1.5pt] at ($(Mb)+(0.10,0.20,-0.96)$) {$\vec F_b$};
+
+    \draw[vecF,line width=1.15pt] ($(Mh)+(0.20,-0.35,0.10)$)--++(0,1.14,0.92);
+    \node[redvec,anchor=south west,fill=white,inner sep=1.5pt] at ($(Mh)+(0.20,0.92,1.08)$) {$\vec F_h$};
+
+\end{tikzpicture}
+\caption{Espira triangular en un campo magn\'etico uniforme dirigido seg\'un $\hat x$. Las fuerzas se dibujan seg\'un la regla de la mano derecha.}
+\end{figure}
+
+
+\soluciontitulo
+
+\paso{2. Datos}
+\begin{equation*}
+    a=3\,\mathrm{cm}=0.03\,\mathrm m,
+    \qquad
+    b=4\,\mathrm{cm}=0.04\,\mathrm m,
+    \qquad
+    I=12\,\mathrm A,
+\end{equation*}
+\begin{equation*}
+    \alpha=45^\circ,
+    \qquad
+    \vec B=2.5\times10^{-3}\hat x\,\mathrm T.
+\end{equation*}
+
+\paso{3. Modelo f\'isico}
+Para cada lado rectil\'ineo:
+\begin{equation*}
+    \vec F=I\vec\ell\times\vec B.
+\end{equation*}
+Se toma el sentido de corriente indicado en la figura: baja por el lado vertical, avanza por el cateto $b$ y vuelve por la hipotenusa.
+
+\paso{4. An\'alisis geom\'etrico}
+Los vectores de longitud orientada son
+\begin{align*}
+    \vec\ell_a&=-a\hat z,\\
+    \vec\ell_b&=b(\cos\alpha\,\hat y+\sin\alpha\,\hat x),\\
+    \vec\ell_h&=a\hat z-b(\cos\alpha\,\hat y+\sin\alpha\,\hat x).
+\end{align*}
+La suma es nula, como debe ocurrir en una espira cerrada:
+\begin{equation*}
+    \vec\ell_a+\vec\ell_b+\vec\ell_h=\vec0.
+\end{equation*}
+Como $\vec B=B\hat x$, se usar\'an los productos
+\begin{equation*}
+    \hat z\times\hat x=\hat y,
+    \qquad
+    \hat y\times\hat x=-\hat z,
+    \qquad
+    \hat x\times\hat x=\vec0.
+\end{equation*}
+
+\paso{5. C\'alculos}
+\textbf{Lado vertical.}
+\begin{align*}
+    \vec F_a
+    &=I(-a\hat z)\times(B\hat x)\\
+    &=-IaB(\hat z\times\hat x)\\
+    &=-IaB\hat y.
+\end{align*}
+
+\textbf{Lado horizontal.}
+\begin{align*}
+    \vec F_b
+    &=Ib(\cos\alpha\,\hat y+\sin\alpha\,\hat x)\times(B\hat x)\\
+    &=IbB\cos\alpha(\hat y\times\hat x)+IbB\sin\alpha(\hat x\times\hat x)\\
+    &=-IbB\cos\alpha\,\hat z.
+\end{align*}
+
+\textbf{Hipotenusa.}
+\begin{align*}
+    \vec F_h
+    &=I\left[a\hat z-b(\cos\alpha\,\hat y+\sin\alpha\,\hat x)\right]\times(B\hat x)\\
+    &=IaB\hat y+IbB\cos\alpha\,\hat z.
+\end{align*}
+
+Ahora se sustituyen los datos. Primero,
+\begin{align*}
+    IB&=(12)(2.5\times10^{-3})\\
+      &=0.030\,\mathrm{N/m}.
+\end{align*}
+Luego,
+\begin{align*}
+    IaB&=(0.030)(0.03)=9.0\times10^{-4}\,\mathrm N,\\
+    IbB\cos45^\circ&=(0.030)(0.04)\frac{\sqrt2}{2}
+    \approx8.49\times10^{-4}\,\mathrm N.
+\end{align*}
+
+\paso{6. Resultado e interpretaci\'on f\'isica}
+\begin{align*}
+    \boxed{\vec F_a=-9.0\times10^{-4}\hat y\,\mathrm N},\\
+    \boxed{\vec F_b=-8.49\times10^{-4}\hat z\,\mathrm N},\\
+    \boxed{\vec F_h=9.0\times10^{-4}\hat y\,\mathrm N+8.49\times10^{-4}\hat z\,\mathrm N}.
+\end{align*}
+Como chequeo,
+\begin{equation*}
+    \vec F_a+\vec F_b+\vec F_h=\vec0.
+\end{equation*}
+Esto es coherente con una espira cerrada dentro de un campo magn\'etico uniforme: la fuerza total se anula, aunque puede quedar torque sobre la espira.
+
+\end{document}
