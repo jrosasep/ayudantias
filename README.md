@@ -2,7 +2,7 @@
 
 Repositorio personal para organizar, preservar y compartir material de ayudantías universitarias.
 
-El objetivo de este espacio es mantener un archivo ordenado de guías resueltas, notebooks pedagógicos, desarrollos en LaTeX, apuntes breves, pautas de pizarra y material de apoyo preparado para clases de ayudantía o estudio independiente. El repositorio está pensado como una carpeta viva: los documentos pueden corregirse, ampliarse y reutilizarse a medida que avanzan los cursos. Porque aparentemente incluso las ecuaciones necesitan una mudanza ordenada de vez en cuando.
+El objetivo de este espacio es mantener un archivo ordenado de guías resueltas, notebooks pedagógicos, desarrollos en LaTeX, apuntes breves, pautas de pizarra y material de apoyo preparado para clases de ayudantía o estudio independiente.
 
 Actualmente el material se concentra principalmente en dos cursos:
 
