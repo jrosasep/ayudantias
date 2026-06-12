@@ -1,0 +1,608 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{float}
+\usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathmorphing,decorations.pathreplacing,positioning}
+
+\geometry{letterpaper,left=1.85cm,right=1.85cm,top=2.1cm,bottom=2.1cm,headheight=15pt,headsep=0.45cm}
+
+\definecolor{headinggray}{RGB}{55,55,55}
+\definecolor{rulegray}{RGB}{150,150,150}
+\definecolor{fieldblue}{RGB}{30,90,180}
+\definecolor{currentorange}{RGB}{195,95,20}
+\definecolor{inducedgreen}{RGB}{20,120,80}
+\definecolor{wiregray}{RGB}{55,55,55}
+
+\titleformat{\section}[block]
+  {\Large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.9em}
+
+\titleformat{\subsection}[block]
+  {\large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.45em}
+
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Campos y Ondas 510245}
+\fancyhead[R]{Gu\'ia Faraday resuelta}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\soluciontitulo}{%
+  \par\medskip
+  \noindent{\large\bfseries Soluci\'on.}\par
+  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+}
+
+\newcommand{\ideaclave}[1]{%
+  \par\medskip
+  \noindent\textbf{Idea clave.} #1\par
+}
+
+\newcommand{\importante}[1]{%
+  \par\medskip
+  \noindent\textbf{Importante.} #1\par
+}
+
+\newcommand{\paso}[1]{%
+  \par\medskip
+  \noindent\textbf{#1}\par
+  \vspace{0.1em}%
+}
+
+\newcommand{\Bentra}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,-0.065)$)--($(#1,#2)+(0.065,0.065)$);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,0.065)$)--($(#1,#2)+(0.065,-0.065)$);
+}
+\newcommand{\Bsale}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \fill[fieldblue] (#1,#2) circle (0.03);
+}
+
+\begin{document}
+\shorthandoff{<>}
+
+\section*{Problema 1.}
+Un im\'an se mueve hacia una espira como indica la figura. Encuentre la direcci\'on de la corriente a trav\'es de la resistencia:
+\begin{enumerate}[label=(\alph*)]
+    \item mientras el im\'an cae hacia la espira;
+    \item despu\'es de que el im\'an ha pasado a trav\'es de la espira y se aleja de ella.
+\end{enumerate}
+
+\ideaclave{Este problema no requiere calcular la fem. La pregunta es s\'olo por el sentido de la corriente inducida. Por eso se debe identificar primero si el flujo externo aumenta o disminuye, y luego aplicar la ley de Lenz.}
+
+
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=0.82cm,y=0.82cm,>=Latex,font=\small]
+    % Figura hecha con coordenadas internas m\'as compactas y separadas.
+    % No se usa escalado global de una figura grande.
+
+    % Paneles
+    \draw[rulegray!50] (-0.45,-1.35) rectangle (5.05,4.60);
+    \draw[rulegray!50] (6.10,-1.35) rectangle (11.60,4.60);
+
+    % ---------------- Panel A ----------------
+    \begin{scope}[shift={(2.30,0)}]
+        \node[font=\bfseries] at (0,4.20) {(a) El im\'an se acerca};
+
+        % Im\'an: polo sur mirando a la espira
+        \draw[wiregray,thick,fill=gray!8] (-0.48,2.95) rectangle (0.48,3.75);
+        \node at (0,3.55) {$N$};
+        \node at (0,3.12) {$S$};
+        \draw[fieldblue,very thick,->] (1.05,3.75)--(1.05,2.95)
+            node[midway,right] {mov.};
+
+        % Flujo externo ascendente
+        \node[fieldblue,align=center] at (0,2.42) {$\Phi_B^{\rm ext}$ ascendente\\\textbf{aumenta}};
+
+        % Espira
+        \draw[wiregray,very thick] (0,0.70) circle (1.05);
+        \draw[currentorange,very thick,->] (-0.74,1.45) arc (135:-70:1.05);
+
+        % Campo externo saliendo del plano: anillo de 8 simbolos
+        \foreach \x/\y in {0.620/0.700,0.438/1.138,0/1.320,-0.438/1.138,-0.620/0.700,-0.438/0.262,0/0.080,0.438/0.262}{\Bsale{\x}{\y}}
+
+        % Campo inducido entrando: 2 simbolos centrales, separados
+        \foreach \x in {-0.21,0.21}{
+            \draw[inducedgreen,line width=0.95pt] ($(\x,0.70)+(-0.10,-0.10)$)--($(\x,0.70)+(0.10,0.10)$);
+            \draw[inducedgreen,line width=0.95pt] ($(\x,0.70)+(-0.10,0.10)$)--($(\x,0.70)+(0.10,-0.10)$);
+        }
+
+        \node[inducedgreen,align=center] at (0,-0.70) {$\vec B_{\rm ind}$ entra};
+        \node[currentorange,align=center] at (0,-1.10) {$I_{\rm ind}$ horario};
+    \end{scope}
+
+    % ---------------- Panel B ----------------
+    \begin{scope}[shift={(8.85,0)}]
+        \node[font=\bfseries] at (0,4.20) {(b) El im\'an se aleja};
+
+        \draw[wiregray,thick,fill=gray!8] (-0.48,2.95) rectangle (0.48,3.75);
+        \node at (0,3.55) {$N$};
+        \node at (0,3.12) {$S$};
+        \draw[fieldblue,very thick,->] (1.05,2.95)--(1.05,3.75)
+            node[midway,right] {mov.};
+
+        \node[fieldblue,align=center] at (0,2.42) {$\Phi_B^{\rm ext}$ ascendente\\\textbf{disminuye}};
+
+        \draw[wiregray,very thick] (0,0.70) circle (1.05);
+        \draw[currentorange,very thick,->] (0.74,1.45) arc (45:250:1.05);
+
+        % Campo externo saliendo del plano: anillo de 8 simbolos
+        \foreach \x/\y in {0.620/0.700,0.438/1.138,0/1.320,-0.438/1.138,-0.620/0.700,-0.438/0.262,0/0.080,0.438/0.262}{\Bsale{\x}{\y}}
+
+        % Campo inducido saliendo: 2 simbolos centrales, separados
+        \foreach \x in {-0.21,0.21}{
+            \draw[inducedgreen,line width=0.75pt] (\x,0.70) circle (0.12);
+            \fill[inducedgreen] (\x,0.70) circle (0.040);
+        }
+
+        \node[inducedgreen,align=center] at (0,-0.70) {$\vec B_{\rm ind}$ sale};
+        \node[currentorange,align=center] at (0,-1.10) {$I_{\rm ind}$ antihorario};
+    \end{scope}
+\end{tikzpicture}
+\caption{Vista superior de la espira. El s\'imbolo $\odot$ representa campo saliendo del plano y $\times$ representa campo entrando al plano. La corriente inducida se escoge para oponerse al \textbf{cambio} de flujo, no al campo externo por s\'i solo.}
+\label{fig:p1_lenz}
+\end{figure}
+
+
+
+
+\soluciontitulo
+
+\paso{Caso (a): el im\'an cae hacia la espira.}
+El polo sur del im\'an se acerca a la espira. En la regi\'on de la espira, el campo magn\'etico externo producido por el im\'an apunta hacia arriba. Como el im\'an se acerca, ese flujo ascendente aumenta:
+\begin{equation*}
+    \Phi_B^{\rm ext}\ \text{ascendente aumenta}.
+\end{equation*}
+
+Por la ley de Lenz, la espira induce un campo que \textbf{se opone a ese aumento}. Luego,
+\begin{equation*}
+    \vec B_{\rm ind}\ \text{debe apuntar hacia abajo}.
+\end{equation*}
+
+Usando la regla de la mano derecha, un campo inducido hacia abajo corresponde a una \textbf{corriente horaria} vista desde arriba de la espira. Por tanto,
+\begin{equation*}
+    \boxed{I_{\rm ind}\ \text{circula en sentido horario}.}
+\end{equation*}
+
+\paso{Caso (b): el im\'an ya atraves\'o la espira y se aleja.}
+Despu\'es de atravesar la espira, el flujo externo ascendente disminuye:
+\begin{equation*}
+    \Phi_B^{\rm ext}\ \text{ascendente disminuye}.
+\end{equation*}
+
+La espira intenta sostener ese flujo. Por eso produce un \textbf{campo inducido ascendente}:
+\begin{equation*}
+    \vec B_{\rm ind}\ \text{debe apuntar hacia arriba}.
+\end{equation*}
+
+Un campo inducido hacia arriba corresponde a una \textbf{corriente antihoraria} vista desde arriba. As\'i,
+\begin{equation*}
+    \boxed{I_{\rm ind}\ \text{circula en sentido antihorario}.}
+\end{equation*}
+
+\importante{La frase correcta no es ``la espira se opone al im\'an''. Lo correcto es: la espira se opone al cambio del flujo magn\'etico que atraviesa su superficie.}
+
+
+\clearpage
+
+\section*{Problema 2.}
+Encuentre la direcci\'on de la corriente en la resistencia de la bobina secundaria:
+\begin{enumerate}[label=(\alph*)]
+    \item en el instante en que se cierra el interruptor;
+    \item despu\'es de que el interruptor ha estado cerrado durante varios minutos;
+    \item en el instante en que se abre el interruptor.
+\end{enumerate}
+
+\ideaclave{La bobina secundaria no est\'a conectada a la bater\'ia. Por tanto, cualquier corriente en la secundaria aparece por inducci\'on mutua. La pregunta central es si el flujo magn\'etico que atraviesa la bobina secundaria est\'a cambiando.}
+
+
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=0.88cm,y=0.88cm,>=Latex,font=\small]
+    % Dos bobinas con objetos reubicados, no s\'olo escalados.
+
+    % N\'ucleos
+    \draw[wiregray,thick] (0.25,3.00) rectangle (3.95,3.36);
+    \draw[wiregray,thick] (6.35,3.00) rectangle (10.05,3.36);
+
+    % Bobinas
+    \draw[wiregray,very thick,decorate,decoration={coil,aspect=0.42,segment length=7.5pt,amplitude=7.2pt}] (0.95,3.36)--(3.25,3.36);
+    \draw[wiregray,very thick,decorate,decoration={coil,aspect=0.42,segment length=7.5pt,amplitude=7.2pt}] (7.05,3.36)--(9.35,3.36);
+
+    % Circuito primario
+    \draw[wiregray,thick] (0.95,3.02)--(0.95,1.25);
+    \draw[wiregray,thick] (3.25,3.02)--(3.25,1.25);
+    \draw[wiregray,thick] (0.95,1.25)--(1.50,1.25);
+    \draw[wiregray,thick] (2.52,1.25)--(3.25,1.25);
+
+    % Interruptor
+    \draw[wiregray,fill=white,thick] (1.50,1.25) circle (0.06);
+    \draw[wiregray,fill=white,thick] (2.10,1.25) circle (0.06);
+    \draw[wiregray,thick] (1.56,1.31)--(2.00,1.82);
+    \node[left] at (1.42,1.50) {$S$};
+    \draw[wiregray,thick] (2.10,1.25)--(2.35,1.25);
+
+    % Bater\'ia
+    \draw[wiregray,thick] (2.35,0.86)--(2.35,1.64);
+    \draw[wiregray,thick] (2.72,0.68)--(2.72,1.82);
+    \node at (2.54,0.32) {$\mathcal E$};
+    \node[align=center] at (2.10,-0.16) {bobina primaria};
+
+    % Circuito secundario
+    \draw[wiregray,thick] (7.05,3.02)--(7.05,1.12);
+    \draw[wiregray,thick] (9.35,3.02)--(9.35,1.12);
+    \draw[wiregray,thick] (7.05,1.12)--(7.55,1.12);
+    \draw[wiregray,thick] (8.85,1.12)--(9.35,1.12);
+    \draw[wiregray,thick] (7.55,1.12)--(7.70,1.43)--(7.85,0.82)--(8.00,1.43)--(8.15,0.82)--(8.30,1.43)--(8.45,0.82)--(8.60,1.43)--(8.75,0.82)--(8.85,1.12);
+    \node at (8.20,0.32) {$R$};
+    \node[align=center] at (8.20,-0.16) {bobina secundaria};
+
+    % Flujo acoplado: centrado y con espacio
+    \draw[fieldblue,very thick,->] (4.35,3.18)--(5.95,3.18);
+    \node[fieldblue,above] at (5.15,3.28) {flujo acoplado};
+
+    % Corrientes inducidas, puestas bajo la bobina para no chocar con el resistor
+    \draw[currentorange,very thick,->] (9.20,2.55)--(7.25,2.55);
+    \node[currentorange,right] at (9.28,2.55) {al cerrar};
+    \draw[inducedgreen,very thick,->] (7.25,1.90)--(9.20,1.90);
+    \node[inducedgreen,right] at (9.28,1.90) {al abrir};
+\end{tikzpicture}
+\caption{Inducci\'on mutua entre bobinas. La separaci\'on espacial permite distinguir el circuito primario, el flujo acoplado y la corriente inducida en la resistencia secundaria.}
+\label{fig:p2_mutua}
+\end{figure}
+
+
+
+
+\soluciontitulo
+
+\paso{Caso (a): instante en que se cierra el interruptor.}
+Al cerrar el interruptor, la corriente en la bobina primaria \textbf{crece desde cero} hasta su valor estacionario:
+\begin{equation*}
+    I_p:0\longrightarrow I_0.
+\end{equation*}
+
+Al crecer $I_p$, tambi\'en crece el campo magn\'etico producido por la primaria. Por tanto, el flujo magn\'etico que atraviesa la secundaria aumenta:
+\begin{equation*}
+    \Phi_{B,p}\ \text{aumenta en la bobina secundaria}.
+\end{equation*}
+
+La bobina secundaria induce una corriente cuyo campo se opone a ese aumento. Con el sentido de enrollamiento mostrado en el enunciado, esto corresponde a corriente por la resistencia de derecha a izquierda:
+\begin{equation*}
+    \boxed{I_s\ \text{por la resistencia de derecha a izquierda}.}
+\end{equation*}
+
+\paso{Caso (b): interruptor cerrado durante varios minutos.}
+Despu\'es de un tiempo largo, la corriente primaria \textbf{ya no cambia}:
+\begin{equation*}
+    I_p=\text{constante}.
+\end{equation*}
+
+Entonces el flujo magn\'etico que atraviesa la secundaria tambi\'en es constante:
+\begin{equation*}
+    \frac{d\Phi_B}{dt}=0.
+\end{equation*}
+
+Por la ley de Faraday,
+\begin{equation*}
+    \varepsilon_s=-N_s\frac{d\Phi_B}{dt}=0.
+\end{equation*}
+
+Luego, no hay corriente inducida:
+\begin{equation*}
+    \boxed{I_s=0.}
+\end{equation*}
+
+\paso{Caso (c): instante en que se abre el interruptor.}
+Al abrir el interruptor, la corriente primaria cae a cero:
+\begin{equation*}
+    I_p:I_0\longrightarrow 0.
+\end{equation*}
+
+El flujo magn\'etico producido por la primaria disminuye. La secundaria intenta sostener ese flujo, de modo que el sentido de la corriente inducida se invierte respecto del caso de cierre:
+\begin{equation*}
+    \boxed{I_s\ \text{por la resistencia de izquierda a derecha}.}
+\end{equation*}
+
+\importante{Un campo magn\'etico constante no induce corriente. Lo que induce corriente es un flujo magn\'etico variable.}
+
+
+\clearpage
+
+\section*{Problema 3.}
+Una espira plana conductora que consta de una sola vuelta, con un \textit{\'area} de secci\'on transversal de $8.0\,\mathrm{cm^2}$, es perpendicular a un campo magn\'etico cuya magnitud aumenta uniformemente de $0.5\,\mathrm{T}$ a $2.5\,\mathrm{T}$ en $1.0\,\mathrm{s}$. Determine la corriente inducida resultante si la espira tiene una resistencia de $2.0\,\Omega$.
+
+\ideaclave{Aqu\'i el campo magn\'etico es uniforme y perpendicular a la espira. Por eso el flujo se escribe directamente como $\Phi_B=BA$. No hace falta integrar.}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=0.90cm,y=0.90cm,>=Latex,font=\small]
+    \draw[very thick] (0,0) circle (1.05);
+    \draw[currentorange,thick,->] (0,1.05) arc (90:405:1.05);
+    \foreach \x/\y in {-0.45/-0.45,0/-0.45,0.45/-0.45,-0.45/0,0/0,0.45/0,-0.25/0.45,0.25/0.45}{\Bentra{\x}{\y}}
+    \node[align=center] at (0,-1.70) {campo uniforme\\perpendicular};
+    \draw[fieldblue,very thick,->] (1.75,-0.82)--(3.75,-0.82) node[midway,below] {$\Delta t=1.0\,\mathrm{s}$};
+    \node[align=center] at (2.75,0.18) {$B_i=0.5\,\mathrm{T}$\\$B_f=2.5\,\mathrm{T}$};
+    \draw[<->] (-1.05,1.34)--(1.05,1.34) node[midway,above] {$A=8.0\,\mathrm{cm^2}$};
+\end{tikzpicture}
+\caption{Espira de una vuelta en un campo magn\'etico uniforme cuya magnitud cambia linealmente con el tiempo.}
+\label{fig:p3_uniforme}
+\end{figure}
+
+\soluciontitulo
+
+Los datos son
+\begin{equation*}
+    A=8.0\,\mathrm{cm^2},\qquad
+    B_i=0.5\,\mathrm{T},\qquad
+    B_f=2.5\,\mathrm{T},\qquad
+    \Delta t=1.0\,\mathrm{s},\qquad
+    R=2.0\,\Omega.
+\end{equation*}
+
+Primero se convierte el \textit{\'area} a \textbf{unidades SI}:
+\begin{equation*}
+    A=8.0\,\mathrm{cm^2}=8.0\times10^{-4}\,\mathrm{m^2}.
+\end{equation*}
+
+Como el campo es \textbf{perpendicular} a la espira,
+\begin{equation*}
+    \Phi_B=BA.
+\end{equation*}
+
+La magnitud de la fem inducida es
+\begin{align*}
+    |\varepsilon|
+    &=\left|\frac{\Delta\Phi_B}{\Delta t}\right| \\
+    &=A\left|\frac{\Delta B}{\Delta t}\right|.
+\end{align*}
+
+La variaci\'on del campo magn\'etico es
+\begin{equation*}
+    \Delta B=B_f-B_i=2.5\,\mathrm{T}-0.5\,\mathrm{T}=2.0\,\mathrm{T}.
+\end{equation*}
+
+Luego,
+\begin{align*}
+    |\varepsilon|
+    &=(8.0\times10^{-4})\frac{2.0}{1.0}\,\mathrm{V} \\
+    &=1.6\times10^{-3}\,\mathrm{V}.
+\end{align*}
+
+La corriente inducida se obtiene con la \textbf{ley de Ohm}:
+\begin{align*}
+    I_{\rm ind}
+    &=\frac{|\varepsilon|}{R} \\
+    &=\frac{1.6\times10^{-3}}{2.0}\,\mathrm{A} \\
+    &=8.0\times10^{-4}\,\mathrm{A} \\
+    &=0.8\,\mathrm{mA}.
+\end{align*}
+
+\importante{El signo de Faraday se usa para fijar el sentido de la corriente inducida. Como este problema s\'olo pide la corriente resultante, basta entregar la magnitud.}
+
+
+\clearpage
+
+\section*{Problema 4.}
+Una espira rectangular de ancho $w$ y largo $L$ y un alambre largo y recto que transporta una corriente se encuentran sobre una mesa como se muestra en la figura.
+\begin{enumerate}[label=(\alph*)]
+    \item Determine el flujo magn\'etico a trav\'es de la espira debido a la corriente $I$.
+    \item Suponga que la corriente cambia con el tiempo seg\'un $I=a+bt$, donde $a$ y $b$ son constantes. Determine la fem inducida si $b=10\,\mathrm{A/s}$, $h=1.0\,\mathrm{cm}$, $w=10.0\,\mathrm{cm}$ y $L=100\,\mathrm{cm}$. Indique la direcci\'on de la corriente inducida.
+\end{enumerate}
+
+\ideaclave{Este problema \textbf{no se resuelve con $\Phi_B=BA$} porque el campo del alambre no es uniforme. Cerca del alambre el campo es mayor y lejos del alambre es menor. Por eso se integra el flujo sobre la superficie de la espira.}
+
+
+
+
+
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=0.72cm,y=0.72cm,>=Latex,font=\small]
+    % Figura del problema 4 corregida desde coordenadas internas.
+    % r se mide desde el alambre hasta la cara superior de la franja.
+    % La cara inferior queda a distancia r+dr.
+
+    % Coordenadas principales
+    \coordinate (wireL) at (0.00,6.20);
+    \coordinate (wireR) at (15.45,6.20);
+    \coordinate (loopTL) at (4.20,3.60);
+    \coordinate (loopBR) at (13.10,1.00);
+    \coordinate (stripTL) at (4.20,2.60);
+    \coordinate (stripBR) at (13.10,2.15);
+
+    % Alambre largo y corriente
+    \draw[wiregray,very thick] (wireL)--(wireR);
+    \draw[currentorange,very thick,->] (6.30,6.20)--(8.90,6.20)
+        node[midway,above=3pt] {$I(t)$};
+
+    % Espira rectangular
+    \draw[wiregray,very thick] (loopTL) rectangle (loopBR);
+
+    % Campo magnetico entrando al plano. Mas denso cerca del alambre (arriba).
+    \foreach \x in {4.65,5.45,6.25,7.05,7.85,8.65,9.45,10.25,11.05,11.85,12.65}{\Bentra{\x}{3.10}}
+    \foreach \x in {4.90,6.30,7.70,9.10,10.50,11.90}{\Bentra{\x}{1.85}}
+    \foreach \x in {5.30,6.90,11.30,12.50}{\Bentra{\x}{1.25}}
+    \node[wiregray] at (8.80,1.25) {espira};
+
+    % Franja diferencial dA = L dr
+    \fill[inducedgreen!10] (stripTL) rectangle (stripBR);
+    \draw[inducedgreen!70!black,very thick] (stripTL) rectangle (stripBR);
+    \node[inducedgreen!70!black,fill=white,inner sep=1.5pt] at (8.65,2.375) {$dA=L\,dr$};
+
+    % Espesor dr de la franja, indicado en el borde derecho.
+    \draw[inducedgreen!70!black,thick,<->] (13.65,2.60)--(13.65,2.15)
+        node[midway,right,fill=white,inner sep=1pt] {$dr$};
+
+    % Dimensiones de la espira.
+    \draw[<->,thick] (4.20,0.45)--(13.10,0.45) node[midway,below] {$L$};
+    \draw[<->,thick] (14.75,3.60)--(14.75,1.00) node[midway,right] {$w$};
+
+    % Lineas guia (lineas de extensi\'on hacia las flechas h y r).
+    \draw[dashed,rulegray] (1.30,3.60)--(4.20,3.60);
+    \draw[dashed,rulegray] (0.40,2.60)--(4.20,2.60);
+
+    % h: distancia del alambre al borde superior de la espira.
+    \draw[<->,thick] (1.30,6.20)--(1.30,3.60) node[midway,left] {$h$};
+
+    % r: distancia del alambre a la cara superior de la franja.
+    \draw[<->,thick] (0.40,6.20)--(0.40,2.60) node[midway,left] {$r$};
+
+    % Identificacion de las dos caras de la franja: r y r+dr.
+    \node[anchor=east,fill=white,inner sep=1pt] at (4.10,2.60) {cara en $r$};
+    \node[anchor=east,fill=white,inner sep=1pt] at (4.10,2.15) {cara en $r+dr$};
+
+    % Notas fisicas, en zona libre.
+    \node[align=left] at (6.80,4.85) {variable de integraci\'on:\\[-1mm] $h\le r\le h+w$};
+    \node[align=left] at (11.40,4.85) {$B(r)=\dfrac{\mu_0 I}{2\pi r}$};
+\end{tikzpicture}
+\caption{Construcci\'on del elemento de \textit{\'area} para el flujo. La coordenada $r$ se mide desde el alambre hasta la cara superior de la franja. La cara inferior est\'a a distancia $r+dr$, por lo que el espesor de la franja es $dr$ y su \textit{\'area} es $dA=L\,dr$. La variable de integraci\'on es $r\in[h,h+w]$.}
+\label{fig:p4_alambre}
+\end{figure}
+
+
+
+
+
+\soluciontitulo
+
+\paso{Parte (a): flujo magn\'etico.}
+El campo magn\'etico de un \textbf{alambre largo y recto} a una distancia $r$ es
+\begin{equation*}
+    B(r)=\frac{\mu_0 I}{2\pi r}.
+\end{equation*}
+
+Se toma una \textbf{franja diferencial horizontal} de largo $L$ y espesor $dr$, paralela al alambre. La coordenada que recorre la espira es $r$; \textbf{no se escribe $dr\in[h,h+w]$}. El diferencial $dr$ s\'olo representa el espesor infinitesimal de la franja. Entonces
+\begin{equation*}
+    dA=L\,dr.
+\end{equation*}
+
+El flujo diferencial a trav\'es de esa franja es
+\begin{align*}
+    d\Phi_B
+    &=B(r)dA \\
+    &=\frac{\mu_0 I}{2\pi r}L\,dr.
+\end{align*}
+
+Como la espira empieza a distancia $h$ del alambre y termina a distancia $h+w$, se integra usando \textbf{$r$ como variable de integraci\'on} en el intervalo \textbf{$r\in[h,h+w]$}:
+\begin{align*}
+    \Phi_B
+    &=\int_h^{h+w}\frac{\mu_0 I}{2\pi r}L\,dr \\
+    &=\frac{\mu_0 I L}{2\pi}\int_h^{h+w}\frac{dr}{r} \\
+    &=\frac{\mu_0 I L}{2\pi}\left[\ln r\right]_h^{h+w} \\
+    &=\frac{\mu_0 I L}{2\pi}\ln\left(\frac{h+w}{h}\right).
+\end{align*}
+
+Por tanto,
+\begin{equation*}
+    \boxed{\Phi_B=\frac{\mu_0 I L}{2\pi}\ln\left(\frac{h+w}{h}\right).}
+\end{equation*}
+
+\paso{Parte (b): fem inducida si $I=a+bt$.}
+Como la corriente depende del tiempo,
+\begin{equation*}
+    I(t)=a+bt.
+\end{equation*}
+
+Sustituyendo en el flujo,
+\begin{equation*}
+    \Phi_B(t)=\frac{\mu_0 L}{2\pi}\ln\left(\frac{h+w}{h}\right)(a+bt).
+\end{equation*}
+
+Derivando respecto del tiempo,
+\begin{equation*}
+    \frac{d\Phi_B}{dt}=\frac{\mu_0 Lb}{2\pi}\ln\left(\frac{h+w}{h}\right).
+\end{equation*}
+
+Por Faraday,
+\begin{equation*}
+    \varepsilon=-\frac{d\Phi_B}{dt}.
+\end{equation*}
+
+Luego,
+\begin{equation*}
+    \boxed{\varepsilon=-\frac{\mu_0 Lb}{2\pi}\ln\left(\frac{h+w}{h}\right).}
+\end{equation*}
+
+Ahora pasamos los datos a unidades SI:
+\begin{equation*}
+    b=10\,\mathrm{A/s},\qquad
+    h=1.0\times10^{-2}\,\mathrm{m},\qquad
+    w=1.0\times10^{-1}\,\mathrm{m},\qquad
+    L=1.0\,\mathrm{m}.
+\end{equation*}
+
+Adem\'as,
+\begin{equation*}
+    \frac{\mu_0}{2\pi}=2.0\times10^{-7}\,\mathrm{T\,m/A}.
+\end{equation*}
+
+Sustituyendo,
+\begin{align*}
+    \varepsilon
+    &=-(2.0\times10^{-7})(1.0)(10)
+    \ln\left(\frac{0.01+0.10}{0.01}\right)\,\mathrm{V} \\
+    &=-2.0\times10^{-6}\ln(11)\,\mathrm{V}.
+\end{align*}
+
+Como $\ln(11)\approx2.40$,
+\begin{equation*}
+    \varepsilon\approx -4.8\times10^{-6}\,\mathrm{V}.
+\end{equation*}
+
+Entonces,
+\begin{equation*}
+    \boxed{\varepsilon\approx -4.8\,\mu\mathrm{V}.}
+\end{equation*}
+
+\paso{Direcci\'on de la corriente inducida.}
+Si la corriente del alambre va hacia la derecha, la regla de la mano derecha indica que, en la regi\'on de la espira, el campo magn\'etico del alambre \textbf{entra al plano de la hoja}.
+
+Como $b>0$, la corriente del alambre aumenta. Por tanto, el flujo entrando al plano tambi\'en aumenta:
+\begin{equation*}
+    \Phi_B^{\rm ext}\ \text{entrando al plano aumenta}.
+\end{equation*}
+
+Por la ley de Lenz, la espira debe crear un campo inducido saliendo del plano. Un campo saliendo del plano corresponde a una corriente antihoraria:
+\begin{equation*}
+    \boxed{I_{\rm ind}\ \text{circula en sentido antihorario}.}
+\end{equation*}
+
+\importante{Con los datos escritos en el enunciado, la fem queda del orden de microvoltios: $|\varepsilon|\approx4.8\,\mu\mathrm{V}$. Si una pauta entrega $4.8\,\mathrm{mV}$, probablemente hay una discrepancia en alguna unidad o dato num\'erico.}
+
+\end{document}

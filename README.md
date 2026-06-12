@@ -1,41 +1,48 @@
 # Ayudantías
 
-Repositorio personal para organizar, preservar y compartir material de ayudantías universitarias.
-
-El objetivo de este espacio es mantener un archivo ordenado de guías resueltas, notebooks pedagógicos, desarrollos en LaTeX, apuntes breves, pautas de pizarra y material de apoyo preparado para clases de ayudantía o estudio independiente.
-
-Actualmente el material se concentra principalmente en dos cursos:
+Repositorio personal para organizar el material que preparo, adapto o utilizo en ayudantías universitarias.
+Actualmente este repositorio reúne material principalmente de dos cursos:
 
 - **Campos y Ondas**
 - **Física Matemática 2**
 
-## Contenido general
-
-El repositorio incluye, según el curso y la unidad:
-
-- resoluciones en **PDF** listas para lectura o uso en clase;
-- archivos fuente en **LaTeX** para editar, corregir o reutilizar;
-- notebooks de **Jupyter** con cálculos simbólicos, visualizaciones y desarrollo paso a paso;
-- material de estudio orientado a reforzar conceptos físicos y matemáticos;
-- esquemas de organización para futuras ayudantías, guías y pautas de pizarra.
-
-## Estructura actual
+## Estructura
 
 ```text
 ayudantias/
 ├── campos-y-ondas/
 │   ├── README.md
-│   ├── guia-2/
-│   │   ├── guia2_campos_electricos_material_estudio.ipynb
-│   │   ├── guia2_resolucion.pdf
-│   │   └── guia2_resolucion.tex
-│   ├── guia-3-guia-4/
-│   │   ├── guia3_guia4_resolucion.pdf
-│   │   └── guia3_guia4_resolucion.tex
-│   └── guia-6/
-│       ├── guia_6_resolucion.pdf
-│       └── guia_6_resolucion.tex
+│   └── guia-2/
+│       ├── guia2_campos_electricos_material_estudio.ipynb
+│       └── guia2_resolucion.tex
 └── fisica-matematica-2/
     ├── README.md
     └── ayudantia-2/
         └── ayudantia_convolucion.ipynb
+```
+
+## Contenido actual
+
+### Campos y Ondas
+
+En `campos-y-ondas/guia-2/` se incluye material asociado a los problemas vistos en las clases practicas del curso:
+
+- archivos **.tex** con la resolución de las guías.
+
+### Física Matemática 2
+
+En `fisica-matematica-2/ayudantia-2/` se incluye actualmente un notebook sobre el **uso del teorema de convolución** en transformadas de Fourier.
+
+Este material está pensado como apoyo para ayudantías del curso, especialmente en temas de:
+
+- transformada de Fourier;
+- teorema de convolución;
+- cálculo explícito de integrales;
+- verificación simbólica con **SymPy**;
+- visualización complementaria mediante gráficos.
+
+## Notas
+
+- Los archivos pueden seguir siendo corregidos, ampliados y reorganizados con el tiempo.
+- Algunos materiales pueden estar pensados específicamente para una guía, una ayudantía o una sección particular.
+

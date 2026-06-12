@@ -1,0 +1,603 @@
+\documentclass[12pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{amsmath,amssymb,mathrsfs}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{microtype}
+\usepackage{lmodern}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{titlesec}
+\usepackage{caption}
+\usepackage{float}
+\usetikzlibrary{arrows.meta,calc,decorations.pathreplacing}
+
+\geometry{letterpaper,left=1.85cm,right=1.85cm,top=2.1cm,bottom=2.1cm,headheight=15pt,headsep=0.45cm}
+
+\definecolor{headinggray}{RGB}{55,55,55}
+\definecolor{rulegray}{RGB}{150,150,150}
+\definecolor{waveblue}{RGB}{29,78,216}
+\definecolor{waveorange}{RGB}{180,83,9}
+\definecolor{wavegreen}{RGB}{21,128,61}
+\definecolor{wavered}{RGB}{185,28,28}
+
+\titleformat{\section}[block]
+  {\Large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+  [\vspace{0.2em}\color{rulegray}\titlerule]
+\titlespacing*{\section}{0pt}{1.1em}{0.9em}
+
+\titleformat{\subsection}[block]
+  {\large\bfseries\color{headinggray}}
+  {}
+  {0pt}
+  {}
+\titlespacing*{\subsection}{0pt}{0.8em}{0.45em}
+
+\captionsetup{font=small,labelfont=bf}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Campos y Ondas 510245}
+\fancyhead[R]{Gu\'ia Ondas resuelta}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\soluciontitulo}{%
+  \par\medskip
+  \noindent{\large\bfseries Soluci\'on.}\par
+  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+}
+
+\newcommand{\ideaclave}[1]{%
+  \par\medskip
+  \noindent\textbf{Idea clave.} #1\par
+}
+
+\newcommand{\importante}[1]{%
+  \par\medskip
+  \noindent\textbf{Importante.} #1\par
+}
+
+\newcommand{\paso}[1]{%
+  \par\medskip
+  \noindent\textbf{#1}\par
+  \vspace{0.1em}%
+}
+
+\tikzset{
+    >=Latex,
+    eje/.style={->,thick,headinggray},
+    onda/.style={very thick,waveblue},
+    ondados/.style={very thick,waveorange},
+    ondaaux/.style={thick,wavegreen},
+    vec/.style={->,very thick,wavered},
+    guia/.style={densely dashed,rulegray},
+    etiqueta/.style={font=\footnotesize},
+    nota/.style={draw=rulegray,fill=white,rounded corners=1.5pt,align=left,font=\footnotesize,inner xsep=6pt,inner ysep=5pt,line width=0.35pt}
+}
+
+\begin{document}
+\shorthandoff{<>}
+
+\section*{Problema 1.}
+La ecuaci\'on de una onda transversal sinusoidal unidimensional es
+\begin{equation*}
+    y(x,t)=10\sin\left[2\pi(0.01x-2.0t)\right],
+\end{equation*}
+con $x$ e $y$ medidos en cent\'imetros y $t$ en segundos. Determinar:
+\begin{enumerate}[label=(\alph*)]
+    \item La amplitud, la frecuencia, la longitud de onda y la velocidad de propagaci\'on.
+    \item La velocidad de vibraci\'on m\'axima de una part\'icula situada a $x=1\,\mathrm{m}$ del origen. Determinar tambi\'en hacia d\'onde se propaga la onda.
+\end{enumerate}
+
+\ideaclave{La ecuaci\'on ya est\'a escrita en una forma casi directa para leer sus par\'ametros. La compararemos con
+\begin{equation*}
+    y(x,t)=A\sin\left[2\pi\left(\frac{x}{\lambda}-ft\right)\right].
+\end{equation*}
+\textbf{El movimiento de la onda ocurre a lo largo de $x$, pero cada part\'icula del medio vibra en la direcci\'on $y$.} Por eso, para la velocidad de vibraci\'on se debe derivar $y(x,t)$ respecto del tiempo.}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=0.085cm,y=0.08cm,font=\footnotesize]
+    \draw[eje] (-5,0)--(122,0) node[right] {$x\, (\mathrm{cm})$};
+    \draw[eje] (0,-16)--(0,18) node[above] {$y\, (\mathrm{cm})$};
+    \draw[onda,domain=0:112,samples=230] plot(\x,{10*sin(3.6*\x)});
+
+    \draw[guia] (0,10)--(100,10);
+    \draw[guia] (0,-10)--(112,-10);
+    \draw[guia] (25,10)--(25,0);
+    \draw[guia] (100,0)--(100,13.5);
+    \draw[<->,thick] (0,-13)--(100,-13) node[midway,below=2pt] {$\lambda=100\,\mathrm{cm}$};
+    \draw[<->,thick] (-4,0)--(-4,10) node[midway,left=1pt] {$A=10\,\mathrm{cm}$};
+
+    \filldraw[waveorange] (100,0) circle (1.6);
+    \node[anchor=east,waveorange] at (96,4.5) {$x=1\,\mathrm{m}$};
+    \draw[vec] (100,0)--(100,13) node[right] {$v_y$};
+    \draw[->,very thick,wavegreen] (56,15)--(82,15) node[midway,above] {$+x$};
+\end{tikzpicture}
+\caption{La onda se desplaza hacia $+x$, mientras el punto de la cuerda en $x=1\,\mathrm{m}$ vibra transversalmente.}
+\label{fig:p1_onda}
+\end{figure}
+
+\soluciontitulo
+
+\paso{Parte (a): par\'ametros de la onda.}
+Comparando
+\begin{equation*}
+    y(x,t)=10\sin\left[2\pi(0.01x-2.0t)\right]
+\end{equation*}
+con
+\begin{equation*}
+    y(x,t)=A\sin\left[2\pi\left(\frac{x}{\lambda}-ft\right)\right],
+\end{equation*}
+se obtiene directamente
+\begin{equation*}
+    A=10\,\mathrm{cm},
+    \qquad
+    f=2.0\,\mathrm{Hz}.
+\end{equation*}
+Adem\'as,
+\begin{equation*}
+    0.01=\frac{1}{\lambda},
+\end{equation*}
+por lo tanto
+\begin{equation*}
+    \lambda=\frac{1}{0.01}=100\,\mathrm{cm}=1\,\mathrm{m}.
+\end{equation*}
+La rapidez de propagaci\'on es
+\begin{equation*}
+    v=\lambda f=(100\,\mathrm{cm})(2.0\,\mathrm{s}^{-1})=200\,\mathrm{cm/s}.
+\end{equation*}
+En unidades SI,
+\begin{equation*}
+    v=2\,\mathrm{m/s}.
+\end{equation*}
+Por tanto,
+\begin{equation*}
+    \boxed{A=10\,\mathrm{cm}},\qquad
+    \boxed{f=2.0\,\mathrm{Hz}},\qquad
+    \boxed{\lambda=100\,\mathrm{cm}},\qquad
+    \boxed{v=2\,\mathrm{m/s}}.
+\end{equation*}
+
+\paso{Parte (b): velocidad de vibraci\'on m\'axima y sentido de propagaci\'on.}
+Para calcular la velocidad transversal de una part\'icula del medio, derivamos respecto del tiempo:
+\begin{align*}
+    v_y(x,t)
+    &=\frac{\partial y}{\partial t}\\
+    &=10\cos\left[2\pi(0.01x-2.0t)\right]\,2\pi(-2.0)\\
+    &=-40\pi\cos\left[2\pi(0.01x-2.0t)\right].
+\end{align*}
+Como el coseno toma valores entre $-1$ y $1$, la rapidez transversal m\'axima es
+\begin{equation*}
+    v_{y,\max}=40\pi\,\mathrm{cm/s}.
+\end{equation*}
+El punto pedido est\'a en $x=1\,\mathrm{m}=100\,\mathrm{cm}$. Sustituyendo,
+\begin{align*}
+    v_y(100,t)
+    &=-40\pi\cos\left[2\pi(0.01\cdot100-2.0t)\right]\\
+    &=-40\pi\cos\left[2\pi(1-2.0t)\right].
+\end{align*}
+Su valor m\'aximo sigue siendo $40\pi\,\mathrm{cm/s}$, porque el factor espacial s\'olo cambia la fase de oscilaci\'on.
+
+Finalmente, la fase es
+\begin{equation*}
+    \Phi(x,t)=2\pi(0.01x-2.0t).
+\end{equation*}
+Si se sigue un punto de fase constante,
+\begin{equation*}
+    0.01x-2.0t=C.
+\end{equation*}
+De aqu\'i,
+\begin{equation*}
+    x=\frac{C+2.0t}{0.01}.
+\end{equation*}
+Como $x$ aumenta cuando aumenta $t$, \textbf{la onda se propaga hacia el sentido positivo del eje $x$}. Por tanto,
+\begin{equation*}
+    \boxed{v_{y,\max}=40\pi\,\mathrm{cm/s}},
+    \qquad
+    \boxed{\text{Propagaci\'on hacia }{+x}}.
+\end{equation*}
+
+\clearpage
+
+\section*{Problema 2.}
+Una onda peri\'odica se propaga por una cuerda tensa seg\'un
+\begin{equation*}
+    y(x,t)=0.4\sin\left[2\pi(0.20x-50t)\right],
+\end{equation*}
+en unidades SI. Calcular:
+\begin{enumerate}[label=(\alph*)]
+    \item El per\'iodo, la longitud de onda y la velocidad de propagaci\'on.
+    \item La tensi\'on de la cuerda, si su masa por unidad de longitud es $\mu=80\,\mathrm{g/m}$.
+    \item La elongaci\'on del punto $x=2.5\,\mathrm{m}$ cuando la elongaci\'on del origen alcanza su valor m\'aximo positivo.
+\end{enumerate}
+
+\ideaclave{El problema combina dos lecturas distintas. Primero se leen los par\'ametros de la onda. Luego se usa la rapidez de propagaci\'on para relacionarla con las propiedades mec\'anicas de la cuerda.
+\textbf{En una cuerda tensa, una mayor tensi\'on aumenta la rapidez de propagaci\'on, mientras que una mayor densidad lineal la disminuye.} La relaci\'on es
+\begin{equation*}
+    v=\sqrt{\frac{\tau}{\mu}},
+\end{equation*}
+donde $\tau$ es la tensi\'on y $\mu$ es la masa por unidad de longitud.}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1.25cm,y=1.0cm,font=\footnotesize]
+    \draw[eje] (-0.3,0)--(6.25,0) node[right] {$x\, (\mathrm{m})$};
+    \draw[eje] (0,-1.1)--(0,1.25) node[above] {$y$};
+    \draw[onda,domain=0:5.8,samples=180] plot(\x,{0.75*sin(72*\x)});
+
+    \draw[guia] (0,0.75)--(2.5,0.75);
+    \draw[guia] (2.5,-0.75)--(2.5,0.15);
+    \filldraw[wavegreen] (0,0.75) circle (0.05);
+    \filldraw[waveorange] (2.5,-0.75) circle (0.05);
+
+    \node[above left=2pt,wavegreen] at (0,0.75) {origen en m\'aximo};
+    \node[below right=2pt,waveorange] at (2.5,-0.75) {$x=2.5\,\mathrm{m}$};
+    \draw[<->,thick] (0,-1.0)--(2.5,-1.0) node[midway,below=1pt] {$\lambda/2=2.5\,\mathrm{m}$};
+    \node[nota,text width=4.3cm,anchor=west] at (3.0,0.85)
+    {Dos puntos separados por media longitud de onda est\'an en oposici\'on de fase.};
+\end{tikzpicture}
+\caption{Relaci\'on de fase entre el origen y el punto $x=2.5\,\mathrm{m}$.}
+\label{fig:p2_fase}
+\end{figure}
+
+\soluciontitulo
+
+\paso{Parte (a): per\'iodo, longitud de onda y velocidad.}
+Comparamos la onda dada con
+\begin{equation*}
+    y(x,t)=A\sin\left[2\pi\left(\frac{x}{\lambda}-ft\right)\right].
+\end{equation*}
+De
+\begin{equation*}
+    y(x,t)=0.4\sin\left[2\pi(0.20x-50t)\right]
+\end{equation*}
+se obtiene
+\begin{equation*}
+    A=0.4\,\mathrm{m},
+    \qquad
+    f=50\,\mathrm{Hz},
+    \qquad
+    \frac{1}{\lambda}=0.20\,\mathrm{m}^{-1}.
+\end{equation*}
+Luego,
+\begin{equation*}
+    \lambda=\frac{1}{0.20}=5\,\mathrm{m}.
+\end{equation*}
+El periodo es
+\begin{equation*}
+    T=\frac{1}{f}=\frac{1}{50}=0.02\,\mathrm{s}.
+\end{equation*}
+La rapidez de propagaci\'on es
+\begin{equation*}
+    v=\lambda f=(5\,\mathrm{m})(50\,\mathrm{s}^{-1})=250\,\mathrm{m/s}.
+\end{equation*}
+Por tanto,
+\begin{equation*}
+    \boxed{T=0.02\,\mathrm{s}},\qquad
+    \boxed{\lambda=5\,\mathrm{m}},\qquad
+    \boxed{v=250\,\mathrm{m/s}}.
+\end{equation*}
+
+\paso{Parte (b): tensi\'on de la cuerda.}
+Para calcular la tensi\'on, primero convertimos la densidad lineal:
+\begin{equation*}
+    \mu=80\,\mathrm{g/m}=0.080\,\mathrm{kg/m}.
+\end{equation*}
+Usando
+\begin{equation*}
+    v=\sqrt{\frac{\tau}{\mu}},
+\end{equation*}
+elevamos al cuadrado:
+\begin{equation*}
+    v^2=\frac{\tau}{\mu}.
+\end{equation*}
+Por lo tanto,
+\begin{equation*}
+    \tau=\mu v^2.
+\end{equation*}
+Sustituyendo,
+\begin{align*}
+    \tau
+    &=(0.080\,\mathrm{kg/m})(250\,\mathrm{m/s})^2\\
+    &=0.080(62500)\,\mathrm{N}\\
+    &=5000\,\mathrm{N}.
+\end{align*}
+Por tanto,
+\begin{equation*}
+    \boxed{\tau=5000\,\mathrm{N}}.
+\end{equation*}
+
+\paso{Parte (c): elongaci\'on del punto $x=2.5\,\mathrm{m}$.}
+Buscamos la elongaci\'on del punto $x=2.5\,\mathrm{m}$ cuando el origen est\'a en su m\'aximo positivo. En el origen,
+\begin{align*}
+    y(0,t)
+    &=0.4\sin\left[2\pi(0-50t)\right]\\
+    &=0.4\sin(-100\pi t).
+\end{align*}
+El m\'aximo positivo ocurre cuando
+\begin{equation*}
+    \sin(-100\pi t)=1.
+\end{equation*}
+Un primer instante positivo se obtiene tomando
+\begin{equation*}
+    -100\pi t=-\frac{3\pi}{2}.
+\end{equation*}
+Entonces
+\begin{equation*}
+    t=\frac{3}{200}\,\mathrm{s}.
+\end{equation*}
+Sustituyendo $x=2.5\,\mathrm{m}$ y $t=3/200\,\mathrm{s}$ en la onda,
+\begin{align*}
+    y\left(2.5,\frac{3}{200}\right)
+    &=0.4\sin\left[2\pi\left(0.20(2.5)-50\frac{3}{200}\right)\right]\\
+    &=0.4\sin\left[2\pi(0.5-0.75)\right]\\
+    &=0.4\sin\left(-\frac{\pi}{2}\right)\\
+    &=-0.4\,\mathrm{m}.
+\end{align*}
+
+\textbf{Esto tambi\'en se entiende sin hacer toda la cuenta:} como $\lambda=5\,\mathrm{m}$, el punto $x=2.5\,\mathrm{m}$ est\'a a media longitud de onda del origen. Por lo tanto, cuando el origen est\'a en un m\'aximo positivo, ese punto est\'a en un m\'aximo negativo. Por tanto,
+\begin{equation*}
+    \boxed{y\left(2.5,\frac{3}{200}\right)=-0.4\,\mathrm{m}}.
+\end{equation*}
+
+\clearpage
+
+\section*{Problema 3.}
+Un movimiento ondulatorio se propaga en sentido positivo con velocidad
+\begin{equation*}
+    v=30\,\mathrm{m/s},
+\end{equation*}
+siendo su amplitud
+\begin{equation*}
+    A=0.1\,\mathrm{m},
+\end{equation*}
+y su frecuencia
+\begin{equation*}
+    f=50\,\mathrm{Hz}.
+\end{equation*}
+Determinar:
+\begin{enumerate}[label=(\alph*)]
+    \item La ecuaci\'on de este movimiento, la longitud de onda y la constante $k$.
+    \item La elongaci\'on del punto $x=1.05\,\mathrm{m}$ en el instante en que la elongaci\'on del punto $x=0.6\,\mathrm{m}$ es cero.
+\end{enumerate}
+
+\ideaclave{Aqu\'i no se entrega directamente la ecuaci\'on de la onda. Se debe construir usando sus datos f\'isicos. Como el enunciado dice que la onda se propaga en sentido positivo, usamos
+\begin{equation*}
+    y(x,t)=A\sin(kx-\omega t).
+\end{equation*}
+\textbf{El signo negativo delante de $\omega t$ codifica que la onda viaja hacia $+x$.} Esta no es una convenci\'on arbitraria: se obtiene al imponer fase constante.}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=5.8cm,y=1cm,font=\footnotesize]
+    \draw[eje] (-0.04,0)--(1.34,0) node[right] {$x\,(\mathrm{m})$};
+    \draw[eje] (0,-1.15)--(0,1.3) node[above] {$y$};
+    \draw[onda,domain=0:1.25,samples=260] plot(\x,{0.78*sin(600*\x)});
+
+    \draw[guia] (0.6,-1.0)--(0.6,1.0);
+    \draw[guia] (1.05,-1.0)--(1.05,1.0);
+    \filldraw[wavegreen] (0.6,0) circle (0.012);
+    \filldraw[waveorange] (1.05,-0.78) circle (0.012);
+
+    \node[above left=2pt,wavegreen] at (0.6,0) {$x=0.6$};
+    \node[below=5pt,waveorange] at (1.05,-0.78) {$x=1.05$};
+    \draw[<->,thick] (0.6,1.05)--(1.05,1.05) node[midway,above] {$0.45\,\mathrm{m}=3\lambda/4$};
+    \draw[->,very thick,wavegreen] (0.28,1.05)--(0.43,1.05) node[midway,above=2pt] {$+x$};
+\end{tikzpicture}
+\caption{Los puntos pedidos est\'an separados por $0.45\,\mathrm{m}=3\lambda/4$. Por eso, cuando uno pasa por equilibrio, el otro queda en un extremo.}
+\label{fig:p3_corte}
+\end{figure}
+
+\soluciontitulo
+
+\paso{Parte (a): ecuaci\'on de la onda, $\lambda$ y $k$.}
+Primero calculamos la longitud de onda usando
+\begin{equation*}
+    v=\lambda f.
+\end{equation*}
+Por lo tanto,
+\begin{equation*}
+    \lambda=\frac{v}{f}=\frac{30\,\mathrm{m/s}}{50\,\mathrm{s}^{-1}}=0.6\,\mathrm{m}.
+\end{equation*}
+Luego,
+\begin{equation*}
+    k=\frac{2\pi}{\lambda}=\frac{2\pi}{0.6}=\frac{10\pi}{3}\,\mathrm{m}^{-1}.
+\end{equation*}
+La frecuencia angular es
+\begin{equation*}
+    \omega=2\pi f=2\pi(50)=100\pi\,\mathrm{rad/s}.
+\end{equation*}
+Sustituyendo $A$, $k$ y $\omega$ en la forma de onda,
+\begin{equation*}
+    \boxed{y(x,t)=0.1\sin\left(\frac{10\pi}{3}x-100\pi t\right)}.
+\end{equation*}
+
+\paso{Parte (b): elongaci\'on en $x=1.05\,\mathrm{m}$.}
+Imponemos que la elongaci\'on en $x=0.6\,\mathrm{m}$ sea cero:
+\begin{align*}
+    y(0.6,t)
+    &=0.1\sin\left(\frac{10\pi}{3}(0.6)-100\pi t\right)\\
+    &=0.1\sin(2\pi-100\pi t).
+\end{align*}
+La condici\'on $y(0.6,t)=0$ exige
+\begin{equation*}
+    \sin(2\pi-100\pi t)=0.
+\end{equation*}
+El seno se anula cuando su argumento es un m\'ultiplo entero de $\pi$, de modo que
+\begin{equation*}
+    2\pi-100\pi t=n\pi,
+    \qquad n\in\mathbb{Z}.
+\end{equation*}
+De aqu\'i,
+\begin{equation*}
+    t=\frac{2-n}{100}.
+\end{equation*}
+Hay varios instantes posibles. Para evaluar la elongaci\'on en $x=1.05\,\mathrm{m}$,
+\begin{align*}
+    y(1.05,t)
+    &=0.1\sin\left(\frac{10\pi}{3}(1.05)-100\pi t\right)\\
+    &=0.1\sin\left(\frac{7\pi}{2}-100\pi t\right).
+\end{align*}
+Usando $100\pi t=(2-n)\pi$,
+\begin{align*}
+    y(1.05,t)
+    &=0.1\sin\left(\frac{7\pi}{2}-(2-n)\pi\right)\\
+    &=0.1\sin\left(\frac{3\pi}{2}+n\pi\right).
+\end{align*}
+Por lo tanto, el valor puede ser $y(1.05,t)=\pm0.1\,\mathrm{m}$, seg\'un el cruce por equilibrio considerado. Si se escoge, por ejemplo, $t=0.02\,\mathrm{s}$, entonces
+\begin{align*}
+    y(1.05,0.02)
+    &=0.1\sin\left(\frac{7\pi}{2}-100\pi(0.02)\right)\\
+    &=0.1\sin\left(\frac{7\pi}{2}-2\pi\right)\\
+    &=0.1\sin\left(\frac{3\pi}{2}\right)\\
+    &=-0.1\,\mathrm{m}.
+\end{align*}
+
+\importante{El enunciado no indica si el punto $x=0.6\,\mathrm{m}$ cruza el equilibrio subiendo o bajando. Por eso, el signo no queda fijado de manera \'unica. Lo determinado es la magnitud:
+\begin{equation*}
+    \boxed{|y(1.05,t)|=0.1\,\mathrm{m}}.
+\end{equation*}}
+
+\clearpage
+
+\section*{Problema 4.}
+En una cuerda el\'astica se mueve una onda progresiva transversal sinusoidal de ecuaci\'on
+\begin{equation*}
+    y(x,t)=A\sin(\omega t+kx).
+\end{equation*}
+Determinar su ecuaci\'on conociendo que en el instante $t=0$ se tiene
+\begin{equation*}
+    y(x,0)=0.02\sin(0.2\pi x),
+\end{equation*}
+y que la elongaci\'on del origen, $x=0$, en funci\'on del tiempo es
+\begin{equation*}
+    y(0,t)=0.02\sin(100\pi t).
+\end{equation*}
+
+\ideaclave{Este problema entrega dos cortes de la misma onda. El primero, $y(x,0)$, fija la forma espacial de la cuerda en un instante dado. El segundo, $y(0,t)$, fija c\'omo oscila el origen en el tiempo.
+\textbf{El corte espacial permite identificar $A$ y $k$; el corte temporal permite identificar $A$ y $\omega$.} Luego ambos datos se combinan para reconstruir la onda completa.}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=0.85cm,y=0.95cm,font=\footnotesize]
+    \begin{scope}
+        \draw[eje] (-0.2,0)--(6.4,0) node[right] {$x$};
+        \draw[eje] (0,-0.95)--(0,1.1) node[above] {$y(x,0)$};
+        \draw[onda,domain=0:6.0,samples=180] plot(\x,{0.65*sin(36*\x)});
+        \node[above] at (3.0,1.05) {corte espacial};
+        \node[below] at (3.1,-1.08) {$y(x,0)=0.02\sin(0.2\pi x)$};
+    \end{scope}
+    \begin{scope}[yshift=-3.5cm]
+        \draw[eje] (-0.2,0)--(6.4,0) node[right] {$t$};
+        \draw[eje] (0,-0.95)--(0,1.1) node[above] {$y(0,t)$};
+        \draw[ondados,domain=0:6.0,samples=180] plot(\x,{0.65*sin(72*\x)});
+        \node[above] at (3.0,1.05) {corte temporal};
+        \node[below] at (3.1,-1.08) {$y(0,t)=0.02\sin(100\pi t)$};
+    \end{scope}
+\end{tikzpicture}
+\caption{La onda completa queda determinada al combinar el corte espacial y el corte temporal.}
+\label{fig:p4_cortes}
+\end{figure}
+
+\soluciontitulo
+
+\paso{Construcci\'on de la ecuaci\'on de onda.}
+Partimos de
+\begin{equation*}
+    y(x,t)=A\sin(\omega t+kx).
+\end{equation*}
+Primero usamos la condici\'on en $t=0$. Sustituyendo $t=0$,
+\begin{equation*}
+    y(x,0)=A\sin(kx).
+\end{equation*}
+Pero el enunciado da
+\begin{equation*}
+    y(x,0)=0.02\sin(0.2\pi x).
+\end{equation*}
+Por comparaci\'on directa,
+\begin{equation*}
+    A=0.02,
+    \qquad
+    k=0.2\pi.
+\end{equation*}
+Ahora usamos la condici\'on en $x=0$. Sustituyendo $x=0$ en la onda general,
+\begin{equation*}
+    y(0,t)=A\sin(\omega t).
+\end{equation*}
+El enunciado da
+\begin{equation*}
+    y(0,t)=0.02\sin(100\pi t).
+\end{equation*}
+Por lo tanto,
+\begin{equation*}
+    \omega=100\pi\,\mathrm{rad/s}.
+\end{equation*}
+Sustituyendo $A$, $k$ y $\omega$ en la ecuaci\'on general,
+\begin{equation*}
+    \boxed{y(x,t)=0.02\sin(100\pi t+0.2\pi x)}.
+\end{equation*}
+
+\paso{Par\'ametros f\'isicos y sentido de propagaci\'on.}
+Como
+\begin{equation*}
+    \omega=2\pi f,
+\end{equation*}
+se tiene
+\begin{equation*}
+    f=\frac{\omega}{2\pi}=\frac{100\pi}{2\pi}=50\,\mathrm{Hz}.
+\end{equation*}
+Luego,
+\begin{equation*}
+    T=\frac{1}{f}=0.02\,\mathrm{s}.
+\end{equation*}
+Como
+\begin{equation*}
+    k=\frac{2\pi}{\lambda},
+\end{equation*}
+se obtiene
+\begin{equation*}
+    \lambda=\frac{2\pi}{k}=\frac{2\pi}{0.2\pi}=10\,\mathrm{m}.
+\end{equation*}
+La rapidez de propagaci\'on es
+\begin{equation*}
+    v=\frac{\omega}{k}=\frac{100\pi}{0.2\pi}=500\,\mathrm{m/s}.
+\end{equation*}
+
+Finalmente, la fase de la onda es
+\begin{equation*}
+    \Phi(x,t)=\omega t+kx.
+\end{equation*}
+Para seguir una cresta imponemos fase constante:
+\begin{equation*}
+    \omega t+kx=C.
+\end{equation*}
+De aqu\'i,
+\begin{equation*}
+    x=\frac{C}{k}-\frac{\omega}{k}t.
+\end{equation*}
+Como $x$ disminuye cuando aumenta $t$, \textbf{la onda se propaga hacia el sentido negativo del eje $x$}. Por tanto,
+\begin{equation*}
+    \boxed{f=50\,\mathrm{Hz}},\qquad
+    \boxed{\lambda=10\,\mathrm{m}},\qquad
+    \boxed{v=500\,\mathrm{m/s}},\qquad
+    \boxed{\text{Propagaci\'on hacia }{-x}}.
+\end{equation*}
+
+\importante{Si el dato temporal es $y(0,t)=0.02\sin(100\pi t)$, entonces necesariamente $\omega=100\pi$. Por eso, la expresi\'on consistente con los datos del enunciado es la escrita arriba.}
+
+\end{document}
