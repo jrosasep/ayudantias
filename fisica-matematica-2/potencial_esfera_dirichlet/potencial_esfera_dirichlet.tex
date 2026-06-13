@@ -1,0 +1,210 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+\encabezado{Problema de Dirichlet en una esfera}{Física Matemática II}{J.R., G.R.}
+
+\problema{1}{Determine el potencial $\phi(r,\theta,\varphi)$, finito dentro de una esfera de radio $R$, de modo que satisfaga la ecuación de Laplace y la condición de borde
+\begin{equation}
+\label{cdb-dirichlet-esfera}
+\phi(R,\theta,\varphi)=\cos\theta-3\sen^2\theta.
+\end{equation}}
+
+\textbf{Solución:} Observamos primero que la condición de borde (\ref{cdb-dirichlet-esfera}) no depende del ángulo azimutal $\varphi$. Por lo tanto el problema tiene simetría axial y podemos buscar una solución de la forma
+\begin{equation*}
+\phi=\phi(r,\theta).
+\end{equation*}
+La solución general de la ecuación de Laplace en coordenadas esféricas, finita en el origen, queda dada por
+\begin{equation}
+\label{solucion-general-interior-dirichlet}
+\phi_i(r,\theta)=\sum_{n=0}^{\infty}a_nr^nP_n(\cos\theta),
+\qquad r<R.
+\end{equation}
+
+Para imponer la condición de borde, definimos
+\begin{equation*}
+x:=\cos\theta.
+\end{equation*}
+Entonces, como $\sen^2\theta=1-\cos^2\theta=1-x^2$, se tiene que
+\begin{align}
+\label{cdb-en-x-dirichlet}
+\cos\theta-3\sen^2\theta
+&=x-3(1-x^2)\\
+&=x-3+3x^2.\nonumber
+\end{align}
+Ahora queremos escribir esta expresión en términos de polinomios de Legendre. Recordemos que
+\begin{equation*}
+P_0(x)=1,
+\qquad
+P_1(x)=x,
+\qquad
+P_2(x)=\frac{1}{2}(3x^2-1).
+\end{equation*}
+De la última identidad se obtiene
+\begin{equation*}
+3x^2-1=2P_2(x)
+\quad\Rightarrow\quad
+3x^2=2P_2(x)+1.
+\end{equation*}
+Sustituyendo esto en (\ref{cdb-en-x-dirichlet}), resulta
+\begin{align*}
+x-3+3x^2
+&=P_1(x)-3P_0(x)+2P_2(x)+P_0(x)\\
+&=-2P_0(x)+P_1(x)+2P_2(x).
+\end{align*}
+Por lo tanto, la condición de borde se puede escribir como
+\begin{equation}
+\label{cdb-legendre-dirichlet}
+\phi(R,\theta)=-2P_0(\cos\theta)+P_1(\cos\theta)+2P_2(\cos\theta).
+\end{equation}
+
+Evaluamos ahora (\ref{solucion-general-interior-dirichlet}) en $r=R$:
+\begin{equation}
+\label{interior-evaluado-R-dirichlet}
+\phi_i(R,\theta)=\sum_{n=0}^{\infty}a_nR^nP_n(\cos\theta).
+\end{equation}
+Comparando (\ref{interior-evaluado-R-dirichlet}) con (\ref{cdb-legendre-dirichlet}), y usando que los polinomios $P_n$ son linealmente independientes, encontramos
+\begin{equation*}
+a_0=-2,
+\qquad
+ a_1R=1,
+\qquad
+ a_2R^2=2,
+\qquad
+ a_n=0 \quad (n\geq 3).
+\end{equation*}
+Luego,
+\begin{equation}
+\label{coeficientes-dirichlet}
+a_0=-2,
+\qquad
+ a_1=\frac{1}{R},
+\qquad
+ a_2=\frac{2}{R^2},
+\qquad
+ a_n=0 \quad (n\geq 3).
+\end{equation}
+Sustituyendo (\ref{coeficientes-dirichlet}) en (\ref{solucion-general-interior-dirichlet}), deducimos que
+\begin{equation*}
+\phi_i(r,\theta)=-2+\frac{r}{R}P_1(\cos\theta)+2\frac{r^2}{R^2}P_2(\cos\theta).
+\end{equation*}
+Finalmente, usando $P_1(\cos\theta)=\cos\theta$ y $2P_2(\cos\theta)=3\cos^2\theta-1$, obtenemos
+\begin{equation*}
+\boxed{
+\phi_i(r,\theta)=-2+\frac{r}{R}\cos\theta+\frac{r^2}{R^2}\left(3\cos^2\theta-1\right)},
+\qquad r<R.
+\end{equation*}
+
+Si además se quiere escribir la solución exterior que se anula para $r\to\infty$, consideramos
+\begin{equation}
+\label{solucion-general-exterior-dirichlet}
+\phi_e(r,\theta)=\sum_{n=0}^{\infty}\frac{b_n}{r^{n+1}}P_n(\cos\theta),
+\qquad r>R.
+\end{equation}
+Al imponer la misma condición de borde en $r=R$, tenemos
+\begin{equation*}
+\frac{b_0}{R}=-2,
+\qquad
+\frac{b_1}{R^2}=1,
+\qquad
+\frac{b_2}{R^3}=2,
+\end{equation*}
+por lo que
+\begin{equation*}
+b_0=-2R,
+\qquad
+b_1=R^2,
+\qquad
+b_2=2R^3.
+\end{equation*}
+Sustituyendo estos coeficientes en (\ref{solucion-general-exterior-dirichlet}), queda
+\begin{equation*}
+\boxed{
+\phi_e(r,\theta)=-2\frac{R}{r}+\frac{R^2}{r^2}\cos\theta+\frac{R^3}{r^3}\left(3\cos^2\theta-1\right)},
+\qquad r>R.
+\end{equation*}
+
+
+\section*{Visualización numérica}
+
+En los mapas angulares se usa la latitud $\lambda=\pi/2-\theta$ para visualizar la esfera como un rectángulo. El color representa el valor del potencial impuesto o calculado. Las líneas negras indican ceros de la función o curvas equipotenciales, según corresponda.
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.78\textwidth]{figures/fig_01_condicion_borde}
+\caption{Condición de borde $\phi(R,\theta)=\cos\theta-3\sen^2\theta$ y sus contribuciones angulares. Esta descomposición permite identificar qué términos de Legendre aparecen en la solución.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.86\textwidth]{figures/fig_05_esfera_coloreada}
+\caption{Mapa angular de la condición de borde impuesta sobre la superficie de la esfera. El color representa el valor de $\phi(R,\theta)$ en cada latitud. Las líneas negras indican los ceros de la C.d.B., donde el potencial impuesto cambia de signo.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.70\textwidth]{figures/fig_02_potencial_interior}
+\caption{Potencial interior en un corte meridiano. El color representa $\phi_i(r,\theta)$ para $r<R$. La circunferencia negra indica la superficie $r=R$ y las líneas delgadas son curvas equipotenciales.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.70\textwidth]{figures/fig_03_potencial_exterior}
+\caption{Extensión exterior del potencial en un corte meridiano, escogida de modo que se anule cuando $r\to\infty$. El color representa $\phi_e(r,\theta)$ y las curvas delgadas indican equipotenciales.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.78\textwidth]{figures/fig_04_descomposicion_frontera}
+\caption{Perfiles radiales interiores y exteriores evaluados en direcciones fijas. La línea vertical marca la superficie $r=R$. La figura muestra cómo la solución interior y la exterior coinciden en la frontera, pero tienen distinta dependencia radial.}
+\end{figure}
+
+\end{document}

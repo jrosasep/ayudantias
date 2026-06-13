@@ -1,0 +1,253 @@
+\documentclass[11pt]{article}
+
+% Plantilla común para material de estudio de Física Matemática II.
+% Documento A4, una columna, fuente Computer Modern de 11 puntos
+% y márgenes de 2.5 cm por lado.
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\allowdisplaybreaks
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+\encabezado
+{Ecuación de onda 2D en un disco}
+{Física Matemática II}
+{J.R., G.R.}
+
+\problema{1}{Considere la ecuación de onda bidimensional en un círculo de radio $a$, escrita en coordenadas polares $(\rho,\varphi)$, con borde fijo. Se quiere escribir la solución general en términos de soluciones separables y determinar los coeficientes usando las condiciones iniciales
+\[
+\psi(\rho,\varphi,0)=\psi_0(\rho,\varphi),
+\qquad
+\frac{\partial \psi}{\partial t}(\rho,\varphi,0)=\eta(\rho,\varphi).
+\]}
+
+\textbf{Solución:} La ecuación a resolver es
+\begin{equation}
+\frac{\partial^2\psi}{\partial t^2}
+=v^2\left[\frac{1}{\rho}\frac{\partial}{\partial\rho}\left(\rho\frac{\partial\psi}{\partial\rho}\right)
++\frac{1}{\rho^2}\frac{\partial^2\psi}{\partial\varphi^2}\right],
+\qquad 0<\rho<a.
+\label{eq:onda}
+\end{equation}
+La condición de borde es
+\begin{equation}
+\psi(a,\varphi,t)=0.
+\label{eq:borde}
+\end{equation}
+Buscamos soluciones separables de la forma $\psi(\rho,\varphi,t)=R(\rho)\Phi(\varphi)T(t)$. Sustituyendo esto en \eqref{eq:onda}, se obtiene
+\[
+R\Phi T''=v^2\left[\frac{1}{\rho}(\rho R')'\Phi T+\frac{1}{\rho^2}R\Phi''T\right].
+\]
+Dividiendo por $v^2R\Phi T$ y multiplicando por $\rho^2$, queda
+\[
+\frac{\rho^2}{v^2}\frac{T''}{T}
+=\rho\frac{(\rho R')'}{R}+\frac{\Phi''}{\Phi}.
+\]
+Separando la parte angular, tomamos
+\begin{equation}
+\Phi''+m^2\Phi=0,
+\qquad m=0,\pm1,\pm2,\ldots,
+\label{eq:angular}
+\end{equation}
+por lo que una base angular compleja es $\Phi(\varphi)=\e^{\ii m\varphi}$. Separando la parte temporal con frecuencia $\omega$, se obtiene
+\begin{equation}
+T''+\omega^2T=0.
+\label{eq:temporal}
+\end{equation}
+Usando \eqref{eq:angular} y \eqref{eq:temporal} en la ecuación separada, la función radial satisface
+\begin{equation}
+\rho^2R''+\rho R'+\left(\frac{\omega^2}{v^2}\rho^2-m^2\right)R=0.
+\label{eq:radial}
+\end{equation}
+La ecuación \eqref{eq:radial} es la ecuación de Bessel. La solución regular en $\rho=0$ es
+\[
+R(\rho)=J_{m}(k\rho),
+\qquad k=\frac{\omega}{v}.
+\]
+Sustituyendo esta solución radial en la condición de borde \eqref{eq:borde}, resulta
+\[
+J_{m}(ka)=0.
+\]
+Si $\alpha_{mn}$ es el $n$-ésimo cero positivo de $J_m$, entonces
+\begin{equation}
+k_{mn}=\frac{\alpha_{mn}}{a},
+\qquad
+\omega_{mn}=vk_{mn}=\frac{\alpha_{mn}v}{a}.
+\label{eq:frecuencia}
+\end{equation}
+Por lo tanto, las soluciones separables complejas son
+\begin{equation}
+\psi^{\mathrm{sep}}_{mn\pm}(\rho,\varphi,t)
+=J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{\ii m\varphi}\e^{\pm\ii\omega_{mn}t},
+\label{eq:modos}
+\end{equation}
+con $m=0,\pm1,\pm2,\ldots$ y $n=1,2,3,\ldots$. Para $m<0$ se usa la relación usual entre funciones de Bessel de orden entero negativo y positivo, por lo que los ceros pueden entenderse en términos de $J_{|m|}$.
+
+Con \eqref{eq:modos}, la solución general se escribe como
+\begin{equation}
+\psi(\rho,\varphi,t)
+=\sum_{m=-\infty}^{\infty}\sum_{n=1}^{\infty}
+J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{\ii m\varphi}
+\left[A_{mn}\e^{\ii\omega_{mn}t}+B_{mn}\e^{-\ii\omega_{mn}t}\right].
+\label{eq:general}
+\end{equation}
+
+Sustituyendo $t=0$ en \eqref{eq:general} y usando $\psi(\rho,\varphi,0)=\psi_0(\rho,\varphi)$, queda
+\begin{equation}
+\psi_0(\rho,\varphi)
+=\sum_{m,n}J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)(A_{mn}+B_{mn})\e^{\ii m\varphi}.
+\label{eq:posicion}
+\end{equation}
+Derivando \eqref{eq:general} con respecto a $t$, resulta
+\[
+\frac{\partial\psi}{\partial t}
+=\sum_{m,n}J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{\ii m\varphi}
+\ii\omega_{mn}\left[A_{mn}\e^{\ii\omega_{mn}t}-B_{mn}\e^{-\ii\omega_{mn}t}\right].
+\]
+Sustituyendo $t=0$ y usando $\partial\psi/\partial t=\eta$, se obtiene
+\begin{equation}
+\eta(\rho,\varphi)
+=\sum_{m,n}J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)
+\ii\omega_{mn}(A_{mn}-B_{mn})\e^{\ii m\varphi}.
+\label{eq:velocidad}
+\end{equation}
+
+Para determinar $A_{mn}+B_{mn}$, multiplicamos \eqref{eq:posicion} por $\e^{-\ii q\varphi}$ e integramos en $\varphi$. Usando
+\[
+\frac{1}{2\pi}\int_0^{2\pi}\e^{\ii(m-q)\varphi}\dd\varphi=\delta_{mq},
+\]
+queda
+\[
+\sum_{n=1}^{\infty}J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)(A_{mn}+B_{mn})
+=\frac{1}{2\pi}\int_0^{2\pi}\psi_0(\rho,\varphi)\e^{-\ii m\varphi}\dd\varphi.
+\]
+Luego multiplicamos por $\rho J_{m}(\alpha_{mn}\rho/a)$ e integramos en $\rho$. Usando la ortogonalidad
+\begin{equation}
+\int_0^a \rho J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)
+J_{m}\left(\frac{\alpha_{mn'}\rho}{a}\right)\dd\rho
+=\frac{a^2}{2}\left[J_{m+1}(\alpha_{mn})\right]^2\delta_{nn'},
+\label{eq:ortogonalidad}
+\end{equation}
+se obtiene
+\begin{equation}
+A_{mn}+B_{mn}
+=\frac{2}{a^2[J_{m+1}(\alpha_{mn})]^2}
+\frac{1}{2\pi}\int_0^{2\pi}\int_0^a
+\psi_0(\rho,\varphi)J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{-\ii m\varphi}\rho\dd\rho\dd\varphi.
+\label{eq:suma}
+\end{equation}
+
+Del mismo modo, para determinar $A_{mn}-B_{mn}$, multiplicamos \eqref{eq:velocidad} por $\e^{-\ii q\varphi}$, integramos en $\varphi$ y luego usamos \eqref{eq:ortogonalidad}. Así,
+\begin{equation}
+\ii\omega_{mn}(A_{mn}-B_{mn})
+=\frac{2}{a^2[J_{m+1}(\alpha_{mn})]^2}
+\frac{1}{2\pi}\int_0^{2\pi}\int_0^a
+\eta(\rho,\varphi)J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{-\ii m\varphi}\rho\dd\rho\dd\varphi.
+\label{eq:resta}
+\end{equation}
+Definimos
+\[
+P_{mn}:=\frac{2}{a^2[J_{m+1}(\alpha_{mn})]^2}
+\frac{1}{2\pi}\int_0^{2\pi}\int_0^a
+\psi_0J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{-\ii m\varphi}\rho\dd\rho\dd\varphi,
+\]
+\[
+Q_{mn}:=\frac{2}{a^2[J_{m+1}(\alpha_{mn})]^2}
+\frac{1}{2\pi}\int_0^{2\pi}\int_0^a
+\eta J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{-\ii m\varphi}\rho\dd\rho\dd\varphi.
+\]
+Entonces \eqref{eq:suma} y \eqref{eq:resta} se escriben como
+\[
+A_{mn}+B_{mn}=P_{mn},
+\qquad
+\ii\omega_{mn}(A_{mn}-B_{mn})=Q_{mn}.
+\]
+Sumando y restando estas ecuaciones, se obtiene finalmente
+\begin{equation}
+A_{mn}=\frac{1}{2}\left(P_{mn}+\frac{Q_{mn}}{\ii\omega_{mn}}\right),
+\qquad
+B_{mn}=\frac{1}{2}\left(P_{mn}-\frac{Q_{mn}}{\ii\omega_{mn}}\right).
+\label{eq:coeficientes}
+\end{equation}
+
+Si la membrana parte desde el reposo, entonces $\eta(\rho,\varphi)=0$. Por la definición de $Q_{mn}$, se tiene $Q_{mn}=0$. Sustituyendo esto en \eqref{eq:coeficientes}, queda
+\[
+A_{mn}=B_{mn}=\frac{P_{mn}}{2}.
+\]
+Finalmente, sustituyendo $A_{mn}=B_{mn}=P_{mn}/2$ en \eqref{eq:general}, se obtiene
+\begin{equation}
+\psi(\rho,\varphi,t)
+=\sum_{m=-\infty}^{\infty}\sum_{n=1}^{\infty}
+P_{mn}J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{\ii m\varphi}
+\cos(\omega_{mn}t).
+\label{eq:reposo}
+\end{equation}
+En este caso,
+\[
+A_{mn}=B_{mn}
+=\frac{1}{a^2[J_{m+1}(\alpha_{mn})]^2}
+\frac{1}{2\pi}\int_0^{2\pi}\int_0^a
+\psi_0(\rho,\varphi)J_{m}\left(\frac{\alpha_{mn}\rho}{a}\right)\e^{-\ii m\varphi}\rho\dd\rho\dd\varphi.
+\]
+De forma equivalente, también se puede usar una base real de soluciones separables:
+\[
+J_m\left(\frac{\alpha_{mn}\rho}{a}\right)\cos(m\varphi)\cos(\omega_{mn}t),\quad
+J_m\left(\frac{\alpha_{mn}\rho}{a}\right)\cos(m\varphi)\sin(\omega_{mn}t),
+\]
+\[
+J_m\left(\frac{\alpha_{mn}\rho}{a}\right)\sin(m\varphi)\cos(\omega_{mn}t),\quad
+J_m\left(\frac{\alpha_{mn}\rho}{a}\right)\sin(m\varphi)\sin(\omega_{mn}t),
+\]
+con $m=0,1,2,\ldots$ y $n=1,2,3,\ldots$.
+
+\section*{Visualización numérica}
+
+El notebook \texttt{onda\_disco\_funcion\_rara.ipynb}, incluido junto a este documento, contiene una implementación numérica de la expansión anterior para una condición inicial arbitraria. En particular, allí se proyecta una función inicial $\psi_0(\rho,\varphi)$ sobre los modos normales de la membrana y se construye una animación de la solución truncada $\psi(\rho,\varphi,t)$.
+
+Esta visualización permite ver cómo la condición inicial se descompone en modos de Bessel y cómo evoluciona la membrana cuando se considera velocidad inicial nula.
+
+\end{document}

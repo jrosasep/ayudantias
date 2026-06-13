@@ -1,0 +1,246 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+\encabezado{Ecuación de Laplace en un cuarto de círculo}{Física Matemática II}{J.R., G.R.}
+
+\problema{1}{Usando el M.S.V., encuentre la solución de la ecuación de Laplace 2D en un cuarto de círculo,
+\begin{equation}
+\label{laplace-polar}
+\nabla^2\Psi=\frac{1}{r}\frac{\partial}{\partial r}\left(r\frac{\partial\Psi}{\partial r}\right)
++\frac{1}{r^2}\frac{\partial^2\Psi}{\partial\phi^2}=0,
+\qquad 0<\phi<\frac{\pi}{2},\qquad a<r<b,
+\end{equation}
+sujeta a las C.d.B.
+\begin{equation}
+\label{cdb-cuarto-circulo}
+\Psi(r,0)=\Psi\left(r,\frac{\pi}{2}\right)=0,
+\qquad \Psi(a,\phi)=0,
+\qquad \Psi(b,\phi)=f(\phi).
+\end{equation}}
+
+\textbf{Solución:} Consideremos una solución separable de la forma
+\begin{equation}
+\label{ansatz-separable-cuarto}
+\Psi^{\mathrm{sep}}(r,\phi)=R(r)\Phi(\phi).
+\end{equation}
+Sustituyendo (\ref{ansatz-separable-cuarto}) en la EDP (\ref{laplace-polar}), tenemos que
+\begin{equation*}
+\frac{1}{r}\frac{\dd}{\dd r}\left(r\frac{\dd R}{\dd r}\right)\Phi
++\frac{1}{r^2}R\frac{\dd^2\Phi}{\dd\phi^2}=0.
+\end{equation*}
+Luego, dividiendo por $R\Phi$ y multiplicando por $r^2$, se obtiene
+\begin{equation}
+\label{laplace-separada-cuarto}
+\frac{r}{R}\frac{\dd}{\dd r}\left(r\frac{\dd R}{\dd r}\right)
++\frac{1}{\Phi}\frac{\dd^2\Phi}{\dd\phi^2}=0.
+\end{equation}
+De este modo la ecuación queda separada, por lo que podemos introducir la constante de separación $\lambda$ como
+\begin{equation}
+\label{constante-separacion-cuarto}
+\frac{r}{R}\frac{\dd}{\dd r}\left(r\frac{\dd R}{\dd r}\right)
+=-\frac{1}{\Phi}\frac{\dd^2\Phi}{\dd\phi^2}:=-\lambda.
+\end{equation}
+Por lo tanto, las E.D.O.'s separadas son
+\begin{align}
+\label{edo-radial-cuarto}
+r\frac{\dd}{\dd r}\left(r\frac{\dd R}{\dd r}\right)+\lambda R&=0,\\
+\label{edo-angular-cuarto}
+\frac{\dd^2\Phi}{\dd\phi^2}-\lambda\Phi&=0.
+\end{align}
+
+Analicemos primero la ecuación angular. Las C.d.B. homogéneas en (\ref{cdb-cuarto-circulo}) implican que
+\begin{equation*}
+\Phi(0)=0,
+\qquad
+\Phi\left(\frac{\pi}{2}\right)=0.
+\end{equation*}
+Notamos que las soluciones no nulas que pueden satisfacer ambas condiciones son trigonométricas. Por esto escribimos
+\begin{equation*}
+\lambda=-k^2,
+\qquad k>0.
+\end{equation*}
+Sustituyendo esto en (\ref{edo-angular-cuarto}), se obtiene
+\begin{equation*}
+\Phi''+k^2\Phi=0,
+\qquad
+\Phi(\phi)=A\sen(k\phi)+B\cos(k\phi).
+\end{equation*}
+Al imponer $\Phi(0)=0$, se obtiene $B=0$. Luego, imponiendo $\Phi(\pi/2)=0$,
+\begin{equation*}
+A\sen\left(\frac{k\pi}{2}\right)=0.
+\end{equation*}
+Para que la solución no sea trivial, debe cumplirse que
+\begin{equation*}
+\frac{k\pi}{2}=n\pi,
+\qquad n=1,2,3,\ldots.
+\end{equation*}
+De aquí encontramos
+\begin{equation}
+\label{espectro-angular-cuarto}
+k=2n,
+\qquad
+\lambda_n=-4n^2,
+\qquad
+\Phi_n(\phi)=\sen(2n\phi).
+\end{equation}
+
+Ahora sustituimos $\lambda_n=-4n^2$ en la E.D.O. radial (\ref{edo-radial-cuarto}). Entonces
+\begin{equation}
+\label{edo-radial-cuarto-n}
+r\frac{\dd}{\dd r}\left(r\frac{\dd R}{\dd r}\right)-4n^2R=0.
+\end{equation}
+Como esta E.D.O. es de tipo Euler, probamos una solución de la forma
+\begin{equation*}
+R(r)=r^\beta.
+\end{equation*}
+Sustituyendo esta expresión en (\ref{edo-radial-cuarto-n}), se obtiene
+\begin{align*}
+r\frac{\dd}{\dd r}\left(r\frac{\dd}{\dd r}r^\beta\right)-4n^2r^\beta
+&=r\frac{\dd}{\dd r}\left(\beta r^\beta\right)-4n^2r^\beta\\
+&=(\beta^2-4n^2)r^\beta=0.
+\end{align*}
+Por lo tanto,
+\begin{equation*}
+\beta^2-4n^2=0
+\quad\Rightarrow\quad
+\beta=\pm 2n.
+\end{equation*}
+Así, la solución radial general queda dada por
+\begin{equation}
+\label{radial-general-cuarto}
+R_n(r)=C_nr^{2n}+D_nr^{-2n}.
+\end{equation}
+
+Finalmente imponemos la C.d.B. homogénea $\Psi(a,\phi)=0$. Esta condición requiere $R_n(a)=0$, por lo que desde (\ref{radial-general-cuarto}) tenemos
+\begin{equation*}
+C_na^{2n}+D_na^{-2n}=0
+\quad\Rightarrow\quad
+D_n=-C_na^{4n}.
+\end{equation*}
+Entonces
+\begin{equation}
+\label{radial-cdb-a}
+R_n(r)=C_n\left(r^{2n}-a^{4n}r^{-2n}\right).
+\end{equation}
+
+Con (\ref{espectro-angular-cuarto}) y (\ref{radial-cdb-a}), la solución general se escribe como superposición de soluciones separables:
+\begin{equation}
+\label{solucion-superposicion-cuarto}
+\Psi(r,\phi)=\sum_{n=1}^{\infty}a_n\left(r^{2n}-a^{4n}r^{-2n}\right)\sen(2n\phi),
+\end{equation}
+donde hemos absorbido las constantes multiplicativas en $a_n$.
+
+Imponemos ahora la C.d.B. no homogénea $\Psi(b,\phi)=f(\phi)$. Sustituyendo $r=b$ en (\ref{solucion-superposicion-cuarto}) obtenemos
+\begin{equation}
+\label{cdb-b-cuarto}
+f(\phi)=\sum_{n=1}^{\infty}a_n\left(b^{2n}-a^{4n}b^{-2n}\right)\sen(2n\phi).
+\end{equation}
+Multiplicando (\ref{cdb-b-cuarto}) por $\sen(2m\phi)$ e integrando entre $0$ y $\pi/2$,
+\begin{align*}
+\int_0^{\pi/2} f(\phi)\sen(2m\phi)\dd\phi
+&=\sum_{n=1}^{\infty}a_n\left(b^{2n}-a^{4n}b^{-2n}\right)
+\int_0^{\pi/2}\sen(2n\phi)\sen(2m\phi)\dd\phi.
+\end{align*}
+Usando la relación útil de ortogonalidad
+\begin{equation*}
+\int_0^{\pi/2}\sen(2n\phi)\sen(2m\phi)\dd\phi=\frac{\pi}{4}\delta_{nm},
+\end{equation*}
+se despeja el coeficiente
+\begin{equation}
+\label{coeficiente-an-cuarto}
+a_n=\frac{4}{\pi\left(b^{2n}-a^{4n}b^{-2n}\right)}
+\int_0^{\pi/2}f(\phi)\sen(2n\phi)\dd\phi.
+\end{equation}
+Reemplazando (\ref{coeficiente-an-cuarto}) en (\ref{solucion-superposicion-cuarto}), finalmente obtenemos
+\begin{equation*}
+\boxed{
+\Psi(r,\phi)=\sum_{n=1}^{\infty}
+\frac{4\left(r^{2n}-a^{4n}r^{-2n}\right)\sen(2n\phi)}{\pi\left(b^{2n}-a^{4n}b^{-2n}\right)}
+\int_0^{\pi/2}f(\phi')\sen(2n\phi')\dd\phi'}.
+\end{equation*}
+
+
+\section*{Visualización numérica}
+
+Las figuras siguientes muestran la solución en el cuarto de anillo $a<r<b$, $0<\phi<\pi/2$. En los mapas 2D el color representa el valor de $\Psi(r,\phi)$ en cada punto del dominio. Las líneas negras, cuando aparecen, indican nodos $\Psi=0$ o bordes del dominio.
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.76\textwidth]{figures/fig_01_condicion_borde}
+\caption{Condición de borde impuesta en $r=b$. La función $f(\phi)$ se expande en la base $\sen(2n\phi)$, que ya satisface las C.d.B. homogéneas en $\phi=0$ y $\phi=\pi/2$.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.72\textwidth]{figures/fig_02_modo_n1}
+\caption{Mapa 2D del primer modo separable en el cuarto de anillo. El color representa el valor de $R_1(r)\sen(2\phi)$. La línea negra indica el nodo del modo, mientras que los bordes del dominio corresponden a las C.d.B. del problema.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.72\textwidth]{figures/fig_03_modo_n2}
+\caption{Mapa 2D del segundo modo separable. Al aumentar $n$, la parte angular $\sen(2n\phi)$ introduce más regiones alternadas de signo dentro del mismo dominio.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.72\textwidth]{figures/fig_04_superposicion_contornos}
+\caption{Solución aproximada obtenida por superposición de varios modos. El color representa $\Psi(r,\phi)$ y las curvas negras delgadas son curvas de nivel. Estas curvas permiten ver cómo la información de la C.d.B. en $r=b$ se propaga hacia el interior del cuarto de anillo.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.76\textwidth]{figures/fig_05_superficie_3d}
+\caption{Perfiles radiales normalizados de los primeros modos. La figura compara la dependencia radial de cada modo sin usar una superficie 3D, de modo que se observa directamente cómo cada contribución se anula en $r=a$ y toma valor no nulo en $r=b$.}
+\end{figure}
+
+\end{document}

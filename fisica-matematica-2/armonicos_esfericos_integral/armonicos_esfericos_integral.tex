@@ -1,0 +1,189 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+\encabezado{Armónicos esféricos e integral angular}{Física Matemática II}{J.R., G.R.}
+
+\problema{1}{Muestre las expresiones cartesianas de los armónicos esféricos hasta $\ell=2$ y use esos resultados para calcular
+\begin{equation}
+\label{integral-armonicos}
+I=\int_{0}^{\pi}\int_{0}^{2\pi}(x+y+2z)Y_\ell^m(\theta,\varphi)\sen\theta\dd\varphi\dd\theta.
+\end{equation}}
+
+\textbf{Solución:} Consideremos las relaciones usuales entre coordenadas cartesianas y coordenadas esféricas:
+\begin{equation}
+\label{cartesianas-esfericas}
+x=r\sen\theta\cos\varphi,
+\qquad
+ y=r\sen\theta\sen\varphi,
+\qquad
+ z=r\cos\theta.
+\end{equation}
+De (\ref{cartesianas-esfericas}) se obtiene además
+\begin{equation}
+\label{relaciones-complejas-armonicos}
+\frac{z}{r}=\cos\theta,
+\qquad
+\frac{x\pm \ii y}{r}=\sen\theta\,\e^{\pm\ii\varphi}.
+\end{equation}
+
+\inciso{a} Los primeros armónicos esféricos son
+\begin{align*}
+Y_0^0&=\frac{1}{\sqrt{4\pi}},\\
+Y_1^0&=\sqrt{\frac{3}{4\pi}}\cos\theta,
+&
+Y_1^{\pm1}&=\mp\sqrt{\frac{3}{8\pi}}\sen\theta\,\e^{\pm\ii\varphi},\\
+Y_2^0&=\sqrt{\frac{5}{16\pi}}(3\cos^2\theta-1),
+&
+Y_2^{\pm1}&=\mp\sqrt{\frac{15}{8\pi}}\sen\theta\cos\theta\,\e^{\pm\ii\varphi},\\
+Y_2^{\pm2}&=\sqrt{\frac{15}{32\pi}}\sen^2\theta\,\e^{\pm2\ii\varphi}.
+\end{align*}
+Sustituyendo (\ref{relaciones-complejas-armonicos}) en las expresiones anteriores, se deduce directamente que
+\begin{align}
+\label{armonicos-cartesianos}
+Y_0^0&=\frac{1}{\sqrt{4\pi}},\nonumber\\
+Y_1^0&=\sqrt{\frac{3}{4\pi}}\frac{z}{r},\nonumber\\
+Y_1^{\pm1}&=\mp\sqrt{\frac{3}{8\pi}}\frac{x\pm\ii y}{r},\nonumber\\
+Y_2^0&=\sqrt{\frac{5}{16\pi}}\frac{2z^2-x^2-y^2}{r^2},\\
+Y_2^{\pm1}&=\mp\sqrt{\frac{15}{8\pi}}\frac{(x\pm\ii y)z}{r^2},\nonumber\\
+Y_2^{\pm2}&=\sqrt{\frac{15}{32\pi}}\frac{(x\pm\ii y)^2}{r^2}.\nonumber
+\end{align}
+
+\inciso{b} Para calcular la integral (\ref{integral-armonicos}), primero escribimos $x+y+2z$ como combinación lineal de armónicos con $\ell=1$. A partir de (\ref{armonicos-cartesianos}) con $\ell=1$, tenemos
+\begin{align*}
+Y_1^0&=\sqrt{\frac{3}{4\pi}}\frac{z}{r},\\
+Y_1^1&=-\sqrt{\frac{3}{8\pi}}\frac{x+\ii y}{r},\\
+Y_1^{-1}&=\sqrt{\frac{3}{8\pi}}\frac{x-\ii y}{r}.
+\end{align*}
+Despejando $x$, $y$ y $z$ de estas relaciones, obtenemos
+\begin{align}
+\label{x-y-z-en-armonicos}
+x&=r\sqrt{\frac{2\pi}{3}}\left(Y_1^{-1}-Y_1^1\right),\\
+y&=\ii r\sqrt{\frac{2\pi}{3}}\left(Y_1^1+Y_1^{-1}\right),\\
+z&=r\sqrt{\frac{4\pi}{3}}Y_1^0.
+\end{align}
+Sustituyendo (\ref{x-y-z-en-armonicos}) en $x+y+2z$, encontramos
+\begin{equation}
+\label{xy2z-expansion}
+x+y+2z
+=r\sqrt{\frac{2\pi}{3}}(1+\ii)Y_1^{-1}
++r\sqrt{\frac{2\pi}{3}}(-1+\ii)Y_1^1
++2r\sqrt{\frac{4\pi}{3}}Y_1^0.
+\end{equation}
+
+Usamos ahora la relación de ortogonalidad sin conjugación,
+\begin{equation}
+\label{ortogonalidad-sin-conjugar-armonicos}
+\int_{S^2}Y_{\ell'}^{m'}(\theta,\varphi)Y_\ell^m(\theta,\varphi)\dd\Omega
+=(-1)^m\delta_{\ell\ell'}\delta_{m',-m},
+\qquad
+\dd\Omega=\sen\theta\dd\theta\dd\varphi.
+\end{equation}
+Sustituyendo (\ref{xy2z-expansion}) en (\ref{integral-armonicos}) y usando (\ref{ortogonalidad-sin-conjugar-armonicos}), notamos que sólo contribuyen los armónicos con $\ell=1$. Por lo tanto,
+\begin{equation*}
+I=0,
+\qquad \ell\neq1.
+\end{equation*}
+Para $\ell=1$, evaluamos caso a caso:
+\begin{equation*}
+I=
+\left\{
+\begin{array}{lcc}
+r\sqrt{\dfrac{2\pi}{3}}(1-\ii), & \text{si} & m=-1,\\[0.8em]
+2r\sqrt{\dfrac{4\pi}{3}}, & \text{si} & m=0,\\[0.8em]
+-r\sqrt{\dfrac{2\pi}{3}}(1+\ii), & \text{si} & m=1,\\[0.8em]
+0, & \text{si} & \ell\neq1.
+\end{array}
+\right.
+\end{equation*}
+Si la integral se toma sobre la esfera unitaria, entonces basta fijar $r=1$ en la expresión anterior.
+
+
+
+\section*{Visualización numérica}
+
+En las figuras siguientes se representa la dependencia angular de las funciones sobre la esfera unitaria. La coordenada horizontal es la longitud $\varphi$ y la coordenada vertical es la latitud angular
+\begin{equation*}
+\lambda=\frac{\pi}{2}-\theta,
+\end{equation*}
+de modo que $\lambda=0$ corresponde al ecuador, $\lambda=\pi/2$ al polo norte y $\lambda=-\pi/2$ al polo sur. El color representa el valor de la función evaluada en cada dirección $(\theta,\varphi)$. Las líneas negras, cuando aparecen, indican curvas nodales, es decir, curvas donde la cantidad graficada se anula.
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.82\textwidth]{figures/fig_01_mapa_funcion_angular}
+\caption{Mapa angular firmado de $(x+y+2z)/r$ sobre la esfera unitaria. El color indica el signo y la magnitud relativa de esta función angular. La línea negra corresponde al nodo $(x+y+2z)/r=0$, que separa las regiones de signo positivo y negativo.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.82\textwidth]{figures/fig_02_mapa_magnitud_funcion_angular}
+\caption{Mapa de la magnitud angular $|(x+y+2z)/r|$. En este caso el color no distingue signo, sino sólo tamaño relativo. Los máximos se ubican en las direcciones donde el vector $(1,1,2)$ queda alineado o antialineado con la normal de la esfera.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.98\textwidth]{figures/fig_03_mapas_base_l1}
+\caption{Mapas angulares de tres modos reales asociados al subespacio $\ell=1$. Estos modos son proporcionales a $x/r$, $-y/r$ y $z/r$, respectivamente. El color representa el valor del modo sobre cada dirección de la esfera y las líneas negras indican los nodos donde cada modo se anula.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.88\textwidth]{figures/fig_04_mapas_l2}
+\caption{Ejemplos de modos reales con $\ell=2$. Su estructura angular posee más regiones de cambio de signo que los modos con $\ell=1$. Por esta diferencia de simetría, estos modos no contribuyen al proyectar una función lineal en $x$, $y$ y $z$ sobre la base de armónicos esféricos.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.98\textwidth]{figures/fig_05_densidades_integracion}
+\caption{Mapas angulares de productos que aparecen bajo la integral de proyección. El color muestra qué regiones de la esfera aportan positiva o negativamente a la integral. Las líneas negras indican nodos del integrando. En los productos compatibles con $\ell=1$ queda una contribución neta, mientras que la contribución con un modo $\ell=2$ se cancela por ortogonalidad angular.}
+\end{figure}
+
+\end{document}

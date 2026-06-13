@@ -1,0 +1,214 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+\encabezado{Potencial de un cascarón esférico con densidad superficial}{Física Matemática II}{J.R., G.R.}
+
+\problema{1}{Encuentre expresiones para el potencial electrostático $\phi(r,\theta,\varphi)$ dentro y fuera de un cascarón esférico de radio $R$, con densidad superficial de carga $\sigma(\theta,\varphi)$. Las condiciones sobre $r=R$ son
+\begin{equation}
+\label{continuidad-cascaron}
+\phi_i(R^-,\theta,\varphi)=\phi_e(R^+,\theta,\varphi),
+\end{equation}
+\begin{equation}
+\label{salto-cascaron}
+-\varepsilon_0\left[\frac{\partial\phi_e}{\partial r}(R^+,\theta,\varphi)
+-\frac{\partial\phi_i}{\partial r}(R^-,\theta,\varphi)\right]=\sigma(\theta,\varphi).
+\end{equation}
+Luego considere $\sigma(\theta,\varphi)=\zeta\sen^2\theta\sen\varphi\cos\varphi$.}
+
+\textbf{Solución:} En las regiones $r<R$ y $r>R$ no hay carga de volumen. Por lo tanto, el potencial satisface la ecuación de Laplace
+\begin{equation}
+\label{laplace-cascaron}
+\nabla^2\phi=0.
+\end{equation}
+La solución interior debe ser finita en el origen, mientras que la solución exterior debe anularse cuando $r\to\infty$. Por esto escribimos
+\begin{align}
+\label{potencial-interior-cascaron}
+\phi_i(r,\theta,\varphi)
+&=\sum_{\ell=0}^{\infty}\sum_{m=-\ell}^{\ell}
+a_{\ell m}r^\ell Y_\ell^m(\theta,\varphi),
+\qquad r<R,\\
+\label{potencial-exterior-cascaron}
+\phi_e(r,\theta,\varphi)
+&=\sum_{\ell=0}^{\infty}\sum_{m=-\ell}^{\ell}
+b_{\ell m}r^{-(\ell+1)}Y_\ell^m(\theta,\varphi),
+\qquad r>R.
+\end{align}
+
+Imponiendo la continuidad (\ref{continuidad-cascaron}), tenemos
+\begin{equation*}
+\sum_{\ell,m}a_{\ell m}R^\ell Y_\ell^m(\theta,\varphi)
+=\sum_{\ell,m}b_{\ell m}R^{-(\ell+1)}Y_\ell^m(\theta,\varphi).
+\end{equation*}
+Comparando coeficientes de los armónicos esféricos, obtenemos
+\begin{equation}
+\label{relacion-a-b-cascaron}
+a_{\ell m}R^\ell=b_{\ell m}R^{-(\ell+1)}
+\quad\Rightarrow\quad
+b_{\ell m}=a_{\ell m}R^{2\ell+1}.
+\end{equation}
+
+Calculemos ahora las derivadas radiales. A partir de (\ref{potencial-interior-cascaron}) y (\ref{potencial-exterior-cascaron}),
+\begin{align*}
+\left.\frac{\partial\phi_i}{\partial r}\right|_{r=R}
+&=\sum_{\ell,m}\ell a_{\ell m}R^{\ell-1}Y_\ell^m,\\
+\left.\frac{\partial\phi_e}{\partial r}\right|_{r=R}
+&=\sum_{\ell,m}-(\ell+1)b_{\ell m}R^{-(\ell+2)}Y_\ell^m.
+\end{align*}
+Sustituyendo (\ref{relacion-a-b-cascaron}) en la derivada exterior,
+\begin{equation*}
+\left.\frac{\partial\phi_e}{\partial r}\right|_{r=R}
+=\sum_{\ell,m}-(\ell+1)a_{\ell m}R^{\ell-1}Y_\ell^m.
+\end{equation*}
+Luego, sustituyendo las derivadas radiales en la condición de salto (\ref{salto-cascaron}), resulta
+\begin{equation}
+\label{salto-en-serie-cascaron}
+\varepsilon_0\sum_{\ell,m}(2\ell+1)a_{\ell m}R^{\ell-1}Y_\ell^m(\theta,\varphi)=\sigma(\theta,\varphi).
+\end{equation}
+Expandimos ahora la densidad superficial como
+\begin{equation}
+\label{sigma-expansion-cascaron}
+\sigma(\theta,\varphi)=\sum_{\ell,m}\sigma_{\ell m}Y_\ell^m(\theta,\varphi).
+\end{equation}
+Comparando (\ref{salto-en-serie-cascaron}) con (\ref{sigma-expansion-cascaron}), encontramos
+\begin{equation}
+\label{coeficientes-generales-cascaron}
+a_{\ell m}=\frac{\sigma_{\ell m}}{\varepsilon_0(2\ell+1)R^{\ell-1}},
+\qquad
+b_{\ell m}=\frac{\sigma_{\ell m}R^{\ell+2}}{\varepsilon_0(2\ell+1)}.
+\end{equation}
+
+Consideremos ahora el caso particular
+\begin{equation}
+\label{sigma-particular-cascaron}
+\sigma(\theta,\varphi)=\zeta\sen^2\theta\sen\varphi\cos\varphi.
+\end{equation}
+Usando la identidad trigonométrica $\sen\varphi\cos\varphi=\sen(2\varphi)/2$, tenemos
+\begin{equation*}
+\sigma(\theta,\varphi)=\frac{\zeta}{2}\sen^2\theta\sen(2\varphi).
+\end{equation*}
+Por otra parte, los armónicos esféricos necesarios son
+\begin{equation}
+\label{armonicos-2pm2-cascaron}
+Y_2^{\pm2}(\theta,\varphi)=\frac{1}{4}\sqrt{\frac{15}{2\pi}}\sen^2\theta\,\e^{\pm2\ii\varphi}.
+\end{equation}
+Además,
+\begin{equation*}
+\sen(2\varphi)=\frac{\e^{2\ii\varphi}-\e^{-2\ii\varphi}}{2\ii}.
+\end{equation*}
+Sustituyendo esta relación en (\ref{sigma-particular-cascaron}), y usando (\ref{armonicos-2pm2-cascaron}), se encuentra
+\begin{equation}
+\label{sigma-en-armonicos-cascaron}
+\sigma(\theta,\varphi)
+=-\ii\zeta\sqrt{\frac{2\pi}{15}}\left(Y_2^2-Y_2^{-2}\right).
+\end{equation}
+Por lo tanto, los únicos coeficientes no nulos son
+\begin{equation}
+\label{coef-sigma-particular-cascaron}
+\sigma_{2,2}=-\ii\zeta\sqrt{\frac{2\pi}{15}},
+\qquad
+\sigma_{2,-2}=\ii\zeta\sqrt{\frac{2\pi}{15}}.
+\end{equation}
+
+Como los únicos términos no nulos tienen $\ell=2$, desde (\ref{coeficientes-generales-cascaron}) se obtiene
+\begin{equation*}
+a_{2,m}=\frac{\sigma_{2,m}}{5\varepsilon_0R},
+\qquad
+b_{2,m}=\frac{\sigma_{2,m}R^4}{5\varepsilon_0}.
+\end{equation*}
+Sustituyendo estos coeficientes en (\ref{potencial-interior-cascaron}) y (\ref{potencial-exterior-cascaron}), y volviendo a la forma real de la densidad, finalmente encontramos
+\begin{equation*}
+\boxed{
+\phi_i(r,\theta,\varphi)=\frac{\zeta r^2}{5\varepsilon_0R}\sen^2\theta\sen\varphi\cos\varphi},
+\qquad r<R,
+\end{equation*}
+\begin{equation*}
+\boxed{
+\phi_e(r,\theta,\varphi)=\frac{\zeta R^4}{5\varepsilon_0r^3}\sen^2\theta\sen\varphi\cos\varphi},
+\qquad r>R.
+\end{equation*}
+
+
+\section*{Visualización numérica}
+
+Para los mapas sobre la esfera se usa la latitud $\lambda=\pi/2-\theta$ en el eje vertical y la longitud $\varphi$ en el eje horizontal. El color representa el valor de la densidad o del potencial. Las líneas negras, cuando aparecen, son nodos de la función graficada, es decir, curvas donde ésta cambia de signo.
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.86\textwidth]{figures/fig_01_sigma_esfera}
+\caption{Mapa angular firmado de la densidad superficial $\sigma(\theta,\varphi)=\zeta\sen^2\theta\sen\varphi\cos\varphi$. El color indica el signo y la magnitud relativa de la carga superficial. Las líneas negras son nodos donde $\sigma(\theta,\varphi)=0$.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.86\textwidth]{figures/fig_05_superficie_phi_interior}
+\caption{Mapa de magnitud angular asociado a la densidad superficial. Aquí el color muestra $|\sigma(\theta,\varphi)|$ normalizado, por lo que no distingue signo. La figura permite ubicar las regiones de mayor intensidad de la distribución sobre la esfera.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.70\textwidth]{figures/fig_02_potencial_interior_xy}
+\caption{Potencial interior en el plano $z=0$. En estas unidades, $\phi_i\propto xy$, por lo que los ejes coordenados son líneas nodales. El color representa el signo y la magnitud relativa del potencial dentro del cascarón.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.70\textwidth]{figures/fig_03_potencial_exterior_xy}
+\caption{Potencial exterior en el plano $z=0$. La estructura angular es la misma que en el interior, pero la amplitud disminuye al alejarse del cascarón debido al factor radial exterior.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.70\textwidth]{figures/fig_04_lineas_campo_xy}
+\caption{Líneas del campo eléctrico exterior en el plano $z=0$, obtenidas a partir de $\vec E=-\nabla\phi$. El color representa el potencial y las curvas indican la dirección local del campo eléctrico en el corte.}
+\end{figure}
+
+\end{document}

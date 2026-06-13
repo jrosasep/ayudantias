@@ -1,0 +1,234 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+
+\encabezado{Potencial electrostático de dos hemisferios conductores}{Física Matemática II}{J.R., G.R.}
+
+\problema{1}{Considere una esfera conductora de radio $a$, formada por dos cascos semi-esféricos separados por un pequeño anillo aislante en $z=0$. El hemisferio superior se mantiene a potencial $V_0$ y el hemisferio inferior a potencial $-V_0$. Encuentre el potencial eléctrico dentro $(r<a)$ y fuera $(r>a)$ de la esfera.}
+
+\textbf{Solución:} Observamos que la condición de borde sobre la esfera no depende del ángulo azimutal. Por lo tanto, el problema tiene simetría axial y el potencial dependerá sólo de $r$ y $\theta$:
+\begin{equation*}
+\phi=\phi(r,\theta).
+\end{equation*}
+La solución general axialmente simétrica de la ecuación de Laplace en coordenadas esféricas es
+\begin{equation}
+\label{solucion-general-hemisferios}
+\phi(r,\theta)=\sum_{n=0}^{\infty}\left(a_nr^n+\frac{b_n}{r^{n+1}}\right)P_n(\cos\theta).
+\end{equation}
+
+\inciso{a} Para la región interior $r<a$, el potencial debe ser finito en el origen. Por esto descartamos los términos $r^{-(n+1)}$, ya que divergen cuando $r\to0$. Entonces
+\begin{equation}
+\label{potencial-interior-hemisferios}
+\phi_i(r,\theta)=\sum_{n=0}^{\infty}a_nr^nP_n(\cos\theta),
+\qquad r<a.
+\end{equation}
+Para la región exterior $r>a$, exigimos que el potencial se anule cuando $r\to\infty$. Por esto descartamos los términos $r^n$, quedando
+\begin{equation}
+\label{potencial-exterior-hemisferios}
+\phi_e(r,\theta)=\sum_{n=0}^{\infty}\frac{d_n}{r^{n+1}}P_n(\cos\theta),
+\qquad r>a.
+\end{equation}
+La continuidad del potencial sobre $r=a$ implica
+\begin{equation}
+\label{continuidad-hemisferios}
+\phi_i(a,\theta)=\phi_e(a,\theta).
+\end{equation}
+Sustituyendo (\ref{potencial-interior-hemisferios}) y (\ref{potencial-exterior-hemisferios}) en (\ref{continuidad-hemisferios}), tenemos
+\begin{equation*}
+\sum_{n=0}^{\infty}a_na^nP_n(\cos\theta)
+=\sum_{n=0}^{\infty}\frac{d_n}{a^{n+1}}P_n(\cos\theta).
+\end{equation*}
+Como los polinomios de Legendre son l.i., se obtiene
+\begin{equation}
+\label{relacion-coeficientes-hemisferios}
+a_na^n=\frac{d_n}{a^{n+1}}
+\quad\Rightarrow\quad
+ a_n=\frac{d_n}{a^{2n+1}}.
+\end{equation}
+Con esto queda determinada la forma general de las soluciones interior y exterior.
+
+\inciso{b} La condición de borde sobre la superficie de la esfera es
+\begin{equation}
+\label{cdb-hemisferios-theta}
+\phi(a,\theta)=f(\theta)=
+\left\{
+\begin{array}{lcc}
+ V_0, & \text{si} & 0\leq \theta < \dfrac{\pi}{2},\\[0.4em]
+ -V_0, & \text{si} & \dfrac{\pi}{2}<\theta\leq \pi.
+\end{array}
+\right.
+\end{equation}
+Definimos ahora
+\begin{equation*}
+x:=\cos\theta.
+\end{equation*}
+Entonces $0\leq \theta <\pi/2$ corresponde a $0<x\leq1$, mientras que $\pi/2<\theta\leq\pi$ corresponde a $-1\leq x<0$. Así, (\ref{cdb-hemisferios-theta}) puede escribirse como
+\begin{equation}
+\label{cdb-hemisferios-x}
+f(x)=
+\left\{
+\begin{array}{lcc}
+ -V_0, & \text{si} & -1\leq x<0,\\
+ V_0, & \text{si} & 0<x\leq 1.
+\end{array}
+\right.
+\end{equation}
+Expandimos $f(x)$ en serie de Legendre:
+\begin{equation}
+\label{serie-legendre-hemisferios}
+f(x)=\sum_{n=0}^{\infty}c_nP_n(x),
+\end{equation}
+donde
+\begin{equation}
+\label{coeficiente-cn-hemisferios}
+c_n=\frac{2n+1}{2}\int_{-1}^{1}f(x)P_n(x)\dd x.
+\end{equation}
+Comparando (\ref{serie-legendre-hemisferios}) con la expansión exterior evaluada en $r=a$, obtenemos
+\begin{equation}
+\label{coeficientes-a-d-c-hemisferios}
+c_n=\frac{d_n}{a^{n+1}},
+\qquad
+ d_n=a^{n+1}c_n,
+\qquad
+ a_n=\frac{c_n}{a^n}.
+\end{equation}
+
+Calculemos ahora $c_n$. Dado que $f(x)$ es una función impar y que $P_n(x)$ tiene paridad $(-1)^n$, se tiene que sólo sobreviven los términos con $n$ impar. En efecto, para $n$ impar,
+\begin{align*}
+\int_{-1}^{1}f(x)P_n(x)\dd x
+&=-V_0\int_{-1}^{0}P_n(x)\dd x+V_0\int_{0}^{1}P_n(x)\dd x\\
+&=2V_0\int_0^1P_n(x)\dd x.
+\end{align*}
+Por otra parte, usamos la identidad
+\begin{equation}
+\label{integral-pn-identidad}
+\int P_n(x)\dd x=\frac{P_{n+1}(x)-P_{n-1}(x)}{2n+1}.
+\end{equation}
+Entonces
+\begin{align*}
+\int_0^1P_n(x)\dd x
+&=\left.\frac{P_{n+1}(x)-P_{n-1}(x)}{2n+1}\right|_0^1\\
+&=-\frac{P_{n+1}(0)-P_{n-1}(0)}{2n+1}.
+\end{align*}
+Como $n$ es impar, usamos la relación de recurrencia evaluada en $x=0$:
+\begin{equation*}
+(n+1)P_{n+1}(0)=-nP_{n-1}(0).
+\end{equation*}
+Sustituyendo esta relación en la integral anterior, se obtiene
+\begin{equation}
+\label{integral-0-1-pn-impar}
+\int_0^1P_n(x)\dd x=\frac{P_{n-1}(0)}{n+1},
+\qquad n\ \text{impar}.
+\end{equation}
+Reemplazando (\ref{integral-0-1-pn-impar}) en (\ref{coeficiente-cn-hemisferios}), encontramos
+\begin{equation}
+\label{coeficiente-cn-final-hemisferios}
+c_n=
+\left\{
+\begin{array}{lcc}
+\dfrac{(2n+1)V_0}{n+1}P_{n-1}(0), & \text{si} & n\ \text{impar},\\[0.8em]
+0, & \text{si} & n\ \text{par}.
+\end{array}
+\right.
+\end{equation}
+
+Finalmente, sustituyendo los coeficientes (\ref{coeficiente-cn-final-hemisferios}) en (\ref{potencial-interior-hemisferios}) y (\ref{potencial-exterior-hemisferios}), obtenemos
+\begin{equation*}
+\boxed{
+\phi_i(r,\theta)=\sum_{\substack{n=1\\ n\,\text{impar}}}^{\infty}
+\frac{(2n+1)V_0}{n+1}P_{n-1}(0)
+\left(\frac{r}{a}\right)^nP_n(\cos\theta)},
+\qquad r<a,
+\end{equation*}
+\begin{equation*}
+\boxed{
+\phi_e(r,\theta)=\sum_{\substack{n=1\\ n\,\text{impar}}}^{\infty}
+\frac{(2n+1)V_0}{n+1}P_{n-1}(0)
+\left(\frac{a}{r}\right)^{n+1}P_n(\cos\theta)},
+\qquad r>a.
+\end{equation*}
+
+
+\section*{Visualización numérica}
+
+En las figuras angulares se usa la latitud $\lambda=\pi/2-\theta$ para representar la esfera como un mapa rectangular. El color indica el valor del potencial o de su aproximación truncada. Las líneas negras indican el ecuador, nodos o curvas equipotenciales, según se especifique en cada figura.
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.78\textwidth]{figures/fig_01_cdb_truncaciones}
+\caption{Condición de borde de los dos hemisferios y aproximaciones truncadas de la serie de Legendre. La curva exacta presenta un salto en $\theta=\pi/2$. Las oscilaciones cerca del salto corresponden al comportamiento usual de una expansión truncada de una función discontinua.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.76\textwidth]{figures/fig_02_coeficientes_legendre}
+\caption{Coeficientes de Legendre de la condición de borde. Sólo aparecen términos con $n$ impar, porque la C.d.B. cambia de signo al pasar del hemisferio superior al inferior.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.86\textwidth]{figures/fig_05_esfera_hemisferios}
+\caption{Mapa angular del potencial impuesto sobre la superficie conductora. El hemisferio superior tiene potencial $+V_0$ y el inferior tiene potencial $-V_0$. La línea horizontal marca el ecuador, donde cambia el valor impuesto del potencial.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.70\textwidth]{figures/fig_03_potencial_interior}
+\caption{Potencial interior truncado en un corte meridiano. El color representa $\phi_i(r,\theta)$ dentro de la esfera. La circunferencia negra indica la superficie $r=a$ y las líneas delgadas indican curvas equipotenciales.}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includesvg[width=0.70\textwidth]{figures/fig_04_potencial_exterior}
+\caption{Potencial exterior truncado en un corte meridiano. El color representa $\phi_e(r,\theta)$ fuera de la esfera. La circunferencia negra indica $r=a$ y las curvas delgadas muestran equipotenciales; lejos de la esfera el potencial decae.}
+\end{figure}
+
+\end{document}
