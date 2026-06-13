@@ -1,25 +1,38 @@
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
+
+% Plantilla común para material de ayudantías de Campos y Ondas.
+% Documento A4, una columna, fuente Computer Modern de 11 puntos
+% y márgenes de 2.5 cm por lado, en el mismo estilo visual usado
+% para las guías de Física Matemática II.
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[spanish,es-nodecimaldot]{babel}
-\usepackage{amsmath,amssymb,mathrsfs}
-\usepackage{geometry}
-\usepackage{graphicx}
-\usepackage{array}
-\usepackage{enumitem}
-\usepackage{fancyhdr}
-\usepackage{microtype}
-\usepackage{lmodern}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,mathrsfs,graphicx,array,enumitem,caption,float,microtype}
 \usepackage[dvipsnames]{xcolor}
-\usepackage{titlesec}
-\usepackage{caption}
+\usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,calc}
+\usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing,decorations.pathmorphing,positioning}
 \usepackage[most]{tcolorbox}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+\spanishdecimal{.}
 
-\geometry{letterpaper,left=1.85cm,right=1.85cm,top=2.1cm,bottom=2.1cm,headheight=15pt,headsep=0.45cm}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\captionsetup{font=small,labelfont=bf}
 
+% Colores comunes usados en figuras y recuadros.
 \definecolor{headinggray}{RGB}{55,55,55}
 \definecolor{rulegray}{RGB}{150,150,150}
 \definecolor{softgray}{RGB}{247,247,247}
@@ -28,38 +41,64 @@
 \definecolor{orangevec}{RGB}{180,83,9}
 \definecolor{redvec}{RGB}{185,28,28}
 \definecolor{greenvec}{RGB}{21,128,61}
+\definecolor{fieldblue}{RGB}{30,90,180}
+\definecolor{currentorange}{RGB}{195,95,20}
+\definecolor{inducedgreen}{RGB}{20,120,80}
+\definecolor{wiregray}{RGB}{55,55,55}
+\definecolor{waveblue}{RGB}{29,78,216}
+\definecolor{waveorange}{RGB}{180,83,9}
+\definecolor{wavegreen}{RGB}{21,128,61}
+\definecolor{wavered}{RGB}{185,28,28}
 
-\titleformat{name=\section,numberless}[block]
-  {\Large\bfseries\color{headinggray}}
-  {}
-  {0pt}
-  {}
-  [\vspace{0.2em}\color{rulegray}\titlerule]
-\titlespacing*{\section}{0pt}{1.1em}{0.9em}
+% Encabezado homogéneo.
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
 
-\titleformat{name=\subsection,numberless}[block]
-  {\large\bfseries\color{headinggray}}
-  {}
-  {0pt}
-  {}
-\titlespacing*{\subsection}{0pt}{0.8em}{0.45em}
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
 
-\captionsetup{font=small,labelfont=bf}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.45em}
-\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
-\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\newcommand{\inciso}[1]{\vspace{0.35em}\noindent\textbf{(#1)}\enspace}
 
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{Campos y Ondas 510245}
-\fancyhead[R]{Gu\'ia 6 resuelta}
-\renewcommand{\headrulewidth}{0.4pt}
+% Comandos auxiliares.
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
 
+% Comandos usados en las guías de Campos y Ondas.
 \newcommand{\soluciontitulo}{%
   \par\medskip
-  \noindent{\large\bfseries Soluci\'on.}\par
+  \noindent{\large\bfseries Solución.}\par
   \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+}
+
+\newcommand{\resultadofinal}[1]{%
+  \par\medskip
+  \noindent\textbf{Resultado final:} #1\par
+}
+
+\newcommand{\ideaclave}[1]{%
+  \par\medskip
+  \noindent\textbf{Idea clave.} #1\par
+}
+
+\newcommand{\importante}[1]{%
+  \par\medskip
+  \noindent\textbf{Importante.} #1\par
+}
+
+\newcommand{\paso}[1]{%
+  \par\medskip
+  \noindent\textbf{#1}\par
+  \vspace{0.1em}%
 }
 
 \newtcolorbox{comentario}[1][]{%
@@ -69,17 +108,15 @@
   colframe=rulegray,
   boxrule=0.45pt,
   arc=1.5mm,
-  left=1.8mm,right=1.8mm,top=1.1mm,bottom=1.1mm,
-  toptitle=0.9mm,bottomtitle=0.9mm,
-  title={Idea clave},
+  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
+  title=Idea clave,
   fonttitle=\bfseries,
   coltitle=headinggray,
-  colbacktitle=softgray,
-  titlerule=0pt,
-  before title={\strut},
+  colbacktitle=white,
+  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
+  boxed title style={frame hidden,interior hidden},
   #1
 }
-
 
 \newtcolorbox{alerta}[1][]{%
   enhanced,
@@ -88,20 +125,33 @@
   colframe=rulegray,
   boxrule=0.45pt,
   arc=1.5mm,
-  left=1.8mm,right=1.8mm,top=1.1mm,bottom=1.1mm,
-  toptitle=0.9mm,bottomtitle=0.9mm,
-  title={Nota},
+  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
+  title=Nota,
   fonttitle=\bfseries,
   coltitle=headinggray,
-  colbacktitle=softred,
-  titlerule=0pt,
-  before title={\strut},
+  colbacktitle=white,
+  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
+  boxed title style={frame hidden,interior hidden},
   #1
 }
 
+\newcommand{\Bentra}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,-0.065)$)--($(#1,#2)+(0.065,0.065)$);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,0.065)$)--($(#1,#2)+(0.065,-0.065)$);
+}
+\newcommand{\Bsale}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \fill[fieldblue] (#1,#2) circle (0.03);
+}
 
 \tikzset{
     >=Latex,
+    eje/.style={->,thick,headinggray},
+    onda/.style={very thick,waveblue},
+    ondados/.style={very thick,waveorange},
+    ondaaux/.style={thick,wavegreen},
+    vec/.style={->,very thick,wavered},
     vecV/.style={->,very thick,bluevec},
     vecB/.style={->,very thick,orangevec},
     vecF/.style={->,very thick,redvec},
@@ -109,15 +159,12 @@
     panel/.style={draw=rulegray!80,fill=black!2,rounded corners=2pt},
     cargaPos/.style={circle,draw=bluevec,fill=blue!8,thick,minimum size=8mm,inner sep=0pt},
     cargaNeg/.style={circle,draw=greenvec,fill=green!8,thick,minimum size=8mm,inner sep=0pt},
+    guia/.style={densely dashed,rulegray},
     etiqueta/.style={font=\footnotesize},
     nota/.style={draw=rulegray,fill=white,rounded corners=1.5pt,align=left,font=\footnotesize,inner xsep=6pt,inner ysep=5pt,line width=0.35pt}
 }
 
-\newcommand{\Bentra}[2]{%
-    \draw[orangevec,line width=0.5pt] (#1,#2) circle (0.10);
-    \draw[orangevec,line width=0.5pt] ($(#1,#2)+(-0.06,-0.06)$)--($(#1,#2)+(0.06,0.06)$);
-    \draw[orangevec,line width=0.5pt] ($(#1,#2)+(-0.06,0.06)$)--($(#1,#2)+(0.06,-0.06)$);
-}
+
 \newcommand{\Fsale}[2]{%
     \draw[redvec,very thick] (#1,#2) circle (0.16);
     \fill[redvec] (#1,#2) circle (0.04);
@@ -128,24 +175,10 @@
     \draw[redvec,very thick] ($(#1,#2)+(-0.095,0.095)$)--($(#1,#2)+(0.095,-0.095)$);
 }
 
-\newcommand{\paso}[1]{%
-  \par\medskip
-  \noindent{\bfseries #1}\par
-  \vspace{0.15em}%
-}
-
 \begin{document}
+
+\encabezado{Guía 6: Fuerza magnética}{Campos y Ondas 510245}{J.R., F.B.}
 \shorthandoff{<>}
-\begin{center}
-{\LARGE\bfseries\color{headinggray} Problemas resueltos\par}
-\vspace{0.25em}
-{\large Gu\'ia 6 --- Campos y Ondas\par}
-\vspace{0.35em}
-{\normalsize Jos\'e Rosas\par}
-\end{center}
-\vspace{0.3em}
-\hrule height 0.4pt
-\vspace{1.0em}
 
 \section*{Gu\'ia 6}
 
