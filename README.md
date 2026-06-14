@@ -66,10 +66,9 @@ En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebo
 ## Notas
 
 - Los archivos pueden seguir siendo corregidos, ampliados y reorganizados con el tiempo.
-- Algunos materiales pueden estar pensados específicamente para una guía, una ayudantía o una sección particular.
-
+  
 ## Agradecimientos
 
-Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración, revisión y adaptación de parte del material.
+Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración del material de Campos y Ondas.
 
-También se reconoce el uso de **ChatGPT Plus** y **Claude Pro** como herramientas de apoyo para la asistencia en LaTeX, la generación y edición de figuras en TikZ y Python, y la organización del material. El contenido final fue revisado y editado antes de ser incorporado al repositorio.
+Reconozco el uso de **ChatGPT Plus** y **Claude Pro** como herramientas de apoyo para la asistencia en LaTeX, la generación y edición de figuras en TikZ y Python, y la organización del material. El contenido final fue revisado y editado antes de ser incorporado al repositorio.
