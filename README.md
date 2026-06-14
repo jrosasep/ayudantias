@@ -43,8 +43,6 @@ En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, inc
 | `guia-faraday/` | Material asociado a ley de Faraday e inducción electromagnética. |
 | `guia-ondas/` | Material asociado a problemas de ondas. |
 
-La idea de esta carpeta es mantener versiones editables de las resoluciones, de modo que puedan corregirse, completarse o reorganizarse según lo trabajado en las ayudantías.
-
 ### Física Matemática 2
 
 En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas de Fourier, separación de variables, ecuación de Laplace, armónicos esféricos, potencial electrostático y ecuación de onda en un disco.
