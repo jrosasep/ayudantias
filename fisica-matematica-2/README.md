@@ -173,6 +173,52 @@ Notebook para visualizar la solución de la ecuación de onda 2D para una condic
 
 ---
 
+## `calor_2d_rectangulo/`
+
+Problema de la **ecuación de difusión del calor bidimensional en un rectángulo**, resuelto por separación de variables en coordenadas cartesianas.
+
+Se estudia
+
+$$
+\nabla^2\psi-\frac{1}{\alpha}\frac{\partial \psi}{\partial t}=0,
+$$
+
+en el dominio
+
+$$
+0<x<a,
+\qquad
+0<y<b,
+\qquad
+t\geq 0,
+$$
+
+con condiciones de borde homogéneas de Dirichlet sobre los cuatro lados del rectángulo.
+
+El desarrollo muestra cómo las condiciones de borde seleccionan una base doble de senos y cómo la condición inicial determina los coeficientes de Fourier. La carpeta incluye un notebook de apoyo visual asociado a la difusión del calor 2D, compartido por Guillermo Rubilar.
+
+---
+
+## `helmholtz_esfericas_msv/`
+
+Desarrollo del **método de separación de variables para la ecuación de Helmholtz en coordenadas esféricas**.
+
+Se estudia
+
+$$
+\nabla^2\Psi+\alpha\Psi=0,
+$$
+
+usando el ansatz separable
+
+$$
+\Psi_{\mathrm{sep}}(r,\theta,\phi)=R(r)\Theta(\theta)\Phi(\phi).
+$$
+
+El desarrollo muestra cómo aparecen las ecuaciones diferenciales ordinarias radial, polar y azimutal, junto con las constantes de separación asociadas a la periodicidad angular y a la estructura esférica del problema.
+
+---
+
 ## Agradecimientos
 
-Agradezco al profesor **Guillermo Rubilar** por los desarrollos de algunos problemas y por compartir el notebook asociado al problema del tambor.
+Agradezco al profesor **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. 

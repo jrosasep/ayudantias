@@ -1,0 +1,496 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage{float}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Nzero}{\mathbb{N}_0}
+\newcommand{\JR}{J.R.}
+\newcommand{\GR}{G.R.}
+
+\begin{document}
+
+\encabezado{Helmholtz en coordenadas esféricas}{Física Matemática II}{J.R., G.R.}
+
+\problema{1}{Planteamiento del problema}
+
+Consideremos la ecuación de Helmholtz modificada
+\begin{equation}
+\nabla^2\Psi+\alpha\Psi=0,
+    \label{eq:helmholtz}
+\end{equation}
+donde $\Psi=\Psi(r,\theta,\phi)$ es una función escalar y $\alpha\in\R$ es una constante. En coordenadas esféricas, el Laplaciano se escribe como
+\begin{equation*}
+\nabla^2\Psi
+    =
+    \frac{1}{r^2}\frac{\partial}{\partial r}
+    \left(r^2\frac{\partial\Psi}{\partial r}\right)
+    +
+    \frac{1}{r^2\sin\theta}\frac{\partial}{\partial\theta}
+    \left(\sin\theta\frac{\partial\Psi}{\partial\theta}\right)
+    +
+    \frac{1}{r^2\sin^2\theta}\frac{\partial^2\Psi}{\partial\phi^2}.
+\end{equation*}
+Por lo tanto, la ecuación \eqref{eq:helmholtz} adopta la forma explícita
+\begin{equation}
+\frac{1}{r^2}\frac{\partial}{\partial r}
+    \left(r^2\frac{\partial\Psi}{\partial r}\right)
+    +
+    \frac{1}{r^2\sin\theta}\frac{\partial}{\partial\theta}
+    \left(\sin\theta\frac{\partial\Psi}{\partial\theta}\right)
+    +
+    \frac{1}{r^2\sin^2\theta}\frac{\partial^2\Psi}{\partial\phi^2}
+    +\alpha\Psi=0.
+    \label{eq:helmholtz_esferica}
+\end{equation}
+El objetivo es aplicar el método de separación de variables hasta obtener las EDOs para las partes radial, polar y azimutal.
+
+\problema{2}{Ansatz separable}
+
+Buscaremos soluciones separables de la forma
+\begin{equation}
+\Psi_{\mathrm{sep}}(r,\theta,\phi)=R(r)\Theta(\theta)\Phi(\phi).
+    \label{eq:ansatz_helmholtz}
+\end{equation}
+Este ansatz separa la dependencia radial, polar y azimutal. Si una solución de la forma \eqref{eq:ansatz_helmholtz} satisface la EDP, entonces por linealidad podremos construir soluciones más generales como superposiciones de soluciones separables.
+
+\problema{3}{Sustitución explícita en la EDP}
+
+Calculamos primero las derivadas parciales que aparecen en \eqref{eq:helmholtz_esferica}. Como $\Theta$ y $\Phi$ no dependen de $r$,
+\begin{equation*}
+\frac{\partial\Psi_{\mathrm{sep}}}{\partial r}
+    =
+    \Theta(\theta)\Phi(\phi)\frac{\dd R}{\dd r}(r),
+\end{equation*}
+y entonces
+\begin{equation}
+\frac{\partial}{\partial r}
+    \left(r^2\frac{\partial\Psi_{\mathrm{sep}}}{\partial r}\right)
+    =
+    \Theta(\theta)\Phi(\phi)
+    \frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right).
+    \label{eq:derivada_r_2}
+\end{equation}
+
+Análogamente, como $R$ y $\Phi$ no dependen de $\theta$,
+\begin{equation*}
+\frac{\partial\Psi_{\mathrm{sep}}}{\partial\theta}
+    =
+    R(r)\Phi(\phi)\frac{\dd\Theta}{\dd\theta}(\theta),
+\end{equation*}
+y por lo tanto
+\begin{equation}
+\frac{\partial}{\partial\theta}
+    \left(\sin\theta\frac{\partial\Psi_{\mathrm{sep}}}{\partial\theta}\right)
+    =
+    R(r)\Phi(\phi)
+    \frac{\dd}{\dd\theta}
+    \left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right).
+    \label{eq:derivada_theta_2}
+\end{equation}
+Finalmente, como $R$ y $\Theta$ no dependen de $\phi$,
+\begin{equation}
+\frac{\partial^2\Psi_{\mathrm{sep}}}{\partial\phi^2}
+    =
+    R(r)\Theta(\theta)\frac{\dd^2\Phi}{\dd\phi^2}(\phi).
+    \label{eq:derivada_phi_2}
+\end{equation}
+
+Sustituyendo \eqref{eq:derivada_r_2}, \eqref{eq:derivada_theta_2} y \eqref{eq:derivada_phi_2} en \eqref{eq:helmholtz_esferica}, encontramos
+\begin{align*}
+&\frac{1}{r^2}\Theta\Phi
+    \frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +
+    \frac{1}{r^2\sin\theta}R\Phi
+    \frac{\dd}{\dd\theta}\left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    \notag\\
+    &\hspace{5em}
+    +
+    \frac{1}{r^2\sin^2\theta}R\Theta
+    \frac{\dd^2\Phi}{\dd\phi^2}
+    +
+    \alpha R\Theta\Phi=0.
+\end{align*}
+Dividiendo por $\Psi_{\mathrm{sep}}=R\Theta\Phi$, obtenemos
+\begin{equation*}
+\frac{1}{r^2R}\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +
+    \frac{1}{r^2\Theta\sin\theta}
+    \frac{\dd}{\dd\theta}\left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    +
+    \frac{1}{r^2\sin^2\theta\,\Phi}\frac{\dd^2\Phi}{\dd\phi^2}
+    +\alpha=0.
+\end{equation*}
+Multiplicamos ahora por $r^2\sin^2\theta$. De este modo,
+\begin{equation}
+\sin^2\theta
+    \left[
+    \frac{1}{R}\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +
+    \frac{1}{\Theta\sin\theta}
+    \frac{\dd}{\dd\theta}\left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    +
+    \alpha r^2
+    \right]
+    +
+    \frac{1}{\Phi}\frac{\dd^2\Phi}{\dd\phi^2}=0.
+    \label{eq:helmholtz_forma_separable}
+\end{equation}
+Esta es la forma conveniente para realizar la primera separación.
+
+\problema{4}{Primera separación: variable azimutal}
+
+En \eqref{eq:helmholtz_forma_separable}, el término
+\begin{equation*}
+\frac{1}{\Phi}\frac{\dd^2\Phi}{\dd\phi^2}
+\end{equation*}
+depende sólo de $\phi$, mientras que el resto depende sólo de $r$ y $\theta$. Por lo tanto, ambos términos deben ser constantes. Siguiendo la convención usual, escribimos
+\begin{equation}
+\frac{1}{\Phi}\frac{\dd^2\Phi}{\dd\phi^2}=\text{const.}=-m^2.
+    \label{eq:separacion_phi}
+\end{equation}
+Así, la EDO azimutal es
+\begin{equation*}
+\frac{\dd^2\Phi}{\dd\phi^2}+m^2\Phi=0.
+\end{equation*}
+Una base compleja de soluciones está dada por
+\begin{equation}
+\Phi(\phi)=\e^{\ii m\phi}.
+    \label{eq:solucion_phi_exp}
+\end{equation}
+Como $\phi$ es una coordenada angular, la solución física debe ser univaluada, es decir,
+\begin{equation}
+\Phi(\phi+2\pi)=\Phi(\phi).
+    \label{eq:periodicidad_phi}
+\end{equation}
+Sustituyendo \eqref{eq:solucion_phi_exp} en \eqref{eq:periodicidad_phi}, se obtiene
+\begin{equation*}
+\e^{\ii m(\phi+2\pi)}=\e^{\ii m\phi}
+    \quad\Longrightarrow\quad
+    \e^{2\pi\ii m}=1.
+\end{equation*}
+Por consiguiente,
+\begin{equation*}
+m=0,\pm1,\pm2,\ldots,
+    \qquad m\in\Z.
+\end{equation*}
+
+\problema{5}{Segunda separación: variables radial y polar}
+
+Sustituyendo \eqref{eq:separacion_phi} en \eqref{eq:helmholtz_forma_separable}, se obtiene
+\begin{equation*}
+\sin^2\theta
+    \left[
+    \frac{1}{R}\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +
+    \frac{1}{\Theta\sin\theta}
+    \frac{\dd}{\dd\theta}\left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    +
+    \alpha r^2
+    \right]
+    -m^2=0.
+\end{equation*}
+Dividiendo por $\sin^2\theta$,
+\begin{equation*}
+\frac{1}{R}\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +
+    \alpha r^2
+    +
+    \frac{1}{\Theta\sin\theta}
+    \frac{\dd}{\dd\theta}\left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    -
+    \frac{m^2}{\sin^2\theta}=0.
+\end{equation*}
+Los dos primeros términos dependen sólo de $r$, mientras que los dos últimos dependen sólo de $\theta$. Por lo tanto, introducimos una segunda constante de separación $Q$:
+\begin{equation}
+\frac{1}{R}\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +
+    \alpha r^2=Q,
+    \label{eq:separacion_radial_Q}
+\end{equation}
+\begin{equation}
+\frac{1}{\Theta\sin\theta}
+    \frac{\dd}{\dd\theta}\left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    -
+    \frac{m^2}{\sin^2\theta}=-Q.
+    \label{eq:separacion_polar_Q}
+\end{equation}
+Multiplicando \eqref{eq:separacion_radial_Q} por $R$ y \eqref{eq:separacion_polar_Q} por $\Theta$, obtenemos las EDOs separadas:
+\begin{align}
+\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +
+    (\alpha r^2-Q)R&=0,
+    \label{eq:edo_radial}\\
+    \frac{1}{\sin\theta}\frac{\dd}{\dd\theta}
+    \left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    +
+    \left(Q-\frac{m^2}{\sin^2\theta}\right)\Theta&=0,
+    \label{eq:edo_polar}\\
+    \frac{\dd^2\Phi}{\dd\phi^2}+m^2\Phi&=0.
+    \notag
+\end{align}
+Con esto queda realizada la separación de variables de la ecuación de Helmholtz en coordenadas esféricas.
+
+\problema{6}{Relación con la ecuación asociada de Legendre}
+
+La EDO polar \eqref{eq:edo_polar} puede escribirse como
+\begin{equation}
+\frac{1}{\sin\theta}\frac{\dd}{\dd\theta}
+    \left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    +
+    \left(Q-\frac{m^2}{\sin^2\theta}\right)\Theta=0.
+    \label{eq:polar_antes_cambio}
+\end{equation}
+Realizamos el cambio de variable
+\begin{equation*}
+x:=\cos\theta,
+    \qquad
+    \Theta(\theta)=y(x)=y(\cos\theta).
+\end{equation*}
+Como
+\begin{equation*}
+\frac{\dd x}{\dd\theta}=-\sin\theta,
+\end{equation*}
+se tiene
+\begin{equation*}
+\frac{\dd\Theta}{\dd\theta}
+    =
+    \frac{\dd y}{\dd x}\frac{\dd x}{\dd\theta}
+    =
+    -\sin\theta\frac{\dd y}{\dd x}.
+\end{equation*}
+Entonces
+\begin{equation*}
+\sin\theta\frac{\dd\Theta}{\dd\theta}
+    =
+    -\sin^2\theta\frac{\dd y}{\dd x}
+    =
+    -(1-x^2)\frac{\dd y}{\dd x}.
+\end{equation*}
+Derivando respecto de $\theta$,
+\begin{align*}
+\frac{\dd}{\dd\theta}
+    \left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    &=
+    \frac{\dd}{\dd\theta}
+    \left[-(1-x^2)\frac{\dd y}{\dd x}\right]
+    \notag\\
+    &=
+    \frac{\dd}{\dd x}
+    \left[-(1-x^2)\frac{\dd y}{\dd x}\right]
+    \frac{\dd x}{\dd\theta}
+    \notag\\
+    &=
+    \sin\theta\frac{\dd}{\dd x}
+    \left[(1-x^2)\frac{\dd y}{\dd x}\right].
+\end{align*}
+Por lo tanto,
+\begin{equation*}
+\frac{1}{\sin\theta}\frac{\dd}{\dd\theta}
+    \left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    =
+    \frac{\dd}{\dd x}
+    \left[(1-x^2)\frac{\dd y}{\dd x}\right].
+\end{equation*}
+Además, como $\sin^2\theta=1-x^2$, la ecuación \eqref{eq:polar_antes_cambio} se transforma en
+\begin{equation*}
+\frac{\dd}{\dd x}
+    \left[(1-x^2)\frac{\dd y}{\dd x}\right]
+    +
+    \left(Q-\frac{m^2}{1-x^2}\right)y=0,
+    \qquad x\in[-1,1].
+\end{equation*}
+Esta es la ecuación asociada de Legendre. Al exigir soluciones regulares en los extremos $x=\pm1$, se selecciona
+\begin{equation*}
+Q=\ell(\ell+1),
+    \qquad
+    \ell=0,1,2,\ldots,
+    \qquad
+    |m|\leq \ell.
+\end{equation*}
+En ese caso, las soluciones angulares se expresan en términos de funciones asociadas de Legendre $P_\ell^m(\cos\theta)$ y la dependencia azimutal $\e^{\ii m\phi}$ se agrupa naturalmente en los armónicos esféricos $Y_\ell^m(\theta,\phi)$.
+
+\problema{7}{Caso de simetría axial}
+
+Si el problema físico posee simetría axial, la solución no depende de la coordenada $\phi$. Es decir,
+\begin{equation*}
+\Psi=\Psi(r,\theta).
+\end{equation*}
+Desde la formulación general, esto corresponde a tomar $\Phi(\phi)$ constante. En la ecuación azimutal
+\begin{equation*}
+\Phi''+m^2\Phi=0,
+\end{equation*}
+las soluciones constantes sólo aparecen cuando
+\begin{equation*}
+m=0.
+\end{equation*}
+Por lo tanto, la simetría axial selecciona el sector $m=0$.
+
+Con $m=0$, la EDO polar \eqref{eq:edo_polar} se reduce a
+\begin{equation*}
+\frac{1}{\sin\theta}\frac{\dd}{\dd\theta}
+    \left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    +Q\Theta=0.
+\end{equation*}
+Con $x=\cos\theta$, esta ecuación se transforma en
+\begin{equation*}
+\frac{\dd}{\dd x}\left[(1-x^2)\frac{\dd y}{\dd x}\right]+Qy=0,
+\end{equation*}
+o, equivalentemente,
+\begin{equation*}
+(1-x^2)y''-2xy'+Qy=0.
+\end{equation*}
+Para soluciones finitas en $x=\pm1$, se requiere
+\begin{equation*}
+Q=\ell(\ell+1),
+    \qquad \ell=0,1,2,\ldots,
+\end{equation*}
+y las soluciones regulares son
+\begin{equation*}
+\Theta(\theta)=P_\ell(\cos\theta).
+\end{equation*}
+
+\problema{8}{Caso particular $\alpha=0$: ecuación de Laplace}
+
+Si $\alpha=0$, la ecuación \eqref{eq:helmholtz} se reduce a la ecuación de Laplace
+\begin{equation*}
+\nabla^2\Psi=0.
+\end{equation*}
+La EDO radial \eqref{eq:edo_radial} queda
+\begin{equation*}
+\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)-QR=0.
+\end{equation*}
+Expandiendo la derivada,
+\begin{equation}
+r^2R''+2rR'-QR=0.
+    \label{eq:euler_cauchy_radial}
+\end{equation}
+Esta es una ecuación de Euler-Cauchy. Buscamos soluciones de la forma
+\begin{equation*}
+R(r)=r^s.
+\end{equation*}
+Entonces
+\begin{equation*}
+R'(r)=sr^{s-1},
+    \qquad
+    R''(r)=s(s-1)r^{s-2}.
+\end{equation*}
+Sustituyendo en \eqref{eq:euler_cauchy_radial}, resulta
+\begin{align*}
+r^2s(s-1)r^{s-2}+2rsr^{s-1}-Qr^s&=0,
+    \notag\\
+    \left[s(s-1)+2s-Q\right]r^s&=0,
+    \notag\\
+    \left[s(s+1)-Q\right]r^s&=0.
+\end{align*}
+Por lo tanto,
+\begin{equation*}
+s(s+1)=Q.
+\end{equation*}
+Para $Q=\ell(\ell+1)$, las dos soluciones son
+\begin{equation*}
+s=\ell,
+    \qquad
+    s=-(\ell+1).
+\end{equation*}
+Luego, la solución radial general asociada a un valor fijo de $\ell$ es
+\begin{equation*}
+R_\ell(r)=A_\ell r^\ell+B_\ell r^{-(\ell+1)}.
+\end{equation*}
+Así, en el caso de Laplace, la estructura radial queda determinada por las potencias $r^\ell$ y $r^{-(\ell+1)}$.
+
+\problema{9}{Resultado final de la separación}
+
+La ecuación
+\begin{equation*}
+\nabla^2\Psi+\alpha\Psi=0
+\end{equation*}
+con el ansatz
+\begin{equation*}
+\Psi_{\mathrm{sep}}(r,\theta,\phi)=R(r)\Theta(\theta)\Phi(\phi)
+\end{equation*}
+conduce al sistema
+\begin{align*}
+\frac{\dd}{\dd r}\left(r^2\frac{\dd R}{\dd r}\right)
+    +(\alpha r^2-Q)R&=0,
+    \\
+    \frac{1}{\sin\theta}\frac{\dd}{\dd\theta}
+    \left(\sin\theta\frac{\dd\Theta}{\dd\theta}\right)
+    +
+    \left(Q-\frac{m^2}{\sin^2\theta}\right)\Theta&=0,
+    \\
+    \frac{\dd^2\Phi}{\dd\phi^2}+m^2\Phi&=0.
+\end{align*}
+La periodicidad en $\phi$ impone $m\in\Z$. La regularidad angular selecciona $Q=\ell(\ell+1)$, con $\ell\in\Nzero$ y $|m|\leq\ell$.
+
+
+\problema{10}{Gráficos}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.88\linewidth]{figuras/helmholtz_azimutal_periodicidad}
+    \caption{Parte real de los modos azimutales $\Phi_m(\phi)=\e^{\ii m\phi}$ para $m=0,1,2,3$. La parte real se grafica para mostrar la periodicidad angular de forma directa. Los puntos $\phi=0$ y $\phi=2\pi$ representan la misma dirección física; por eso la función debe tomar el mismo valor en ambos extremos. Esta condición de univaluación es la que selecciona $m\in\mathbb{Z}$.}
+    \label{fig:helmholtz-periodicidad}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.88\linewidth]{figuras/helmholtz_polar_legendre_axial}
+    \caption{Dependencia polar en el sector axial $m=0$. En este caso la ecuación polar se reduce a la ecuación de Legendre y las soluciones regulares son $\Theta_\ell(\theta)=P_\ell(\cos\theta)$, con $Q=\ell(\ell+1)$. El eje horizontal corresponde a $\theta/\pi$, de modo que $\theta=0$ y $\theta=\pi$ son los polos. La regularidad en esos extremos es la condición que discretiza la constante de separación angular.}
+    \label{fig:helmholtz-legendre-axial}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.88\linewidth]{figuras/helmholtz_radial_laplace_alpha_cero}
+    \caption{Ramas radiales independientes para el caso $\alpha=0$, donde la ecuación de Helmholtz se reduce a la ecuación de Laplace. Para $Q=\ell(\ell+1)$ aparecen las soluciones $r^\ell$ y $r^{-(\ell+1)}$. Las curvas fueron normalizadas sólo para compararlas en una misma escala vertical; esa normalización no cambia la dependencia radial. En problemas interiores suele conservarse la rama regular $r^\ell$, mientras que en problemas exteriores suele aparecer la rama decreciente $r^{-(\ell+1)}$.}
+    \label{fig:helmholtz-radial-laplace}
+\end{figure}
+
+\end{document}

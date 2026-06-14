@@ -1,0 +1,405 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,graphicx,xcolor}
+\usepackage{float}
+\usepackage{svg}
+\svgsetup{inkscapelatex=false}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado y problemas
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+\vspace{0.35em}
+\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Nzero}{\mathbb{N}_0}
+\newcommand{\JR}{J.R.}
+\newcommand{\GR}{G.R.}
+
+\begin{document}
+
+\encabezado{Difusión del calor 2D en un rectángulo}{Física Matemática II}{J.R., G.R.}
+
+\problema{1}{Planteamiento del problema}
+
+Consideremos la ecuación de difusión del calor bidimensional en el dominio rectangular
+\begin{equation*}
+\Omega=\{(x,y)\in\R^2:0<x<a,\;0<y<b\},
+    \qquad a>0,\quad b>0,
+\end{equation*}
+para tiempos $t\geq 0$. La función desconocida será
+\begin{equation*}
+\psi=\psi(x,y,t),
+\end{equation*}
+la cual representa la temperatura del sistema en el punto $(x,y)$ y en el instante $t$.
+
+Siguiendo la notación usual del apunte del curso, escribimos la ecuación del calor en la forma
+\begin{equation}
+\frac{\partial^2\psi}{\partial x^2}
+    +
+    \frac{\partial^2\psi}{\partial y^2}
+    -
+    \frac{1}{\alpha}\frac{\partial\psi}{\partial t}=0,
+    \qquad \alpha>0,
+    \label{eq:calor_2d_rubilar}
+\end{equation}
+o, equivalentemente,
+\begin{equation*}
+\frac{\partial\psi}{\partial t}
+    =
+    \alpha\left(
+    \frac{\partial^2\psi}{\partial x^2}
+    +
+    \frac{\partial^2\psi}{\partial y^2}
+    \right).
+\end{equation*}
+Aquí $\alpha$ corresponde a la difusividad térmica del material.
+
+Impondremos condiciones de borde homogéneas tipo Dirichlet en todo el contorno de $\Omega$:
+\begin{align}
+\psi(0,y,t)&=0,
+    &\psi(a,y,t)&=0,
+    &&0\leq y\leq b,
+    \quad t\geq0,
+    \label{eq:cb_x_calor}\\
+    \psi(x,0,t)&=0,
+    &\psi(x,b,t)&=0,
+    &&0\leq x\leq a,
+    \quad t\geq0.
+    \label{eq:cb_y_calor}
+\end{align}
+La condición inicial se escribe como
+\begin{equation*}
+\psi(\vec{x},0)=\varphi(\vec{x}),
+    \qquad \vec{x}=(x,y),
+\end{equation*}
+o, de forma equivalente,
+\begin{equation}
+\psi(x,y,0)=\varphi(x,y).
+    \label{eq:ci_calor_xy}
+\end{equation}
+
+\problema{2}{Aplicación del método de separación de variables}
+
+Buscamos una solución separable de la forma
+\begin{equation}
+\psi_{\mathrm{sep}}(x,y,t)=X(x)Y(y)T(t),
+    \label{eq:ansatz_calor}
+\end{equation}
+donde $X$, $Y$ y $T$ dependen sólo de una variable. Sustituimos \eqref{eq:ansatz_calor} en la ecuación \eqref{eq:calor_2d_rubilar}. Primero calculamos
+\begin{equation*}
+\frac{\partial^2\psi_{\mathrm{sep}}}{\partial x^2}=X''(x)Y(y)T(t),
+    \qquad
+    \frac{\partial^2\psi_{\mathrm{sep}}}{\partial y^2}=X(x)Y''(y)T(t),
+\end{equation*}
+y
+\begin{equation*}
+\frac{\partial\psi_{\mathrm{sep}}}{\partial t}=X(x)Y(y)T'(t).
+\end{equation*}
+Por lo tanto, al reemplazar en \eqref{eq:calor_2d_rubilar}, obtenemos
+\begin{equation*}
+X''YT+XY''T-\frac{1}{\alpha}XYT'=0.
+\end{equation*}
+Dividiendo por $\psi_{\mathrm{sep}}=XYT$, suponiendo que trabajamos donde esta cantidad no se anula idénticamente, resulta
+\begin{equation*}
+\frac{X''}{X}+\frac{Y''}{Y}-\frac{1}{\alpha}\frac{T'}{T}=0.
+\end{equation*}
+Luego,
+\begin{equation*}
+\frac{1}{\alpha}\frac{T'}{T}
+    =
+    \frac{X''}{X}+\frac{Y''}{Y}.
+\end{equation*}
+El miembro izquierdo depende sólo de $t$, mientras que el miembro derecho depende sólo de las variables espaciales $x$ e $y$. Como la igualdad debe valer para todo $(x,y,t)$ del dominio, ambos miembros deben ser iguales a una constante de separación. Para que la parte temporal sea decreciente, escribimos
+\begin{equation*}
+\frac{1}{\alpha}\frac{T'}{T}=-\lambda,
+    \qquad
+    \frac{X''}{X}+\frac{Y''}{Y}=-\lambda.
+\end{equation*}
+De la primera ecuación se obtiene inmediatamente
+\begin{equation*}
+T'+\alpha\lambda T=0.
+\end{equation*}
+
+La parte espacial todavía contiene dos variables. Para separarla, escribimos
+\begin{equation*}
+\frac{X''}{X}+\lambda=-\frac{Y''}{Y}.
+\end{equation*}
+El lado izquierdo depende sólo de $x$ y el derecho sólo de $y$. Por lo tanto, ambos deben ser iguales a una nueva constante de separación. Es conveniente escribir
+\begin{equation*}
+\frac{X''}{X}=-\lambda_x,
+    \qquad
+    \frac{Y''}{Y}=-\lambda_y,
+    \qquad
+    \lambda=\lambda_x+\lambda_y.
+\end{equation*}
+Así se obtiene el sistema de EDOs
+\begin{align}
+X''+\lambda_x X&=0,
+    \notag\\
+    Y''+\lambda_y Y&=0,
+    \notag\\
+    T'+\alpha(\lambda_x+\lambda_y)T&=0.\label{eq:edo_t_calor}
+\end{align}
+
+\problema{3}{Condiciones de borde homogéneas y autovalores}
+
+Las condiciones de borde homogéneas pueden imponerse directamente sobre las soluciones separables. En efecto, usando \eqref{eq:ansatz_calor}, las condiciones \eqref{eq:cb_x_calor} implican
+\begin{equation*}
+X(0)Y(y)T(t)=0,
+    \qquad
+    X(a)Y(y)T(t)=0.
+\end{equation*}
+Para soluciones no triviales, $Y\not\equiv0$ y $T\not\equiv0$, de modo que
+\begin{equation*}
+X(0)=0,
+    \qquad
+    X(a)=0.
+\end{equation*}
+Análogamente, de \eqref{eq:cb_y_calor} se obtiene
+\begin{equation*}
+Y(0)=0,
+    \qquad
+    Y(b)=0.
+\end{equation*}
+
+Por lo tanto, debemos resolver los problemas de autovalores
+\begin{equation*}
+X''+\lambda_xX=0,
+    \qquad X(0)=0,
+    \qquad X(a)=0,
+\end{equation*}
+y
+\begin{equation*}
+Y''+\lambda_yY=0,
+    \qquad Y(0)=0,
+    \qquad Y(b)=0.
+\end{equation*}
+
+\inciso{a}\textbf{Dirección $x$}\par
+
+Analizamos el signo de $\lambda_x$, pues de ello depende la forma explícita de la solución.
+
+Si $\lambda_x=0$, entonces
+\begin{equation*}
+X''=0
+    \quad\Longrightarrow\quad
+    X(x)=A+Bx.
+\end{equation*}
+Las condiciones $X(0)=0$ y $X(a)=0$ implican $A=0$ y $B=0$, por lo que sólo se obtiene la solución trivial.
+
+Si $\lambda_x<0$, escribimos $\lambda_x=-p^2$, con $p>0$. Entonces
+\begin{equation*}
+X''-p^2X=0
+    \quad\Longrightarrow\quad
+    X(x)=A\e^{px}+B\e^{-px}.
+\end{equation*}
+La condición $X(0)=0$ entrega $A+B=0$. Luego,
+\begin{equation*}
+X(a)=A(\e^{pa}-\e^{-pa})=0.
+\end{equation*}
+Como $\e^{pa}-\e^{-pa}\neq0$, se concluye que $A=0$ y $B=0$. Nuevamente sólo aparece la solución trivial.
+
+Por lo tanto, el caso no trivial requiere $\lambda_x>0$. En tal caso,
+\begin{equation*}
+X(x)=A\cos(\sqrt{\lambda_x}\,x)+B\sin(\sqrt{\lambda_x}\,x).
+\end{equation*}
+De $X(0)=0$ se obtiene $A=0$. Luego, la condición $X(a)=0$ exige
+\begin{equation*}
+B\sin(\sqrt{\lambda_x}\,a)=0.
+\end{equation*}
+Para no obtener $B=0$, debe cumplirse
+\begin{equation*}
+\sqrt{\lambda_x}\,a=n\pi,
+    \qquad n=1,2,3,\ldots.
+\end{equation*}
+Así, los autovalores y autofunciones en la dirección $x$ son
+\begin{equation*}
+\lambda_{x,n}=\left(\frac{n\pi}{a}\right)^2,
+    \qquad
+    X_n(x)=\sin\left(\frac{n\pi x}{a}\right),
+    \qquad n=1,2,3,\ldots.
+\end{equation*}
+
+\inciso{b}\textbf{Dirección $y$}\par
+
+El cálculo para $Y(y)$ es completamente análogo. Las condiciones $Y(0)=0$ y $Y(b)=0$ seleccionan
+\begin{equation*}
+\lambda_{y,m}=\left(\frac{m\pi}{b}\right)^2,
+    \qquad
+    Y_m(y)=\sin\left(\frac{m\pi y}{b}\right),
+    \qquad m=1,2,3,\ldots.
+\end{equation*}
+Por lo tanto, cada modo espacial queda etiquetado por un par $(n,m)\in\N^2$ y posee autovalor total
+\begin{equation}
+\lambda_{nm}=\lambda_{x,n}+\lambda_{y,m}
+    =
+    \pi^2\left(\frac{n^2}{a^2}+\frac{m^2}{b^2}\right).
+    \label{eq:lambda_nm_calor}
+\end{equation}
+
+\problema{4}{Parte temporal}
+
+Sustituyendo \eqref{eq:lambda_nm_calor} en \eqref{eq:edo_t_calor}, se obtiene
+\begin{equation*}
+\frac{\dd T_{nm}}{\dd t}
+    +
+    \alpha\pi^2\left(\frac{n^2}{a^2}+\frac{m^2}{b^2}\right)T_{nm}=0.
+\end{equation*}
+Esta ecuación diferencial ordinaria lineal de primer orden se resuelve directamente:
+\begin{equation*}
+T_{nm}(t)=C_{nm}\exp\left[-\alpha\pi^2
+    \left(\frac{n^2}{a^2}+\frac{m^2}{b^2}\right)t\right].
+\end{equation*}
+
+Con esto, una solución separable asociada al par $(n,m)$ es
+\begin{equation*}
+\psi^{\mathrm{sep}}_{nm}(x,y,t)
+    =
+    C_{nm}
+    \sin\left(\frac{n\pi x}{a}\right)
+    \sin\left(\frac{m\pi y}{b}\right)
+    \exp\left[-\alpha\pi^2
+    \left(\frac{n^2}{a^2}+\frac{m^2}{b^2}\right)t\right].
+\end{equation*}
+
+\problema{5}{Superposición general y condición inicial}
+
+Como la ecuación \eqref{eq:calor_2d_rubilar} es lineal y homogénea, una combinación lineal de soluciones separables también es solución. Entonces escribimos
+\begin{equation}
+\psi(x,y,t)
+    =
+    \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}
+    A_{nm}
+    \sin\left(\frac{n\pi x}{a}\right)
+    \sin\left(\frac{m\pi y}{b}\right)
+    \exp\left[-\alpha\pi^2
+    \left(\frac{n^2}{a^2}+\frac{m^2}{b^2}\right)t\right].
+    \label{eq:solucion_general_calor}
+\end{equation}
+Esta expresión ya satisface la EDP y todas las condiciones de borde homogéneas. Falta imponer la condición inicial \eqref{eq:ci_calor_xy}. Evaluando en $t=0$,
+\begin{equation}
+\varphi(x,y)
+    =
+    \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}
+    A_{nm}
+    \sin\left(\frac{n\pi x}{a}\right)
+    \sin\left(\frac{m\pi y}{b}\right).
+    \label{eq:serie_seno_doble}
+\end{equation}
+Por lo tanto, los coeficientes $A_{nm}$ son los coeficientes de Fourier seno dobles de la condición inicial $\varphi$.
+
+Para calcularlos, multiplicamos \eqref{eq:serie_seno_doble} por
+\begin{equation*}
+\sin\left(\frac{n'\pi x}{a}\right)
+    \sin\left(\frac{m'\pi y}{b}\right)
+\end{equation*}
+e integramos sobre el rectángulo $[0,a]\times[0,b]$:
+\begin{align*}
+&\int_0^a\int_0^b
+    \varphi(x,y)
+    \sin\left(\frac{n'\pi x}{a}\right)
+    \sin\left(\frac{m'\pi y}{b}\right)
+    \dd y\dd x
+    \notag\\
+    &=
+    \sum_{n=1}^{\infty}\sum_{m=1}^{\infty}A_{nm}
+    \left[\int_0^a
+    \sin\left(\frac{n\pi x}{a}\right)
+    \sin\left(\frac{n'\pi x}{a}\right)\dd x\right]
+    \notag\\
+    &\hspace{8em}\times
+    \left[\int_0^b
+    \sin\left(\frac{m\pi y}{b}\right)
+    \sin\left(\frac{m'\pi y}{b}\right)\dd y\right].
+\end{align*}
+Usando las relaciones de ortogonalidad
+\begin{equation*}
+\int_0^a
+    \sin\left(\frac{n\pi x}{a}\right)
+    \sin\left(\frac{n'\pi x}{a}\right)\dd x
+    =\frac{a}{2}\delta_{nn'},
+\end{equation*}
+\begin{equation*}
+\int_0^b
+    \sin\left(\frac{m\pi y}{b}\right)
+    \sin\left(\frac{m'\pi y}{b}\right)\dd y
+    =\frac{b}{2}\delta_{mm'},
+\end{equation*}
+obtenemos finalmente
+\begin{equation}
+A_{nm}
+    =
+    \frac{4}{ab}
+    \int_0^a\int_0^b
+    \varphi(x,y)
+    \sin\left(\frac{n\pi x}{a}\right)
+    \sin\left(\frac{m\pi y}{b}\right)
+    \dd y\dd x.
+    \label{eq:A_nm_calor}
+\end{equation}
+
+Con \eqref{eq:solucion_general_calor} y \eqref{eq:A_nm_calor} queda determinada la solución del problema.
+
+
+\problema{6}{Gráficos}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.62\linewidth]{figuras/calor_2d_modo_11}
+    \caption{Primer modo espacial permitido por las condiciones homogéneas de Dirichlet. Se grafica el producto $X_1(x)Y_1(y)=\sen(\pi x/a)\sen(\pi y/b)$ para $a=1$ y $b=2$. La figura permite verificar visualmente que el modo se anula en los cuatro lados del rectángulo: $x=0$, $x=a$, $y=0$ e $y=b$. Como corresponde al modo $(n,m)=(1,1)$, no aparecen nodos interiores; por eso representa la variación espacial más suave compatible con el borde fijo a temperatura nula.}
+    \label{fig:calor-modo-11}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.98\linewidth]{figuras/calor_2d_evolucion_seno_gaussiana}
+    \caption{Evolución temporal de una condición inicial suave y localizada, evaluada mediante la solución en serie doble. Los parámetros son $a=1$, $b=2$, $\alpha=1$, $T_0=1$, $x_0=0.6a$, $y_0=0.7b$, $\sigma_x=0.12a$ y $\sigma_y=0.13b$. El punto negro marca el centro inicial de la perturbación térmica. La escala de color se mantiene fija en todos los paneles; por tanto, la disminución de intensidad no es un artefacto de la escala, sino el decaimiento real de la temperatura. La difusión ensancha el perfil y reduce su amplitud, mientras las condiciones de borde mantienen el valor nulo en el contorno.}
+    \label{fig:calor-evolucion}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includesvg[width=0.62\linewidth]{figuras/calor_2d_tasas_decaimiento}
+    \caption{Tasas de decaimiento $\gamma_{nm}=\alpha\pi^2(n^2/a^2+m^2/b^2)$ para los primeros modos de la serie, usando $a=1$, $b=2$ y $\alpha=1$. Cada casilla muestra el valor numérico de $\gamma_{nm}$. Los modos con índices mayores decaen más rápido porque tienen mayor curvatura espacial. Además, como $b>a$, una variación modal en la dirección $y$ contribuye menos a la tasa que una variación equivalente en la dirección $x$.}
+    \label{fig:calor-tasas}
+\end{figure}
+
+\end{document}

@@ -20,8 +20,10 @@ ayudantias/
 │   └── guia-ondas/
 └── fisica-matematica-2/
     ├── README.md
-    ├── convolucion/
     ├── armonicos_esfericos_integral/
+    ├── calor_2d_rectangulo/
+    ├── convolucion/
+    ├── helmholtz_esfericas_msv/
     ├── laplace_2d_cuarto_circulo/
     ├── onda_2d_tambor_bessel/
     ├── potencial_dos_hemisferios_laplace/
@@ -45,7 +47,7 @@ En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, inc
 
 ### Física Matemática 2
 
-En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas de Fourier, separación de variables, ecuación de Laplace, armónicos esféricos, potencial electrostático y ecuación de onda en un disco.
+En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas de Fourier, separación de variables, ecuación de Laplace, ecuación de difusión del calor, ecuación de Helmholtz, armónicos esféricos, potencial electrostático y ecuación de onda en un disco.
 
 | Carpeta | Contenido |
 |---|---|
@@ -56,6 +58,8 @@ En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas d
 | `armonicos_esfericos_integral/` | Identidades de armónicos esféricos y cálculo de una integral angular. |
 | `potencial_esfera_armonicos/` | Potencial de un cascarón esférico con densidad superficial de carga, usando armónicos esféricos. |
 | `onda_2d_tambor_bessel/` | Ecuación de onda 2D en un disco, modos de Bessel y notebook con animación para condiciones iniciales. |
+| `calor_2d_rectangulo/` | Ecuación de difusión del calor 2D en un rectángulo mediante separación de variables; incluye notebook de visualización. |
+| `helmholtz_esfericas_msv/` | Separación de variables para la ecuación de Helmholtz en coordenadas esféricas. |
 
 En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebooks, scripts de visualización y figuras en formato `.svg`.
 
@@ -66,6 +70,6 @@ En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebo
 
 ## Agradecimientos
 
-Agradezco a **Guillermo Rubilar** y **Félix Borotto** por sus aportes en la resolución, revisión o discusión de algunos problemas desarrollados en este repositorio.
+Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración, revisión y adaptación de parte del material.
 
 También se reconoce el uso de **ChatGPT Plus** y **Claude Pro** como herramientas de apoyo para la asistencia en LaTeX, la generación y edición de figuras en TikZ y Python, y la organización del material. El contenido final fue revisado y editado antes de ser incorporado al repositorio.
