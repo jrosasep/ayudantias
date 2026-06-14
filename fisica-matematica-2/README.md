@@ -37,7 +37,7 @@ en la región
 ```math
 0<\varphi<\frac{\pi}{2},
 \qquad
-a<r<b.
+a < r < b.
 ```
 
 Las condiciones de borde son homogéneas en los bordes angulares y en $r=a$, mientras que en $r=b$ se impone una condición no homogénea. El desarrollo muestra cómo las condiciones de borde seleccionan los modos angulares y determinan los coeficientes de la expansión.
