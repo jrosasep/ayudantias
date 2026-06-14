@@ -207,10 +207,4 @@ usando el ansatz separable
 
 El desarrollo muestra cómo aparecen las ecuaciones diferenciales ordinarias radial, polar y azimutal, junto con las constantes de separación asociadas a la periodicidad angular y a la estructura esférica del problema.
 
----
 
-## Agradecimientos
-
-Agradezco al profesor **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. 
-
-También se reconoce el uso de ChatGPT Plus como herramienta de apoyo para la redacción, organización, edición en LaTeX y Python. El contenido final fue revisado, corregido y editado antes de ser incorporado al repositorio.
