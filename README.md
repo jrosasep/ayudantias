@@ -63,7 +63,7 @@ En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas d
 
 En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebooks, scripts de visualización y figuras en formato `.svg`.
 
-## Notas
+## Nota
 
 - Los archivos pueden seguir siendo corregidos, ampliados y reorganizados con el tiempo.
   
