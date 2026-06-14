@@ -183,17 +183,7 @@ Se estudia
 \nabla^2\psi-\frac{1}{\alpha}\frac{\partial \psi}{\partial t}=0,
 ```
 
-en el dominio
-
-```math
-0<x<a,
-\qquad
-0<y<b,
-\qquad
-t\geq 0,
-```
-
-con condiciones de borde homogéneas de Dirichlet sobre los cuatro lados del rectángulo.
+en el dominio $0 < x < a$, $0 < y < b$, $t \geq 0$, con condiciones de borde homogéneas de Dirichlet sobre los cuatro lados del rectángulo.
 
 El desarrollo muestra cómo las condiciones de borde seleccionan una base doble de senos y cómo la condición inicial determina los coeficientes de Fourier. La carpeta incluye un notebook de apoyo visual asociado a la difusión del calor 2D, compartido por Guillermo Rubilar.
 
@@ -221,4 +211,6 @@ El desarrollo muestra cómo aparecen las ecuaciones diferenciales ordinarias rad
 
 ## Agradecimientos
 
-Agradezco al profesor **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también al profesor **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración, revisión y adaptación de parte del material.
+Agradezco al profesor **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. 
+
+También se reconoce el uso de ChatGPT Plus como herramienta de apoyo para la redacción, organización, edición en LaTeX y Python. El contenido final fue revisado, corregido y editado antes de ser incorporado al repositorio.
