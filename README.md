@@ -1,6 +1,6 @@
 # Ayudantías
 
-Repositorio personal para organizar el material que preparo, adapto o utilizo en ayudantías universitarias.
+Repositorio personal para organizar el material que preparo para los cursos donde soy ayudante de pizarra.
 
 Actualmente reúne material principalmente de dos cursos:
 
