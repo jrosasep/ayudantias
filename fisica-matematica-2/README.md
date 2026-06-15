@@ -37,7 +37,7 @@ en la región
 ```math
 0<\varphi<\frac{\pi}{2},
 \qquad
-a<r<b.
+a < r < b.
 ```
 
 Las condiciones de borde son homogéneas en los bordes angulares y en $r=a$, mientras que en $r=b$ se impone una condición no homogénea. El desarrollo muestra cómo las condiciones de borde seleccionan los modos angulares y determinan los coeficientes de la expansión.
@@ -207,10 +207,4 @@ usando el ansatz separable
 
 El desarrollo muestra cómo aparecen las ecuaciones diferenciales ordinarias radial, polar y azimutal, junto con las constantes de separación asociadas a la periodicidad angular y a la estructura esférica del problema.
 
----
 
-## Agradecimientos
-
-Agradezco al profesor **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. 
-
-También se reconoce el uso de ChatGPT Plus como herramienta de apoyo para la redacción, organización, edición en LaTeX y Python. El contenido final fue revisado, corregido y editado antes de ser incorporado al repositorio.

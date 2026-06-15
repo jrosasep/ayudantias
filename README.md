@@ -1,6 +1,6 @@
 # Ayudantías
 
-Repositorio personal para organizar el material que preparo, adapto o utilizo en ayudantías universitarias.
+Repositorio personal para organizar el material que preparo para los cursos donde soy ayudante de pizarra.
 
 Actualmente reúne material principalmente de dos cursos:
 
@@ -63,13 +63,12 @@ En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas d
 
 En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebooks, scripts de visualización y figuras en formato `.svg`.
 
-## Notas
+## Nota
 
 - Los archivos pueden seguir siendo corregidos, ampliados y reorganizados con el tiempo.
-- Algunos materiales pueden estar pensados específicamente para una guía, una ayudantía o una sección particular.
-
+  
 ## Agradecimientos
 
-Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración, revisión y adaptación de parte del material.
+Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración del material de Campos y Ondas.
 
-También se reconoce el uso de **ChatGPT Plus** y **Claude Pro** como herramientas de apoyo para la asistencia en LaTeX, la generación y edición de figuras en TikZ y Python, y la organización del material. El contenido final fue revisado y editado antes de ser incorporado al repositorio.
+Reconozco el uso de **ChatGPT Plus** y **Claude Pro** como herramientas de apoyo para la asistencia en LaTeX, la generación y edición de figuras en TikZ y Python, y la organización del material. El contenido final fue revisado y editado antes de ser incorporado al repositorio.
