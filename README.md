@@ -62,10 +62,6 @@ En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas d
 | `helmholtz_esfericas_msv/` | Separación de variables para la ecuación de Helmholtz en coordenadas esféricas. |
 
 En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebooks, scripts de visualización y figuras en formato `.svg`.
-
-## Nota
-
-- Los archivos pueden seguir siendo corregidos, ampliados y reorganizados con el tiempo.
   
 ## Agradecimientos
 
