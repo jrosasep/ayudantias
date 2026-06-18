@@ -103,7 +103,21 @@ Usando \eqref{eq:angular} y \eqref{eq:temporal} en la ecuación separada, la fun
 \rho^2R''+\rho R'+\left(\frac{\omega^2}{v^2}\rho^2-m^2\right)R=0.
 \label{eq:radial}
 \end{equation}
-La ecuación \eqref{eq:radial} es la ecuación de Bessel. La solución regular en $\rho=0$ es
+La ecuación \eqref{eq:radial} se identifica con la ecuación de Bessel haciendo el cambio de variable
+\[
+x=k\rho,\qquad k=\frac{\omega}{v}.
+\]
+En efecto, al separar variables las derivadas radiales pasan a actuar solamente sobre $R(\rho)$. Si se escribe $R(\rho)=\widetilde R(x)$, entonces la regla de la cadena da, de forma esquemática,
+\[
+\frac{\dd R}{\dd \rho}=k\frac{\dd \widetilde R}{\dd x},
+\qquad
+\frac{\dd^2 R}{\dd \rho^2}=k^2\frac{\dd^2 \widetilde R}{\dd x^2}.
+\]
+Sustituyendo estas relaciones en \eqref{eq:radial} y usando $\rho=x/k$, todos los factores de $k$ se cancelan y queda la forma estándar de Bessel,
+\[
+x^2\widetilde R''+x\widetilde R'+(x^2-m^2)\widetilde R=0.
+\]
+Por ello, la solución regular en $\rho=0$ es
 \[
 R(\rho)=J_{m}(k\rho),
 \qquad k=\frac{\omega}{v}.
@@ -248,6 +262,6 @@ con $m=0,1,2,\ldots$ y $n=1,2,3,\ldots$.
 
 El notebook \href{https://github.com/jrosasep/ayudantias/blob/main/fisica-matematica-2/onda_2d_tambor_bessel/onda_disco_funcion_rara.ipynb}{\texttt{onda\_disco\_funcion\_rara.ipynb}} contiene una implementación numérica de la expansión anterior para una condición inicial arbitraria. En particular, allí se proyecta una función inicial $\psi_0(\rho,\varphi)$ sobre los modos normales de la membrana y se construye una animación de la solución truncada $\psi(\rho,\varphi,t)$.
 
-La animación renderizada de esta solución se puede ver directamente en \href{https://github.com/jrosasep/ayudantias/blob/main/fisica-matematica-2/onda_2d_tambor_bessel/onda-disco-funcion-rara-ani.gif}{\texttt{onda-disco-funcion-rara-ani.gif}}. Esta visualización permite ver cómo la condición inicial se descompone en modos de Bessel y cómo evoluciona la membrana cuando se considera velocidad inicial nula.
+Esta visualización permite ver cómo la condición inicial se descompone en modos de Bessel y cómo evoluciona la membrana cuando se considera velocidad inicial nula.
 
 \end{document}
