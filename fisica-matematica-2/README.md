@@ -207,4 +207,25 @@ usando el ansatz separable
 
 El desarrollo muestra cómo aparecen las ecuaciones diferenciales ordinarias radial, polar y azimutal, junto con las constantes de separación asociadas a la periodicidad angular y a la estructura esférica del problema.
 
+---
+
+## `schrodinger_esferica/`
+
+Problema de la **ecuación de Schrödinger dependiente del tiempo para una partícula cuántica confinada en una esfera**.
+
+Se estudia
+
+```math
+-\frac{\hbar^2}{2m}\nabla^2\Psi
+=
+i\hbar\frac{\partial \Psi}{\partial t},
+```
+
+con condición de borde homogénea de Dirichlet en la superficie esférica,
+
+```math
+\Psi(a,\theta,\varphi,t)=0.
+```
+
+El desarrollo usa separación de variables en coordenadas esféricas. La parte angular se expresa en términos de armónicos esféricos, mientras que la parte radial conduce a funciones esféricas de Bessel. La condición de borde selecciona los ceros de estas funciones y determina la cuantización de la energía.
 

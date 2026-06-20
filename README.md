@@ -28,7 +28,8 @@ ayudantias/
     ├── onda_2d_tambor_bessel/
     ├── potencial_dos_hemisferios_laplace/
     ├── potencial_esfera_armonicos/
-    └── potencial_esfera_dirichlet/
+    ├── potencial_esfera_dirichlet/
+    └── schrodinger_esferica/
 ```
 
 ## Contenido actual
@@ -47,7 +48,7 @@ En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, inc
 
 ### Física Matemática 2
 
-En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas de Fourier, separación de variables, ecuación de Laplace, ecuación de difusión del calor, ecuación de Helmholtz, armónicos esféricos, potencial electrostático y ecuación de onda en un disco.
+En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas de Fourier, separación de variables, ecuación de Laplace, ecuación de difusión del calor, ecuación de Helmholtz, armónicos esféricos, potencial electrostático, ecuación de onda en un disco y ecuación de Schrödinger en una esfera.
 
 | Carpeta | Contenido |
 |---|---|
@@ -60,6 +61,7 @@ En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas d
 | `onda_2d_tambor_bessel/` | Ecuación de onda 2D en un disco, modos de Bessel y notebook con animación para condiciones iniciales. |
 | `calor_2d_rectangulo/` | Ecuación de difusión del calor 2D en un rectángulo mediante separación de variables; incluye notebook de visualización. |
 | `helmholtz_esfericas_msv/` | Separación de variables para la ecuación de Helmholtz en coordenadas esféricas. |
+| `schrodinger_esferica/` | Ecuación de Schrödinger para una partícula cuántica confinada en una esfera; incluye desarrollo analítico y visualizaciones numéricas. |
 
 En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebooks, scripts de visualización y figuras en formato `.svg`.
   
