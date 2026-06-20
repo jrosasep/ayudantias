@@ -1,0 +1,172 @@
+\documentclass[11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{svg}
+\usepackage[hidelinks]{hyperref}
+
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+% Formato de encabezado
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+% Comandos auxiliares
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+
+\begin{document}
+
+\encabezado{Partícula confinada en una esfera}{Física Matemática II}{J.R.}
+
+
+Considere una partícula de masa $m$ confinada en una esfera de radio $a$. El estado del sistema está descrito por la función de onda $\Psi(r,\theta,\varphi,t)$, la cual satisface la ecuación de Schrödinger dependiente del tiempo,
+\begin{equation}
+-\frac{\hbar^2}{2m}\nabla^2\Psi = i\hbar\frac{\partial\Psi}{\partial t},
+\end{equation}
+sujeta a la condición de contorno $\Psi(a, \theta, \varphi, t) = 0$ y a la condición inicial $\Psi(r,\theta,\varphi,0) = \Psi_0(r,\theta,\varphi)$.
+
+\paragraph{Solución: }
+Para resolver este problema, aplicamos el MSV. Buscamos primero soluciones separables de la forma
+\begin{equation}
+\Psi(r,\theta,\varphi,t) = \psi(r,\theta,\varphi) T(t)
+\end{equation}
+
+Al sustituir esta expresión en la ecuación (1) y dividir por $\Psi$, obtenemos la separación de la dependencia temporal:
+\begin{equation}
+\frac{1}{T} \frac{dT}{dt} = -\frac{iE}{\hbar}
+\end{equation}
+cuya solución es $T(t) = e^{-iEt/\hbar}$, donde $E$ representa la energía del sistema. La parte espacial satisface la ecuación de Helmholtz:
+\begin{equation}
+\nabla^2\psi + \gamma\psi = 0, \qquad  \gamma = \frac{2mE}{\hbar^2}.
+\end{equation}
+
+En coordenadas esféricas, la ecuación (4) se separa proponiendo $\psi(r,\theta,\varphi) = R(r)\Theta(\theta)\Phi(\varphi)$. Las soluciones angulares que son univaluadas y finitas en todo el dominio son los Armónicos Esféricos $Y_l^m(\theta, \varphi)$:
+\begin{equation}
+\Theta(\theta)\Phi(\varphi) \propto Y_l^m(\theta, \varphi),
+\end{equation}
+donde $l = 0, 1, 2, \dots$ y $m = -l, \dots, l$.
+
+La ecuación radial resultante es la ecuación esférica de Bessel:
+\begin{equation}
+\frac{d}{dr}\left(r^2\frac{dR}{dr}\right) + [\gamma r^2 - l(l+1)]R = 0.
+\end{equation}
+Si $\gamma>0$ las soluciones generales son las funciones esféricas de Bessel de primera especie $j_l(\sqrt{\gamma}r)$ y de segunda especie $y_l(\sqrt{\gamma}r)$. Si $\gamma<0$ las soluciones son combinación lineal de las funciones esféricas de Bessel modificadas de primera y segunda especie, $i_l(\sqrt{-\gamma}r)$ y $k_l(\sqrt{-\gamma}r)$ respectivamente.
+
+\begin{center}
+    \includesvg[width=0.82\textwidth]{bessel_esfericas_ordinarias}
+
+    {\small Funciones esféricas de Bessel ordinarias para $l=0,\dots,5$. Las funciones $j_l$ son regulares en el origen, mientras que las funciones $y_l$ divergen al acercarse a $x=0$.}
+\end{center}
+
+\begin{center}
+    \includesvg[width=0.82\textwidth]{bessel_esfericas_modificadas}
+
+    {\small Funciones esféricas de Bessel modificadas para $l=0,\dots,5$. Las funciones $i_l$ crecen y no presentan ceros para argumento positivo; las funciones $k_l$ divergen en el origen y decrecen para argumentos grandes.}
+\end{center}
+
+Dado que la función de onda debe ser finita en el origen ($r=0$), descartamos las funciones de segunda especie. Además, la condición de borde en $r=a$, que requiere $R(a)=0$ descarta las funciones modificadas, ya que no se anulan para argumento finito (ver gráficos). Por lo tanto $\gamma$ debe ser positivo y las soluciones serán de la forma:
+\begin{equation}
+R(r) = A_{ln} j_l(\sqrt{\gamma}\,r).
+\end{equation}
+
+Al imponer explícitamente la condición de borde en $r=a$, se obtiene
+\[
+R(a)=A_{ln}j_l(\sqrt{\gamma}\,a)=0.
+\]
+Como buscamos soluciones no triviales, $A_{ln}\neq 0$, por lo que debe cumplirse
+\[
+j_l(\sqrt{\gamma}\,a)=0.
+\]
+Por lo tanto, para satisfacer la condición de borde $\sqrt{\gamma}a$ debe ser una raíz de la función $j_l$. Esto implica que 
+\begin{equation}
+\sqrt{\gamma_{l,n}} = \frac{\bar\alpha_{l,n}}{a}, \quad n = 1, 2, 3, \dots
+\end{equation}
+Consecuentemente, la energía del sistema está cuantizada y es dada por:
+\begin{equation}
+E_{l,n} = \frac{\hbar^2 \bar\alpha_{l,n}^2}{2ma^2}.
+\end{equation}
+
+La solución general se construye como una superposición de todos los modos separables que satisfacen las condiciones de borde homogéneas. Por lo tanto,
+\begin{equation}
+\Psi(r,\theta,\varphi,t) = \sum_{l=0}^{\infty} \sum_{m=-l}^{l} \sum_{n=1}^{\infty} A_{lmn} j_l\left(\frac{\bar\alpha_{l,n} r}{a}\right) Y_l^m(\theta, \varphi) e^{-i E_{l,n} t / \hbar}.
+\end{equation}
+
+Para determinar los coeficientes $A_{lmn}$, imponemos la condición inicial. Evaluando la solución anterior en $t=0$, se obtiene
+\begin{equation}
+\Psi_0(r,\theta,\varphi)
+=
+\sum_{l=0}^{\infty} \sum_{m=-l}^{l} \sum_{n=1}^{\infty}
+A_{lmn}
+ j_l\left(\frac{\bar\alpha_{l,n} r}{a}\right)Y_l^m(\theta,\varphi).
+\end{equation}
+
+La idea es proyectar la condición inicial sobre cada modo propio. Para aislar el coeficiente $A_{lmn}$, multiplicamos por
+\[
+ j_l\left(\frac{\bar\alpha_{l,n}r}{a}\right)(Y_l^m)^*(\theta,\varphi)
+\]
+e integramos en todo el volumen de la esfera. Recordando que el elemento de volumen en coordenadas esféricas es
+\[
+\dd V = r^2\sin\theta\,\dd r\,\dd\theta\,\dd\varphi,
+\]
+se tiene
+\begin{align}
+&\int_0^{2\pi}\int_0^\pi\int_0^a
+\Psi_0(r,\theta,\varphi)
+ j_l\left(\frac{\bar\alpha_{l,n}r}{a}\right)
+ (Y_l^m)^*(\theta,\varphi)
+ r^2\sin\theta\,\dd r\,\dd\theta\,\dd\varphi
+\nonumber \\
+&= A_{lmn}
+\int_0^a
+\left[j_l\left(\frac{\bar\alpha_{l,n}r}{a}\right)\right]^2 r^2\,\dd r
+\int_0^{2\pi}\int_0^\pi
+Y_l^m(\theta,\varphi)(Y_l^m)^*(\theta,\varphi)
+\sin\theta\,\dd\theta\,\dd\varphi .
+\end{align}
+
+Aquí usamos la ortonormalidad angular de los armónicos esféricos,
+\begin{equation}
+\int_0^{2\pi}\int_0^\pi
+Y_l^m(\theta,\varphi)(Y_{l'}^{m'})^*(\theta,\varphi)
+\sin\theta\,\dd\theta\,\dd\varphi
+=\delta_{ll'}\delta_{mm'},
+\end{equation}
+y la ortogonalidad radial de las funciones esféricas de Bessel,
+\begin{equation}
+\int_0^a
+j_l\left(\frac{\bar\alpha_{l,n}r}{a}\right)
+ j_l\left(\frac{\bar\alpha_{l,n'}r}{a}\right)r^2\,\dd r
+=\delta_{nn'}\frac{a^3}{2}\left[j_{l+1}(\bar\alpha_{l,n})\right]^2.
+\end{equation}
+
+Por lo tanto, despejando $A_{lmn}$, resulta
+\begin{equation}
+A_{lmn}
+=
+\frac{2}{a^3\left[j_{l+1}(\bar\alpha_{l,n})\right]^2}
+\int_0^{2\pi}\int_0^\pi\int_0^a
+\Psi_0(r,\theta,\varphi)
+ j_l\left(\frac{\bar\alpha_{l,n}r}{a}\right)
+ (Y_l^m)^*(\theta,\varphi)
+r^2\sin\theta\,\dd r\,\dd\theta\,\dd\varphi .
+\end{equation}
+
+
+\end{document}
