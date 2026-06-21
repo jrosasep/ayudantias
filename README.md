@@ -23,8 +23,6 @@ En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, inc
 | `ondas_mecanicas/` | Problemas de ondas sinusoidales unidimensionales, lectura de parámetros, rapidez de propagación y relaciones de fase. |
 | `ondas_electromagneticas_y_optica_geometrica/` | Problemas de ondas electromagnéticas, polarización, ley de Snell, refracción y reflexión total. |
 
-En los documentos de Campos y Ondas se usa preferentemente la notación cartesiana con vectores unitarios $\hat{x}$, $\hat{y}$ y $\hat{z}$.
-
 ### Física Matemática 2
 
 En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas de Fourier, separación de variables, ecuación de Laplace, ecuación de difusión del calor, ecuación de Helmholtz, armónicos esféricos, potencial electrostático, ecuación de onda en un disco y ecuación de Schrödinger en una esfera.
