@@ -13,7 +13,6 @@
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing,decorations.pathmorphing,positioning}
-\usepackage[most]{tcolorbox}
 \usepackage[
     colorlinks=true,
     linkcolor=red,
@@ -35,8 +34,6 @@
 % Colores comunes usados en figuras y recuadros.
 \definecolor{headinggray}{RGB}{55,55,55}
 \definecolor{rulegray}{RGB}{150,150,150}
-\definecolor{softgray}{RGB}{247,247,247}
-\definecolor{softred}{RGB}{252,246,246}
 \definecolor{bluevec}{RGB}{29,78,216}
 \definecolor{orangevec}{RGB}{180,83,9}
 \definecolor{redvec}{RGB}{185,28,28}
@@ -76,8 +73,8 @@
 % Comandos usados en las guías de Campos y Ondas.
 \newcommand{\soluciontitulo}{%
   \par\medskip
-  \noindent{\large\bfseries Solución.}\par
-  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+  \noindent\textbf{Solución.}\par
+  \smallskip
 }
 
 \newcommand{\resultadofinal}[1]{%
@@ -85,54 +82,11 @@
   \noindent\textbf{Resultado final:} #1\par
 }
 
-\newcommand{\ideaclave}[1]{%
-  \par\medskip
-  \noindent\textbf{Idea clave.} #1\par
-}
-
-\newcommand{\importante}[1]{%
-  \par\medskip
-  \noindent\textbf{Importante.} #1\par
-}
 
 \newcommand{\paso}[1]{%
   \par\medskip
   \noindent\textbf{#1}\par
   \vspace{0.1em}%
-}
-
-\newtcolorbox{comentario}[1][]{%
-  enhanced,
-  breakable,
-  colback=softgray,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Idea clave,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
-}
-
-\newtcolorbox{alerta}[1][]{%
-  enhanced,
-  breakable,
-  colback=softred,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Nota,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
 }
 
 \newcommand{\Bentra}[2]{%
@@ -177,7 +131,7 @@
 
 \begin{document}
 
-\encabezado{Guía Faraday: Inducción electromagnética}{Campos y Ondas 510245}{J.R., F.B.}
+\encabezado{Inducción electromagnética y ley de Faraday}{Campos y Ondas 510245}{J.R., F.B.}
 \shorthandoff{<>}
 
 \section*{Problema 1.}
@@ -187,9 +141,8 @@ Un im\'an se mueve hacia una espira como indica la figura. Encuentre la direcci\
     \item despu\'es de que el im\'an ha pasado a trav\'es de la espira y se aleja de ella.
 \end{enumerate}
 
-\ideaclave{Este problema no requiere calcular la fem. La pregunta es s\'olo por el sentido de la corriente inducida. Por eso se debe identificar primero si el flujo externo aumenta o disminuye, y luego aplicar la ley de Lenz.}
 
-
+Este problema no requiere calcular la fem. La pregunta es s\'olo por el sentido de la corriente inducida. Por eso se debe identificar primero si el flujo externo aumenta o disminuye, y luego aplicar la ley de Lenz.
 
 
 \begin{figure}[H]
@@ -266,8 +219,6 @@ Un im\'an se mueve hacia una espira como indica la figura. Encuentre la direcci\
 \end{figure}
 
 
-
-
 \soluciontitulo
 
 \paso{Caso (a): el im\'an cae hacia la espira.}
@@ -302,7 +253,8 @@ Un campo inducido hacia arriba corresponde a una \textbf{corriente antihoraria} 
     \boxed{I_{\rm ind}\ \text{circula en sentido antihorario}.}
 \end{equation*}
 
-\importante{La frase correcta no es ``la espira se opone al im\'an''. Lo correcto es: la espira se opone al cambio del flujo magn\'etico que atraviesa su superficie.}
+
+La frase correcta no es ``la espira se opone al im\'an''. Lo correcto es: la espira se opone al cambio del flujo magn\'etico que atraviesa su superficie.
 
 
 \clearpage
@@ -315,9 +267,8 @@ Encuentre la direcci\'on de la corriente en la resistencia de la bobina secundar
     \item en el instante en que se abre el interruptor.
 \end{enumerate}
 
-\ideaclave{La bobina secundaria no est\'a conectada a la bater\'ia. Por tanto, cualquier corriente en la secundaria aparece por inducci\'on mutua. La pregunta central es si el flujo magn\'etico que atraviesa la bobina secundaria est\'a cambiando.}
 
-
+La bobina secundaria no est\'a conectada a la bater\'ia. Por tanto, cualquier corriente en la secundaria aparece por inducci\'on mutua. La pregunta central es si el flujo magn\'etico que atraviesa la bobina secundaria est\'a cambiando.
 
 
 \begin{figure}[H]
@@ -376,8 +327,6 @@ Encuentre la direcci\'on de la corriente en la resistencia de la bobina secundar
 \end{figure}
 
 
-
-
 \soluciontitulo
 
 \paso{Caso (a): instante en que se cierra el interruptor.}
@@ -428,7 +377,8 @@ El flujo magn\'etico producido por la primaria disminuye. La secundaria intenta 
     \boxed{I_s\ \text{por la resistencia de izquierda a derecha}.}
 \end{equation*}
 
-\importante{Un campo magn\'etico constante no induce corriente. Lo que induce corriente es un flujo magn\'etico variable.}
+
+Un campo magn\'etico constante no induce corriente. Lo que induce corriente es un flujo magn\'etico variable.
 
 
 \clearpage
@@ -436,7 +386,9 @@ El flujo magn\'etico producido por la primaria disminuye. La secundaria intenta 
 \section*{Problema 3.}
 Una espira plana conductora que consta de una sola vuelta, con un \textit{\'area} de secci\'on transversal de $8.0\,\mathrm{cm^2}$, es perpendicular a un campo magn\'etico cuya magnitud aumenta uniformemente de $0.5\,\mathrm{T}$ a $2.5\,\mathrm{T}$ en $1.0\,\mathrm{s}$. Determine la corriente inducida resultante si la espira tiene una resistencia de $2.0\,\Omega$.
 
-\ideaclave{Aqu\'i el campo magn\'etico es uniforme y perpendicular a la espira. Por eso el flujo se escribe directamente como $\Phi_B=BA$. No hace falta integrar.}
+
+Aqu\'i el campo magn\'etico es uniforme y perpendicular a la espira. Por eso el flujo se escribe directamente como $\Phi_B=BA$. No hace falta integrar.
+
 
 \begin{figure}[H]
 \centering
@@ -502,7 +454,8 @@ La corriente inducida se obtiene con la \textbf{ley de Ohm}:
     &=0.8\,\mathrm{mA}.
 \end{align*}
 
-\importante{El signo de Faraday se usa para fijar el sentido de la corriente inducida. Como este problema s\'olo pide la corriente resultante, basta entregar la magnitud.}
+
+El signo de Faraday se usa para fijar el sentido de la corriente inducida. Como este problema s\'olo pide la corriente resultante, basta entregar la magnitud.
 
 
 \clearpage
@@ -514,11 +467,8 @@ Una espira rectangular de ancho $w$ y largo $L$ y un alambre largo y recto que t
     \item Suponga que la corriente cambia con el tiempo seg\'un $I=a+bt$, donde $a$ y $b$ son constantes. Determine la fem inducida si $b=10\,\mathrm{A/s}$, $h=1.0\,\mathrm{cm}$, $w=10.0\,\mathrm{cm}$ y $L=100\,\mathrm{cm}$. Indique la direcci\'on de la corriente inducida.
 \end{enumerate}
 
-\ideaclave{Este problema \textbf{no se resuelve con $\Phi_B=BA$} porque el campo del alambre no es uniforme. Cerca del alambre el campo es mayor y lejos del alambre es menor. Por eso se integra el flujo sobre la superficie de la espira.}
 
-
-
-
+Este problema \textbf{no se resuelve con $\Phi_B=BA$} porque el campo del alambre no es uniforme. Cerca del alambre el campo es mayor y lejos del alambre es menor. Por eso se integra el flujo sobre la superficie de la espira.
 
 
 \begin{figure}[H]
@@ -584,9 +534,6 @@ Una espira rectangular de ancho $w$ y largo $L$ y un alambre largo y recto que t
 \caption{Construcci\'on del elemento de \textit{\'area} para el flujo. La coordenada $r$ se mide desde el alambre hasta la cara superior de la franja. La cara inferior est\'a a distancia $r+dr$, por lo que el espesor de la franja es $dr$ y su \textit{\'area} es $dA=L\,dr$. La variable de integraci\'on es $r\in[h,h+w]$.}
 \label{fig:p4_alambre}
 \end{figure}
-
-
-
 
 
 \soluciontitulo
@@ -693,6 +640,8 @@ Por la ley de Lenz, la espira debe crear un campo inducido saliendo del plano. U
     \boxed{I_{\rm ind}\ \text{circula en sentido antihorario}.}
 \end{equation*}
 
-\importante{Con los datos escritos en el enunciado, la fem queda del orden de microvoltios: $|\varepsilon|\approx4.8\,\mu\mathrm{V}$. Si una pauta entrega $4.8\,\mathrm{mV}$, probablemente hay una discrepancia en alguna unidad o dato num\'erico.}
+
+Con los datos escritos en el enunciado, la fem queda del orden de microvoltios: $|\varepsilon|\approx4.8\,\mu\mathrm{V}$. Si una pauta entrega $4.8\,\mathrm{mV}$, probablemente hay una discrepancia en alguna unidad o dato num\'erico.
+
 
 \end{document}

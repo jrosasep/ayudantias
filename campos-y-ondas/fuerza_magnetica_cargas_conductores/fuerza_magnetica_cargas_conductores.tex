@@ -1,9 +1,9 @@
 \documentclass[11pt]{article}
 
-% Plantilla común para material de ayudantías de Campos y Ondas.
+% Plantilla común para material de estudio y ayudantías.
 % Documento A4, una columna, fuente Computer Modern de 11 puntos
-% y márgenes de 2.5 cm por lado, en el mismo estilo visual usado
-% para las guías de Física Matemática II.
+% y márgenes de 2.5 cm por lado, siguiendo el formato usado
+% en los desarrollos de Física Matemática II.
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -13,7 +13,6 @@
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing,decorations.pathmorphing,positioning}
-\usepackage[most]{tcolorbox}
 \usepackage[
     colorlinks=true,
     linkcolor=red,
@@ -31,12 +30,11 @@
 \setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
 \setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
 \captionsetup{font=small,labelfont=bf}
+\allowdisplaybreaks
 
-% Colores comunes usados en figuras y recuadros.
+% Colores usados en las figuras.
 \definecolor{headinggray}{RGB}{55,55,55}
 \definecolor{rulegray}{RGB}{150,150,150}
-\definecolor{softgray}{RGB}{247,247,247}
-\definecolor{softred}{RGB}{252,246,246}
 \definecolor{bluevec}{RGB}{29,78,216}
 \definecolor{orangevec}{RGB}{180,83,9}
 \definecolor{redvec}{RGB}{185,28,28}
@@ -73,67 +71,26 @@
 \newcommand{\laplaciano}{\nabla^2}
 \newcommand{\R}{\mathbb{R}}
 
-% Comandos usados en las guías de Campos y Ondas.
 \newcommand{\soluciontitulo}{%
   \par\medskip
-  \noindent{\large\bfseries Solución.}\par
-  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+  \noindent\textbf{Solución.}\par
+  \smallskip
 }
 
 \newcommand{\resultadofinal}[1]{%
   \par\medskip
-  \noindent\textbf{Resultado final:} #1\par
-}
-
-\newcommand{\ideaclave}[1]{%
-  \par\medskip
-  \noindent\textbf{Idea clave.} #1\par
-}
-
-\newcommand{\importante}[1]{%
-  \par\medskip
-  \noindent\textbf{Importante.} #1\par
+  \noindent\textbf{Resultado final.} #1\par
 }
 
 \newcommand{\paso}[1]{%
   \par\medskip
   \noindent\textbf{#1}\par
-  \vspace{0.1em}%
+  \smallskip
 }
 
-\newtcolorbox{comentario}[1][]{%
-  enhanced,
-  breakable,
-  colback=softgray,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Idea clave,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
-}
-
-\newtcolorbox{alerta}[1][]{%
-  enhanced,
-  breakable,
-  colback=softred,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Nota,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
-}
+% Entornos sin recuadro: se usan solo para integrar observaciones breves en la redacción.
+\newenvironment{comentario}{\par\medskip\noindent}{\par\medskip}
+\newenvironment{alerta}{\par\medskip\noindent\textbf{Observación.}\enspace}{\par\medskip}
 
 \newcommand{\Bentra}[2]{%
     \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
@@ -164,7 +121,6 @@
     nota/.style={draw=rulegray,fill=white,rounded corners=1.5pt,align=left,font=\footnotesize,inner xsep=6pt,inner ysep=5pt,line width=0.35pt}
 }
 
-
 \newcommand{\Fsale}[2]{%
     \draw[redvec,very thick] (#1,#2) circle (0.16);
     \fill[redvec] (#1,#2) circle (0.04);
@@ -177,22 +133,18 @@
 
 \begin{document}
 
-\encabezado{Guía 6: Fuerza magnética}{Campos y Ondas 510245}{J.R., F.B.}
+\encabezado{Fuerza magnética sobre cargas y conductores}{Campos y Ondas 510245}{J.R., F.B.}
 \shorthandoff{<>}
 
-\section*{Gu\'ia 6}
 
-\subsection*{Problema 1}
-\paso{1. Enunciado}
+\section*{Problema 1.}
 Dibujar la fuerza magn\'etica sobre una carga el\'ectrica que entra a una regi\'on con campo magn\'etico uniforme. Se deben considerar los distintos casos de orientaci\'on de $\vec v$, $\vec B$ y signo de la carga.
 
-\begin{comentario}
-La regla pr\'actica es siempre la misma: primero se calcula la direcci\'on de $\vec v\times\vec B$ como si la carga fuera positiva. Luego se aplica el signo de $q$. Si $q>0$ se conserva ese sentido; si $q<0$ se invierte. La humanidad sobrevivi\'o a esto con los dedos de la mano derecha, as\'i que hay esperanza.
-\end{comentario}
+\par\medskip\noindent La regla pr\'actica es siempre la misma: primero se calcula la direcci\'on de $\vec v\times\vec B$ como si la carga fuera positiva. Luego se aplica el signo de $q$. Si $q>0$ se conserva ese sentido; si $q<0$ se invierte. Por tanto, el criterio operacional consiste en aplicar de forma sistemática la regla de la mano derecha.\par\medskip 
 
 \soluciontitulo
 
-\paso{2. Datos}
+\par\medskip\noindent\textbf{Datos.}\par\smallskip
 Los datos relevantes no son num\'ericos, sino geom\'etricos:
 \begin{equation*}
     \vec F_B=q\,\vec v\times\vec B,
@@ -201,10 +153,10 @@ Los datos relevantes no son num\'ericos, sino geom\'etricos:
 \end{equation*}
 Aqu\'i $\theta$ es el \~angulo entre $\vec v$ y $\vec B$.
 
-\paso{3. Modelo f\'isico}
+\par\medskip\noindent\textbf{Modelo físico.}\par\smallskip
 La fuerza magn\'etica es perpendicular a $\vec v$ y a $\vec B$. Por eso, para dibujarla, basta identificar el plano definido por ambos vectores y luego usar el producto cruz. Si $\vec v$ es paralela a $\vec B$, no hay componente perpendicular y la fuerza se anula.
 
-\paso{4. An\'alisis caso por caso}
+\par\medskip\noindent\textbf{Análisis caso por caso.}\par\smallskip
 Se trabaja con una base cartesiana directa, donde
 \begin{equation*}
     \hat x\times\hat y=\hat z,
@@ -245,7 +197,7 @@ Se trabaja con una base cartesiana directa, donde
 \captionof{figure}{Caso (a): la fuerza queda dirigida hacia $+\hat y$.}
 \end{center}
 
-\paso{5. C\'alculo}
+\par\medskip\noindent\textbf{Cálculo.}\par\smallskip
 \begin{align*}
     \vec v\times\vec B
     &=(v\hat x)\times(-B\hat z)\\
@@ -291,7 +243,7 @@ Como $q>0$,
 \captionof{figure}{Caso (b): la carga negativa invierte el sentido de $\vec v\times\vec B$.}
 \end{center}
 
-\paso{5. C\'alculo, continuaci\'on}
+\par\medskip\noindent\textbf{Cálculo.}\par\smallskip
 \begin{align*}
     \vec v\times\vec B
     &=(-v\hat x)\times(B\hat y)\\
@@ -335,7 +287,7 @@ La fuerza sale del plano.
 \captionof{figure}{Caso (c): si $\theta=0^\circ$ o $180^\circ$, entonces $\sin\theta=0$.}
 \end{center}
 
-\paso{5. C\'alculo, continuaci\'on}
+\par\medskip\noindent\textbf{Cálculo.}\par\smallskip
 Por ejemplo, si $\vec v=-v\hat x$ y $\vec B=B\hat x$, entonces
 \begin{align*}
     \vec v\times\vec B
@@ -389,7 +341,7 @@ Equivalentemente,
 \captionof{figure}{Caso (d): la componente perpendicular del campo fija la fuerza.}
 \end{center}
 
-\paso{5. C\'alculo, continuaci\'on}
+\par\medskip\noindent\textbf{Cálculo.}\par\smallskip
 Si $\vec v=v\hat y$ y $\vec B=B_{\parallel}\hat y+B_{\perp}\hat x$, entonces
 \begin{align*}
     \vec v\times\vec B
@@ -402,7 +354,7 @@ Para $q>0$,
     \vec F_B=-qvB_{\perp}\hat z.
 \end{equation*}
 
-\paso{6. Resultado e interpretaci\'on f\'isica}
+\par\medskip\noindent\textbf{Resultado e interpretación física.}\par\smallskip
 \begin{equation*}
     \boxed{(a)\;\vec F_B\text{ hacia }+\hat y},
     \qquad
@@ -417,13 +369,10 @@ La fuerza magn\'etica no apunta necesariamente en la direcci\'on del campo ni de
 
 \newpage
 
-\subsection*{Problema 2}
-\paso{1. Enunciado}
+\section*{Problema 2.}
 Una part\'icula cargada entra en un campo magn\'etico uniforme de m\'odulo $0.34\,\mathrm{mT}$ con rapidez $200\,\mathrm{m/s}$, perpendicular al campo. La carga tiene magnitud $3.2\times10^{-19}\,\mathrm C$. Calcular la fuerza magn\'etica que act\'ua sobre ella.
 
-\begin{comentario}
-Como $\vec v\perp\vec B$, el factor angular es $\sin90^\circ=1$. Entonces toda la rapidez participa en la fuerza magn\'etica.
-\end{comentario}
+\par\medskip\noindent Como $\vec v\perp\vec B$, el factor angular es $\sin90^\circ=1$. Entonces toda la rapidez participa en la fuerza magn\'etica.\par\medskip 
 
 \begin{figure}[h!]
 \centering
@@ -447,7 +396,7 @@ Como $\vec v\perp\vec B$, el factor angular es $\sin90^\circ=1$. Entonces toda l
 
 \soluciontitulo
 
-\paso{2. Datos}
+\par\medskip\noindent\textbf{Datos.}\par\smallskip
 \begin{equation*}
     B=0.34\,\mathrm{mT},
     \qquad
@@ -462,19 +411,19 @@ Convertimos el campo a unidades SI:
     B=0.34\times10^{-3}\,\mathrm T=3.4\times10^{-4}\,\mathrm T.
 \end{equation*}
 
-\paso{3. Modelo f\'isico}
+\par\medskip\noindent\textbf{Modelo físico.}\par\smallskip
 La magnitud de la fuerza magn\'etica sobre una carga en movimiento es
 \begin{equation*}
     |\vec F_B|=|q|vB\sin\theta.
 \end{equation*}
 
-\paso{4. An\'alisis}
+\par\medskip\noindent\textbf{Análisis.}\par\smallskip
 Como la velocidad es perpendicular al campo, $\sin90^\circ=1$. Por lo tanto, la expresi\'on que se debe evaluar es
 \begin{equation*}
     |\vec F_B|=|q|vB.
 \end{equation*}
 
-\paso{5. C\'alculos}
+\par\medskip\noindent\textbf{Cálculos.}\par\smallskip
 Sustituimos los datos directamente:
 \begin{align*}
     |\vec F_B|
@@ -484,7 +433,7 @@ Sustituimos los datos directamente:
     &=2.176\times10^{-20}\,\mathrm N.
 \end{align*}
 
-\paso{6. Resultado e interpretaci\'on f\'isica}
+\par\medskip\noindent\textbf{Resultado e interpretación física.}\par\smallskip
 \begin{equation*}
     \boxed{|\vec F_B|\approx2.18\times10^{-20}\,\mathrm N}.
 \end{equation*}
@@ -492,13 +441,10 @@ La fuerza es perpendicular a la velocidad; por eso modifica la direcci\'on del m
 
 \newpage
 
-\subsection*{Problema 4}
-\paso{1. Enunciado}
+\section*{Problema 4.}
 En una regi\'on coexisten un campo el\'ectrico de $500\,\mathrm{N/C}$ y un campo magn\'etico de $0.15\,\mathrm T$, perpendiculares entre s\'i. Una part\'icula de carga $1\,\mathrm{mC}$ se mueve perpendicular a ambos campos y atraviesa la regi\'on sin desviarse. Calcular su velocidad.
 
-\begin{comentario}
-Que la part\'icula no se desv\'ie no significa que no act\'uen fuerzas. Significa que la fuerza el\'ectrica y la fuerza magn\'etica se cancelan exactamente.
-\end{comentario}
+\par\medskip\noindent Que la part\'icula no se desv\'ie no significa que no act\'uen fuerzas. Significa que la fuerza el\'ectrica y la fuerza magn\'etica se cancelan exactamente.\par\medskip 
 
 \begin{figure}[h!]
 \centering
@@ -531,7 +477,7 @@ Que la part\'icula no se desv\'ie no significa que no act\'uen fuerzas. Signific
 
 \soluciontitulo
 
-\paso{2. Datos}
+\par\medskip\noindent\textbf{Datos.}\par\smallskip
 \begin{equation*}
     E=500\,\mathrm{N/C},
     \qquad
@@ -540,7 +486,7 @@ Que la part\'icula no se desv\'ie no significa que no act\'uen fuerzas. Signific
     q=1\,\mathrm{mC}=10^{-3}\,\mathrm C.
 \end{equation*}
 
-\paso{3. Modelo f\'isico}
+\par\medskip\noindent\textbf{Modelo físico.}\par\smallskip
 Act\'uan dos fuerzas:
 \begin{equation*}
     |\vec F_E|=|q|E,
@@ -549,7 +495,7 @@ Act\'uan dos fuerzas:
 \end{equation*}
 porque $\vec v\perp\vec B$.
 
-\paso{4. An\'alisis}
+\par\medskip\noindent\textbf{Análisis.}\par\smallskip
 La condici\'on de no desviaci\'on exige equilibrio transversal:
 \begin{equation*}
     \vec F_E+\vec F_B=\vec0.
@@ -564,7 +510,7 @@ Sustituimos las expresiones de cada fuerza:
 \end{equation*}
 Como $q\neq0$, la carga se cancela. Esto es clave: la velocidad seleccionada no depende del valor de la carga.
 
-\paso{5. C\'alculos}
+\par\medskip\noindent\textbf{Cálculos.}\par\smallskip
 \begin{align*}
     |q|E&=|q|vB,\\
     E&=vB,\\
@@ -576,7 +522,7 @@ Sustituyendo los datos,
      &=3333.3\,\mathrm{m/s}.
 \end{align*}
 
-\paso{6. Resultado e interpretaci\'on f\'isica}
+\par\medskip\noindent\textbf{Resultado e interpretación física.}\par\smallskip
 \begin{equation*}
     \boxed{v\approx3.33\times10^3\,\mathrm{m/s}}.
 \end{equation*}
@@ -584,13 +530,10 @@ El sistema deja pasar sin desviaci\'on solo a las part\'iculas con esta rapidez.
 
 \newpage
 
-\subsection*{Problema 6}
-\paso{1. Enunciado}
+\section*{Problema 6.}
 Calcular la fuerza magn\'etica sobre una carga $q$ que entra en un campo magn\'etico de $4\,\mathrm T$ con rapidez $1500\,\mathrm{km/s}$, formando un \~angulo de $45^\circ$ con el campo magn\'etico.
 
-\begin{alerta}
-El enunciado no entrega el valor num\'erico de $q$. Por eso el resultado debe quedar expresado en funci\'on de $|q|$.
-\end{alerta}
+\par\medskip\noindent\textbf{Observación.}\enspace El enunciado no entrega el valor num\'erico de $q$. Por eso el resultado debe quedar expresado en funci\'on de $|q|$.\par\medskip 
 
 \begin{figure}[h!]
 \centering
@@ -613,7 +556,7 @@ El enunciado no entrega el valor num\'erico de $q$. Por eso el resultado debe qu
 
 \soluciontitulo
 
-\paso{2. Datos}
+\par\medskip\noindent\textbf{Datos.}\par\smallskip
 \begin{equation*}
     B=4\,\mathrm T,
     \qquad
@@ -623,21 +566,21 @@ El enunciado no entrega el valor num\'erico de $q$. Por eso el resultado debe qu
 \end{equation*}
 La carga queda como par\'ametro: $|q|$.
 
-\paso{3. Modelo f\'isico}
+\par\medskip\noindent\textbf{Modelo físico.}\par\smallskip
 La magnitud de la fuerza magn\'etica es
 \begin{equation*}
     |\vec F_B|=|q|vB\sin\theta.
 \end{equation*}
 El factor $\sin\theta$ selecciona la parte perpendicular de la velocidad.
 
-\paso{4. An\'alisis}
+\par\medskip\noindent\textbf{Análisis.}\par\smallskip
 Como $\theta=45^\circ$,
 \begin{equation*}
     v_\perp=v\sin45^\circ=v\frac{\sqrt2}{2}.
 \end{equation*}
 Luego se puede usar $|\vec F_B|=|q|Bv_\perp$.
 
-\paso{5. C\'alculos}
+\par\medskip\noindent\textbf{Cálculos.}\par\smallskip
 Primero calculamos la componente perpendicular:
 \begin{align*}
     v_\perp
@@ -652,7 +595,7 @@ Entonces,
     &\approx4.24\times10^6|q|\,\mathrm N.
 \end{align*}
 
-\paso{6. Resultado e interpretaci\'on f\'isica}
+\par\medskip\noindent\textbf{Resultado e interpretación física.}\par\smallskip
 \begin{equation*}
     \boxed{|\vec F_B|\approx4.24\times10^6|q|\,\mathrm N}.
 \end{equation*}
@@ -660,13 +603,10 @@ La componente paralela de la velocidad no contribuye al producto cruz. F\'isicam
 
 \newpage
 
-\subsection*{Problema 9}
-\paso{1. Enunciado}
+\section*{Problema 9.}
 Un conductor suspendido por dos cables tiene masa por unidad de longitud $\lambda=0.040\,\mathrm{kg/m}$. El campo magn\'etico es $B=3.6\,\mathrm T$ y entra en el plano de la hoja. Determinar la corriente necesaria para que la tensi\'on de los cables sea cero.
 
-\begin{comentario}
-La condici\'on $T=0$ significa que los cables ya no sostienen el peso del conductor. Quedan como gu\'ia geom\'etrica, pero la fuerza vertical que equilibra al peso debe ser completamente magn\'etica.
-\end{comentario}
+\par\medskip\noindent La condici\'on $T=0$ significa que los cables ya no sostienen el peso del conductor. Quedan como gu\'ia geom\'etrica, pero la fuerza vertical que equilibra al peso debe ser completamente magn\'etica.\par\medskip 
 
 \begin{figure}[h!]
 \centering
@@ -706,7 +646,7 @@ La condici\'on $T=0$ significa que los cables ya no sostienen el peso del conduc
 
 \soluciontitulo
 
-\paso{2. Datos}
+\par\medskip\noindent\textbf{Datos.}\par\smallskip
 \begin{equation*}
     \lambda=0.040\,\mathrm{kg/m},
     \qquad
@@ -716,7 +656,7 @@ La condici\'on $T=0$ significa que los cables ya no sostienen el peso del conduc
 \end{equation*}
 La corriente $I$ es la inc\'ognita.
 
-\paso{3. Modelo f\'isico}
+\par\medskip\noindent\textbf{Modelo físico.}\par\smallskip
 La fuerza magn\'etica sobre un conductor recto es
 \begin{equation*}
     \vec F_B=I\vec L\times\vec B.
@@ -730,7 +670,7 @@ El peso del conductor de largo $L$ es
     P=(\lambda L)g.
 \end{equation*}
 
-\paso{4. An\'alisis}
+\par\medskip\noindent\textbf{Análisis.}\par\smallskip
 Si $T=0$, la fuerza magn\'etica debe sostener todo el peso:
 \begin{equation*}
     |\vec F_B|=P.
@@ -742,7 +682,7 @@ Como ambas cantidades son proporcionales a $L$, conviene trabajar por unidad de 
     \frac{P}{L}=\lambda g.
 \end{equation*}
 
-\paso{5. C\'alculos}
+\par\medskip\noindent\textbf{Cálculos.}\par\smallskip
 Igualamos fuerza magn\'etica y peso:
 \begin{align*}
     ILB&=\lambda Lg,\\
@@ -756,7 +696,7 @@ Sustituyendo los datos,
      &\approx0.1089\,\mathrm A.
 \end{align*}
 
-\paso{6. Resultado e interpretaci\'on f\'isica}
+\par\medskip\noindent\textbf{Resultado e interpretación física.}\par\smallskip
 \begin{equation*}
     \boxed{I\approx0.11\,\mathrm A}.
 \end{equation*}
@@ -768,16 +708,10 @@ que es justamente la direcci\'on necesaria para equilibrar el peso.
 
 \newpage
 
-\subsection*{Problema 10}
-\paso{1. Enunciado}
+\section*{Problema 10.}
 Un conductor de masa $m=0.1\,\mathrm{kg}$ y largo $L=0.5\,\mathrm m$ descansa sin roce sobre un plano inclinado en $\alpha=10^\circ$. Hay un campo magn\'etico uniforme vertical de magnitud $B=5.2\,\mathrm{mT}$. Determinar la corriente necesaria para que el conductor permanezca en reposo.
 
-\begin{comentario}
-Como no hay roce, el equilibrio importante es paralelo al plano. El peso tira hacia abajo del plano y la fuerza magn\'etica aporta una componente hacia arriba del plano.
-\end{comentario}
-
-
-
+\par\medskip\noindent Como no hay roce, el equilibrio importante es paralelo al plano. El peso tira hacia abajo del plano y la fuerza magn\'etica aporta una componente hacia arriba del plano.\par\medskip 
 
 
 \begin{figure}[h!]
@@ -880,7 +814,7 @@ Como no hay roce, el equilibrio importante es paralelo al plano. El peso tira ha
 
 \soluciontitulo
 
-\paso{2. Datos}
+\par\medskip\noindent\textbf{Datos.}\par\smallskip
 \begin{equation*}
     m=0.1\,\mathrm{kg},
     \qquad
@@ -891,7 +825,7 @@ Como no hay roce, el equilibrio importante es paralelo al plano. El peso tira ha
     B=5.2\,\mathrm{mT}=5.2\times10^{-3}\,\mathrm T.
 \end{equation*}
 
-\paso{3. Modelo f\'isico}
+\par\medskip\noindent\textbf{Modelo físico.}\par\smallskip
 Elegimos un sistema local con $\hat x$ paralelo al plano inclinado y positivo hacia arriba del plano. La direcci\'on $\hat y$ es normal al plano.
 
 La fuerza magn\'etica sobre el conductor tiene m\'odulo
@@ -910,7 +844,7 @@ El peso se descompone en
 \end{equation*}
 La componente $W_x$ apunta hacia abajo del plano.
 
-\paso{4. An\'alisis}
+\par\medskip\noindent\textbf{Análisis.}\par\smallskip
 Como no hay roce, basta equilibrar las fuerzas en la direcci\'on paralela al plano. Escogiendo positivo hacia arriba del plano,
 \begin{equation*}
     F_{B,x}-W_x=0.
@@ -921,7 +855,7 @@ Por lo tanto,
 \end{equation*}
 La direcci\'on normal solo determina el valor de $\vec N$, pero no cambia la corriente necesaria para el equilibrio paralelo al plano.
 
-\paso{5. C\'alculos}
+\par\medskip\noindent\textbf{Cálculos.}\par\smallskip
 Sustituimos $|\vec F_B|=ILB$ y despejamos:
 \begin{align*}
     ILB\cos\alpha&=mg\sin\alpha,\\
@@ -936,30 +870,24 @@ Ahora se sustituyen los datos:
      &\approx66.46\,\mathrm A.
 \end{align*}
 
-\paso{6. Resultado e interpretaci\'on f\'isica}
+\par\medskip\noindent\textbf{Resultado e interpretación física.}\par\smallskip
 \begin{equation*}
     \boxed{I\approx6.6\times10^1\,\mathrm A}.
 \end{equation*}
 El sentido de la corriente debe escogerse para que la componente de $\vec F_B$ apunte hacia arriba del plano. Si se invierte la corriente, la fuerza magn\'etica apunta en el sentido contrario y el conductor no queda en equilibrio.
 
-\begin{alerta}
-No se debe usar directamente $ILB=mg\sin\alpha$. La fuerza magn\'etica es horizontal, no paralela al plano; por eso aparece el factor $\cos\alpha$.
-\end{alerta}
+\par\medskip\noindent\textbf{Observación.}\enspace No se debe usar directamente $ILB=mg\sin\alpha$. La fuerza magn\'etica es horizontal, no paralela al plano; por eso aparece el factor $\cos\alpha$.\par\medskip 
 
 \newpage
 
-\subsection*{Problema 11}
-\paso{1. Enunciado}
+\section*{Problema 11.}
 Una espira triangular rect\'angula tiene catetos $a=3\,\mathrm{cm}$ y $b=4\,\mathrm{cm}$. El plano de la espira forma un \~angulo $\alpha=45^\circ$ respecto de la direcci\'on $OY$. Circula una corriente $I=12\,\mathrm A$ y el campo magn\'etico uniforme es
 \begin{equation*}
     \vec B=2.5\,\hat x\,\mathrm{mT}.
 \end{equation*}
 Calcular la fuerza magn\'etica sobre cada lado.
 
-\begin{comentario}
-En cada tramo recto se usa $\vec F=I\vec\ell\times\vec B$. Lo delicado no es la f\'ormula, sino escribir bien cada vector $\vec\ell$ con el sentido de la corriente.
-\end{comentario}
-
+\par\medskip\noindent En cada tramo recto se usa $\vec F=I\vec\ell\times\vec B$. Lo delicado no es la f\'ormula, sino escribir bien cada vector $\vec\ell$ con el sentido de la corriente.\par\medskip 
 
 
 \begin{figure}[h!]
@@ -1016,7 +944,7 @@ En cada tramo recto se usa $\vec F=I\vec\ell\times\vec B$. Lo delicado no es la 
 
 \soluciontitulo
 
-\paso{2. Datos}
+\par\medskip\noindent\textbf{Datos.}\par\smallskip
 \begin{equation*}
     a=3\,\mathrm{cm}=0.03\,\mathrm m,
     \qquad
@@ -1030,14 +958,14 @@ En cada tramo recto se usa $\vec F=I\vec\ell\times\vec B$. Lo delicado no es la 
     \vec B=2.5\times10^{-3}\hat x\,\mathrm T.
 \end{equation*}
 
-\paso{3. Modelo f\'isico}
+\par\medskip\noindent\textbf{Modelo físico.}\par\smallskip
 Para cada lado rectil\'ineo:
 \begin{equation*}
     \vec F=I\vec\ell\times\vec B.
 \end{equation*}
 Se toma el sentido de corriente indicado en la figura: baja por el lado vertical, avanza por el cateto $b$ y vuelve por la hipotenusa.
 
-\paso{4. An\'alisis geom\'etrico}
+\par\medskip\noindent\textbf{Análisis geométrico.}\par\smallskip
 Los vectores de longitud orientada son
 \begin{align*}
     \vec\ell_a&=-a\hat z,\\
@@ -1057,7 +985,7 @@ Como $\vec B=B\hat x$, se usar\'an los productos
     \hat x\times\hat x=\vec0.
 \end{equation*}
 
-\paso{5. C\'alculos}
+\par\medskip\noindent\textbf{Cálculos.}\par\smallskip
 \textbf{Lado vertical.}
 \begin{align*}
     \vec F_a
@@ -1093,7 +1021,7 @@ Luego,
     \approx8.49\times10^{-4}\,\mathrm N.
 \end{align*}
 
-\paso{6. Resultado e interpretaci\'on f\'isica}
+\par\medskip\noindent\textbf{Resultado e interpretación física.}\par\smallskip
 \begin{align*}
     \boxed{\vec F_a=-9.0\times10^{-4}\hat y\,\mathrm N},\\
     \boxed{\vec F_b=-8.49\times10^{-4}\hat z\,\mathrm N},\\

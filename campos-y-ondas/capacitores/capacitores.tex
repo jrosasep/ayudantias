@@ -1,0 +1,592 @@
+\documentclass[11pt]{article}
+
+% Plantilla común para material de estudio y ayudantías.
+% Documento A4, una columna, fuente Computer Modern de 11 puntos
+% y márgenes de 2.5 cm por lado, siguiendo el formato usado
+% en los desarrollos de Física Matemática II.
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,mathrsfs,graphicx,array,enumitem,caption,float,microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{tikz}
+\usepackage[american]{circuitikz}
+\usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing,decorations.pathmorphing,positioning}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\captionsetup{font=small,labelfont=bf}
+\allowdisplaybreaks
+
+% Colores usados en las figuras.
+\definecolor{headinggray}{RGB}{55,55,55}
+\definecolor{rulegray}{RGB}{150,150,150}
+\definecolor{bluevec}{RGB}{29,78,216}
+\definecolor{orangevec}{RGB}{180,83,9}
+\definecolor{redvec}{RGB}{185,28,28}
+\definecolor{greenvec}{RGB}{21,128,61}
+\definecolor{fieldblue}{RGB}{30,90,180}
+\definecolor{currentorange}{RGB}{195,95,20}
+\definecolor{inducedgreen}{RGB}{20,120,80}
+\definecolor{wiregray}{RGB}{55,55,55}
+\definecolor{waveblue}{RGB}{29,78,216}
+\definecolor{waveorange}{RGB}{180,83,9}
+\definecolor{wavegreen}{RGB}{21,128,61}
+\definecolor{wavered}{RGB}{185,28,28}
+
+% Encabezado homogéneo.
+\newcommand{\encabezado}[3]{%
+{\Large\bfseries #1\par}
+\vspace{2pt}
+{\normalsize #2\hfill #3\par}
+\vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+\vspace{0.55em}
+\noindent\textbf{#1.}\enspace{\small #2}\par
+\vspace{0.3em}}
+
+\newcommand{\inciso}[1]{\vspace{0.35em}\noindent\textbf{(#1)}\enspace}
+
+% Comandos auxiliares.
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+\newcommand{\soluciontitulo}{%
+  \par\medskip
+  \noindent\textbf{Solución.}\par
+  \smallskip
+}
+
+\newcommand{\resultadofinal}[1]{%
+  \par\medskip
+  \noindent\textbf{Resultado final.} #1\par
+}
+
+\newcommand{\paso}[1]{%
+  \par\medskip
+  \noindent\textbf{#1}\par
+  \smallskip
+}
+
+% Entornos sin recuadro: se usan solo para integrar observaciones breves en la redacción.
+\newenvironment{comentario}{\par\medskip\noindent}{\par\medskip}
+\newenvironment{alerta}{\par\medskip\noindent\textbf{Observación.}\enspace}{\par\medskip}
+
+\newcommand{\Bentra}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,-0.065)$)--($(#1,#2)+(0.065,0.065)$);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,0.065)$)--($(#1,#2)+(0.065,-0.065)$);
+}
+\newcommand{\Bsale}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \fill[fieldblue] (#1,#2) circle (0.03);
+}
+
+\tikzset{
+    >=Latex,
+    eje/.style={->,thick,headinggray},
+    onda/.style={very thick,waveblue},
+    ondados/.style={very thick,waveorange},
+    ondaaux/.style={thick,wavegreen},
+    vec/.style={->,very thick,wavered},
+    vecV/.style={->,very thick,bluevec},
+    vecB/.style={->,very thick,orangevec},
+    vecF/.style={->,very thick,redvec},
+    vecE/.style={->,very thick,greenvec},
+    panel/.style={draw=rulegray!80,fill=black!2,rounded corners=2pt},
+    cargaPos/.style={circle,draw=bluevec,fill=blue!8,thick,minimum size=8mm,inner sep=0pt},
+    cargaNeg/.style={circle,draw=greenvec,fill=green!8,thick,minimum size=8mm,inner sep=0pt},
+    guia/.style={densely dashed,rulegray},
+    etiqueta/.style={font=\footnotesize},
+    nota/.style={draw=rulegray,fill=white,rounded corners=1.5pt,align=left,font=\footnotesize,inner xsep=6pt,inner ysep=5pt,line width=0.35pt}
+}
+
+\newcommand{\Fsale}[2]{%
+    \draw[redvec,very thick] (#1,#2) circle (0.16);
+    \fill[redvec] (#1,#2) circle (0.04);
+}
+\newcommand{\Fentra}[2]{%
+    \draw[redvec,very thick] (#1,#2) circle (0.16);
+    \draw[redvec,very thick] ($(#1,#2)+(-0.095,-0.095)$)--($(#1,#2)+(0.095,0.095)$);
+    \draw[redvec,very thick] ($(#1,#2)+(-0.095,0.095)$)--($(#1,#2)+(0.095,-0.095)$);
+}
+
+\begin{document}
+
+\encabezado{Capacitores}{Campos y Ondas 510245}{J.R., F.B.}
+\shorthandoff{<>}
+
+
+\section*{Problema 2.}
+Se tienen dos capacitores de capacitancias
+\begin{equation*}
+    C_1=4\,\mu\text{F},
+    \qquad
+    C_2=6\,\mu\text{F}.
+\end{equation*}
+
+Se pide:
+\begin{enumerate}[label=(\alph*)]
+    \item Encontrar las capacitancias equivalentes que se pueden obtener al combinarlos en serie y en paralelo.
+    \item Calcular la carga en cada capacitor cuando a la combinaci\'on en serie y a la combinaci\'on en paralelo se le aplica una fuente de diferencia de potencial de $6\,\text{V}$.
+\end{enumerate}
+
+\par\medskip\noindent En paralelo todos los capacitores tienen la misma diferencia de potencial. En serie, todos tienen la misma carga en magnitud.\par\medskip 
+
+
+\soluciontitulo
+
+\textbf{Datos del problema.}
+\begin{equation*}
+    C_1=4\,\mu\text{F},
+    \qquad
+    C_2=6\,\mu\text{F},
+    \qquad
+    V=6\,\text{V}.
+\end{equation*}
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{circuitikz}[scale=0.92, transform shape]
+            % Circuito en serie. Se usa circuitikz para evitar desalinear manualmente
+            % las placas de la fuente y de los capacitores.
+            \draw (0,0) to[battery1,l_={$6\,\text{V}$}] (0,3)
+                  to[C,l={$4\,\mu\text{F}$}] (2.2,3)
+                  to[C,l={$6\,\mu\text{F}$}] (4.4,3)
+                  -- (4.4,0) -- (0,0);
+        \end{circuitikz}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito en serie.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{circuitikz}[scale=0.92, transform shape]
+            % Circuito equivalente en serie.
+            \draw (0,0) to[battery1,l_={$6\,\text{V}$}] (0,3)
+                  to[C,l={$2.4\,\mu\text{F}$}] (2.8,3)
+                  -- (2.8,0) -- (0,0);
+        \end{circuitikz}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito equivalente en serie.}
+    \end{minipage}
+    \caption{Conexi\'on en serie y su circuito equivalente.}
+\end{figure}
+
+
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{circuitikz}[scale=0.92, transform shape]
+            % Circuito en paralelo. Los rieles superior e inferior son nodos comunes;
+            % cada capacitor se conecta directamente entre ambos rieles.
+            \draw (0,0) to[battery1,l_={$6\,\text{V}$}] (0,3)
+                  -- (4.4,3);
+            \draw (0,0) -- (4.4,0);
+            \draw (1.55,3) to[C] (1.55,0);
+            \draw (3.15,3) to[C] (3.15,0);
+            \node[fill=white,inner sep=1pt] at (1.55,3.32) {$4\,\mu\text{F}$};
+            \node[fill=white,inner sep=1pt] at (3.15,3.32) {$6\,\mu\text{F}$};
+        \end{circuitikz}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito en paralelo.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \begin{circuitikz}[scale=0.92, transform shape]
+            % Circuito equivalente en paralelo.
+            \draw (0,0) to[battery1,l_={$6\,\text{V}$}] (0,3)
+                  -- (3.5,3);
+            \draw (0,0) -- (3.5,0);
+            \draw (2.0,3) to[C] (2.0,0);
+            \node[fill=white,inner sep=1pt] at (2.0,3.32) {$10\,\mu\text{F}$};
+        \end{circuitikz}
+
+        \vspace{0.35em}
+        {\footnotesize Circuito equivalente en paralelo.}
+    \end{minipage}
+    \caption{Conexi\'on en paralelo y su circuito equivalente.}
+\end{figure}
+
+
+
+\textbf{Modelo f\'isico.}
+
+Para la conexi\'on en paralelo,
+\begin{equation*}
+    C_{\text{eq,p}}=C_1+C_2.
+\end{equation*}
+Para la conexi\'on en serie,
+\begin{equation*}
+    \frac{1}{C_{\text{eq,s}}}=\frac{1}{C_1}+\frac{1}{C_2}.
+\end{equation*}
+Adem\'as, para cada capacitor vale
+\begin{equation*}
+    q=CV.
+\end{equation*}
+
+\textbf{Ecuaciones de trabajo.}
+
+Primero hallamos las capacitancias equivalentes:
+\begin{equation*}
+    C_{\text{eq,p}}=C_1+C_2,
+    \qquad
+    \frac{1}{C_{\text{eq,s}}}=\frac{1}{C_1}+\frac{1}{C_2}.
+\end{equation*}
+Luego,
+\begin{itemize}
+    \item en paralelo: $q_1=C_1V$ y $q_2=C_2V$;
+    \item en serie: $q_1=q_2=q$, con $q=C_{\text{eq,s}}V$.
+\end{itemize}
+
+\textbf{C\'alculo de las capacitancias equivalentes.}
+
+\underline{Paralelo}
+\begin{equation*}
+    C_{\text{eq,p}}=4\,\mu\text{F}+6\,\mu\text{F}=10\,\mu\text{F}.
+\end{equation*}
+
+\underline{Serie}
+\begin{align*}
+    \frac{1}{C_{\text{eq,s}}}
+    &=\frac{1}{4}+\frac{1}{6}\\
+    &=\frac{3+2}{12}\\
+    &=\frac{5}{12}
+    \qquad (\mu\text{F})^{-1}.
+\end{align*}
+Por lo tanto,
+\begin{equation*}
+    C_{\text{eq,s}}=\frac{12}{5}\,\mu\text{F}=2.4\,\mu\text{F}.
+\end{equation*}
+
+\textbf{C\'alculo de las cargas.}
+
+\underline{Paralelo}
+
+Cada capacitor tiene la misma ddp de $6\,\text{V}$, as\'i que
+\begin{align*}
+    q_1&=C_1V=(4\,\mu\text{F})(6\,\text{V})=24\,\mu\text{C},\\
+    q_2&=C_2V=(6\,\mu\text{F})(6\,\text{V})=36\,\mu\text{C}.
+\end{align*}
+
+\underline{Serie}
+
+La carga com\'un es
+\begin{equation*}
+    q=C_{\text{eq,s}}V=(2.4\,\mu\text{F})(6\,\text{V})=14.4\,\mu\text{C}.
+\end{equation*}
+Luego,
+\begin{equation*}
+    q_1=q_2=14.4\,\mu\text{C}.
+\end{equation*}
+
+\textbf{Resultado final.}
+\begin{equation*}
+    \boxed{C_{\text{eq,p}}=10\,\mu\text{F}},
+    \qquad
+    \boxed{C_{\text{eq,s}}=2.4\,\mu\text{F}}.
+\end{equation*}
+\begin{equation*}
+    \boxed{q_1=24\,\mu\text{C},\; q_2=36\,\mu\text{C}\quad \text{(paralelo)}},
+\end{equation*}
+\begin{equation*}
+    \boxed{q_1=q_2=14.4\,\mu\text{C}\quad \text{(serie)}}.
+\end{equation*}
+
+\newpage
+
+\section*{Problema 5.}
+Los capacitores de la figura est\'an inicialmente cargados y conectados como se indica, con el interruptor $S$ abierto. El punto $c$ est\'a a potencial $200\,\text{V}$ y el punto $d$ est\'a a tierra, de modo que
+\begin{equation*}
+    V_c=200\,\text{V},
+    \qquad
+    V_d=0\,\text{V}.
+\end{equation*}
+
+Se pide:
+\begin{enumerate}[label=(\alph*)]
+    \item La diferencia de potencial $V_{ab}$ con el interruptor abierto.
+    \item El potencial del punto $a$ despu\'es de cerrar $S$.
+\end{enumerate}
+
+\par\medskip\noindent En este problema hay que estudiar dos circuitos distintos: uno con el interruptor abierto y otro con el interruptor cerrado. Al cerrarse el interruptor, la conectividad cambia y por eso tambi\'en cambia el circuito equivalente.\par\medskip 
+
+
+\soluciontitulo
+
+\textbf{Datos del problema.}
+
+En la rama izquierda hay un capacitor de $6\,\mu\text{F}$ entre $c$ y $a$, y uno de $3\,\mu\text{F}$ entre $a$ y $d$. En la rama derecha hay un capacitor de $3\,\mu\text{F}$ entre $c$ y $b$, y uno de $6\,\mu\text{F}$ entre $b$ y $d$. Adem\'as,
+\begin{equation*}
+    V_{cd}=V_c-V_d=200\,\text{V}.
+\end{equation*}
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.05, line cap=butt, line join=round]
+        \coordinate (LT) at (-2,4.2);
+        \coordinate (RT) at (2,4.2);
+        \coordinate (LB) at (-2,0);
+        \coordinate (RB) at (2,0);
+        \coordinate (A) at (-2,2.1);
+        \coordinate (B) at (2,2.1);
+        \coordinate (C) at (0,4.2);
+        \coordinate (D) at (0,0);
+        \draw (LT) -- (RT);
+        \draw (LB) -- (RB);
+        \draw (C) -- ++(0,0.8);
+        \filldraw[white] (0,5.0) circle (1.4pt);
+        \node[above right] at (0,5.0) {$200\,\text{V}$};
+        \node[below] at (C) {$c$};
+        \draw (D) -- ++(0,-0.35);
+        \draw (-0.22,-0.35) -- (0.22,-0.35);
+        \draw (-0.15,-0.48) -- (0.15,-0.48);
+        \draw (-0.08,-0.60) -- (0.08,-0.60);
+        \node[above] at (D) {$d$};
+        \draw (LT) -- (-2,3.35);
+        \draw (-2.28,3.35) -- (-1.72,3.35);
+        \draw (-2.28,3.12) -- (-1.72,3.12);
+        \draw (-2,3.12) -- (A);
+        \draw (A) -- (-2,1.25);
+        \draw (-2.28,1.25) -- (-1.72,1.25);
+        \draw (-2.28,1.02) -- (-1.72,1.02);
+        \draw (-2,1.02) -- (LB);
+        \node[fill=white,inner sep=1pt,left] at (-2.38,3.23) {$6\,\mu\text{F}$};
+        \node[fill=white,inner sep=1pt,left] at (-2.38,1.14) {$3\,\mu\text{F}$};
+        \draw (RT) -- (2,3.35);
+        \draw (1.72,3.35) -- (2.28,3.35);
+        \draw (1.72,3.12) -- (2.28,3.12);
+        \draw (2,3.12) -- (B);
+        \draw (B) -- (2,1.25);
+        \draw (1.72,1.25) -- (2.28,1.25);
+        \draw (1.72,1.02) -- (2.28,1.02);
+        \draw (2,1.02) -- (RB);
+        \node[fill=white,inner sep=1pt,right] at (2.38,3.23) {$3\,\mu\text{F}$};
+        \node[fill=white,inner sep=1pt,right] at (2.38,1.14) {$6\,\mu\text{F}$};
+        \fill (A) circle (1.4pt);
+        \fill (B) circle (1.4pt);
+        \node[left] at (A) {$a$};
+        \node[right] at (B) {$b$};
+        \draw (A) -- (-0.55,2.1);
+        \fill (-0.55,2.1) circle (1.2pt);
+        \draw (0.55,2.1) -- (B);
+        \draw (-0.55,2.1) -- (0.25,2.42);
+        \draw[-latex] (-0.05,1.75) arc[start angle=240,end angle=130,radius=0.45];
+        \filldraw[white] (0.55,2.1) circle (1.4pt);
+        \node[below] at (0.1,1.75) {$S$};
+    \end{tikzpicture}
+    \caption{Circuito original del problema con el interruptor $S$ abierto.}
+\end{figure}
+
+\textbf{Modelo f\'isico.}
+
+Para dos capacitores en serie,
+\begin{equation*}
+    C_{\text{eq}}=\frac{C_1C_2}{C_1+C_2},
+    \qquad
+    |q_1|=|q_2|=Q.
+\end{equation*}
+En cada capacitor tambi\'en vale
+\begin{equation*}
+    Q=CV,
+    \qquad
+    V=\frac{Q}{C}.
+\end{equation*}
+
+Cuando el interruptor est\'a abierto, las dos ramas son independientes y cada una est\'a sometida a la misma diferencia de potencial $V_{cd}=200\,\text{V}$. Cuando el interruptor se cierra, los puntos $a$ y $b$ pasan a ser el mismo nodo.
+
+\textbf{Item (a): c\'alculo de $V_{ab.}$ con el interruptor abierto}
+
+Cada rama del circuito es una serie formada por un capacitor de $6\,\mu\text{F}$ y uno de $3\,\mu\text{F}$. Por tanto, en ambas ramas la capacitancia equivalente es
+\begin{equation*}
+    C_{\text{eq}}=\frac{(6)(3)}{6+3}\,\mu\text{F}=2\,\mu\text{F}.
+\end{equation*}
+Como cada rama est\'a conectada entre $c$ y $d$,
+\begin{equation*}
+    Q=C_{\text{eq}}V_{cd}=(2\,\mu\text{F})(200\,\text{V})=400\,\mu\text{C}.
+\end{equation*}
+
+Esto significa que, en cada rama, ambos capacitores quedan cargados con la misma magnitud de carga. Las placas enfrentadas en el nodo intermedio tienen cargas opuestas, de modo que el conductor intermedio se mantiene globalmente neutro.
+
+\medskip
+\underline{Potencial del punto $a$}
+
+En la rama izquierda, el capacitor entre $a$ y $d$ es de $3\,\mu\text{F}$. Entonces
+\begin{equation*}
+    V_a-V_d=\frac{Q}{3\,\mu\text{F}}=\frac{400\,\mu\text{C}}{3\,\mu\text{F}}=133.3\,\text{V}.
+\end{equation*}
+Como $V_d=0$,
+\begin{equation*}
+    V_a=133.3\,\text{V}.
+\end{equation*}
+
+\underline{Potencial del punto $b$}
+
+En la rama derecha, el capacitor entre $b$ y $d$ es de $6\,\mu\text{F}$. Por tanto,
+\begin{equation*}
+    V_b-V_d=\frac{Q}{6\,\mu\text{F}}=\frac{400\,\mu\text{C}}{6\,\mu\text{F}}=66.7\,\text{V}.
+\end{equation*}
+Como $V_d=0$,
+\begin{equation*}
+    V_b=66.7\,\text{V}.
+\end{equation*}
+
+Finalmente,
+\begin{equation*}
+    V_{ab}=V_a-V_b=133.3-66.7=66.6\,\text{V}\approx 66.7\,\text{V}.
+\end{equation*}
+
+Por consiguiente,
+\begin{equation*}
+    \boxed{V_{ab}=66.7\,\text{V}}.
+\end{equation*}
+
+\textbf{Item (b): potencial del punto $a$ despu\'es de cerrar $S$.}
+
+Al cerrar el interruptor, los puntos $a$ y $b$ quedan unidos, es decir,
+\begin{equation*}
+    V_a=V_b=V_x.
+\end{equation*}
+La conexi\'on toma la forma siguiente.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.05, line cap=butt, line join=round]
+        \coordinate (LT) at (-2,4.2);
+        \coordinate (RT) at (2,4.2);
+        \coordinate (LB) at (-2,0);
+        \coordinate (RB) at (2,0);
+        \coordinate (A) at (-2,2.1);
+        \coordinate (B) at (2,2.1);
+        \coordinate (C) at (0,4.2);
+        \coordinate (D) at (0,0);
+        \draw (LT) -- (RT);
+        \draw (LB) -- (RB);
+        \draw (C) -- ++(0,0.8);
+        \filldraw[white] (0,5.0) circle (1.4pt);
+        \node[above right] at (0,5.0) {$200\,\text{V}$};
+        \node[below] at (C) {$c$};
+        \draw (D) -- ++(0,-0.35);
+        \draw (-0.22,-0.35) -- (0.22,-0.35);
+        \draw (-0.15,-0.48) -- (0.15,-0.48);
+        \draw (-0.08,-0.60) -- (0.08,-0.60);
+        \node[above] at (D) {$d$};
+        \draw (LT) -- (-2,3.35);
+        \draw (-2.28,3.35) -- (-1.72,3.35);
+        \draw (-2.28,3.12) -- (-1.72,3.12);
+        \draw (-2,3.12) -- (A);
+        \draw (A) -- (-2,1.25);
+        \draw (-2.28,1.25) -- (-1.72,1.25);
+        \draw (-2.28,1.02) -- (-1.72,1.02);
+        \draw (-2,1.02) -- (LB);
+        \node[fill=white,inner sep=1pt,left] at (-2.38,3.23) {$6\,\mu\text{F}$};
+        \node[fill=white,inner sep=1pt,left] at (-2.38,1.14) {$3\,\mu\text{F}$};
+        \draw (RT) -- (2,3.35);
+        \draw (1.72,3.35) -- (2.28,3.35);
+        \draw (1.72,3.12) -- (2.28,3.12);
+        \draw (2,3.12) -- (B);
+        \draw (B) -- (2,1.25);
+        \draw (1.72,1.25) -- (2.28,1.25);
+        \draw (1.72,1.02) -- (2.28,1.02);
+        \draw (2,1.02) -- (RB);
+        \node[fill=white,inner sep=1pt,right] at (2.38,3.23) {$3\,\mu\text{F}$};
+        \node[fill=white,inner sep=1pt,right] at (2.38,1.14) {$6\,\mu\text{F}$};
+        \fill (A) circle (1.4pt);
+        \fill (B) circle (1.4pt);
+        \node[left] at (A) {$a$};
+        \node[right] at (B) {$b$};
+        \draw (A) -- (B);
+        \node[below] at (0,1.75) {$S$ cerrado};
+    \end{tikzpicture}
+    \caption{Mismo circuito despu\'es de cerrar el interruptor. Ahora $a$ y $b$ forman un mismo nodo.}
+\end{figure}
+
+Con esta nueva conectividad, los capacitores superiores quedan en paralelo entre $c$ y el nodo central $x$:
+\begin{equation*}
+    C_{cx}=6\,\mu\text{F}+3\,\mu\text{F}=9\,\mu\text{F}.
+\end{equation*}
+De manera an\'aloga, los capacitores inferiores quedan en paralelo entre $x$ y $d$:
+\begin{equation*}
+    C_{xd}=3\,\mu\text{F}+6\,\mu\text{F}=9\,\mu\text{F}.
+\end{equation*}
+
+Por lo tanto, el circuito equivalente queda formado por dos capacitores de $9\,\mu\text{F}$ en serie.
+
+\begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[scale=1.05, line cap=butt, line join=round]
+        \coordinate (C) at (0,4.0);
+        \coordinate (X) at (0,2.0);
+        \coordinate (D) at (0,0);
+        \draw (C) -- ++(0,0.8);
+        \filldraw[white] (0,4.8) circle (1.4pt);
+        \node[above right] at (0,4.8) {$200\,\text{V}$};
+        \node[right] at (C) {$c$};
+        \draw (C) -- (0,3.2);
+        \draw (-0.3,3.2) -- (0.3,3.2);
+        \draw (-0.3,2.95) -- (0.3,2.95);
+        \draw (0,2.95) -- (X);
+        \draw (X) -- (0,1.2);
+        \draw (-0.3,1.2) -- (0.3,1.2);
+        \draw (-0.3,0.95) -- (0.3,0.95);
+        \draw (0,0.95) -- (D);
+        \node[fill=white,inner sep=1pt,left] at (-0.35,3.08) {$9\,\mu\text{F}$};
+        \node[fill=white,inner sep=1pt,left] at (-0.35,1.08) {$9\,\mu\text{F}$};
+        \fill (X) circle (1.4pt);
+        \node[right] at (X) {$x$};
+        \draw (D) -- ++(0,-0.35);
+        \draw (-0.22,-0.35) -- (0.22,-0.35);
+        \draw (-0.15,-0.48) -- (0.15,-0.48);
+        \draw (-0.08,-0.60) -- (0.08,-0.60);
+        \node[right] at (D) {$d$};
+    \end{tikzpicture}
+    \caption{Circuito equivalente luego de cerrar $S$.}
+\end{figure}
+
+Como ambos capacitores equivalentes son iguales, la diferencia de potencial total de $200\,\text{V}$ se reparte por igual:
+\begin{equation*}
+    V_{cx}=V_{xd}=100\,\text{V}.
+\end{equation*}
+Puesto que $V_d=0$, se sigue que
+\begin{equation*}
+    V_x=100\,\text{V}.
+\end{equation*}
+Como $V_a=V_b=V_x$, obtenemos finalmente
+\begin{equation*}
+    \boxed{V_a=100\,\text{V}}.
+\end{equation*}
+
+\end{document}

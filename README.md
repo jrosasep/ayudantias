@@ -7,44 +7,23 @@ Actualmente reúne material principalmente de dos cursos:
 - **Campos y Ondas**
 - **Física Matemática 2**
 
-## Estructura
-
-```text
-ayudantias/
-├── campos-y-ondas/
-│   ├── README.md
-│   ├── guia-2/
-│   ├── guia-3-guia-4/
-│   ├── guia-6/
-│   ├── guia-faraday/
-│   └── guia-ondas/
-└── fisica-matematica-2/
-    ├── README.md
-    ├── armonicos_esfericos_integral/
-    ├── calor_2d_rectangulo/
-    ├── convolucion/
-    ├── helmholtz_esfericas_msv/
-    ├── laplace_2d_cuarto_circulo/
-    ├── onda_2d_tambor_bessel/
-    ├── potencial_dos_hemisferios_laplace/
-    ├── potencial_esfera_armonicos/
-    ├── potencial_esfera_dirichlet/
-    └── schrodinger_esferica/
-```
-
 ## Contenido actual
 
 ### Campos y Ondas
 
-En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, incluyendo desarrollos en `.tex`, PDF compilados y, cuando corresponde, notebooks o material complementario.
+En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, incluyendo desarrollos en `.tex`, PDF compilados y material complementario cuando corresponde.
 
 | Carpeta | Contenido |
 |---|---|
-| `guia-2/` | Material asociado a problemas de campos eléctricos. |
-| `guia-3-guia-4/` | Problemas de las guías 3 y 4 del curso. |
-| `guia-6/` | Problemas de la guía 6 del curso. |
-| `guia-faraday/` | Material asociado a ley de Faraday e inducción electromagnética. |
-| `guia-ondas/` | Material asociado a problemas de ondas. |
+| `campo_electrico_y_conductores/` | Problemas de campo eléctrico, distribuciones discretas de carga y conductores en equilibrio electrostático. |
+| `potencial_electrico/` | Problemas de potencial eléctrico, diferencia de potencial, trabajo eléctrico y convenciones de signo. |
+| `capacitores/` | Problemas de capacitancia, energía almacenada y combinaciones de capacitores en serie o paralelo. |
+| `fuerza_magnetica_cargas_conductores/` | Problemas de fuerza magnética sobre cargas y conductores, producto cruz y selector de velocidades. |
+| `induccion_electromagnetica_faraday/` | Problemas de ley de Faraday, flujo magnético variable, inducción mutua y corrientes inducidas. |
+| `ondas_mecanicas/` | Problemas de ondas sinusoidales unidimensionales, lectura de parámetros, rapidez de propagación y relaciones de fase. |
+| `ondas_electromagneticas_y_optica_geometrica/` | Problemas de ondas electromagnéticas, polarización, ley de Snell, refracción y reflexión total. |
+
+En los documentos de Campos y Ondas se usa preferentemente la notación cartesiana con vectores unitarios $\hat{x}$, $\hat{y}$ y $\hat{z}$.
 
 ### Física Matemática 2
 
@@ -64,7 +43,7 @@ En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas d
 | `schrodinger_esferica/` | Ecuación de Schrödinger para una partícula cuántica confinada en una esfera; incluye desarrollo analítico y visualizaciones numéricas. |
 
 En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebooks, scripts de visualización y figuras en formato `.svg`.
-  
+
 ## Agradecimientos
 
 Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración del material de Campos y Ondas.

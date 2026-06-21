@@ -1,9 +1,9 @@
 \documentclass[11pt]{article}
 
-% Plantilla común para material de ayudantías de Campos y Ondas.
+% Plantilla común para material de estudio y ayudantías.
 % Documento A4, una columna, fuente Computer Modern de 11 puntos
-% y márgenes de 2.5 cm por lado, en el mismo estilo visual usado
-% para las guías de Física Matemática II.
+% y márgenes de 2.5 cm por lado, siguiendo el formato usado
+% en los desarrollos de Física Matemática II.
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -13,7 +13,6 @@
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing,decorations.pathmorphing,positioning}
-\usepackage[most]{tcolorbox}
 \usepackage[
     colorlinks=true,
     linkcolor=red,
@@ -31,12 +30,11 @@
 \setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
 \setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
 \captionsetup{font=small,labelfont=bf}
+\allowdisplaybreaks
 
-% Colores comunes usados en figuras y recuadros.
+% Colores usados en las figuras.
 \definecolor{headinggray}{RGB}{55,55,55}
 \definecolor{rulegray}{RGB}{150,150,150}
-\definecolor{softgray}{RGB}{247,247,247}
-\definecolor{softred}{RGB}{252,246,246}
 \definecolor{bluevec}{RGB}{29,78,216}
 \definecolor{orangevec}{RGB}{180,83,9}
 \definecolor{redvec}{RGB}{185,28,28}
@@ -73,67 +71,26 @@
 \newcommand{\laplaciano}{\nabla^2}
 \newcommand{\R}{\mathbb{R}}
 
-% Comandos usados en las guías de Campos y Ondas.
 \newcommand{\soluciontitulo}{%
   \par\medskip
-  \noindent{\large\bfseries Solución.}\par
-  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+  \noindent\textbf{Solución.}\par
+  \smallskip
 }
 
 \newcommand{\resultadofinal}[1]{%
   \par\medskip
-  \noindent\textbf{Resultado final:} #1\par
-}
-
-\newcommand{\ideaclave}[1]{%
-  \par\medskip
-  \noindent\textbf{Idea clave.} #1\par
-}
-
-\newcommand{\importante}[1]{%
-  \par\medskip
-  \noindent\textbf{Importante.} #1\par
+  \noindent\textbf{Resultado final.} #1\par
 }
 
 \newcommand{\paso}[1]{%
   \par\medskip
   \noindent\textbf{#1}\par
-  \vspace{0.1em}%
+  \smallskip
 }
 
-\newtcolorbox{comentario}[1][]{%
-  enhanced,
-  breakable,
-  colback=softgray,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Idea clave,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
-}
-
-\newtcolorbox{alerta}[1][]{%
-  enhanced,
-  breakable,
-  colback=softred,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Nota,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
-}
+% Entornos sin recuadro: se usan solo para integrar observaciones breves en la redacción.
+\newenvironment{comentario}{\par\medskip\noindent}{\par\medskip}
+\newenvironment{alerta}{\par\medskip\noindent\textbf{Observación.}\enspace}{\par\medskip}
 
 \newcommand{\Bentra}[2]{%
     \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
@@ -164,7 +121,6 @@
     nota/.style={draw=rulegray,fill=white,rounded corners=1.5pt,align=left,font=\footnotesize,inner xsep=6pt,inner ysep=5pt,line width=0.35pt}
 }
 
-
 \newcommand{\Fsale}[2]{%
     \draw[redvec,very thick] (#1,#2) circle (0.16);
     \fill[redvec] (#1,#2) circle (0.04);
@@ -177,8 +133,9 @@
 
 \begin{document}
 
-\encabezado{Guía 2: Campos eléctricos}{Campos y Ondas 510245}{J.R., F.B.}
+\encabezado{Campo eléctrico y conductores}{Campos y Ondas 510245}{J.R., F.B.}
 \shorthandoff{<>}
+
 
 \section*{Problema 1.}
 Una carga de $16\times 10^{-9}\,\mathrm{C}$ está fija en el origen de un eje de coordenadas; una segunda carga, de valor desconocido, está en $x=3\,\mathrm{cm}$; y una tercera, de $12\times 10^{-9}\,\mathrm{C}$, está en $x=6\,\mathrm{cm}$. Si el campo total en $x=8\,\mathrm{cm}$ es $2\times 10^5\,\mathrm{N/C}$ hacia la derecha, determinar la carga desconocida.
@@ -217,7 +174,7 @@ Consideramos la recta real graduada en $\mathrm{cm}$, tomando como sentido posit
     \node[below=15pt] at (8,0) {$x_P=8$};
 
     % Campo total conocido
-    \node[right] at (7.75,0.75) {$\vec E_{\mathrm{tot}}=2\times10^5\,\hat{\imath}\,\mathrm{N/C}$};
+    \node[right] at (7.75,0.75) {$\vec E_{\mathrm{tot}}=2\times10^5\,\hat{x}\,\mathrm{N/C}$};
 
     % Distancias
     \draw[decorate,decoration={brace,mirror,amplitude=5pt},thick]

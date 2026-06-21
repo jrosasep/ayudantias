@@ -13,7 +13,6 @@
 \usepackage[a4paper,margin=2.5cm]{geometry}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing,decorations.pathmorphing,positioning}
-\usepackage[most]{tcolorbox}
 \usepackage[
     colorlinks=true,
     linkcolor=red,
@@ -35,8 +34,6 @@
 % Colores comunes usados en figuras y recuadros.
 \definecolor{headinggray}{RGB}{55,55,55}
 \definecolor{rulegray}{RGB}{150,150,150}
-\definecolor{softgray}{RGB}{247,247,247}
-\definecolor{softred}{RGB}{252,246,246}
 \definecolor{bluevec}{RGB}{29,78,216}
 \definecolor{orangevec}{RGB}{180,83,9}
 \definecolor{redvec}{RGB}{185,28,28}
@@ -76,8 +73,8 @@
 % Comandos usados en las guías de Campos y Ondas.
 \newcommand{\soluciontitulo}{%
   \par\medskip
-  \noindent{\large\bfseries Solución.}\par
-  \vspace{0.2em}\hrule height 0.4pt \vspace{0.7em}%
+  \noindent\textbf{Solución.}\par
+  \smallskip
 }
 
 \newcommand{\resultadofinal}[1]{%
@@ -85,54 +82,11 @@
   \noindent\textbf{Resultado final:} #1\par
 }
 
-\newcommand{\ideaclave}[1]{%
-  \par\medskip
-  \noindent\textbf{Idea clave.} #1\par
-}
-
-\newcommand{\importante}[1]{%
-  \par\medskip
-  \noindent\textbf{Importante.} #1\par
-}
 
 \newcommand{\paso}[1]{%
   \par\medskip
   \noindent\textbf{#1}\par
   \vspace{0.1em}%
-}
-
-\newtcolorbox{comentario}[1][]{%
-  enhanced,
-  breakable,
-  colback=softgray,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Idea clave,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
-}
-
-\newtcolorbox{alerta}[1][]{%
-  enhanced,
-  breakable,
-  colback=softred,
-  colframe=rulegray,
-  boxrule=0.45pt,
-  arc=1.5mm,
-  left=1.2mm,right=1.2mm,top=1mm,bottom=1mm,
-  title=Nota,
-  fonttitle=\bfseries,
-  coltitle=headinggray,
-  colbacktitle=white,
-  attach boxed title to top left={xshift=2mm,yshift*=-\tcboxedtitleheight/2},
-  boxed title style={frame hidden,interior hidden},
-  #1
 }
 
 \newcommand{\Bentra}[2]{%
@@ -177,7 +131,7 @@
 
 \begin{document}
 
-\encabezado{Guía Ondas: Ondas mecánicas}{Campos y Ondas 510245}{J.R., F.B.}
+\encabezado{Ondas mecánicas}{Campos y Ondas 510245}{J.R., F.B.}
 \shorthandoff{<>}
 
 \section*{Problema 1.}
@@ -191,11 +145,13 @@ con $x$ e $y$ medidos en cent\'imetros y $t$ en segundos. Determinar:
     \item La velocidad de vibraci\'on m\'axima de una part\'icula situada a $x=1\,\mathrm{m}$ del origen. Determinar tambi\'en hacia d\'onde se propaga la onda.
 \end{enumerate}
 
-\ideaclave{La ecuaci\'on ya est\'a escrita en una forma casi directa para leer sus par\'ametros. La compararemos con
+
+La ecuaci\'on ya est\'a escrita en una forma casi directa para leer sus par\'ametros. La compararemos con
 \begin{equation*}
     y(x,t)=A\sin\left[2\pi\left(\frac{x}{\lambda}-ft\right)\right].
 \end{equation*}
-\textbf{El movimiento de la onda ocurre a lo largo de $x$, pero cada part\'icula del medio vibra en la direcci\'on $y$.} Por eso, para la velocidad de vibraci\'on se debe derivar $y(x,t)$ respecto del tiempo.}
+\textbf{El movimiento de la onda ocurre a lo largo de $x$, pero cada part\'icula del medio vibra en la direcci\'on $y$.} Por eso, para la velocidad de vibraci\'on se debe derivar $y(x,t)$ respecto del tiempo.
+
 
 \begin{figure}[H]
 \centering
@@ -314,12 +270,16 @@ en unidades SI. Calcular:
     \item La elongaci\'on del punto $x=2.5\,\mathrm{m}$ cuando la elongaci\'on del origen alcanza su valor m\'aximo positivo.
 \end{enumerate}
 
-\ideaclave{El problema combina dos lecturas distintas. Primero se leen los par\'ametros de la onda. Luego se usa la rapidez de propagaci\'on para relacionarla con las propiedades mec\'anicas de la cuerda.
+
+
+El problema combina dos lecturas distintas. Primero se leen los par\'ametros de la onda. Luego se usa la rapidez de propagaci\'on para relacionarla con las propiedades mec\'anicas de la cuerda.
 \textbf{En una cuerda tensa, una mayor tensi\'on aumenta la rapidez de propagaci\'on, mientras que una mayor densidad lineal la disminuye.} La relaci\'on es
 \begin{equation*}
     v=\sqrt{\frac{\tau}{\mu}},
 \end{equation*}
-donde $\tau$ es la tensi\'on y $\mu$ es la masa por unidad de longitud.}
+donde $\tau$ es la tensi\'on y $\mu$ es la masa por unidad de longitud.
+
+
 
 \begin{figure}[H]
 \centering
@@ -464,11 +424,13 @@ Determinar:
     \item La elongaci\'on del punto $x=1.05\,\mathrm{m}$ en el instante en que la elongaci\'on del punto $x=0.6\,\mathrm{m}$ es cero.
 \end{enumerate}
 
-\ideaclave{Aqu\'i no se entrega directamente la ecuaci\'on de la onda. Se debe construir usando sus datos f\'isicos. Como el enunciado dice que la onda se propaga en sentido positivo, usamos
+
+Aqu\'i no se entrega directamente la ecuaci\'on de la onda. Se debe construir usando sus datos f\'isicos. Como el enunciado dice que la onda se propaga en sentido positivo, usamos
 \begin{equation*}
     y(x,t)=A\sin(kx-\omega t).
 \end{equation*}
-\textbf{El signo negativo delante de $\omega t$ codifica que la onda viaja hacia $+x$.} Esta no es una convenci\'on arbitraria: se obtiene al imponer fase constante.}
+\textbf{El signo negativo delante de $\omega t$ codifica que la onda viaja hacia $+x$.} Esta no es una convenci\'on arbitraria: se obtiene al imponer fase constante.
+
 
 \begin{figure}[H]
 \centering
@@ -556,10 +518,14 @@ Por lo tanto, el valor puede ser $y(1.05,t)=\pm0.1\,\mathrm{m}$, seg\'un el cruc
     &=-0.1\,\mathrm{m}.
 \end{align*}
 
-\importante{El enunciado no indica si el punto $x=0.6\,\mathrm{m}$ cruza el equilibrio subiendo o bajando. Por eso, el signo no queda fijado de manera \'unica. Lo determinado es la magnitud:
+
+
+El enunciado no indica si el punto $x=0.6\,\mathrm{m}$ cruza el equilibrio subiendo o bajando. Por eso, el signo no queda fijado de manera \'unica. Lo determinado es la magnitud:
 \begin{equation*}
     \boxed{|y(1.05,t)|=0.1\,\mathrm{m}}.
-\end{equation*}}
+\end{equation*}
+
+
 
 \clearpage
 
@@ -577,8 +543,10 @@ y que la elongaci\'on del origen, $x=0$, en funci\'on del tiempo es
     y(0,t)=0.02\sin(100\pi t).
 \end{equation*}
 
-\ideaclave{Este problema entrega dos cortes de la misma onda. El primero, $y(x,0)$, fija la forma espacial de la cuerda en un instante dado. El segundo, $y(0,t)$, fija c\'omo oscila el origen en el tiempo.
-\textbf{El corte espacial permite identificar $A$ y $k$; el corte temporal permite identificar $A$ y $\omega$.} Luego ambos datos se combinan para reconstruir la onda completa.}
+
+Este problema entrega dos cortes de la misma onda. El primero, $y(x,0)$, fija la forma espacial de la cuerda en un instante dado. El segundo, $y(0,t)$, fija c\'omo oscila el origen en el tiempo.
+\textbf{El corte espacial permite identificar $A$ y $k$; el corte temporal permite identificar $A$ y $\omega$.} Luego ambos datos se combinan para reconstruir la onda completa.
+
 
 \begin{figure}[H]
 \centering
@@ -686,6 +654,8 @@ Como $x$ disminuye cuando aumenta $t$, \textbf{la onda se propaga hacia el senti
     \boxed{\text{Propagaci\'on hacia }{-x}}.
 \end{equation*}
 
-\importante{Si el dato temporal es $y(0,t)=0.02\sin(100\pi t)$, entonces necesariamente $\omega=100\pi$. Por eso, la expresi\'on consistente con los datos del enunciado es la escrita arriba.}
+
+Si el dato temporal es $y(0,t)=0.02\sin(100\pi t)$, entonces necesariamente $\omega=100\pi$. Por eso, la expresi\'on consistente con los datos del enunciado es la escrita arriba.
+
 
 \end{document}

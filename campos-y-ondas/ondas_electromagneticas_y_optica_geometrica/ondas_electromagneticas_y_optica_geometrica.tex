@@ -1,0 +1,595 @@
+\documentclass[11pt]{article}
+
+% Plantilla comun para material de ayudantias de Campos y Ondas.
+% Documento A4, una columna, fuente Computer Modern de 11 puntos
+% y margenes de 2.5 cm por lado, en el mismo estilo visual usado
+% para los desarrollos de Fisica Matematica II.
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb,mathtools,bm,mathrsfs,graphicx,array,enumitem,caption,float,microtype}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,patterns,babel,decorations.pathreplacing,decorations.pathmorphing,positioning,angles,quotes}
+\usepackage[
+    colorlinks=true,
+    linkcolor=red,
+    citecolor=green,
+    urlcolor=red
+]{hyperref}
+
+\spanishdecimal{.}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\setlength{\abovedisplayskip}{6pt}
+\setlength{\belowdisplayskip}{6pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\setlist[itemize]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\setlist[enumerate]{topsep=4pt,itemsep=2pt,leftmargin=1.8em}
+\captionsetup{font=small,labelfont=bf}
+
+% Colores comunes usados en figuras.
+\definecolor{headinggray}{RGB}{55,55,55}
+\definecolor{rulegray}{RGB}{150,150,150}
+\definecolor{bluevec}{RGB}{29,78,216}
+\definecolor{orangevec}{RGB}{180,83,9}
+\definecolor{redvec}{RGB}{185,28,28}
+\definecolor{greenvec}{RGB}{21,128,61}
+\definecolor{fieldblue}{RGB}{30,90,180}
+\definecolor{waveblue}{RGB}{29,78,216}
+\definecolor{waveorange}{RGB}{180,83,9}
+\definecolor{wavegreen}{RGB}{21,128,61}
+\definecolor{wavered}{RGB}{185,28,28}
+\definecolor{airblue}{RGB}{225,232,255}
+\definecolor{waterblue}{RGB}{89,101,245}
+
+% Encabezado homogeneo.
+\newcommand{\encabezado}[3]{%
+    {\Large\bfseries #1\par}
+    \vspace{2pt}
+    {\normalsize #2\hfill #3\par}
+    \vspace{6pt}\hrule\vspace{8pt}
+}
+\newcommand{\inciso}[1]{\vspace{0.35em}\noindent\textbf{(#1)}\enspace}
+\newcommand{\soluciontitulo}{%
+    \par\medskip
+    \noindent\textbf{Soluci\'on.}\par
+    \smallskip
+}
+\newcommand{\resultadofinal}[1]{%
+    \par\medskip
+    \noindent\textbf{Resultado final:} #1\par
+}
+\newcommand{\problematitulo}[1]{%
+    \clearpage
+    \section*{Problema #1}
+    \setcounter{equation}{0}
+    \renewcommand{\theequation}{#1.\arabic{equation}}
+    \renewcommand{\theHequation}{#1.\arabic{equation}}
+}
+\newcommand{\primerproblema}[1]{%
+    \section*{Problema #1}
+    \setcounter{equation}{0}
+    \renewcommand{\theequation}{#1.\arabic{equation}}
+    \renewcommand{\theHequation}{#1.\arabic{equation}}
+}
+
+% Comandos auxiliares.
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\sen}{\operatorname{sen}}
+\newcommand{\arcsen}{\operatorname{arcsen}}
+\newcommand{\grad}{\nabla}
+\newcommand{\laplaciano}{\nabla^2}
+\newcommand{\R}{\mathbb{R}}
+
+% Simbolos de campo magnetico que entra y sale de la hoja.
+\newcommand{\Bentra}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,-0.065)$)--($(#1,#2)+(0.065,0.065)$);
+    \draw[fieldblue,line width=0.55pt] ($(#1,#2)+(-0.065,0.065)$)--($(#1,#2)+(0.065,-0.065)$);
+}
+\newcommand{\Bsale}[2]{%
+    \draw[fieldblue,line width=0.55pt] (#1,#2) circle (0.11);
+    \fill[fieldblue] (#1,#2) circle (0.03);
+}
+
+\tikzset{
+    >=Latex,
+    eje/.style={->,thick,headinggray},
+    onda/.style={very thick,waveblue},
+    ondados/.style={very thick,waveorange},
+    ondaaux/.style={thick,wavegreen},
+    vec/.style={->,very thick,wavered},
+    vecV/.style={->,very thick,bluevec},
+    vecB/.style={->,very thick,orangevec},
+    vecF/.style={->,very thick,redvec},
+    vecE/.style={->,very thick,greenvec},
+    panel/.style={draw=rulegray!80,fill=black!2,rounded corners=2pt},
+    guia/.style={densely dashed,rulegray},
+    etiqueta/.style={font=\footnotesize},
+    nota/.style={draw=rulegray,fill=white,rounded corners=1.5pt,align=left,font=\footnotesize,inner xsep=6pt,inner ysep=5pt,line width=0.35pt}
+}
+
+\begin{document}
+
+\encabezado{Ondas electromagnéticas y óptica geométrica}{Campos y Ondas 510245}{J.R., F.B.}
+\shorthandoff{<>}
+
+\primerproblema{4}
+
+Considere una onda electromagn\'etica plana, polarizada linealmente en la direcci\'on del eje $x$, que se propaga en la direcci\'on positiva del eje $y$. Su frecuencia es $12\,\mathrm{MHz}$ y su amplitud es $E_0=0.008\,\mathrm{V/m}$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Calcule el per\'iodo y la longitud de onda.
+    \item Escriba una expresi\'on para $\vec E(y,t)$ y para $\vec B(y,t)$.
+\end{enumerate}
+
+La figura siguiente muestra la estructura de la onda: $\vec E$, $\vec B$ y la direcci\'on de propagaci\'on son mutuamente perpendiculares, y los dos campos oscilan en fase.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,font=\footnotesize,line cap=round,line join=round]
+    % Onda EM plana. Propagacion +y (derecha), E || +x (vertical, verde),
+    % B || -z (profundidad, naranjo). E y B en fase; E0 = c B0.
+    % Longitud de onda en pantalla P=3.2 cm  ->  fase = 112.5*s grados.
+    \def\AE{1.4}
+    \def\Bdx{0.40}
+    \def\Bdy{0.42}
+    \draw[eje] (-0.5,0) -- (7.3,0) node[right] {$y$};
+    \draw[eje] (0,-1.6) -- (0,2.05) node[above] {$x$};
+    \draw[eje] (0,0) -- (0.95,0.80) node[above right=-3pt] {$z$};
+    \foreach \s in {0,0.4,...,6.4}{
+        \draw[wavegreen!45,line width=0.3pt] (\s,0) -- (\s,{\AE*sin(112.5*\s)});
+        \draw[waveorange!45,line width=0.3pt] (\s,0) -- ({\s-\Bdx*sin(112.5*\s)},{-\Bdy*sin(112.5*\s)});
+    }
+    \draw[onda,wavegreen,domain=0:6.4,samples=240] plot (\x,{\AE*sin(112.5*\x)});
+    \draw[onda,waveorange,domain=0:6.4,samples=240] plot ({\x-\Bdx*sin(112.5*\x)},{-\Bdy*sin(112.5*\x)});
+    \draw[vecE] (4.0,0) -- (4.0,\AE);
+    \node[right=1pt,wavegreen] at (4.0,0.8) {$\vec E$};
+    \draw[vecB] (4.0,0) -- ({4.0-\Bdx},{-\Bdy});
+    \node[below left=-3pt,waveorange] at ({4.0-\Bdx},{-\Bdy}) {$\vec B$};
+    \draw[guia] (0.8,\AE) -- (0.8,1.82);
+    \draw[guia] (4.0,\AE) -- (4.0,1.82);
+    \draw[<->,thick] (0.8,1.68) -- (4.0,1.68) node[midway,above] {$\lambda$};
+    \draw[guia] (0.8,\AE) -- (0,\AE);
+    \node[left] at (0,\AE) {$E_0$};
+    \draw[->,very thick,headinggray] (5.0,1.55) -- (6.2,1.55) node[midway,above] {$c$};
+\end{tikzpicture}
+\caption{Onda EM plana: $\vec E\parallel\hat x$ y $\vec B\parallel-\hat z$ oscilan en fase mientras la onda avanza en $+\hat y$, con $E_0=cB_0$.}
+\end{figure}
+
+\soluciontitulo
+
+La frecuencia de la onda es
+\begin{equation*}
+    f=12\,\mathrm{MHz}=12\times10^6\,\mathrm{Hz}.
+\end{equation*}
+Por definici\'on, el per\'iodo de una onda sinusoidal es
+\begin{equation}
+    T=\frac{1}{f}.
+    \label{eq:p4_periodo}
+\end{equation}
+Sustituyendo el valor de $f$ en \eqref{eq:p4_periodo},
+\begin{align*}
+    T&=\frac{1}{12\times10^6\,\mathrm{s^{-1}}}\\
+     &=8.33\times10^{-8}\,\mathrm{s}.
+\end{align*}
+
+Para una onda electromagn\'etica que se propaga en el vac\'io, la rapidez de propagaci\'on es $c$ y se cumple
+\begin{equation}
+    \lambda=\frac{c}{f}.
+    \label{eq:p4_lambda}
+\end{equation}
+Por tanto,
+\begin{align*}
+    \lambda&=\frac{3.0\times10^8\,\mathrm{m/s}}{12\times10^6\,\mathrm{s^{-1}}}\\
+            &=25\,\mathrm{m}.
+\end{align*}
+
+Como la onda se propaga en la direcci\'on $+\hat{y}$, una fase conveniente es $ky-\omega t$. Adem\'as, la polarizaci\'on del campo el\'ectrico es paralela a $\hat{x}$. Por ello escribimos
+\begin{equation}
+    \vec E(y,t)=E_0\sen(ky-\omega t)\,\hat{x}.
+    \label{eq:p4_E}
+\end{equation}
+El n\'umero de onda y la frecuencia angular vienen dados por
+\begin{equation}
+    k=\frac{2\pi}{\lambda},
+    \qquad
+    \omega=2\pi f.
+    \label{eq:p4_komega}
+\end{equation}
+Usando \eqref{eq:p4_lambda} y \eqref{eq:p4_komega},
+\begin{align*}
+    k&=\frac{2\pi}{25}\,\mathrm{m^{-1}},\\
+    \omega&=2\pi(12\times10^6)\,\mathrm{rad/s}.
+\end{align*}
+Sustituyendo estos valores en \eqref{eq:p4_E}, se obtiene
+\begin{equation*}
+    \vec E(y,t)=0.008\,\sen\!\left[2\pi\left(\frac{y}{25}-12\times10^6t\right)\right]\hat{x}\;\mathrm{V/m}.
+\end{equation*}
+
+En una onda electromagn\'etica plana, los campos $\vec E$ y $\vec B$ son perpendiculares entre s\'i y sus amplitudes satisfacen
+\begin{equation}
+    E_0=cB_0.
+    \label{eq:p4_EcB}
+\end{equation}
+De \eqref{eq:p4_EcB},
+\begin{align*}
+    B_0&=\frac{E_0}{c}\\
+       &=\frac{0.008}{3.0\times10^8}\,\mathrm{T}\\
+       &=2.67\times10^{-11}\,\mathrm{T}.
+\end{align*}
+La direcci\'on de propagaci\'on debe coincidir con $\vec E\times\vec B$. Como
+\begin{equation*}
+    \hat{x}\times(-\hat{z})=\hat{y},
+\end{equation*}
+el campo magn\'etico oscila en la direcci\'on $-\hat{z}$. Por lo tanto,
+\begin{equation*}
+    \vec B(y,t)=-2.67\times10^{-11}\,\sen\!\left[2\pi\left(\frac{y}{25}-12\times10^6t\right)\right]\hat{z}\;\mathrm{T}.
+\end{equation*}
+
+\resultadofinal{%
+\begin{equation*}
+    \boxed{T=8.33\times10^{-8}\,\mathrm{s}},
+    \qquad
+    \boxed{\lambda=25\,\mathrm{m}}.
+\end{equation*}
+\begin{equation*}
+    \boxed{\vec E(y,t)=0.008\,\sen\!\left[2\pi\left(\frac{y}{25}-12\times10^6t\right)\right]\hat{x}\;\mathrm{V/m}},
+\end{equation*}
+\begin{equation*}
+    \boxed{\vec B(y,t)=-2.67\times10^{-11}\,\sen\!\left[2\pi\left(\frac{y}{25}-12\times10^6t\right)\right]\hat{z}\;\mathrm{T}}.
+\end{equation*}}
+
+\problematitulo{5}
+
+La siguiente figura representa el campo electromagn\'etico de una onda plana de $420\,\mathrm{MHz}$ en el tiempo $t=0$. Las l\'ineas de campo verticales representan el campo el\'ectrico y las l\'ineas perpendiculares a la hoja de papel representan las l\'ineas de $\vec B$. Calcule la distancia $d$ y escriba el vector de inducci\'on magn\'etica en funci\'on del tiempo y la coordenada $x$.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1.0cm,y=1.0cm,line cap=round,line join=round]
+    \draw[eje] (-0.8,0) -- (11.2,0) node[right] {$x$};
+
+    % Region izquierda: E hacia arriba, B entra.
+    \foreach \x in {0,0.35,0.7,1.05,1.4}{
+        \draw[vecE] (\x,-0.95) -- (\x,0.95);
+    }
+    \foreach \x in {0.15,0.5,0.85,1.2}{
+        \Bentra{\x}{-0.52}
+        \Bentra{\x}{0.00}
+        \Bentra{\x}{0.52}
+    }
+
+    % Region central: E hacia abajo, B sale.
+    \foreach \x in {4.4,4.75,5.1,5.45,5.8}{
+        \draw[vecE] (\x,0.95) -- (\x,-0.95);
+    }
+    \foreach \x in {4.55,4.9,5.25,5.6}{
+        \Bsale{\x}{-0.52}
+        \Bsale{\x}{0.00}
+        \Bsale{\x}{0.52}
+    }
+
+    % Region derecha: E hacia arriba, B entra.
+    \foreach \x in {8.8,9.15,9.5,9.85,10.2}{
+        \draw[vecE] (\x,-0.95) -- (\x,0.95);
+    }
+    \foreach \x in {8.95,9.3,9.65,10.0}{
+        \Bentra{\x}{-0.52}
+        \Bentra{\x}{0.00}
+        \Bentra{\x}{0.52}
+    }
+
+    \draw[<->,thick] (1.4,-1.55) -- (4.4,-1.55) node[midway,below] {$d$};
+    \draw[guia] (1.4,-1.05) -- (1.4,-1.78);
+    \draw[guia] (4.4,-1.05) -- (4.4,-1.78);
+    \draw[vec,redvec] (6.7,1.25) -- (5.65,1.25) node[midway,above] {$\vec v$};
+\end{tikzpicture}
+\caption{Esquema de la onda en $t=0$. Entre dos regiones consecutivas con campos opuestos hay media longitud de onda.}
+\end{figure}
+
+La misma situaci\'on, expresada como el perfil del campo el\'ectrico $E_y(x)$, se muestra a continuaci\'on.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,font=\footnotesize,line cap=round,line join=round]
+    % Perfil E_y(x) en t=0 = E0 cos(k(x-0.8)): cresta en x=0.8 (E hacia +y),
+    % valle en x=2.8 (E hacia -y). P = lambda en pantalla = 4 cm  ->  fase = 90*(x-0.8).
+    \draw[eje] (-0.4,0) -- (7.0,0) node[right] {$x$};
+    \draw[eje] (0,-1.55) -- (0,1.95) node[above] {$E_y$};
+    \draw[onda,wavegreen,domain=0:6.6,samples=240] plot (\x,{1.1*cos(90*(\x-0.8))});
+    \filldraw[wavegreen] (0.8,1.1) circle (1.5pt);
+    \filldraw[waveorange] (2.8,-1.1) circle (1.5pt);
+    \filldraw[wavegreen] (4.8,1.1) circle (1.5pt);
+    \node[above left=-1pt,wavegreen] at (0.8,1.1) {$+\hat y$};
+    \node[below=2pt,waveorange] at (2.8,-1.1) {$-\hat y$};
+    \draw[guia] (0.8,1.1) -- (0.8,1.72);
+    \draw[guia] (2.8,-1.1) -- (2.8,1.72);
+    \draw[<->,thick] (0.8,1.58) -- (2.8,1.58) node[midway,above] {$d=\lambda/2$};
+\end{tikzpicture}
+\caption{Perfil $E_y(x)$ en $t=0$: en una cresta el campo apunta en $+\hat y$ y en el valle contiguo en $-\hat y$; ambas regiones distan $d=\lambda/2$.}
+\end{figure}
+
+\soluciontitulo
+
+La frecuencia de la onda es
+\begin{equation*}
+    f=420\,\mathrm{MHz}=420\times10^6\,\mathrm{Hz}.
+\end{equation*}
+Como la onda es electromagn\'etica, su longitud de onda en el vac\'io se obtiene desde
+\begin{equation}
+    \lambda=\frac{c}{f}.
+    \label{eq:p5_lambda}
+\end{equation}
+Sustituyendo,
+\begin{align*}
+    \lambda&=\frac{3.0\times10^8\,\mathrm{m/s}}{420\times10^6\,\mathrm{s^{-1}}}\\
+            &=0.714\,\mathrm{m}\\
+            &=71.4\,\mathrm{cm}.
+\end{align*}
+En la figura, $d$ separa dos regiones consecutivas en oposici\'on de fase. Esto corresponde a media longitud de onda, luego
+\begin{equation}
+    d=\frac{\lambda}{2}.
+    \label{eq:p5_d}
+\end{equation}
+Usando \eqref{eq:p5_d},
+\begin{align*}
+    d&=\frac{71.4\,\mathrm{cm}}{2}\\
+     &=35.7\,\mathrm{cm}.
+\end{align*}
+
+Para fijar la direcci\'on de propagaci\'on, tomamos una zona donde el campo el\'ectrico apunta hacia arriba, es decir, en la direcci\'on $+\hat{y}$, mientras que el campo magn\'etico entra en la hoja, es decir, en la direcci\'on $-\hat{z}$. El sentido de propagaci\'on de una onda electromagn\'etica plana coincide con la direcci\'on del vector de Poynting,
+\begin{equation}
+    \vec S=\frac{1}{\mu_0}\,\vec E\times\vec B.
+    \label{eq:p5_poynting}
+\end{equation}
+Por lo tanto, basta calcular el producto cruz entre las direcciones de ambos campos. Usando la regla de la mano derecha,
+\begin{align*}
+    \hat{y}\times(-\hat{z})
+    &=-\bigl(\hat{y}\times\hat{z}\bigr)\\
+    &=-\hat{x}.
+\end{align*}
+Esto muestra que el vector de Poynting apunta hacia el sentido negativo del eje $x$. En consecuencia, la onda se propaga hacia $-\hat{x}$.
+
+El n\'umero de onda y la frecuencia angular son
+\begin{equation}
+    k=\frac{2\pi}{\lambda},
+    \qquad
+    \omega=2\pi f.
+    \label{eq:p5_komega}
+\end{equation}
+Con \eqref{eq:p5_lambda} y \eqref{eq:p5_komega},
+\begin{align*}
+    k&=\frac{2\pi}{0.714}\,\mathrm{m^{-1}}\approx8.80\,\mathrm{m^{-1}},\\
+    \omega&=2\pi(420\times10^6)\,\mathrm{rad/s}\approx2.64\times10^9\,\mathrm{rad/s}.
+\end{align*}
+Para una onda que se propaga en la direcci\'on $-\hat{x}$, una fase compatible es $kx+\omega t$. Si se toma el origen $x=0$ en una regi\'on donde, para $t=0$, el campo magn\'etico entra en la hoja, entonces
+\begin{equation}
+    \vec B(x,t)=-B_0\cos(kx+\omega t)\,\hat{z}.
+    \label{eq:p5_B}
+\end{equation}
+Finalmente, usando los valores de $k$ y $\omega$,
+\begin{equation*}
+    \vec B(x,t)=-B_0\cos\!\left(8.80x+2.64\times10^9t\right)\hat{z}\;\mathrm{T},
+\end{equation*}
+donde $x$ se mide en metros y $B_0$ es la amplitud del campo magn\'etico.
+
+\resultadofinal{%
+\begin{equation*}
+    \boxed{d=35.7\,\mathrm{cm}}.
+\end{equation*}
+Una expresi\'on del campo magn\'etico compatible con el esquema es
+\begin{equation*}
+    \boxed{\vec B(x,t)=-B_0\cos\!\left(8.80x+2.64\times10^9t\right)\hat{z}\;\mathrm{T}}.
+\end{equation*}}
+
+\problematitulo{7}
+
+Una superficie de discontinuidad plana separa dos medios de \'indices de refracci\'on $n_1$ y $n_2$. Si un rayo incide desde el medio $n_1$, indique si las siguientes afirmaciones son verdaderas o falsas.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Si $n_1>n_2$, el \'angulo de refracci\'on es menor que el \'angulo de incidencia.
+    \item Si $n_1<n_2$, a partir de un cierto \'angulo de incidencia se produce el fen\'omeno de reflexi\'on total.
+\end{enumerate}
+
+\soluciontitulo
+
+Los \'angulos de incidencia y refracci\'on se miden respecto de la normal a la interfaz. La ley de Snell establece que
+\begin{equation}
+    n_1\sen\alpha=n_2\sen\beta,
+    \label{eq:p7_snell}
+\end{equation}
+donde $\alpha$ es el \'angulo de incidencia y $\beta$ es el \'angulo de refracci\'on.
+
+\inciso{a} Si $n_1>n_2$, de \eqref{eq:p7_snell} se obtiene
+\begin{equation}
+    \sen\beta=\frac{n_1}{n_2}\sen\alpha.
+    \label{eq:p7_beta_mayor}
+\end{equation}
+Como $n_1/n_2>1$, mientras exista un rayo refractado se tiene $\sen\beta>\sen\alpha$. Para \'angulos entre $0^\circ$ y $90^\circ$, la funci\'on seno es creciente, de modo que
+\begin{equation*}
+    \beta>\alpha.
+\end{equation*}
+El rayo refractado se aleja de la normal al pasar desde un medio de mayor \'indice hacia uno de menor \'indice. Por lo tanto, la afirmaci\'on ``el \'angulo de refracci\'on es menor que el \'angulo de incidencia'' es falsa.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.05,line cap=round,line join=round]
+    \fill[airblue] (-3,0) rectangle (3,2.2);
+    \fill[waterblue!65] (-3,-2.2) rectangle (3,0);
+    \draw[thick] (-3,0) -- (3,0);
+    \draw[guia] (0,-2.1) -- (0,2.1);
+    \draw[vec,redvec] (-1.8,1.6) -- (0,0);
+    \draw[vec,bluevec] (0,0) -- (1.8,-0.95);
+    \node at (-2.25,1.75) {$n_1$};
+    \node at (-2.25,-1.75) {$n_2$};
+    \node at (1.05,0.85) {$n_1>n_2$};
+    \draw (0,0.75) arc[start angle=90,end angle=138,radius=0.75];
+    \node at (-0.42,0.88) {$\alpha$};
+    \draw (0,-0.72) arc[start angle=-90,end angle=-28,radius=0.72];
+    \node at (0.55,-0.85) {$\beta$};
+\end{tikzpicture}
+\caption{Si $n_1>n_2$, el rayo refractado se aleja de la normal, es decir, $\beta>\alpha$.}
+\end{figure}
+
+\inciso{b} Si $n_1<n_2$, nuevamente desde \eqref{eq:p7_snell},
+\begin{equation}
+    \sen\beta=\frac{n_1}{n_2}\sen\alpha.
+    \label{eq:p7_beta_menor}
+\end{equation}
+Ahora $n_1/n_2<1$. Por lo tanto, $\sen\beta<\sen\alpha$ y, en consecuencia,
+\begin{equation*}
+    \beta<\alpha.
+\end{equation*}
+El rayo refractado se acerca a la normal.
+
+La reflexi\'on total interna s\'olo puede ocurrir cuando la luz pasa desde un medio de mayor \'indice de refracci\'on hacia uno de menor \'indice. En este inciso ocurre lo contrario, pues el rayo incide desde el medio menos refringente hacia el m\'as refringente. Por consiguiente, no aparece un \'angulo cr\'itico de reflexi\'on total para esta situaci\'on, y la segunda afirmaci\'on tambi\'en es falsa.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.05,line cap=round,line join=round]
+    \fill[airblue] (-3,0) rectangle (3,2.2);
+    \fill[waterblue!65] (-3,-2.2) rectangle (3,0);
+    \draw[thick] (-3,0) -- (3,0);
+    \draw[guia] (0,-2.1) -- (0,2.1);
+    \draw[vec,redvec] (-1.8,1.6) -- (0,0);
+    \draw[vec,bluevec] (0,0) -- (0.62,-1.85);
+    \node at (-2.25,1.75) {$n_1$};
+    \node at (-2.25,-1.75) {$n_2$};
+    \node at (1.05,0.85) {$n_1<n_2$};
+    \draw (0,0.75) arc[start angle=90,end angle=138,radius=0.75];
+    \node at (-0.42,0.88) {$\alpha$};
+    \draw (0,-0.76) arc[start angle=-90,end angle=-72,radius=0.76];
+    \node at (0.30,-0.94) {$\beta$};
+\end{tikzpicture}
+\caption{Si $n_1<n_2$, el rayo refractado se acerca a la normal, de modo que $\beta<\alpha$.}
+\end{figure}
+
+\resultadofinal{%
+\begin{equation*}
+    \boxed{\text{(a) Falsa}},
+    \qquad
+    \boxed{\text{(b) Falsa}}.
+\end{equation*}}
+
+\problematitulo{8}
+
+Un rayo luminoso que se propaga en el aire incide sobre el agua de un estanque con un \'angulo de $30^\circ$. Determine qu\'e \'angulo forman entre s\'i los rayos reflejado y refractado. Si el rayo luminoso se propaga desde el agua hacia el aire, determine a partir de qu\'e valor del \'angulo de incidencia se presentar\'a el fen\'omeno de reflexi\'on total. Dato: el \'indice de refracci\'on del agua es $4/3$.
+
+\soluciontitulo
+
+Tomamos
+\begin{equation*}
+    n_{\text{aire}}\approx1,
+    \qquad
+    n_{\text{agua}}=\frac{4}{3}.
+\end{equation*}
+Primero el rayo incide desde el aire hacia el agua con \'angulo de incidencia
+\begin{equation*}
+    \alpha=30^\circ.
+\end{equation*}
+El \'angulo reflejado se obtiene con la ley de reflexi\'on,
+\begin{equation}
+    \alpha'=\alpha.
+    \label{eq:p8_reflexion}
+\end{equation}
+Luego, usando \eqref{eq:p8_reflexion},
+\begin{equation*}
+    \alpha'=30^\circ.
+\end{equation*}
+
+El \'angulo refractado se obtiene aplicando la ley de Snell en la interfaz aire--agua:
+\begin{equation}
+    n_{\text{aire}}\sen\alpha=n_{\text{agua}}\sen\beta.
+    \label{eq:p8_snell}
+\end{equation}
+Despejando desde \eqref{eq:p8_snell},
+\begin{align*}
+    \sen\beta
+    &=\frac{n_{\text{aire}}}{n_{\text{agua}}}\sen\alpha\\
+    &=\frac{1}{4/3}\sen(30^\circ)\\
+    &=\frac{3}{4}\cdot\frac{1}{2}\\
+    &=\frac{3}{8}.
+\end{align*}
+As\'i,
+\begin{align*}
+    \beta&=\arcsen\!\left(\frac{3}{8}\right)\\
+          &\approx22.0^\circ.
+\end{align*}
+
+El \'angulo $\gamma$ entre el rayo reflejado y el rayo refractado se obtiene de la geometr\'ia de la interfaz. Los tres \'angulos $\alpha'$, $\beta$ y $\gamma$ completan un \'angulo llano:
+\begin{equation}
+    \gamma=180^\circ-\alpha'-\beta.
+    \label{eq:p8_gamma}
+\end{equation}
+Sustituyendo los valores encontrados,
+\begin{align*}
+    \gamma&=180^\circ-30^\circ-22.0^\circ\\
+           &=128^\circ.
+\end{align*}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.12,line cap=round,line join=round]
+    \fill[airblue] (-3.5,0) rectangle (3.5,2.2);
+    \fill[waterblue!65] (-3.5,-2.3) rectangle (3.5,0);
+    \draw[thick] (-3.5,0) -- (3.5,0);
+    \draw[guia] (0,-2.15) -- (0,2.05);
+    \node[anchor=west] at (-3.25,1.35) {$n_{\text{aire}}\approx1$};
+    \node[anchor=west] at (-3.25,-1.85) {$n_{\text{agua}}=4/3$};
+
+    \draw[vec,redvec] (-1.65,1.9) -- (0,0);
+    \draw[vec,redvec] (0,0) -- (1.65,1.9);
+    \draw[vec,bluevec] (0,0) -- (0.86,-2.05);
+
+    \node[above left,font=\footnotesize] at (-1.20,1.70) {rayo incidente};
+    \node[above right,font=\footnotesize] at (1.10,1.70) {rayo reflejado};
+    \node[right,font=\footnotesize] at (0.8,-1.65) {rayo refractado};
+
+    \draw (0,0.72) arc[start angle=90,end angle=132,radius=0.72];
+    \node at (-0.36,0.84) {$\alpha$};
+    \draw (0,0.88) arc[start angle=90,end angle=48,radius=0.88];
+    \node at (0.42,1.02) {$\alpha'$};
+    \draw (0,-0.78) arc[start angle=-90,end angle=-67,radius=0.78];
+    \node at (0.34,-0.98) {$\beta$};
+
+    \draw[thick,headinggray] (1.05,1.22) arc[start angle=49,end angle=-67,radius=1.6];
+    \node[right] at (1.52,-0.25) {$\gamma$};
+\end{tikzpicture}
+\caption{Geometr\'ia para un rayo que incide desde el aire hacia el agua.}
+\end{figure}
+
+Para la segunda parte, el rayo incide desde el agua hacia el aire. La reflexi\'on total aparece a partir del \'angulo cr\'itico. En el caso l\'imite, el rayo refractado sale rasante a la superficie, por lo que su \'angulo de refracci\'on es $90^\circ$. La ley de Snell queda
+\begin{equation}
+    n_{\text{agua}}\sen\alpha_c=n_{\text{aire}}\sen(90^\circ).
+    \label{eq:p8_critico}
+\end{equation}
+Como $\sen(90^\circ)=1$, desde \eqref{eq:p8_critico} se tiene
+\begin{align*}
+    \sen\alpha_c
+    &=\frac{n_{\text{aire}}}{n_{\text{agua}}}\\
+    &=\frac{1}{4/3}\\
+    &=\frac{3}{4}.
+\end{align*}
+Luego,
+\begin{align*}
+    \alpha_c&=\arcsen\!\left(\frac{3}{4}\right)\\
+             &\approx48.6^\circ.
+\end{align*}
+Para $\alpha\geq\alpha_c$, el rayo refractado deja de existir y se produce reflexi\'on total interna.
+
+\resultadofinal{%
+\begin{equation*}
+    \boxed{\gamma\approx128^\circ},
+    \qquad
+    \boxed{\alpha_c\approx48.6^\circ}.
+\end{equation*}
+La reflexi\'on total interna ocurre para \'angulos de incidencia $\alpha\geq\alpha_c$ cuando la luz pasa desde el agua hacia el aire.}
+
+\end{document}
