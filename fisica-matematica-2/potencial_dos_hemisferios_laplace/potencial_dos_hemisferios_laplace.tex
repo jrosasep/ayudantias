@@ -162,13 +162,34 @@ Como $n$ es impar, usamos la relación de recurrencia evaluada en $x=0$:
 \begin{equation*}
 (n+1)P_{n+1}(0)=-nP_{n-1}(0).
 \end{equation*}
-Sustituyendo esta relación en la integral anterior, se obtiene
+De aquí despejamos
+\begin{equation*}
+P_{n+1}(0)=-\frac{n}{n+1}P_{n-1}(0).
+\end{equation*}
+Por lo tanto, el paso algebraico que conecta ambas expresiones es
+\begin{align*}
+\int_0^1P_n(x)\dd x
+&=-\frac{P_{n+1}(0)-P_{n-1}(0)}{2n+1}\\[0.3em]
+&=\frac{P_{n-1}(0)-P_{n+1}(0)}{2n+1}\\[0.3em]
+&=\frac{P_{n-1}(0)-\left[-\dfrac{n}{n+1}P_{n-1}(0)\right]}{2n+1}\\[0.3em]
+&=\frac{\left(1+\dfrac{n}{n+1}\right)P_{n-1}(0)}{2n+1}\\[0.3em]
+&=\frac{\dfrac{2n+1}{n+1}P_{n-1}(0)}{2n+1}\\[0.3em]
+&=\frac{P_{n-1}(0)}{n+1}.
+\end{align*}
+Así,
 \begin{equation}
 \label{integral-0-1-pn-impar}
 \int_0^1P_n(x)\dd x=\frac{P_{n-1}(0)}{n+1},
 \qquad n\ \text{impar}.
 \end{equation}
-Reemplazando (\ref{integral-0-1-pn-impar}) en (\ref{coeficiente-cn-hemisferios}), encontramos
+Además, reemplazando explícitamente en la definición de $c_n$, para $n$ impar se obtiene
+\begin{align*}
+c_n
+&=\frac{2n+1}{2}\int_{-1}^{1}f(x)P_n(x)\dd x\\
+&=\frac{2n+1}{2}\left(2V_0\int_0^1P_n(x)\dd x\right)\\
+&=(2n+1)V_0\frac{P_{n-1}(0)}{n+1}.
+\end{align*}
+Por otro lado, si $n$ es par, $P_n$ es par, de modo que $f(x)P_n(x)$ es impar y su integral simétrica en $[-1,1]$ se anula. Entonces
 \begin{equation}
 \label{coeficiente-cn-final-hemisferios}
 c_n=
@@ -203,31 +224,31 @@ En las figuras angulares se usa la latitud $\lambda=\pi/2-\theta$ para represent
 
 \begin{figure}[h]
 \centering
-\includesvg[width=0.78\textwidth]{figures/fig_01_cdb_truncaciones}
+\includegraphics[width=0.78\textwidth]{figures/fig_01_cdb_truncaciones.pdf}
 \caption{Condición de borde de los dos hemisferios y aproximaciones truncadas de la serie de Legendre. La curva exacta presenta un salto en $\theta=\pi/2$. Las oscilaciones cerca del salto corresponden al comportamiento usual de una expansión truncada de una función discontinua.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includesvg[width=0.76\textwidth]{figures/fig_02_coeficientes_legendre}
+\includegraphics[width=0.76\textwidth]{figures/fig_02_coeficientes_legendre.pdf}
 \caption{Coeficientes de Legendre de la condición de borde. Sólo aparecen términos con $n$ impar, porque la C.d.B. cambia de signo al pasar del hemisferio superior al inferior.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includesvg[width=0.86\textwidth]{figures/fig_05_esfera_hemisferios}
+\includegraphics[width=0.86\textwidth]{figures/fig_05_esfera_hemisferios.pdf}
 \caption{Mapa angular del potencial impuesto sobre la superficie conductora. El hemisferio superior tiene potencial $+V_0$ y el inferior tiene potencial $-V_0$. La línea horizontal marca el ecuador, donde cambia el valor impuesto del potencial.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includesvg[width=0.70\textwidth]{figures/fig_03_potencial_interior}
+\includegraphics[width=0.70\textwidth]{figures/fig_03_potencial_interior.pdf}
 \caption{Potencial interior truncado en un corte meridiano. El color representa $\phi_i(r,\theta)$ dentro de la esfera. La circunferencia negra indica la superficie $r=a$ y las líneas delgadas indican curvas equipotenciales.}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includesvg[width=0.70\textwidth]{figures/fig_04_potencial_exterior}
+\includegraphics[width=0.70\textwidth]{figures/fig_04_potencial_exterior.pdf}
 \caption{Potencial exterior truncado en un corte meridiano. El color representa $\phi_e(r,\theta)$ fuera de la esfera. La circunferencia negra indica $r=a$ y las curvas delgadas muestran equipotenciales; lejos de la esfera el potencial decae.}
 \end{figure}
 
