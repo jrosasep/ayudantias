@@ -255,6 +255,7 @@ La siguiente figura representa el campo electromagn\'etico de una onda plana de 
 \centering
 \begin{tikzpicture}[x=1.0cm,y=1.0cm,line cap=round,line join=round]
     \draw[eje] (-0.8,0) -- (11.2,0) node[right] {$x$};
+    \draw[eje] (-0.8,-1.05) -- (-0.8,1.5) node[above] {$y$};
 
     % Region izquierda: E hacia arriba, B entra.
     \foreach \x in {0,0.35,0.7,1.05,1.4}{
@@ -290,6 +291,12 @@ La siguiente figura representa el campo electromagn\'etico de una onda plana de 
     \draw[guia] (1.4,-1.05) -- (1.4,-1.78);
     \draw[guia] (4.4,-1.05) -- (4.4,-1.78);
     \draw[vec,redvec] (6.7,1.25) -- (5.65,1.25) node[midway,above] {$\vec v$};
+
+    % Leyenda de la convencion (dos lineas)
+    \Bsale{6.7}{-1.55}
+    \node[right=4pt,font=\footnotesize] at (6.81,-1.55) {$\vec B$ sale de la hoja};
+    \Bentra{6.7}{-2.0}
+    \node[right=4pt,font=\footnotesize] at (6.81,-2.0) {$\vec B$ entra en la hoja};
 \end{tikzpicture}
 \caption{Esquema de la onda en $t=0$. Entre dos regiones consecutivas con campos opuestos hay media longitud de onda.}
 \end{figure}
@@ -343,6 +350,33 @@ Usando \eqref{eq:p5_d},
     d&=\frac{71.4\,\mathrm{cm}}{2}\\
      &=35.7\,\mathrm{cm}.
 \end{align*}
+
+La oposici\'on de fase entre dos regiones contiguas se ilustra a continuaci\'on.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,>=Latex,font=\footnotesize,line cap=round,line join=round]
+    % Onda E_y(x). Dos regiones consecutivas separadas lambda/2:
+    % cresta en x=0.8 (E hacia +y), valle en x=2.4 (E hacia -y). P=3.2 cm -> fase=112.5*(x-0.8).
+    \def\Amp{1.0}
+    \fill[wavegreen!10] (0.35,-1.35) rectangle (1.25,1.35);
+    \fill[waveorange!12] (1.95,-1.35) rectangle (2.85,1.35);
+    \draw[eje] (-0.3,0) -- (3.7,0) node[right] {$x$};
+    \draw[eje] (0,-1.5) -- (0,2.0) node[above] {$E_y$};
+    \draw[onda,wavegreen,domain=0:3.2,samples=200] plot (\x,{\Amp*cos(112.5*(\x-0.8))});
+    % campos opuestos en las dos regiones
+    \draw[vecE] (0.8,0) -- (0.8,\Amp);
+    \node[right=1pt,wavegreen] at (0.92,0.5) {$+E_0$};
+    \draw[vecE] (2.4,0) -- (2.4,-\Amp);
+    \node[right=1pt,waveorange] at (2.52,-0.5) {$-E_0$};
+    % cota d = lambda/2 con el desfase asociado
+    \draw[guia] (0.8,\Amp) -- (0.8,1.92);
+    \draw[guia] (2.4,-\Amp) -- (2.4,1.92);
+    \draw[<->,thick] (0.8,1.62) -- (2.4,1.62);
+    \node[align=center,above=1pt] at (1.6,1.6) {$d=\lambda/2$\\[-1pt]{\scriptsize$(\Delta\phi=\pi)$}};
+\end{tikzpicture}
+\caption{Como $kd=\tfrac{2\pi}{\lambda}\cdot\tfrac{\lambda}{2}=\pi$, dos regiones contiguas est\'an en oposici\'on de fase: donde el campo apunta en $+\hat y$, en la siguiente apunta en $-\hat y$.}
+\end{figure}
 
 Para fijar la direcci\'on de propagaci\'on, tomamos una zona donde el campo el\'ectrico apunta hacia arriba, es decir, en la direcci\'on $+\hat{y}$, mientras que el campo magn\'etico entra en la hoja, es decir, en la direcci\'on $-\hat{z}$. El sentido de propagaci\'on de una onda electromagn\'etica plana coincide con la direcci\'on del vector de Poynting,
 \begin{equation}
