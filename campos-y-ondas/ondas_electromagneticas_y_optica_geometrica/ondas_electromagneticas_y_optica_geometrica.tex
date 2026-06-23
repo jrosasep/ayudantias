@@ -616,6 +616,46 @@ Luego,
     \alpha_c&=\arcsen\!\left(\frac{3}{4}\right)\\
              &\approx48.6^\circ.
 \end{align*}
+
+La situaci\'on f\'isica de esta segunda parte se resume en la figura siguiente. La luz intenta pasar desde el agua hacia el aire; cuando el \'angulo de incidencia alcanza o supera el valor cr\'itico, ya no aparece un rayo refractado que salga al aire y la energ\'ia permanece reflejada en el agua.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.10,line cap=round,line join=round]
+    \fill[airblue] (-3.4,0) rectangle (3.4,2.0);
+    \fill[waterblue!65] (-3.4,-2.25) rectangle (3.4,0);
+    \draw[thick] (-3.4,0) -- (3.4,0);
+    \draw[guia] (0,-2.05) -- (0,1.75);
+
+    \node[anchor=west] at (-3.15,1.35) {$n_{\text{aire}}\approx1$};
+    \node[anchor=west] at (-3.15,-1.85) {$n_{\text{agua}}=4/3$};
+
+    % Rayo incidente y rayo reflejado dentro del agua.
+    \draw[vec,redvec] (-2.05,-1.65) -- (0,0);
+    \draw[vec,redvec] (0,0) -- (2.05,-1.65);
+
+    \node[font=\scriptsize,fill=waterblue!65,inner sep=1pt]
+        at (-1.45,-1.05) {rayo incidente};
+    \node[font=\scriptsize,fill=waterblue!65,inner sep=1pt]
+        at (1.45,-1.05) {rayo reflejado};
+
+    % En el angulo critico, el rayo refractado sale rasante a la interfaz.
+    \draw[->,thick,bluevec,densely dashed] (0,0) -- (2.75,0);
+    \node[font=\footnotesize,bluevec] at (1.65,0.78)
+        {reflexi\'on total: $\beta=90^\circ$};
+
+    % Angulos medidos respecto de la recta normal a la interfaz.
+    \draw (0,-0.72) arc[start angle=-90,end angle=-141,radius=0.72];
+    \node at (-0.45,-0.82) {$\alpha_c$};
+    \draw (0,-0.92) arc[start angle=-90,end angle=-39,radius=0.92];
+    \node at (0.55,-1.04) {$\alpha'_c$};
+
+    % Angulo recto asociado al rayo refractado rasante: beta = 90 grados.
+    \draw[bluevec,thick] (0,0.33) -- (0.33,0.33) -- (0.33,0);
+\end{tikzpicture}
+\caption{Reflexi\'on total interna para un rayo que incide desde el agua hacia el aire. En el caso cr\'itico, el rayo refractado sale rasante a la interfaz.}
+\end{figure}
+
 Para $\alpha\geq\alpha_c$, el rayo refractado deja de existir y se produce reflexi\'on total interna.
 
 \resultadofinal{%
