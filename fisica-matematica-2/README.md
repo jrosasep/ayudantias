@@ -229,3 +229,4 @@ con condición de borde homogénea de Dirichlet en la superficie esférica,
 
 El desarrollo usa separación de variables en coordenadas esféricas. La parte angular se expresa en términos de armónicos esféricos, mientras que la parte radial conduce a funciones esféricas de Bessel. La condición de borde selecciona los ceros de estas funciones y determina la cuantización de la energía.
 
+si
