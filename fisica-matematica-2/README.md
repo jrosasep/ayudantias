@@ -209,6 +209,30 @@ El desarrollo muestra cómo aparecen las ecuaciones diferenciales ordinarias rad
 
 ---
 
+## `funciones_green_laplace_helmholtz/`
+
+Solución de problemas de **funciones de Green** para las ecuaciones de Laplace y Helmholtz.
+
+Se estudian ecuaciones del tipo
+
+```math
+\nabla^2 G(\vec r,\vec r')
+=
+-\delta(\vec r-\vec r'),
+```
+
+y
+
+```math
+(\nabla^2+k^2)G(\vec r,\vec r')
+=
+-\delta(\vec r-\vec r').
+```
+
+El desarrollo muestra cómo construir la solución mediante funciones de Green y cómo estas permiten resolver problemas con fuentes y condiciones de borde asociadas.
+
+---
+
 ## `schrodinger_esferica/`
 
 Problema de la **ecuación de Schrödinger dependiente del tiempo para una partícula cuántica confinada en una esfera**.
@@ -229,4 +253,3 @@ con condición de borde homogénea de Dirichlet en la superficie esférica,
 
 El desarrollo usa separación de variables en coordenadas esféricas. La parte angular se expresa en términos de armónicos esféricos, mientras que la parte radial conduce a funciones esféricas de Bessel. La condición de borde selecciona los ceros de estas funciones y determina la cuantización de la energía.
 
-si
