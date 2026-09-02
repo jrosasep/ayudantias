@@ -1,0 +1,385 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,patterns.meta}
+
+\IfFileExists{densidad_plano_visualizacion.pdf}{%
+  \newcommand{\includevisualizacion}[2][]{\includegraphics[##1]{##2.pdf}}%
+}{%
+  \usepackage[inkscapelatex=false]{svg}
+  \newcommand{\includevisualizacion}[2][]{\includesvg[##1]{##2}}%
+}
+
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\newcommand{\encabezado}[3]{%
+  {\Large\bfseries #1\par}
+  \vspace{2pt}
+  {\normalsize #2\hfill #3\par}
+  \vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+  \vspace{0.55em}
+  \noindent\textbf{#1.}\enspace{\small #2}\par
+  \vspace{0.3em}}
+
+\begin{document}
+
+\encabezado{Densidad superficial de carga a partir del potencial}
+{Electrodinámica I}{P.S., J.A., J.R.}
+
+\problema{1}{El plano infinito $z=0$ divide el vacío en dos regiones. El
+potencial eléctrico está dado por
+\begin{equation}
+\phi(x,y,z)=
+\begin{cases}
+\displaystyle \frac{V_0z}{(x^2+y^2+z^2)^{3/2}}, & z>0,\\[8pt]
+\displaystyle \frac{V_0z}{2(x^2+y^2+z^2)^{3/2}}, & z<0,
+\end{cases}
+\label{eq:potencial-plano}
+\end{equation}
+donde $V_0>0$ y $[V_0]=[\phi]L^2$. Determine:
+\begin{enumerate}
+  \item el campo eléctrico en las regiones superior e inferior;
+  \item sus componentes tangencial y normal al aproximarse a $z=0$;
+  \item la continuidad de la componente tangencial;
+  \item la densidad superficial de carga $\sigma(x,y)$ sobre el plano.
+\end{enumerate}
+Todos los límites sobre la interfaz se entienden para
+$\rho=\sqrt{x^2+y^2}>0$, pues el potencial dado es singular en el origen.}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.93,
+    line cap=round,
+    line join=round,
+    eje/.style={-{Stealth[length=1.9mm]},semithick},
+    vector/.style={-{Stealth[length=1.9mm]},thick},
+    every node/.style={font=\small}
+]
+\begin{scope}[x={(1cm,0cm)},y={(-0.44cm,0.24cm)},z={(0cm,1cm)}]
+  \path[
+    pattern={Lines[angle=35,distance=4.2pt,line width=0.22pt]},
+    pattern color=black!42
+  ] (-3.25,-2.20,0)--(3.25,-2.20,0)--(3.25,2.20,0)--(-3.25,2.20,0)--cycle;
+  \draw[thick] (-3.25,-2.20,0)--(3.25,-2.20,0)--(3.25,2.20,0)--(-3.25,2.20,0)--cycle;
+
+  \coordinate (O) at (0,0,0);
+  % La proyección del eje y apunta hacia la izquierda; así la normal y el
+  % punto P disponen de una zona propia en el costado derecho del dibujo.
+  \coordinate (S) at (2.00,0.70,0);
+  \draw[eje] (-3.75,0,0)--(3.85,0,0) node[below] {$x$};
+  \draw[eje] (0,-3.10,0)--(0,3.15,0) node[above right=-1pt] {$y$};
+  \draw[eje] (0,0,-1.55)--(0,0,2.95) node[left] {$z$};
+  \fill (O) circle (1.1pt);
+  \node[below left] at (O) {$O$};
+  \fill (S) circle (1.6pt);
+  \node[anchor=west,fill=white,inner sep=1.2pt]
+    at (2.14,0.70,0) {$P$};
+  \draw[vector] (O)--(S)
+    node[pos=.56,below=4pt,fill=white,inner sep=1pt] {$\vec\rho$};
+  \draw[vector] (S)--++(0,0,1.45)
+    node[midway,right=4pt,fill=white,inner sep=1pt] {$\hat n=\hat z$};
+
+  \node[anchor=west,align=left,fill=white,inner sep=2pt]
+    at (3.05,0,2.02)
+    {$z>0$\quad $\phi^+=V_0z/r^3$};
+  \node[anchor=west,align=left,fill=white,inner sep=2pt]
+    at (3.05,0,-1.22)
+    {$z<0$\quad $\phi^-=V_0z/(2r^3)$};
+  \node[anchor=north,fill=white,inner sep=2pt]
+    at (-1.70,1.60,0) {$z=0$};
+\end{scope}
+\end{tikzpicture}
+
+\caption{El punto $P=(x,y,0)$ se localiza mediante
+$\vec\rho=x\hat x+y\hat y$, con $\rho=\sqrt{x^2+y^2}$. La normal
+$\hat n=\hat z$ apunta hacia la región superior y
+$r=\sqrt{x^2+y^2+z^2}$.}
+\label{fig:geometria-plano}
+\end{figure}
+
+\textbf{Solución:}
+
+\textbf{1. Cálculo del campo eléctrico por regiones.}\par
+El campo se obtiene de la relación
+\begin{equation}
+\vec E=-\nabla\phi
+=-\left(
+\frac{\partial\phi}{\partial x}\,\hat x
++\frac{\partial\phi}{\partial y}\,\hat y
++\frac{\partial\phi}{\partial z}\,\hat z
+\right).
+\label{eq:campo-gradiente}
+\end{equation}
+Escribimos
+\[
+r=\sqrt{x^2+y^2+z^2}.
+\]
+En la región superior, $\phi^+=V_0zr^{-3}$. Sus derivadas son
+\begin{equation*}
+\frac{\partial\phi^+}{\partial x}=-\frac{3V_0xz}{r^5},
+\qquad
+\frac{\partial\phi^+}{\partial y}=-\frac{3V_0yz}{r^5},
+\qquad
+\frac{\partial\phi^+}{\partial z}
+=\frac{V_0(r^2-3z^2)}{r^5}.
+\end{equation*}
+Por lo tanto,
+\begin{equation}
+\boxed{
+\vec E^{+}(x,y,z)=\frac{V_0}{r^5}
+\left[3xz\,\hat x+3yz\,\hat y+(3z^2-r^2)\,\hat z\right],
+\qquad z>0.}
+\label{eq:campo-superior}
+\end{equation}
+
+En la región inferior, el potencial tiene exactamente la misma dependencia
+espacial, multiplicada por $1/2$. En consecuencia,
+\begin{equation}
+\boxed{
+\vec E^{-}(x,y,z)=\frac{V_0}{2r^5}
+\left[3xz\,\hat x+3yz\,\hat y+(3z^2-r^2)\,\hat z\right],
+\qquad z<0.}
+\label{eq:campo-inferior}
+\end{equation}
+
+\textbf{2. Evaluación sobre la frontera.}\par
+Para aproximarnos al plano fijamos $(x,y)$ y tomamos $z\to0^\pm$. Como
+$r\to\rho=\sqrt{x^2+y^2}$, los términos proporcionales a $xz$, $yz$ y $z^2$
+se anulan. De las ecuaciones~\eqref{eq:campo-superior} y
+\eqref{eq:campo-inferior} obtenemos
+\begin{equation}
+\boxed{
+\vec E^{+}(x,y,0)=-\frac{V_0}{\rho^3}\,\hat z,
+\qquad
+\vec E^{-}(x,y,0)=-\frac{V_0}{2\rho^3}\,\hat z,}
+\qquad \rho>0.
+\label{eq:campos-frontera}
+\end{equation}
+
+Respecto de la normal $\hat n=\hat z$, definimos
+\[
+E_\perp=\vec E\cdot\hat n,
+\qquad
+\vec E_\parallel=\vec E-E_\perp\hat n.
+\]
+Así,
+\begin{equation}
+E^+_\perp=-\frac{V_0}{\rho^3},
+\qquad
+E^-_\perp=-\frac{V_0}{2\rho^3},
+\qquad
+\vec E^+_\parallel=\vec E^-_\parallel=\vec 0.
+\label{eq:componentes-frontera}
+\end{equation}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.88,
+    line cap=round,
+    line join=round,
+    vector/.style={-{Stealth[length=1.9mm]},thick},
+    recorrido/.style={-{Stealth[length=1.7mm]},semithick},
+    every node/.style={font=\small}
+]
+% Panel (a): contorno de circulación.
+\begin{scope}[xshift=-4.05cm]
+  \node[font=\small\bfseries] at (0,1.78) {(a) Contorno de circulación};
+  \draw[very thick] (-3.05,0)--(3.05,0);
+  \node[above right] at (2.25,0) {$z=0$};
+  \node[anchor=west] at (-2.90,1.33) {región $+$};
+  \node[anchor=west] at (-2.90,-1.33) {región $-$};
+
+  \draw[recorrido] (-1.50,0.62)--(1.50,0.62);
+  \draw[recorrido] (1.50,0.62)--(1.50,-0.62);
+  \draw[recorrido] (1.50,-0.62)--(-1.50,-0.62);
+  \draw[recorrido] (-1.50,-0.62)--(-1.50,0.62);
+  \node[above] at (0,0.62) {$\Delta\ell$};
+  \draw[{Stealth[length=1.4mm]}-{Stealth[length=1.4mm]}]
+    (1.94,-0.60)--(1.94,0.60);
+  \node[right] at (1.94,0) {$2\delta$};
+  \draw[vector] (-0.88,1.17)--(0.30,1.17)
+    node[right] {$\vec E_\parallel^+$};
+  \draw[vector] (0.30,-1.17)--(-0.88,-1.17)
+    node[left] {$\vec E_\parallel^-$};
+  \draw[vector] (-2.35,0.20)--(-1.35,0.20)
+    node[above] {$\hat t$};
+\end{scope}
+
+% Panel (b): pastilla gaussiana.
+\begin{scope}[xshift=4.05cm]
+  \node[font=\small\bfseries] at (0,1.78) {(b) Pastilla gaussiana};
+  \draw[very thick] (-3.05,0)--(3.05,0);
+  \node[above right] at (2.25,0) {$z=0$};
+  \node[anchor=west] at (-2.90,1.33) {región $+$};
+  \node[anchor=west] at (-2.90,-1.33) {región $-$};
+
+  \draw[densely dashed] (-1.15,0.62) ellipse (1.15 and 0.23);
+  \draw[densely dashed] (-1.15,-0.62) ellipse (1.15 and 0.23);
+  \draw[densely dashed] (-2.30,0.62)--(-2.30,-0.62);
+  \draw[densely dashed] (0,0.62)--(0,-0.62);
+  \draw[vector] (-1.40,1.36)--(-1.40,0.80)
+    node[midway,left=2pt] {$\vec E^+$};
+  \draw[vector] (-1.40,-0.80)--(-1.40,-1.32)
+    node[midway,left=2pt] {$\vec E^-$};
+  \draw[vector] (0,0.66)--(0,1.34)
+    node[right] {$+\hat n$};
+  \draw[vector] (0,-0.66)--(0,-1.34)
+    node[right] {$-\hat n$};
+  \foreach \x in {-2.65,-2.10,-1.55,-1.00,-0.45,0.10,0.65,1.20,1.75,2.30,2.85}{
+    \node[font=\scriptsize] at (\x,0) {$-$};
+  }
+  \node[below=3pt,fill=white,inner sep=1pt] at (1.36,0) {$\sigma(\rho)<0$};
+\end{scope}
+\end{tikzpicture}
+\caption{Geometrías usadas en las condiciones de frontera. El contorno de (a)
+compara las componentes tangenciales; la pastilla de (b) relaciona el salto de
+la componente normal con la densidad superficial.}
+\label{fig:frontera-plano}
+\end{figure}
+
+\textbf{3. Continuidad de la componente tangencial.}\par
+Dividimos el contorno de la Figura~\ref{fig:frontera-plano}(a) en sus cuatro
+lados,
+\[
+C=C_1\cup C_2\cup C_3\cup C_4.
+\]
+Por el teorema de Stokes y $\nabla\times\vec E=\vec0$,
+\begin{align*}
+0=\oint_C\vec E\cdot d\vec\ell
+&=\int_{C_1}\vec E\cdot d\vec\ell
++\int_{C_2}\vec E\cdot d\vec\ell\\
+&\quad+\int_{C_3}\vec E\cdot d\vec\ell
++\int_{C_4}\vec E\cdot d\vec\ell.
+\end{align*}
+Al hacer $\delta\to0$, los lados cortos desaparecen porque su longitud tiende a
+cero. Los lados largos entregan
+\[
+\int_{C_1}\vec E\cdot d\vec\ell
+\longrightarrow \vec E_\parallel^+\cdot\hat t\,\Delta\ell,
+\qquad
+\int_{C_3}\vec E\cdot d\vec\ell
+\longrightarrow-\vec E_\parallel^-\cdot\hat t\,\Delta\ell.
+\]
+El signo menos aparece porque el lado inferior se recorre en el sentido
+contrario. Por tanto,
+\[
+0=\left(\vec E_\parallel^+-\vec E_\parallel^-\right)
+\cdot\hat t\,\Delta\ell,
+\]
+y, para cualquier dirección tangente $\hat t$,
+\begin{equation}
+\vec E^+_\parallel-\vec E^-_\parallel=\vec 0.
+\label{eq:continuidad-tangencial}
+\end{equation}
+En este problema la verificación es inmediata a partir de
+\eqref{eq:componentes-frontera}: ambas componentes tangenciales son nulas. El
+potencial también es continuo, pues
+\[
+\lim_{z\to0^+}\phi(x,y,z)
+=\lim_{z\to0^-}\phi(x,y,z)=0,
+\qquad \rho>0.
+\]
+
+\textbf{4. Densidad superficial de carga.}\par
+Dividimos la superficie de la Figura~\ref{fig:frontera-plano}(b) en tapa
+superior, pared lateral y tapa inferior:
+\[
+S=S_+\cup S_{\mathrm{lat}}\cup S_-.
+\]
+La Ley de Gauss entrega
+\begin{align*}
+\frac{q_{\mathrm{enc}}}{\varepsilon_0}
+&=\oint_S\vec E\cdot d\vec S\\
+&=\int_{S_+}\vec E\cdot d\vec S
++\int_{S_{\mathrm{lat}}}\vec E\cdot d\vec S
++\int_{S_-}\vec E\cdot d\vec S.
+\end{align*}
+Al hacer $\delta\to0$,
+\[
+\int_{S_+}\vec E\cdot d\vec S\longrightarrow E_\perp^+A,
+\qquad
+\int_{S_-}\vec E\cdot d\vec S\longrightarrow-E_\perp^-A,
+\qquad
+\int_{S_{\mathrm{lat}}}\vec E\cdot d\vec S\longrightarrow0.
+\]
+El flujo lateral desaparece porque el área de la pared tiende a cero. Como la
+pastilla encierra $q_{\mathrm{enc}}=\sigma A$,
+\[
+\left(E_\perp^+-E_\perp^-\right)A
+=\frac{\sigma A}{\varepsilon_0}.
+\]
+Cancelando el área, obtenemos
+\begin{equation}
+\hat n\cdot\left(\vec E^+-\vec E^-\right)
+=\frac{\sigma}{\varepsilon_0}.
+\label{eq:salto-normal}
+\end{equation}
+El signo menos de $E_\perp^-$ se debe a que la normal exterior de la tapa
+inferior es $-\hat n$.
+
+Sustituyendo la ecuación~\eqref{eq:campos-frontera},
+\begin{align*}
+\frac{\sigma}{\varepsilon_0}
+&=-\frac{V_0}{\rho^3}-\left(-\frac{V_0}{2\rho^3}\right)\\
+&=-\frac{V_0}{2\rho^3}.
+\end{align*}
+Por tanto,
+\begin{equation}
+\boxed{
+\sigma(x,y)=-\frac{\varepsilon_0V_0}
+{2(x^2+y^2)^{3/2}},}
+\qquad (x,y)\ne(0,0).
+\label{eq:sigma-final}
+\end{equation}
+
+La densidad es negativa en todo punto regular del plano y su magnitud decrece
+como $\rho^{-3}$. La divergencia cuando $\rho\to0$ no es un defecto del cálculo:
+refleja la singularidad del potencial impuesto en el origen. Un modelo físico
+con tamaño finito debe regularizar esa zona; por ejemplo, al excluir un disco de
+radio $a$ la carga contenida en $\rho>a$ es
+\[
+Q(\rho>a)=\int_a^\infty\sigma(\rho)\,2\pi\rho\,d\rho
+=-\frac{\pi\varepsilon_0V_0}{a},
+\]
+que diverge en el límite ideal $a\to0$.
+
+\section*{Visualización numérica}
+
+Tomamos una longitud de referencia $L$ y representamos
+\[
+\widetilde{\sigma}=\frac{\sigma L^3}{\varepsilon_0V_0},
+\qquad
+\widetilde{\vec E}=\frac{\vec E L^3}{V_0}.
+\]
+La región central se omite porque el potencial y la densidad son singulares en
+el origen. La escala de $\widetilde{\sigma}$ se aplica tanto al mapa plano como
+a la superficie tridimensional, mientras la escala logarítmica de
+$\lvert\widetilde{\vec E}\rvert$ se comparte entre el corte meridiano y las
+flechas tridimensionales.
+
+\begin{figure}[htbp]
+\centering
+\includevisualizacion[width=0.97\textwidth]{densidad_plano_visualizacion}
+\caption{Visualización numérica de las condiciones de frontera. En (a), el
+color muestra la densidad superficial negativa y las curvas blancas marcan
+radios constantes. En (b), las líneas indican la dirección del campo en $y=0$
+y el color representa su intensidad. En (c), el plano conserva la escala de
+densidad y las flechas muestran el campo en ambas regiones.}
+\label{fig:visualizacion-plano}
+\end{figure}
+
+\end{document}

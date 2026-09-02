@@ -1,0 +1,731 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,patterns.meta}
+
+\IfFileExists{cilindro_hueco_visualizacion.pdf}{%
+  \newcommand{\includevisualizacion}[2][]{\includegraphics[##1]{##2.pdf}}%
+}{%
+  \usepackage[inkscapelatex=false]{svg}
+  \newcommand{\includevisualizacion}[2][]{\includesvg[##1]{##2}}%
+}
+
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\newcommand{\encabezado}[3]{%
+  {\Large\bfseries #1\par}
+  \vspace{2pt}
+  {\normalsize #2\hfill #3\par}
+  \vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+  \vspace{0.55em}
+  \noindent\textbf{#1.}\enspace{\small #2}\par
+  \vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+  \vspace{0.35em}
+  \noindent\textbf{(#1)}\enspace}
+
+\begin{document}
+
+\encabezado{Campo y potencial electrostático de un cilindro hueco infinito}
+{Electrodinámica I}{P.S., J.A., J.R.}
+
+\problema{1}{Considere un cilindro muy largo (aproximado como infinito) de radio interior $a$ y radio exterior $b$. El cilindro posee una densidad de carga volumétrica no uniforme que depende de la distancia radial $r$ al eje del cilindro, descrita por:
+\begin{equation}
+\rho(r) =
+\begin{cases}
+0, & 0\leq r<a,\\[2pt]
+\dfrac{\rho_0}{r}, & a<r<b,\\[5pt]
+0, & r>b,
+\end{cases}
+\end{equation}
+donde $\rho_0$ es una constante con unidades de carga por unidad de área. 
+Se pide:
+\begin{enumerate}
+    \item Calcular el campo eléctrico $\vec E(r)$ en todo el espacio utilizando integración directa (ley de Coulomb).
+    \item Obtener el mismo campo eléctrico empleando la Ley de Gauss en forma integral.
+    \item Calcular el potencial eléctrico $\phi(r)$ en todo el espacio, estableciendo como condición de referencia $\phi(b) = 0$.
+\end{enumerate}
+}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.74,
+    transform shape,
+    line cap=round,
+    line join=round,
+    eje/.style={-{Stealth[length=1.8mm]},semithick},
+    cota/.style={{Stealth[length=1.3mm]}-{Stealth[length=1.3mm]}}
+]
+\begin{scope}[x={(1cm,0cm)},y={(0.43cm,0.21cm)},z={(0cm,1cm)}]
+\def\raen{0.92}
+\def\rben{1.82}
+\def\hen{3.35}
+
+% Región cargada visible en la cara superior y en dos generatrices.
+\path[
+  pattern={Lines[angle=45,distance=3.1pt,line width=0.24pt]},
+  pattern color=black!60,
+  even odd rule
+]
+  plot[domain=0:360,samples=90,variable=\t]
+       ({\rben*cos(\t)},{\rben*sin(\t)},\hen)--cycle
+  plot[domain=0:360,samples=90,variable=\t]
+       ({\raen*cos(\t)},{\raen*sin(\t)},\hen)--cycle;
+\path[
+  pattern={Lines[angle=45,distance=3.1pt,line width=0.24pt]},
+  pattern color=black!60
+] (\raen,0,0)--(\rben,0,0)--(\rben,0,\hen)--(\raen,0,\hen)--cycle;
+\path[
+  pattern={Lines[angle=45,distance=3.1pt,line width=0.24pt]},
+  pattern color=black!60
+] (-\raen,0,0)--(-\rben,0,0)--(-\rben,0,\hen)--(-\raen,0,\hen)--cycle;
+
+% Contornos del cascarón cilíndrico.
+\draw[thick] plot[domain=0:360,samples=90,variable=\t]
+  ({\rben*cos(\t)},{\rben*sin(\t)},\hen);
+\draw[thick] plot[domain=0:360,samples=90,variable=\t]
+  ({\raen*cos(\t)},{\raen*sin(\t)},\hen);
+\draw[thick] plot[domain=180:360,samples=45,variable=\t]
+  ({\rben*cos(\t)},{\rben*sin(\t)},0);
+\draw[densely dashed,black!55] plot[domain=0:180,samples=45,variable=\t]
+  ({\rben*cos(\t)},{\rben*sin(\t)},0);
+\draw[thick] plot[domain=180:360,samples=45,variable=\t]
+  ({\raen*cos(\t)},{\raen*sin(\t)},0);
+\draw[densely dashed,black!55] plot[domain=0:180,samples=45,variable=\t]
+  ({\raen*cos(\t)},{\raen*sin(\t)},0);
+\foreach \r in {-\rben,-\raen,\raen,\rben}{
+  \draw[thick] (\r,0,0)--(\r,0,\hen);
+  \draw[densely dashed,black!55] (\r,0,-0.60)--(\r,0,0);
+  \draw[densely dashed,black!55] (\r,0,\hen)--(\r,0,{\hen+0.60});
+}
+
+% Eje y radios característicos.
+\coordinate (Oen) at (0,0,0);
+\draw[eje] (0,0,-0.72)--(0,0,{\hen+0.92}) node[left] {$z$};
+\fill (Oen) circle (1.1pt);
+\draw[cota] (Oen)--({\raen*cos(218)},{\raen*sin(218)},0)
+  node[pos=.64,above left=-1pt] {$a$};
+\draw[cota] (Oen)--({\rben*cos(252)},{\rben*sin(252)},0)
+  node[pos=.72,below left=-1pt] {$b$};
+\node[anchor=west,align=left] at (2.32,0,2.25)
+  {$\displaystyle \rho(r)=\frac{\rho_0}{r}$\\[-1pt]$a<r<b$};
+\draw[-{Stealth[length=1.5mm]}] (2.22,0,2.06)--(1.45,0,1.83);
+\node[anchor=west,font=\scriptsize] at (2.30,0,3.35)
+  {invariante bajo traslaciones en $z$};
+\end{scope}
+\end{tikzpicture}
+
+\caption{Cascarón cilíndrico infinito. El tramado identifica la región cargada
+$a<r<b$, donde $\rho(r)=\rho_0/r$.}
+\label{fig:geometria-cilindro}
+\end{figure}
+
+\textbf{Solución:} La distribución es invariante bajo rotaciones alrededor del eje
+$z$ y bajo traslaciones a lo largo de ese eje. Por esto el campo sólo puede depender
+de $r$ y apuntar en dirección radial:
+\begin{equation*}
+\vec E(r)=E(r)\,\hat{r}.
+\end{equation*}
+
+\inciso{a} Para calcular el campo mediante integración directa partimos de la ley
+de Coulomb para una distribución continua. Conservamos la convención según la cual $\vec{x}$ representa el punto de observación y
+$\vec{x}'$ un punto fuente, escribiendo la ley directamente en
+forma vectorial:
+\begin{equation}
+\vec E(\vec{x})=
+\frac{1}{4\pi\varepsilon_0}
+\int_V
+\rho(\vec{x}')
+\frac{\vec{x}-\vec{x}'}{\lvert\vec{x}-\vec{x}'\rvert^3}\,dV'.
+\end{equation}
+
+\paragraph{Elección de coordenadas y variables.}
+Usamos un único sistema de coordenadas cilíndricas, cuyo eje es el eje $z$ del
+cilindro. El punto de observación $P$ permanece fijo durante la integración y, por
+simetría, podemos escogerlo sobre el semieje $x$ positivo. El punto fuente $Q$, en
+cambio, recorre el volumen cargado:
+\[
+\begin{aligned}
+P:&\quad \vec{x}=r\,\hat{x}
+&&\Longleftrightarrow &&(r,\varphi,z)=(r,0,0),\\
+Q:&\quad \vec{x}'=\vec{x}'(r',\varphi',z')
+&&\Longleftrightarrow &&(r',\varphi',z').
+\end{aligned}
+\]
+Así, $r$ es el radio donde se desea conocer el campo y actúa como parámetro: no se
+integra respecto de él. Por el contrario, $r'$, $\varphi'$ y $z'$ son variables de
+integración, con $a<r'<b$, $0\leq\varphi'<2\pi$ y
+$-\infty<z'<\infty$. Cada posición de $Q$ determina el valor local de la densidad
+de carga,
+\[
+\rho(\vec{x}')=\rho(r')=\frac{\rho_0}{r'}.
+\]
+
+El elemento de volumen de la fuente en coordenadas cilíndricas es
+\begin{equation}
+dV'=r'\,dr'\,d\varphi'\,dz'.
+\end{equation}
+La posición del elemento de carga es
+$\vec{x}'=r'\cos\varphi'\,\hat{x}
++r'\sin\varphi'\,\hat{y}+z'\,\hat{z}$, y el vector de separación es
+\begin{equation}
+\vec{x}-\vec{x}'=
+(r-r'\cos\varphi')\hat{x}
+-r'\sin\varphi'\hat{y}-z'\hat{z}.
+\end{equation}
+
+La figura~\ref{fig:integracion-directa} muestra un segmento del cilindro infinito,
+el punto fuente, el punto de observación y los vectores que intervienen en la ley de
+Coulomb. El tramado se usa únicamente para distinguir la región que contiene carga.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.90,
+    transform shape,
+    line cap=round,
+    line join=round,
+    eje/.style={-{Stealth[length=2.0mm]},semithick},
+    vector/.style={-{Stealth[length=2.4mm]},very thick},
+    auxiliar/.style={densely dashed,black!55},
+    cota/.style={{Stealth[length=1.5mm]}-{Stealth[length=1.5mm]}},
+    every node/.style={font=\small}
+]
+% La proyección oblicua se usa sólo para representar la geometría 3D.
+\begin{scope}[
+    x={(1cm,0cm)},
+    y={(0.44cm,0.22cm)},
+    z={(0cm,1cm)}
+]
+\def\ra{1.08}
+\def\rb{2.22}
+\def\altura{5.15}
+\def\rp{1.68}
+\def\varphip{38}
+\def\zp{3.05}
+
+\coordinate (O) at (0,0,0);
+\coordinate (Zp) at (0,0,\zp);
+\coordinate (Q) at ({\rp*cos(\varphip)},{\rp*sin(\varphip)},\zp);
+\coordinate (P) at (3.35,0,0);
+
+% Regiones cargadas visibles en un corte meridiano y en la cara superior.
+% El tramado, y no un color sólido, identifica a<r'<b.
+\path[
+  pattern={Lines[angle=45,distance=3.2pt,line width=0.25pt]},
+  pattern color=black!60
+] (\ra,0,0)--(\rb,0,0)--(\rb,0,\altura)--(\ra,0,\altura)--cycle;
+\path[
+  pattern={Lines[angle=45,distance=3.2pt,line width=0.25pt]},
+  pattern color=black!60
+] (-\ra,0,0)--(-\rb,0,0)--(-\rb,0,\altura)--(-\ra,0,\altura)--cycle;
+\path[
+  pattern={Lines[angle=45,distance=3.2pt,line width=0.25pt]},
+  pattern color=black!60,
+  even odd rule
+]
+  plot[domain=0:360,samples=100,variable=\t]
+       ({\rb*cos(\t)},{\rb*sin(\t)},\altura)--cycle
+  plot[domain=0:360,samples=100,variable=\t]
+       ({\ra*cos(\t)},{\ra*sin(\t)},\altura)--cycle;
+
+% Contornos del cilindro hueco.
+\draw[thick]
+  plot[domain=0:360,samples=100,variable=\t]
+       ({\rb*cos(\t)},{\rb*sin(\t)},\altura);
+\draw[thick]
+  plot[domain=0:360,samples=100,variable=\t]
+       ({\ra*cos(\t)},{\ra*sin(\t)},\altura);
+\draw[thick]
+  plot[domain=180:360,samples=55,variable=\t]
+       ({\rb*cos(\t)},{\rb*sin(\t)},0);
+\draw[auxiliar]
+  plot[domain=0:180,samples=55,variable=\t]
+       ({\rb*cos(\t)},{\rb*sin(\t)},0);
+\draw[thick]
+  plot[domain=180:360,samples=55,variable=\t]
+       ({\ra*cos(\t)},{\ra*sin(\t)},0);
+\draw[auxiliar]
+  plot[domain=0:180,samples=55,variable=\t]
+       ({\ra*cos(\t)},{\ra*sin(\t)},0);
+
+\foreach \x in {-\rb,\rb}{
+  \draw[thick] (\x,0,0)--(\x,0,\altura);
+}
+\foreach \x in {-\ra,\ra}{
+  \draw[black!65] (\x,0,0)--(\x,0,\altura);
+}
+
+% Sistema de referencia.
+\draw[eje] (O)--(3.85,0,0) node[below] {$x$};
+\draw[eje] (O)--(0,3.35,0) node[above right=-1pt] {$y$};
+\draw[eje] (O)--(0,0,5.95) node[left] {$z$};
+\fill (O) circle (1.1pt);
+\node[below left] at (O) {$O$};
+
+% Radios a y b en la base.
+\draw[cota]
+  (O)--({\ra*cos(218)},{\ra*sin(218)},0)
+  node[pos=.62,above left=-1pt] {$a$};
+\draw[cota]
+  (O)--({\rb*cos(250)},{\rb*sin(250)},0)
+  node[pos=.72,below left=-1pt] {$b$};
+
+% Vector posición del punto de observación.
+\draw[vector] (O)--(P)
+  node[pos=.72,below=2pt,fill=white,inner sep=1pt]
+  {$\vec{x}=r\,\hat{x}$};
+\draw[thick,fill=white] (P) circle (2pt);
+\node[above right=-1pt] at (P) {$P$};
+
+% Coordenadas del punto fuente.
+\draw[auxiliar] (Zp)--(2.30,0,\zp);
+\draw[vector] (Zp)--(Q)
+  node[pos=.55,above left=-1pt,fill=white,inner sep=1pt] {$r'$};
+\coordinate (PhiStart) at (0.95,0,\zp);
+\coordinate (PhiCOne) at ({0.98*cos(12)},{0.98*sin(12)},\zp);
+\coordinate (PhiCTwo) at ({0.98*cos(27)},{0.98*sin(27)},\zp);
+\coordinate (PhiEnd) at ({0.95*cos(\varphip)},{0.95*sin(\varphip)},\zp);
+\draw[-{Stealth[length=1.5mm]}]
+  (PhiStart) .. controls (PhiCOne) and (PhiCTwo) .. (PhiEnd);
+\node[below=4pt] at ({0.98*cos(20)},{0.98*sin(20)},\zp) {$\varphi'$};
+\draw[cota] (-0.26,0,0)--(-0.26,0,\zp)
+  node[midway,left] {$z'$};
+
+% Vectores x' y x-x'.
+\draw[vector,densely dashed] (O)--(Q)
+  node[pos=.58,left=2pt,fill=white,inner sep=1pt] {$\vec{x}'$};
+\draw[vector,line width=1.15pt] (Q)--(P)
+  node[pos=.55,right=2pt,fill=white,inner sep=1pt]
+  {$\vec{x}-\vec{x}'$};
+\fill (Q) circle (2.2pt);
+\node[above right=1pt] at (Q) {$Q$};
+
+% Densidad y significado del tramado.
+\node[anchor=east,align=left,fill=white,inner sep=2pt]
+  at (-2.75,0,4.15)
+  {$\displaystyle\rho(r')=\frac{\rho_0}{r'}$\\[-1pt]$a<r'<b$};
+\draw[-{Stealth[length=1.5mm]}]
+  (-2.65,0,3.85)--(-1.72,0,3.55);
+\end{scope}
+
+% Ampliación del elemento cilíndrico: una cuña anular, no una caja cartesiana.
+\begin{scope}[shift={(7.15,3.20)}]
+  \def\ri{0.76}      % radio interior de la cuña ampliada
+  \def\ro{1.36}      % radio exterior de la cuña ampliada
+  \def\anga{-32}     % ángulo inicial
+  \def\angb{42}      % ángulo final
+  \def\cx{-0.52}     % centro de curvatura local
+  \def\cy{-0.03}
+  \def\ex{0.28}      % desplazamiento que representa dz'
+  \def\ey{0.48}
+
+  \coordinate (Ov)  at (\cx,\cy);
+  \coordinate (Aib) at ({\cx+\ri*cos(\anga)},{\cy+\ri*sin(\anga)});
+  \coordinate (Aob) at ({\cx+\ro*cos(\anga)},{\cy+\ro*sin(\anga)});
+  \coordinate (Bob) at ({\cx+\ro*cos(\angb)},{\cy+\ro*sin(\angb)});
+  \coordinate (Bib) at ({\cx+\ri*cos(\angb)},{\cy+\ri*sin(\angb)});
+  \coordinate (Ait) at ({\cx+\ex+\ri*cos(\anga)},{\cy+\ey+\ri*sin(\anga)});
+  \coordinate (Aot) at ({\cx+\ex+\ro*cos(\anga)},{\cy+\ey+\ro*sin(\anga)});
+  \coordinate (Bot) at ({\cx+\ex+\ro*cos(\angb)},{\cy+\ey+\ro*sin(\angb)});
+  \coordinate (Bit) at ({\cx+\ex+\ri*cos(\angb)},{\cy+\ey+\ri*sin(\angb)});
+
+  % Cara curva exterior y cara radial visible.
+  \path[
+    pattern={Dots[distance=3pt,radius=0.24pt]},
+    pattern color=black!48
+  ]
+    (Aob) arc[start angle=\anga,end angle=\angb,radius=\ro]
+    --(Bot) arc[start angle=\angb,end angle=\anga,radius=\ro]--cycle;
+  \draw[thick]
+    (Aob) arc[start angle=\anga,end angle=\angb,radius=\ro]
+    --(Bot) arc[start angle=\angb,end angle=\anga,radius=\ro]--cycle;
+
+  \path[
+    pattern={Dots[distance=3pt,radius=0.24pt]},
+    pattern color=black!48
+  ] (Bob)--(Bib)--(Bit)--(Bot)--cycle;
+  \draw[thick] (Bob)--(Bib)--(Bit)--(Bot)--cycle;
+
+  % Cara superior: sector anular limitado por dos arcos y dos lados radiales.
+  \path[
+    pattern={Lines[angle=45,distance=3.2pt,line width=0.22pt]},
+    pattern color=black!58
+  ]
+    (Ait)--(Aot)
+    arc[start angle=\anga,end angle=\angb,radius=\ro]
+    --(Bit)
+    arc[start angle=\angb,end angle=\anga,radius=\ri]--cycle;
+  \draw[very thick]
+    (Ait)--(Aot)
+    arc[start angle=\anga,end angle=\angb,radius=\ro]
+    --(Bit)
+    arc[start angle=\angb,end angle=\anga,radius=\ri]--cycle;
+
+  % Aristas restantes de la extrusión dz'.
+  \draw[thick] (Aib)--(Aob);
+  \draw[thick] (Aib)--(Bib);
+  \draw[thick] (Aib)--(Ait);
+  \draw[thick] (Aob)--(Aot);
+  \draw[thick] (Bib)--(Bit);
+
+  % Centro de curvatura y radios auxiliares: hacen visible la geometría cilíndrica.
+  \fill (Ov) circle (1pt);
+  \draw[auxiliar] (Ov)--(Aob);
+  \draw[auxiliar] (Ov)--(Bob);
+
+  % Las tres longitudes diferenciales del elemento cilíndrico.
+  \draw[cota] (Aib)--(Aob)
+    node[midway,below right=-1pt] {$dr'$};
+  \coordinate (ArcStart) at
+    ({\cx+\ex+1.52*cos(\anga)},{\cy+\ey+1.52*sin(\anga)});
+  \draw[cota] (ArcStart)
+    arc[start angle=\anga,end angle=\angb,radius=1.52]
+    node[midway,right=2pt] {$r'\,d\varphi'$};
+  \draw[cota] (Bob)--(Bot)
+    node[midway,right=2pt] {$dz'$};
+
+  \node[font=\bfseries] at (0.65,1.82)
+    {Elemento cilíndrico $dV'$};
+  \node at (0.65,-1.18)
+    {$dV'=r'\,dr'\,d\varphi'\,dz'$};
+\end{scope}
+
+% Llamada desde el punto fuente a la cuña anular ampliada.
+\draw[auxiliar,-{Stealth[length=1.5mm]}] (Q)--(6.45,3.65);
+\end{tikzpicture}
+\caption{Esquema tridimensional para la integración directa. El tramado marca
+la región cargada $a<r'<b$; $\vec{x}$ y $\vec{x}'$ denotan, respectivamente,
+los puntos de observación y fuente. A la derecha se amplía como cuña anular el
+elemento de volumen cilíndrico asociado al punto $Q$.}
+\label{fig:integracion-directa}
+\end{figure}
+
+Por simetría, la componente $\hat{y}$ se anula al integrar en $\varphi'$ y la
+componente $\hat{z}$ se anula por antisimetría al integrar en $z'$. Solo
+sobrevive la componente en dirección $\hat{r}$, que coincide con $\hat{x}$ en
+el punto de evaluación:
+\begin{equation}
+E(r)=\frac{1}{4\pi\varepsilon_0}
+\int_a^b\frac{\rho_0}{r'}r'\,dr'
+\int_0^{2\pi}d\varphi'
+\int_{-\infty}^{\infty}dz'\,
+\frac{r-r'\cos\varphi'}
+{\left[(r-r'\cos\varphi')^2+(r'\sin\varphi')^2+z'^2\right]^{3/2}}.
+\end{equation}
+
+Para efectuar primero la integral en $z'$, definimos
+\[
+R^2=(r-r'\cos\varphi')^2+(r'\sin\varphi')^2
+=r^2+r'^2-2rr'\cos\varphi'.
+\]
+La antiderivada requerida es
+\[
+\int\frac{dz'}{(R^2+z'^2)^{3/2}}
+=\frac{z'}{R^2\sqrt{R^2+z'^2}}+C.
+\]
+Al evaluar en los límites impropios se obtiene
+\begin{equation}
+\begin{aligned}
+\int_{-\infty}^{\infty}\frac{dz'}{(R^2+z'^2)^{3/2}}
+&=\left[
+\frac{z'}{R^2\sqrt{R^2+z'^2}}
+\right]_{-\infty}^{\infty}\\
+&=\frac{1}{R^2}-\left(-\frac{1}{R^2}\right)
+=\frac{2}{R^2}.
+\end{aligned}
+\end{equation}
+Así, el campo queda reducido a la integral doble
+\begin{equation}
+E(r)=\frac{\rho_0}{2\pi\varepsilon_0}
+\int_a^b dr'\int_0^{2\pi}d\varphi'\,
+\frac{r-r'\cos\varphi'}
+{r^2+r'^2-2rr'\cos\varphi'}.
+\label{eq:integral-doble}
+\end{equation}
+
+Mediante el uso de identidades de potencial logarítmico o integrales de línea asociadas a potenciales de línea infinitos, el resultado para el campo eléctrico en las tres regiones es:
+\[
+E(r)=
+\begin{cases}
+0, & 0\leq r<a,\\[4pt]
+\dfrac{\rho_0}{\varepsilon_0 r}\displaystyle\int_a^r dr'
+=\dfrac{\rho_0}{\varepsilon_0}\left(1-\dfrac{a}{r}\right),
+& a<r<b,\\[10pt]
+\dfrac{\rho_0}{\varepsilon_0 r}\displaystyle\int_a^b dr'
+=\dfrac{\rho_0}{\varepsilon_0}\left(\dfrac{b-a}{r}\right),
+& r>b.
+\end{cases}
+\]
+Finalmente, restituyendo la dirección radial, obtenemos
+\begin{equation}
+\boxed{
+\vec E(r)=
+\begin{cases}
+\vec 0, & 0\leq r<a,\\[4pt]
+\dfrac{\rho_0}{\varepsilon_0}
+\left(1-\dfrac{a}{r}\right)\hat{r}, & a<r<b,\\[9pt]
+\dfrac{\rho_0}{\varepsilon_0}
+\left(\dfrac{b-a}{r}\right)\hat{r}, & r>b.
+\end{cases}}
+\label{eq:campo-regiones}
+\end{equation}
+
+\inciso{b} Para verificar el resultado mediante la ley de Gauss elegimos una
+superficie gaussiana
+\emph{cilíndrica}, coaxial con la distribución, de radio $r$ y longitud $h$. No se
+trata de una esfera: una superficie esférica no respetaría la simetría de traslación
+del problema.
+
+La figura~\ref{fig:gauss} muestra cortes transversales de las superficies cilíndricas
+gaussianas para las tres regiones. La trama oblicua identifica la distribución de
+carga; al superponer una segunda familia de líneas se distingue la porción encerrada
+por la superficie gaussiana.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.90,
+    transform shape,
+    line cap=round,line join=round,
+    gaussiana/.style={black,very thick,densely dashed},
+    radio/.style={{Stealth[length=1.6mm]}-{Stealth[length=1.6mm]}},
+    every node/.style={font=\small}
+]
+\def\ra{0.90}
+\def\rb{1.62}
+
+% Macro: centro, radio gaussiano, título, carga encerrada, etiqueta y trama extra.
+\newcommand{\panelgauss}[6]{%
+  \begin{scope}[shift={(#1,0)}]
+    % Distribución completa: una sola familia de líneas.
+    \path[
+      pattern={Lines[angle=45,distance=4.0pt,line width=0.22pt]},
+      pattern color=black!48,
+      even odd rule
+    ]
+      (0,0) circle (\rb) (0,0) circle (\ra);
+
+    % La trama adicional, inclinada en sentido opuesto, marca la carga encerrada.
+    #6
+
+    % Fronteras físicas, superficie gaussiana y eje común.
+    \draw[thick] (0,0) circle (\rb);
+    \draw[thick] (0,0) circle (\ra);
+    \draw[gaussiana] (0,0) circle (#2);
+    \fill (0,0) circle (1.3pt);
+    \node[above left=-1pt] at (0,0) {$z\,\odot$};
+    \draw[-{Stealth[length=1.7mm]}]
+      (0,0)--({#2*cos(18)},{#2*sin(18)})
+      node[pos=.58,above] {$r$};
+    \draw[-{Stealth[length=1.5mm]}]
+      (0,0)--({\ra*cos(218)},{\ra*sin(218)})
+      node[pos=.66,above left=-1pt] {$a$};
+    \draw[-{Stealth[length=1.5mm]}]
+      (0,0)--({\rb*cos(292)},{\rb*sin(292)})
+      node[pos=.72,below right=-1pt] {$b$};
+    \node[font=\bfseries] at (0,2.34) {#3};
+    \node[align=center,font=\scriptsize] at (0,-2.18) {#4};
+    \node[font=\scriptsize,fill=white,inner sep=1pt]
+      at #5 {$S_r=\partial V_r$};
+  \end{scope}
+}
+
+% Región 1: no hay carga encerrada.
+\panelgauss{0}{0.58}{Región 1: $r<a$}
+  {$q_{V_r}=0$}
+  {(1.12,0.66)}{}
+
+% Región 2: trama cruzada en a<r'<r.
+\panelgauss{5.15}{1.28}{Región 2: $a<r<b$}
+  {$q_{V_r}=2\pi h\rho_0(r-a)$}
+  {(1.34,1.10)}
+  {\path[
+      pattern={Lines[angle=135,distance=3.2pt,line width=0.25pt]},
+      pattern color=black!72,
+      even odd rule
+    ]
+     (0,0) circle (1.28) (0,0) circle (\ra);}
+
+% Región 3: toda la distribución queda encerrada.
+\panelgauss{10.30}{2.02}{Región 3: $r>b$}
+  {$q_{V_r}=2\pi h\rho_0(b-a)$}
+  {(1.66,1.48)}
+  {\path[
+      pattern={Lines[angle=135,distance=3.2pt,line width=0.25pt]},
+      pattern color=black!72,
+      even odd rule
+    ]
+     (0,0) circle (\rb) (0,0) circle (\ra);}
+
+% Leyenda común.
+\begin{scope}[shift={(5.15,-3.05)}]
+  \draw[gaussiana] (-4.35,0)--(-3.55,0);
+  \node[anchor=west,font=\scriptsize] at (-3.40,0)
+    {superficie cilíndrica gaussiana de longitud $h$};
+  \path[
+    pattern={Lines[angle=45,distance=3.0pt,line width=0.22pt]},
+    pattern color=black!48
+  ] (-4.35,-0.48) rectangle (-3.95,-0.24);
+  \draw[thin] (-4.35,-0.48) rectangle (-3.95,-0.24);
+  \node[anchor=west,font=\scriptsize] at (-3.80,-0.36)
+    {distribución de carga};
+  \path[
+    pattern={Lines[angle=45,distance=3.0pt,line width=0.22pt]},
+    pattern color=black!48
+  ] (0.02,-0.48) rectangle (0.42,-0.24);
+  \path[
+    pattern={Lines[angle=135,distance=2.7pt,line width=0.24pt]},
+    pattern color=black!72
+  ] (0.02,-0.48) rectangle (0.42,-0.24);
+  \draw[thin] (0.02,-0.48) rectangle (0.42,-0.24);
+  \node[anchor=west,font=\scriptsize] at (0.57,-0.36)
+    {porción encerrada};
+\end{scope}
+\end{tikzpicture}
+\caption{Ley de Gauss en las tres regiones. Cada panel es un corte transversal
+de cilindros coaxiales. La línea discontinua representa $S_r=\partial V_r$, de
+radio $r$ y longitud $h$; la trama cruzada marca la carga $q_{V_r}$ encerrada.}
+\label{fig:gauss}
+\end{figure}
+
+La ley de Gauss en forma integral establece
+\begin{equation}
+\oint_{S_r}\vec E\cdot d\vec S
+=\frac{q_{V_r}}{\varepsilon_0},
+\qquad S_r=\partial V_r.
+\end{equation}
+El flujo a través de las tapas superior e inferior es nulo, pues allí
+$\vec E\perp d\vec S$. Sobre la superficie lateral, en cambio, $\vec E$ es
+paralela a $d\vec S$ y su magnitud es constante. Por tanto,
+\begin{equation}
+E(r)(2\pi r h)=\frac{q_{V_r}}{\varepsilon_0}.
+\end{equation}
+
+Para $r<a$ no hay carga encerrada, de modo que
+\begin{equation}
+q_{V_r}=0
+\quad\Longrightarrow\quad E(r)=0.
+\end{equation}
+
+Para $a<r<b$, la carga encerrada abarca desde el radio interior $a$ hasta el
+radio de la superficie gaussiana:
+\begin{equation}
+\begin{aligned}
+q_{V_r}
+&=\int_0^h dz'\int_a^r dr'\int_0^{2\pi}d\varphi'\,
+  r'\left(\frac{\rho_0}{r'}\right)\\
+&=2\pi h\rho_0\int_a^r dr'
+ =2\pi h\rho_0(r-a).
+\end{aligned}
+\end{equation}
+Sustituyendo en la ley de Gauss, tenemos
+\begin{equation}
+E(r)=\frac{2\pi h\rho_0(r-a)}
+{\varepsilon_0(2\pi r h)}
+=\frac{\rho_0}{\varepsilon_0}\left(1-\frac{a}{r}\right).
+\end{equation}
+
+Para $r>b$ queda encerrada toda la carga del cascarón:
+\begin{equation}
+q_{V_r}=2\pi h\rho_0(b-a).
+\end{equation}
+Por tanto,
+\begin{equation}
+E(r)=\frac{2\pi h\rho_0(b-a)}
+{\varepsilon_0(2\pi r h)}
+=\frac{\rho_0}{\varepsilon_0}\left(\frac{b-a}{r}\right).
+\end{equation}
+
+El resultado coincide con la ecuación~\eqref{eq:campo-regiones} obtenida mediante
+integración directa.
+
+\inciso{c} Para calcular el potencial usamos
+\begin{equation}
+\phi(r)-\phi(r_{\mathrm{ref}})
+=-\int_{r_{\mathrm{ref}}}^{r}E(u)\,du,
+\end{equation}
+donde se ha usado $u$ como variable muda para no confundirla con el radio del punto
+de observación. Esta es la reducción radial de
+$\phi(\vec{x})=\phi(\vec{x}_0)-\int_{\vec{x}_0}^{\vec{x}}\vec E\cdot d\vec{x}$.
+Por enunciado, la condición de referencia es $\phi(b)=0$.
+
+Para $r>b$ integramos desde el punto de referencia $r=b$:
+\begin{equation}
+\phi(r)=-\int_b^r\frac{\rho_0(b-a)}{\varepsilon_0u}\,du
+=-\frac{\rho_0(b-a)}{\varepsilon_0}\ln\left(\frac{r}{b}\right).
+\end{equation}
+
+Para $a<r<b$ partimos nuevamente desde $r=b$, ahora hacia el interior:
+\begin{equation}
+\begin{aligned}
+\phi(r)
+&=-\int_b^r\frac{\rho_0}{\varepsilon_0}
+\left(1-\frac{a}{u}\right)du\\
+&=-\frac{\rho_0}{\varepsilon_0}
+\left[(r-b)-a\ln\left(\frac{r}{b}\right)\right]\\
+&=\frac{\rho_0}{\varepsilon_0}
+\left[(b-r)+a\ln\left(\frac{r}{b}\right)\right].
+\end{aligned}
+\end{equation}
+
+Para $r<a$ el campo es cero. Por esto el potencial es constante e igual al
+valor en la frontera interior $r=a$:
+\begin{equation}
+\phi(r)=\phi(a)=\frac{\rho_0}{\varepsilon_0}
+\left[(b-a)+a\ln\left(\frac{a}{b}\right)\right].
+\end{equation}
+
+En conjunto,
+\begin{equation}
+\boxed{
+\phi(r)=\frac{\rho_0}{\varepsilon_0}
+\begin{cases}
+(b-a)+a\ln\left(\dfrac{a}{b}\right), & 0\leq r<a,\\[7pt]
+(b-r)+a\ln\left(\dfrac{r}{b}\right), & a<r<b,\\[7pt]
+-(b-a)\ln\left(\dfrac{r}{b}\right), & r>b.
+\end{cases}}
+\end{equation}
+
+\clearpage
+\section*{Visualización numérica}
+
+Para comparar las tres regiones tomamos $a=L$ y $b=2L$, con $L$ una longitud
+de referencia, y definimos
+\[
+\widetilde{\rho}=\frac{\rho L}{\rho_0},
+\qquad
+\widetilde E=\frac{\varepsilon_0E}{\rho_0},
+\qquad
+\widetilde\phi=\frac{\varepsilon_0\phi}{\rho_0L}.
+\]
+La figura~\ref{fig:visualizacion-cilindro} muestra los perfiles radiales que se
+obtienen de las expresiones analíticas anteriores. El corte transversal permite
+ver que el campo se anula en la cavidad, crece dentro de la región cargada y
+decrece como $1/r$ en el exterior.
+
+\begin{figure}[htbp]
+\centering
+\includevisualizacion[width=0.97\textwidth]{cilindro_hueco_visualizacion}
+\caption{Visualización numérica para $a=L$, $b=2L$ y $\rho_0>0$. Los paneles
+(a)--(c) muestran la densidad, el campo y el potencial adimensionales. En (d),
+el color identifica la densidad volumétrica en el cascarón y las flechas
+representan el campo eléctrico sobre un corte perpendicular al eje.}
+\label{fig:visualizacion-cilindro}
+\end{figure}
+
+\end{document}

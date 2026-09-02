@@ -6,12 +6,11 @@ Actualmente reúne material principalmente de dos cursos:
 
 - **Campos y Ondas**
 - **Física Matemática 2**
+- **Electrodinámica I**
 
 ## Contenido actual
 
 ### Campos y Ondas
-
-En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, incluyendo desarrollos en `.tex`, PDF compilados y material complementario cuando corresponde.
 
 | Carpeta | Contenido |
 |---|---|
@@ -24,8 +23,6 @@ En `campos-y-ondas/` se reúne material de apoyo para ayudantías del curso, inc
 | `ondas_electromagneticas_y_optica_geometrica/` | Problemas de ondas electromagnéticas, polarización, ley de Snell, refracción y reflexión total. |
 
 ### Física Matemática 2
-
-En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas de Fourier, separación de variables, ecuación de Laplace, ecuación de difusión del calor, ecuación de Helmholtz, funciones de Green, armónicos esféricos, potencial electrostático, ecuación de onda en un disco y ecuación de Schrödinger en una esfera.
 
 | Carpeta | Contenido |
 |---|---|
@@ -41,10 +38,18 @@ En `fisica-matematica-2/` se reúne material de ayudantía sobre transformadas d
 | `funciones_green_laplace_helmholtz/` | Solución de problemas de funciones de Green para las ecuaciones de Laplace y Helmholtz. |
 | `schrodinger_esferica/` | Ecuación de Schrödinger para una partícula cuántica confinada en una esfera; incluye desarrollo analítico y visualizaciones numéricas. |
 
+### Electrodinámica I
+
+| Carpeta | Contenido |
+|---|---|
+| `cilindro_hueco_infinito/` | Campo y potencial electrostático de un cilindro hueco infinito con densidad volumétrica no uniforme; incluye integración directa, Ley de Gauss y visualización numérica. |
+| `anillo_carga_no_uniforme/` | Campo y potencial sobre el eje de un anillo con densidad lineal no uniforme; incluye discusión de simetría y visualización numérica. |
+| `densidad_superficial_desde_potencial/` | Cálculo del campo y de la densidad superficial de carga sobre un plano a partir del potencial; incluye condiciones de frontera y visualización numérica. |
+
 En general, las carpetas pueden contener archivos `.tex`, PDF compilados, notebooks, scripts de visualización y figuras en formato `.svg`.
 
 ## Agradecimientos
 
-Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración del material de Campos y Ondas.
+Agradezco a **Guillermo Rubilar** por facilitar desarrollos de algunos problemas y por compartir notebooks utilizados como apoyo visual en Física Matemática 2, en particular los asociados al tambor circular y a la difusión del calor 2D. Agradezco también a **Félix Borotto** por facilitar algunas soluciones que sirvieron como referencia para la elaboración del material de Campos y Ondas. Agradezco a **Pablo Solano** por facilitar los problemas que sirvieron como punto de partida para la elaboración del material de Electrodinámica I.
 
 Reconozco el uso de **ChatGPT Plus** y **Claude Pro** como herramientas de apoyo para la asistencia en LaTeX, la generación y edición de figuras en TikZ y Python, y la organización del material. El contenido final fue revisado y editado antes de ser incorporado al repositorio.

@@ -1,0 +1,435 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,patterns.meta}
+
+\IfFileExists{campo_y_densidad_anillo_matplotlib.pdf}{%
+  \newcommand{\includevisualizacion}[2][]{\includegraphics[##1]{##2.pdf}}%
+}{%
+  \usepackage[inkscapelatex=false]{svg}
+  \newcommand{\includevisualizacion}[2][]{\includesvg[##1]{##2}}%
+}
+
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\newcommand{\encabezado}[3]{%
+  {\Large\bfseries #1\par}
+  \vspace{2pt}
+  {\normalsize #2\hfill #3\par}
+  \vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+  \vspace{0.55em}
+  \noindent\textbf{#1.}\enspace{\small #2}\par
+  \vspace{0.3em}}
+
+\newcommand{\inciso}[1]{%
+  \vspace{0.35em}
+  \noindent\textbf{(#1)}\enspace}
+
+\begin{document}
+
+\encabezado{Campo y potencial electrostático de un anillo con densidad no uniforme}
+{Electrodinámica I}{P.S., J.A., J.R.}
+
+\problema{1}{Considere un anillo delgado de radio $R$, situado en el plano
+$xy$ y centrado en el origen. El anillo posee una densidad de carga lineal que
+varía con la coordenada angular $\varphi'$ de acuerdo con
+\begin{equation}
+\lambda(\varphi')=\lambda_0\cos\varphi',
+\label{eq:densidad}
+\end{equation}
+donde $\lambda_0$ es una constante positiva con unidades de carga por unidad de
+longitud. Se pide:
+\begin{enumerate}
+  \item \textbf{Discusión sobre la ley de Gauss:} razone de manera argumentada
+  por qué esta ley no permite calcular directamente el campo eléctrico de la
+  distribución.
+  \item \textbf{Integración directa (campo eléctrico):} utilice la ley de
+  Coulomb en forma integral para determinar $\vec E$ en un punto arbitrario del
+  eje geométrico del anillo, es decir, del eje $z$.
+  \item \textbf{Potencial eléctrico y verificación:} calcule $\phi$ sobre el
+  eje $z$, tomando $\phi(\infty)=0$, y compruebe la consistencia de la componente
+  longitudinal mediante $E_z=-d\phi/dz$.
+\end{enumerate}
+}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.90,
+    transform shape,
+    line cap=round,
+    line join=round,
+    eje/.style={-{Stealth[length=1.9mm]},semithick},
+    radio/.style={{Stealth[length=1.4mm]}-{Stealth[length=1.4mm]}},
+    every node/.style={font=\small}
+]
+\begin{scope}[x={(1cm,0cm)},y={(0.43cm,0.23cm)},z={(0cm,1cm)}]
+\def\Rext{2.22}
+\def\Rint{1.78}
+
+% Mitad con densidad positiva: x>0.
+\path[
+  pattern={Lines[angle=45,distance=3.0pt,line width=0.23pt]},
+  pattern color=black!58
+]
+  plot[domain=-90:90,samples=70,variable=\t]
+       ({\Rext*cos(\t)},{\Rext*sin(\t)},0)
+  --plot[domain=90:-90,samples=70,variable=\t]
+       ({\Rint*cos(\t)},{\Rint*sin(\t)},0)--cycle;
+
+% Mitad con densidad negativa: x<0.
+\path[
+  pattern={Lines[angle=135,distance=3.0pt,line width=0.23pt]},
+  pattern color=black!58
+]
+  plot[domain=90:270,samples=70,variable=\t]
+       ({\Rext*cos(\t)},{\Rext*sin(\t)},0)
+  --plot[domain=270:90,samples=70,variable=\t]
+       ({\Rint*cos(\t)},{\Rint*sin(\t)},0)--cycle;
+
+% Contornos del anillo.
+\draw[very thick]
+  plot[domain=0:360,samples=120,variable=\t]
+       ({\Rext*cos(\t)},{\Rext*sin(\t)},0);
+\draw[very thick]
+  plot[domain=0:360,samples=120,variable=\t]
+       ({\Rint*cos(\t)},{\Rint*sin(\t)},0);
+
+% Sistema de referencia.
+\coordinate (Oe) at (0,0,0);
+\draw[eje] (-3.05,0,0)--(3.15,0,0) node[below] {$x$};
+\draw[eje] (0,-3.00,0)--(0,3.10,0) node[above right=-1pt] {$y$};
+\draw[eje] (0,0,-0.35)--(0,0,3.25) node[left] {$z$};
+\fill (Oe) circle (1.1pt);
+\node[below left] at (Oe) {$O$};
+
+% Radio fijo. Los dos tramados distinguen los signos de la densidad.
+\draw[radio] (Oe)--({2.00*cos(-38)},{2.00*sin(-38)},0)
+  node[pos=.58,below=2pt,fill=white,inner sep=1pt] {$R$};
+
+\node[anchor=west,align=left,fill=white,inner sep=2pt]
+  at (3.45,0,1.55)
+  {$\lambda(\varphi')=\lambda_0\cos\varphi'$\\[1pt]
+   $\lambda>0$ para $x>0$\\[-1pt]
+   $\lambda<0$ para $x<0$};
+\end{scope}
+\end{tikzpicture}
+
+\caption{Anillo de radio $R$ situado en el plano $xy$. La proyección oblicua
+permite visualizar el eje $z$, mientras los dos tramados distinguen las regiones
+con $\lambda>0$ y $\lambda<0$.}
+\label{fig:geometria-anillo}
+\end{figure}
+
+\textbf{Solución:}
+
+\textbf{1. Discusión sobre la no aplicabilidad de la ley de Gauss.}\par
+La ley de Gauss en forma integral establece
+\begin{equation}
+\oint_{S}\vec E\cdot d\vec S=\frac{q_V}{\varepsilon_0},
+\qquad S=\partial V.
+\label{eq:gauss}
+\end{equation}
+Esta relación es válida para cualquier superficie cerrada. Sin embargo, para
+despejar el campo a partir del flujo se necesita suficiente simetría: la dirección
+del campo debe conocerse de antemano y su magnitud debe ser constante sobre las
+porciones relevantes de una superficie gaussiana.
+
+La geometría del anillo es invariante bajo rotaciones alrededor del eje $z$, pero
+la distribución de carga no lo es, pues $\lambda$ depende de $\varphi'$. En
+particular, la mitad situada en $x>0$ tiene carga positiva y la mitad situada en
+$x<0$ tiene carga negativa. Equivalentemente, $\lambda>0$ para
+$-\pi/2<\varphi'<\pi/2$, $\lambda<0$ para
+$\pi/2<\varphi'<3\pi/2$, y $\lambda=0$ en los extremos que separan ambos
+semianillos. Por ello, una esfera o un cilindro coaxial no presenta
+un campo de magnitud constante y normal a su superficie. La ley de Gauss permite
+conocer el flujo total, pero no simplifica el cálculo directo de $\vec E$.
+
+Además, la carga total del anillo es nula:
+\[
+q_C=\int_C\lambda\,d\ell'
+=\lambda_0R\int_0^{2\pi}\cos\varphi'\,d\varphi'=0.
+\]
+Esto no significa que el campo sea nulo en todos los puntos; solo indica que el
+flujo a través de una superficie que encierre el anillo completo es cero.
+
+\textbf{2. Cálculo del campo eléctrico por integración directa.}\par
+Para calcular el campo mediante integración directa partimos de la ley de
+Coulomb para una distribución lineal:
+\begin{equation}
+\vec E(\vec x)=\frac{1}{4\pi\varepsilon_0}
+\int_C\lambda(\vec x')
+\frac{\vec x-\vec x'}{\lvert\vec x-\vec x'\rvert^3}\,d\ell'.
+\label{eq:coulomb}
+\end{equation}
+
+\paragraph{Elección de coordenadas y variables.}
+Reservamos $\phi$ para el potencial eléctrico y empleamos $\varphi$ como
+coordenada angular. El punto de observación $P$ permanece fijo durante la
+integración, mientras que el punto fuente $Q$ recorre el anillo. Con el origen en
+el centro del anillo y el eje $z$ perpendicular a su plano, escribimos
+\begin{equation}
+\begin{aligned}
+P:&\quad \vec x=z\,\hat z
+&&\Longleftrightarrow&&(0,0,z),\\
+Q:&\quad \vec x'=R\cos\varphi'\,\hat x
+             +R\sin\varphi'\,\hat y
+&&\Longleftrightarrow&&(R,\varphi',0).
+\end{aligned}
+\label{eq:puntos}
+\end{equation}
+Aquí $z$ fija el punto donde se desea conocer el campo y actúa como parámetro; no
+se integra respecto de él. En cambio, $\varphi'$ es la variable de integración y
+mapea la distribución de carga. Puesto que el anillo tiene radio fijo $R$,
+\[
+d\ell'=R\,d\varphi',
+\qquad 0\leq\varphi'<2\pi.
+\]
+
+La figura~\ref{fig:integracion-anillo} muestra esta elección y los vectores que
+intervienen en la ley de Coulomb.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    scale=0.94,
+    transform shape,
+    line cap=round,
+    line join=round,
+    eje/.style={-{Stealth[length=2.0mm]},semithick},
+    vector/.style={-{Stealth[length=2.4mm]},very thick},
+    auxiliar/.style={densely dashed,black!58},
+    every node/.style={font=\small}
+]
+\begin{scope}[x={(1cm,0cm)},y={(0.44cm,0.23cm)},z={(0cm,1cm)}]
+\def\Rext{2.28}
+\def\Rint{1.84}
+\def\angQ{34}
+\def\zP{3.65}
+
+\coordinate (O) at (0,0,0);
+\coordinate (Q) at ({2.06*cos(\angQ)},{2.06*sin(\angQ)},0);
+\coordinate (P) at (0,0,\zP);
+
+% La distribución conserva el mismo código de tramados de la figura 1.
+\path[
+  pattern={Lines[angle=45,distance=3.1pt,line width=0.23pt]},
+  pattern color=black!55
+]
+  plot[domain=-90:90,samples=70,variable=\t]
+       ({\Rext*cos(\t)},{\Rext*sin(\t)},0)
+  --plot[domain=90:-90,samples=70,variable=\t]
+       ({\Rint*cos(\t)},{\Rint*sin(\t)},0)--cycle;
+\path[
+  pattern={Lines[angle=135,distance=3.1pt,line width=0.23pt]},
+  pattern color=black!55
+]
+  plot[domain=90:270,samples=70,variable=\t]
+       ({\Rext*cos(\t)},{\Rext*sin(\t)},0)
+  --plot[domain=270:90,samples=70,variable=\t]
+       ({\Rint*cos(\t)},{\Rint*sin(\t)},0)--cycle;
+\draw[very thick]
+  plot[domain=0:360,samples=120,variable=\t]
+       ({\Rext*cos(\t)},{\Rext*sin(\t)},0);
+\draw[very thick]
+  plot[domain=0:360,samples=120,variable=\t]
+       ({\Rint*cos(\t)},{\Rint*sin(\t)},0);
+
+% Sistema de referencia y puntos.
+\draw[eje] (O)--(3.70,0,0) node[below] {$x$};
+\draw[eje] (O)--(0,3.35,0) node[above right=-1pt] {$y$};
+\draw[eje] (O)--(0,0,4.42) node[left] {$z$};
+\fill (O) circle (1.1pt);
+\node[below left] at (O) {$O$};
+\fill (Q) circle (2.2pt);
+\node[above right=2pt,fill=white,inner sep=1pt] at (Q) {$Q$};
+\draw[thick,fill=white] (P) circle (2pt);
+\node[above right=-1pt] at (P) {$P$};
+
+% Vectores de posición y separación.
+\draw[vector] (O)--(P)
+  node[pos=.62,left=3pt,fill=white,inner sep=1pt]
+  {$\vec x=z\,\hat z$};
+\draw[vector,densely dashed] (O)--(Q)
+  node[pos=.52,above=4pt,fill=white,inner sep=1pt] {$\vec x'$};
+\draw[vector,line width=1.1pt] (Q)--(P)
+  node[pos=.52,right=3pt,fill=white,inner sep=1pt]
+  {$\vec x-\vec x'$};
+
+% Ángulo fuente y elemento de línea curvo.
+\draw[-{Stealth[length=1.5mm]}]
+  plot[domain=0:\angQ,samples=24,variable=\t]
+       ({0.83*cos(\t)},{0.83*sin(\t)},0);
+\node[below=4pt,fill=white,inner sep=1pt]
+  at ({0.90*cos(17)},{0.90*sin(17)},0) {$\varphi'$};
+
+\draw[line width=2.7pt]
+  plot[domain=29:39,samples=18,variable=\t]
+       ({2.29*cos(\t)},{2.29*sin(\t)},0);
+\draw[-{Stealth[length=1.6mm]},semithick]
+  ({2.65*cos(39)},{2.65*sin(39)},0)
+  --({2.34*cos(37)},{2.34*sin(37)},0);
+\node[anchor=west,align=left,fill=white,inner sep=2pt]
+  at ({3.00*cos(42)},{3.00*sin(42)},0)
+  {$d\ell'=R\,d\varphi'$\\[-1pt]
+   $\lambda(\varphi')=\lambda_0\cos\varphi'$};
+
+\node[anchor=east,align=right,fill=white,inner sep=2pt]
+  at (-3.15,0,2.50)
+  {$\vec x'$ recorre el anillo;\\
+   $\vec x$ permanece fijo};
+\end{scope}
+\end{tikzpicture}
+\caption{Esquema tridimensional para la integración directa. Los tramados
+distinguen el signo de $\lambda$. El punto fuente $Q$ recorre el anillo mediante
+$\varphi'$, mientras $P$ permanece fijo sobre el eje $z$; el segmento grueso es
+el elemento de línea curvo $d\ell'$.}
+\label{fig:integracion-anillo}
+\end{figure}
+
+De la elección anterior se obtiene
+\begin{equation}
+\begin{aligned}
+\vec x-\vec x'
+&=-R\cos\varphi'\,\hat x-R\sin\varphi'\,\hat y+z\,\hat z,\\
+\lvert\vec x-\vec x'\rvert
+&=\sqrt{R^2\cos^2\varphi'+R^2\sin^2\varphi'+z^2}
+=\sqrt{R^2+z^2}.
+\end{aligned}
+\label{eq:separacion}
+\end{equation}
+La distancia entre $P$ y cualquier punto del anillo es constante, aunque la
+densidad de carga no lo sea. Sustituyendo la ecuación~\eqref{eq:densidad},
+$d\ell'=R\,d\varphi'$ y la ecuación~\eqref{eq:separacion} en
+\eqref{eq:coulomb}, resulta
+\begin{equation}
+\vec E(z)=\frac{\lambda_0R}{4\pi\varepsilon_0(R^2+z^2)^{3/2}}
+\int_0^{2\pi}\cos\varphi'
+\left(-R\cos\varphi'\,\hat x
+-R\sin\varphi'\,\hat y+z\,\hat z\right)d\varphi'.
+\label{eq:campo-integral}
+\end{equation}
+
+Separamos ahora la integral en sus tres componentes. Las integrales angulares
+necesarias son
+\[
+\int_0^{2\pi}\cos^2\varphi'\,d\varphi'=\pi,
+\qquad
+\int_0^{2\pi}\cos\varphi'\sin\varphi'\,d\varphi'=0,
+\qquad
+\int_0^{2\pi}\cos\varphi'\,d\varphi'=0.
+\]
+Por tanto,
+\begin{equation}
+\begin{aligned}
+E_x(z)
+&=-\frac{\lambda_0R^2}
+{4\pi\varepsilon_0(R^2+z^2)^{3/2}}
+\int_0^{2\pi}\cos^2\varphi'\,d\varphi'
+=-\frac{\lambda_0R^2}
+{4\varepsilon_0(R^2+z^2)^{3/2}},\\[3pt]
+E_y(z)
+&=-\frac{\lambda_0R^2}
+{4\pi\varepsilon_0(R^2+z^2)^{3/2}}
+\int_0^{2\pi}\cos\varphi'\sin\varphi'\,d\varphi'=0,\\[3pt]
+E_z(z)
+&=\frac{\lambda_0Rz}
+{4\pi\varepsilon_0(R^2+z^2)^{3/2}}
+\int_0^{2\pi}\cos\varphi'\,d\varphi'=0.
+\end{aligned}
+\label{eq:componentes}
+\end{equation}
+El campo sobre el eje geométrico del anillo queda entonces
+\begin{equation}
+\boxed{
+\vec E(0,0,z)
+=-\frac{\lambda_0R^2}
+{4\varepsilon_0(R^2+z^2)^{3/2}}\,\hat x.}
+\label{eq:campo-final}
+\end{equation}
+La dirección $-\hat x$ es consistente con la distribución: el semianillo
+positivo repele una carga de prueba hacia $x<0$, mientras que el semianillo
+negativo la atrae en la misma dirección. Las componentes en $\hat y$ y $\hat z$
+se anulan al integrar el anillo completo. En este sentido, la distribución tiene
+carácter dipolar y está orientada a lo largo del eje $x$: aunque el punto de
+observación se encuentre sobre el eje $z$, el campo resultante es puramente
+transversal y apunta en la dirección $-\hat x$.
+
+\textbf{3. Cálculo del potencial eléctrico y verificación.}\par
+El potencial eléctrico de una distribución lineal de carga es
+\begin{equation}
+\phi(\vec x)=\frac{1}{4\pi\varepsilon_0}
+\int_C\frac{\lambda(\vec x')}
+{\lvert\vec x-\vec x'\rvert}\,d\ell',
+\qquad \phi(\infty)=0.
+\label{eq:potencial}
+\end{equation}
+Sobre el eje $z$, la distancia $\sqrt{R^2+z^2}$ puede extraerse de la integral:
+\begin{equation}
+\begin{aligned}
+\phi(0,0,z)
+&=\frac{\lambda_0R}
+{4\pi\varepsilon_0\sqrt{R^2+z^2}}
+\int_0^{2\pi}\cos\varphi'\,d\varphi'\\
+&=0.
+\end{aligned}
+\label{eq:potencial-eje}
+\end{equation}
+El potencial es nulo en todos los puntos del eje porque, para cada elemento con
+densidad positiva, existe un elemento diametralmente opuesto a la misma distancia
+con densidad negativa.
+
+Finalmente, recordamos la relación
+\begin{equation}
+\vec E=-\nabla\phi.
+\label{eq:gradiente}
+\end{equation}
+Al restringir el potencial al eje se comprueba la componente longitudinal:
+\[
+E_z(0,0,z)=-\frac{d}{dz}\phi(0,0,z)=0,
+\]
+en acuerdo con la ecuación~\eqref{eq:componentes}. No hay contradicción entre
+$\phi(0,0,z)=0$ y el campo transversal no nulo de
+\eqref{eq:campo-final}: la componente $E_x$ depende de cómo varía el potencial al
+apartarse del eje,
+\[
+E_x(0,0,z)=-\left.\frac{\partial\phi}{\partial x}\right|_{(0,0,z)},
+\]
+información que no está contenida en la función restringida
+$\phi(0,0,z)$.
+
+\clearpage
+\section*{Visualización numérica}
+
+La figura~\ref{fig:campo-matplotlib} muestra, para $R=1$, la densidad
+$\lambda/\lambda_0$ y el campo adimensional
+$\widetilde{\vec E}=(4\pi\varepsilon_0R/\lambda_0)\vec E$. Se emplean dos
+escalas cromáticas independientes: una divergente para distinguir el signo y
+la magnitud de la densidad, y otra logarítmica para la intensidad del campo.
+El tamaño de los puntos sobre el anillo se mantiene constante, de modo que toda
+la información sobre $\lambda$ queda contenida en el color.
+
+\begin{figure}[htbp]
+\centering
+\includevisualizacion[width=0.96\textwidth]{campo_y_densidad_anillo_matplotlib}
+\caption{Visualización numérica del anillo. En (a), el color representa
+$\lambda(\varphi')/\lambda_0$. En (b), las líneas muestran la dirección del
+campo en $y=0$ y su color indica $\lvert\widetilde{\vec E}\rvert$. En (c), la
+misma información se representa en tres dimensiones: el anillo conserva la
+escala de densidad y las flechas utilizan la escala de intensidad del campo.}
+\label{fig:campo-matplotlib}
+\end{figure}
+
+\end{document}

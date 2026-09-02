@@ -1,6 +1,6 @@
 # Física Matemática 2
 
-El repositorio reúne desarrollos en `.tex`, versiones compiladas en PDF y scripts o notebooks en Python para visualizar mejor la estructura matemática y física de los problemas.
+El repositorio reúne desarrollos en `.tex`, versiones compiladas en PDF y scripts o notebooks en Python.
 
 ---
 
