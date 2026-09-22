@@ -1,6 +1,6 @@
 """Visualización adimensional del cilindro hueco infinito.
 
-La figura usa a=L, b=2L y rho0>0. Se guarda como PDF vectorial en el mismo
+La figura usa a=L, b=2L y rho0>0. Se guarda como SVG vectorial en el mismo
 directorio que este script para incorporarla directamente en la guía LaTeX.
 """
 

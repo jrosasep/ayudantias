@@ -1,0 +1,202 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,babel}
+\IfFileExists{cuna_60_visualizacion.pdf}{%
+  \newcommand{\includevisualizacion}[1][]{\includegraphics[##1]{cuna_60_visualizacion.pdf}}%
+}{%
+  \usepackage[inkscapelatex=false]{svg}
+  \newcommand{\includevisualizacion}[1][]{\includesvg[##1]{cuna_60_visualizacion}}%
+}
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\newcommand{\encabezado}[3]{%
+  {\Large\bfseries #1\par}
+  \vspace{2pt}
+  {\normalsize #2\hfill #3\par}
+  \vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+  \vspace{0.55em}
+  \noindent\textbf{#1.}\enspace{\small #2}\par
+  \vspace{0.3em}}
+
+\begin{document}
+\encabezado{Potencial y densidad inducida en una cuña conductora de $60^\circ$}
+{Electrodinámica I}{P.S., J.A., J.R.}
+
+\problema{1}{Dos semiplanos conductores ideales conectados a tierra se intersectan sobre el
+eje $z$ y delimitan la región $0<\phi<\alpha$, con $\alpha=\pi/3$. Una carga
+puntual $q>0$ se encuentra en $(s,\phi,z)=(d,\pi/6,0)$, sobre la bisectriz.
+Determine las cargas imagen, el potencial dentro de la cuña y la densidad
+superficial inducida en ambas caras. Compruebe el comportamiento cerca de la
+arista y lejos de la carga.}
+
+\textbf{Solución:}
+
+\textbf{1. Geometría y cargas imagen.}\par
+Para $\alpha=\pi/N$ con $N=3$, las reflexiones sucesivas cierran un conjunto
+de $2N=6$ cargas: una real y cinco imágenes. Es útil separarlas en dos
+familias, para $k=0,1,2$:
+\[
+\theta_k^+=\phi_0+2k\alpha,\qquad q_k^+=+q;
+\qquad
+\theta_k^-=-\phi_0+2k\alpha,\qquad q_k^-=-q,
+\quad \phi_0=\frac{\pi}{6}.
+\]
+\[
+\begin{array}{c|ccc}
+ & k=0 & k=1 & k=2\\ \hline
+\theta_k^+ & 30^\circ\;(\text{real}) & 150^\circ & 270^\circ\\
+\theta_k^- & 330^\circ & 90^\circ & 210^\circ
+\end{array}
+\]
+Todas se sitúan en $s=d$, $z=0$. Solo la carga en $30^\circ$ pertenece a la
+región física.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  scale=1.05,>=Stealth,
+  line cap=round,line join=round,
+  every node/.style={font=\small}
+]
+  \def\dist{2.02}
+  % Solo el sector sombreado es la región física.
+  \fill[black!8] (0,0)--(0:2.67) arc (0:60:2.67)--cycle;
+  \draw[->,thin] (-2.75,0)--(3.03,0) node[right] {$x$};
+  \draw[->,thin] (0,-2.75)--(0,2.98) node[above] {$y$};
+  \draw[densely dashed,black!55] (0,0) circle (\dist);
+  \draw[very thick] (0,0)--(0:2.82)
+       node[pos=0.96,below] {$\phi=0$};
+  \draw[very thick] (0,0)--(60:2.82)
+       node[above right] {$\phi=\alpha$};
+  \draw[->] (0.62,0) arc (0:60:0.62);
+  \node at (28:0.87) {$60^\circ$};
+  \draw[densely dotted] (0,0)--(30:\dist)
+       node[pos=0.80,below] {$d$};
+
+  % Las flechas apuntan desde cada conductor hacia el vacío.
+  \draw[->,semithick] (2.25,0)--++(90:0.39)
+       node[above] {$\hat{\mathbf n}_0$};
+  \draw[->,semithick] (60:2.25)--++(-30:0.39)
+       node[below right] {$\hat{\mathbf n}_{\alpha}$};
+
+  % Punto lleno: carga real. Puntos vacíos: cargas imagen.
+  \foreach \a in {150,270}{
+    \draw[thick,fill=white] (\a:\dist) circle (2.6pt);
+    \node[fill=white,inner sep=1pt] at (\a:2.43) {$+q$};
+  }
+  \foreach \a in {90,210,330}{
+    \draw[thick,fill=white] (\a:\dist) circle (2.6pt);
+    \node[fill=white,inner sep=1pt] at (\a:2.43) {$-q$};
+  }
+  \fill (30:\dist) circle (2.8pt);
+  \node[anchor=west,fill=white,inner sep=1pt] at (2.45,1.05)
+       {$+q$ real};
+  \fill (0,0) circle (1.2pt) node[below left] {$O$};
+\end{tikzpicture}
+\caption{Corte perpendicular a la arista $z$. El sector sombreado es la
+región física $0<\phi<\alpha$; el punto negro es la carga real y los
+puntos blancos son imágenes. La circunferencia discontinua solo indica
+$s=d$. Las flechas señalan las normales de los conductores hacia la cuña.}
+\label{fig:imagenes-cuna}
+\end{figure}
+
+\textbf{2. Potencial y condiciones de borde.}\par
+La distancia entre $(s,\phi,z)$ y una carga en $(d,\theta,0)$ es
+\[
+R(s,\phi,z;\theta)=
+\sqrt{s^2+d^2-2sd\cos(\phi-\theta)+z^2}.
+\]
+La solución dentro de $0<\phi<\pi/3$ es
+\begin{equation}
+\boxed{\displaystyle
+V(s,\phi,z)=\frac{q}{4\pi\varepsilon_0}
+\sum_{k=0}^{2}
+\left[\frac{1}{R(s,\phi,z;\theta_k^+)}
+     -\frac{1}{R(s,\phi,z;\theta_k^-)}\right].}
+\label{eq:potential}
+\end{equation}
+En $\phi=0$ cada carga en $\theta$ se empareja con otra de signo opuesto en
+$-\theta$, a igual distancia del punto de observación. La reflexión respecto
+de $\phi=\alpha$ da el mismo resultado para la otra pared. Por lo tanto,
+$V(s,0,z)=V(s,\alpha,z)=0$. La solución cumple la ecuación de Poisson en la
+carga real, Laplace en el resto de la cuña y decae en el infinito.
+
+\textbf{3. Densidad inducida: normales y signo.}\par
+La derivada correcta de cada término es
+\[
+\frac{\partial}{\partial\phi}\frac{1}{R(s,\phi,z;\theta)}
+=-\frac{sd\sin(\phi-\theta)}{R(s,\phi,z;\theta)^3},
+\qquad
+E_\phi=-\frac{1}{s}\frac{\partial V}{\partial\phi}.
+\]
+La normal que sale del conductor hacia la cuña es $+\hat{\boldsymbol\phi}$
+en $\phi=0$ y $-\hat{\boldsymbol\phi}$ en $\phi=\alpha$. Así,
+\[
+\sigma_0(s,z)=\varepsilon_0 E_\phi(s,0,z),\qquad
+\sigma_\alpha(s,z)=-\varepsilon_0 E_\phi(s,\alpha,z).
+\]
+Definamos
+\[
+C=s^2+d^2+z^2,\qquad
+A=C-\sqrt{3}\,sd,\qquad B=C+\sqrt{3}\,sd.
+\]
+Al sustituir las seis cargas y agrupar pares reflejados se obtiene
+\begin{equation}
+\boxed{\displaystyle
+\sigma_0(s,z)=\sigma_\alpha(s,z)=
+-\frac{qd}{4\pi}
+\left(A^{-3/2}+B^{-3/2}-2C^{-3/2}\right).}
+\label{eq:sigma}
+\end{equation}
+La igualdad de las dos caras también sigue de la simetría respecto de la
+bisectriz. Como $u^{-3/2}$ es estrictamente convexa para $u>0$ y
+$C=(A+B)/2$, la expresión entre paréntesis es positiva para $s>0$:
+ambas paredes adquieren carga inducida negativa si $q>0$.
+
+\textbf{4. Chequeos físicos.}\par
+En la arista, con $z$ fijo y $s\to0^+$, la expansión de
+\eqref{eq:sigma} da
+\[
+\sigma(s,z)=
+-\frac{45qd^3}{16\pi(d^2+z^2)^{7/2}}\,s^2+O(s^4).
+\]
+La densidad \emph{tiende a cero}, no diverge, en esta cuña de $60^\circ$.
+En cambio, para $s\to\infty$ a $z$ fijo,
+$\sigma(s,z)\sim-45qd^3/(16\pi s^5)$.
+Las imágenes cancelan los momentos lejanos de orden bajo, de modo que el
+flujo eléctrico a través de una superficie lejana se anula. Por la ley de
+Gauss, la carga total inducida entre ambas caras es $-q$; la simetría
+asigna $-q/2$ a cada cara.
+
+\clearpage
+\section*{Visualización numérica}
+El script Python usa $d=q=4\pi\varepsilon_0=1$ para evaluar
+\eqref{eq:potential} y \eqref{eq:sigma}. Las cargas fuera de la cuña en el
+panel geométrico son imágenes matemáticas. En el mapa del potencial se
+excluye un disco pequeño alrededor de la carga real, donde el modelo puntual
+es singular. Los dos mapas y los perfiles se calculan a partir de las mismas
+fórmulas analíticas.
+\begin{figure}[htbp]
+\centering
+\includevisualizacion[width=0.98\textwidth]
+\caption{(a) Posición y signo de las seis cargas. (b) Potencial normalizado
+dentro de la cuña, nulo en ambas paredes. (c) Densidad inducida sobre
+$z=0$ en función de la distancia a la arista; las dos caras coinciden.
+(d) Densidad inducida sobre una cara en función de $s$ y $z$.}
+\label{fig:numerica}
+\end{figure}
+\end{document}

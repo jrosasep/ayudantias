@@ -76,3 +76,32 @@ El desarrollo calcula el campo eléctrico a ambos lados del plano y estudia sus 
 ```
 
 Las figuras muestran la geometría de la interfaz y las superficies utilizadas en las condiciones de frontera. La visualización numérica representa la densidad superficial y el campo eléctrico en ambas regiones.
+
+---
+
+## `separacion_variables_cilindro/`
+
+Problema de Laplace bidimensional con el potencial impuesto sobre una
+superficie cilíndrica de radio $R$:
+
+```math
+V(R,\phi)=V_0\sin(2\phi).
+```
+
+La guía deriva los potenciales interior y exterior por separación de variables,
+calcula los campos eléctricos y la carga superficial a partir del salto de la
+componente normal. La figura TikZ muestra los cuatro sectores angulares de la
+condición de borde. El script Python genera la visualización SVG del potencial,
+el campo y la densidad superficial normalizada. Se incluye el PDF compilado.
+
+---
+
+## `cuna_conductora_60_grados/`
+
+Método de imágenes para una cuña formada por dos semiplanos conductores
+conectados a tierra, separados por 60 grados, con una carga real sobre la
+bisectriz. La guía identifica las cinco cargas imagen, verifica el potencial
+nulo sobre ambas paredes y obtiene una fórmula cerrada para la densidad
+inducida. Explica por qué esta densidad tiende a cero, como el cuadrado de la
+distancia, al aproximarse a la arista. Contiene un esquema TikZ y una
+visualización numérica reproducible desde el script Python.

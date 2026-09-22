@@ -1,6 +1,6 @@
 """Visualizacion numerica del anillo con lambda(varphi)=lambda_0 cos(varphi).
 
-El PDF vectorial usa dos escalas cromaticas independientes: una divergente para
+El SVG vectorial usa dos escalas cromaticas independientes: una divergente para
 la densidad lineal y otra secuencial para la magnitud del campo electrico. Los
 tres paneles comparten esas convenciones para facilitar la comparacion.
 """
