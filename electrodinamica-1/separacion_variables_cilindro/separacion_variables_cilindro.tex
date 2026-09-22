@@ -36,19 +36,41 @@
 \encabezado{Potencial y campo electrostático por separación de variables en un cilindro}
 {Electrodinámica I}{P.S., J.A., J.R.}
 
-\problema{1}{Una superficie cilíndrica de radio $R$, infinita en la
-dirección $z$, separa dos regiones de vacío sin carga volumétrica. El potencial
-impuesto sobre la superficie es el mismo en toda su longitud:
+\problema{1}{Considere un cilindro circular largo, aproximado como
+infinitamente largo, de radio $R$ y centrado en el eje $z$. No hay cargas
+volumétricas en ninguna de las dos regiones de vacío, por lo que el potencial
+satisface la ecuación de Laplace. En el enunciado original se supone
+invarianza a lo largo de $z$ y se escribe $V(s,\phi)$, de modo que
+\[
+ \nabla^2V=\frac1s\frac{\partial}{\partial s}
+ \left(s\frac{\partial V}{\partial s}\right)
+ +\frac1{s^2}\frac{\partial^2V}{\partial\phi^2}=0.
+\]
+Sobre la superficie del cilindro se impone la distribución angular
 \begin{equation}
-  V(R,\phi,z)=V_0\sin(2\phi).
+  V(R,\phi)=V_0\sin(2\phi),
   \label{eq:borde}
 \end{equation}
-Se buscan soluciones que permanezcan acotadas al variar $z$, finitas en $s=0$ y
-que tiendan a cero cuando $s\to\infty$ en la región exterior.
-Determine $V$ y $\mathbf E$ en ambas regiones y la densidad de carga
-superficial necesaria para sostener la condición de borde. La superficie se
-trata como una interfaz con carga; no como un único conductor en equilibrio,
-pues su potencial varía con $\phi$.}
+donde $V_0$ es una constante con unidades de potencial.}
+
+\textbf{Se pide:}
+\begin{enumerate}
+ \item \textbf{Separación de variables.} Proponer
+ $V(s,\phi)=S(s)\Phi(\phi)$ y obtener las ecuaciones diferenciales ordinarias
+ que satisfacen $S$ y $\Phi$.
+ \item \textbf{Región interior ($s<R$).} Hallar $V_{\mathrm{int}}(s,\phi)$,
+ exigiendo que sea finito en el origen.
+ \item \textbf{Región exterior ($s>R$).} Hallar $V_{\mathrm{ext}}(s,\phi)$,
+ exigiendo que tienda a cero cuando $s\to\infty$.
+ \item \textbf{Campo y carga superficial.} Calcular
+ $\mathbf E=-\nabla V$ en ambas regiones y determinar la densidad
+ $\sigma(\phi)$ sobre $s=R$.
+\end{enumerate}
+\emph{Ampliación de la solución:} antes de usar la invarianza axial asumida
+en el enunciado, separaremos las tres coordenadas y comprobaremos que las
+condiciones de borde la justifican, siempre que el potencial permanezca
+acotado cuando $z\to\pm\infty$. La superficie se interpreta como una
+interfaz con carga, no como un único conductor equipotencial.
 
 \begin{figure}[htbp]
 \centering
@@ -89,7 +111,7 @@ $\hat{\mathbf s}$ apunta del interior ($s<R$) al exterior ($s>R$).}
 
 \textbf{Solución:}
 
-\textbf{1. Separación de variables en tres dimensiones.}\par
+\textbf{1. Separación de variables.}\par
 Aunque el dato de frontera no varía con $z$, todavía no supondremos que el
 potencial tenga esa simetría. En las dos regiones sin carga satisface
 \begin{equation}
@@ -127,7 +149,7 @@ Así obtenemos
 La periodicidad en $\phi$ exige $m=0,1,2,\ldots$ y permite los factores
 $\cos(m\phi)$ y $\sin(m\phi)$.
 
-\textbf{2. Modos radiales y simetría longitudinal.}\par
+\emph{Resolución de los modos y comprobación de la simetría axial.}\par
 Para $k>0$, la ecuación radial de \eqref{eq:edos} es la ecuación de Bessel
 modificada. Sus dos soluciones son $I_m(ks)$ y $K_m(ks)$. La primera es
 regular en el eje, pero crece al alejarnos radialmente; la segunda decae al
@@ -168,7 +190,7 @@ acotada es única y debe ser igual a su versión trasladada. La condición
 de acotación importa: sin ella se podrían agregar soluciones homogéneas
 que crecen sin límite a lo largo del eje.
 
-\textbf{3. Potenciales en ambas regiones.}\par
+\textbf{2. Potencial en la región interior ($s<R$).}\par
 Con los modos longitudinales descartados, las soluciones generales
 compatibles con el eje y el infinito son
 \begin{align*}
@@ -181,25 +203,37 @@ compatibles con el eje y el infinito son
 \end{align*}
 El lado derecho de \eqref{eq:borde} contiene un único armónico:
 $\sin(2\phi)$. Por ortogonalidad, todos los coeficientes salvo el de $m=2$
-son cero. En particular, no hay término constante. El coeficiente radial
-se fija evaluando en $s=R$:
+son cero. En particular, no hay término constante. Para el interior, la
+finitud en $s=0$ ya eliminó la solución singular y la frontera determina
+el coeficiente restante:
 \[
- V_{\mathrm{int}}=B_{\mathrm{int}}s^2\sin(2\phi),\quad
- B_{\mathrm{int}}R^2=V_0;
- \qquad
- V_{\mathrm{ext}}=B_{\mathrm{ext}}s^{-2}\sin(2\phi),\quad
+ V_{\mathrm{int}}=B_{\mathrm{int}}s^2\sin(2\phi),\qquad
+ B_{\mathrm{int}}R^2=V_0.
+\]
+Así,
+\begin{equation}
+ \boxed{V_{\mathrm{int}}(s,\phi)
+ =V_0\left(\frac{s}{R}\right)^2\sin(2\phi).}
+ \label{eq:potencial-int}
+\end{equation}
+
+\textbf{3. Potencial en la región exterior ($s>R$).}\par
+El decaimiento en el infinito descarta las potencias crecientes, el
+logaritmo y la constante. El mismo dato angular selecciona $m=2$:
+\[
+ V_{\mathrm{ext}}=B_{\mathrm{ext}}s^{-2}\sin(2\phi),\qquad
  B_{\mathrm{ext}}R^{-2}=V_0.
 \]
-Por lo tanto,
+Por consiguiente,
 \begin{equation}
- \boxed{V_{\mathrm{int}}=V_0\left(\frac{s}{R}\right)^2\sin(2\phi),
- \qquad
- V_{\mathrm{ext}}=V_0\left(\frac{R}{s}\right)^2\sin(2\phi).}
- \label{eq:potenciales}
+ \boxed{V_{\mathrm{ext}}(s,\phi)
+ =V_0\left(\frac{R}{s}\right)^2\sin(2\phi).}
+ \label{eq:potencial-ext}
 \end{equation}
-Ambas expresiones valen $V_0\sin(2\phi)$ al llegar a la superficie.
+Las expresiones interior y exterior coinciden en $s=R$ y reproducen
+exactamente el potencial impuesto.
 
-\textbf{4. Campo eléctrico.}\par
+\textbf{4. Campo eléctrico y densidad superficial.}\par
 La separación anterior justificó que $E_z=0$. Las otras dos componentes
 se obtienen del gradiente cilíndrico:
 \[
@@ -239,7 +273,7 @@ En particular, las componentes tangenciales coinciden en la frontera:
  =-\frac{2V_0}{R}\cos(2\phi).
 \]
 
-\textbf{5. Carga superficial.}\par
+\emph{Carga superficial.}\par
 Tomamos la normal $\hat{\mathbf s}$ de la figura, dirigida del interior
 al exterior. Como hay vacío a ambos lados, la condición de salto de Gauss
 relaciona la carga superficial con la diferencia de las componentes
@@ -261,7 +295,8 @@ $\int_0^{2\pi}\sigma(\phi)R\,d\phi=0$.
 
 \clearpage
 \section*{Visualización numérica}
-La figura~\ref{fig:numerica} evalúa \eqref{eq:potenciales} y
+La figura~\ref{fig:numerica} evalúa \eqref{eq:potencial-int},
+\eqref{eq:potencial-ext} y
 \eqref{eq:eint}--\eqref{eq:sigma} para $R=V_0=1$. El mapa de potencial
 muestra el modo angular de cuatro sectores; las flechas son valores locales del
 campo, no líneas de campo. Los paneles inferiores comparan la condición de

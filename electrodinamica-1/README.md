@@ -1,6 +1,9 @@
 # Electrodinámica I
 
-El repositorio reúne desarrollos en `.tex`, versiones compiladas en PDF y scripts en Python.
+Esta carpeta reúne los desarrollos de los problemas de Electrodinámica I en
+`.tex`, sus versiones compiladas en PDF y los scripts en Python usados para
+las visualizaciones. Agradecemos a Pablo Solano por facilitarnos los problemas
+que dieron origen a este material.
 
 ---
 
@@ -81,27 +84,48 @@ Las figuras muestran la geometría de la interfaz y las superficies utilizadas e
 
 ## `separacion_variables_cilindro/`
 
-Problema de Laplace bidimensional con el potencial impuesto sobre una
-superficie cilíndrica de radio $R$:
+Problema de la **ecuación de Laplace en un cilindro infinito**, con el
+potencial impuesto sobre una superficie de radio $R$:
 
 ```math
-V(R,\phi)=V_0\sin(2\phi).
+V(R,\phi,z)=V_0\sin(2\phi).
 ```
 
-La guía deriva los potenciales interior y exterior por separación de variables,
-calcula los campos eléctricos y la carga superficial a partir del salto de la
-componente normal. La figura TikZ muestra los cuatro sectores angulares de la
-condición de borde. El script Python genera la visualización SVG del potencial,
-el campo y la densidad superficial normalizada. Se incluye el PDF compilado.
+El enunciado pide separar las variables, hallar los potenciales interior y
+exterior y, a partir de ellos, calcular el campo eléctrico y la carga
+superficial. Como ampliación, el desarrollo comienza con una separación en
+las tres coordenadas $(s,\phi,z)$ y muestra por qué la solución física no
+depende de $z$. La condición de borde selecciona el modo angular $m=2$.
+
+Las figuras muestran los sectores angulares del potencial y una visualización
+numérica del campo y de la densidad superficial.
 
 ---
 
 ## `cuna_conductora_60_grados/`
 
-Método de imágenes para una cuña formada por dos semiplanos conductores
-conectados a tierra, separados por 60 grados, con una carga real sobre la
-bisectriz. La guía identifica las cinco cargas imagen, verifica el potencial
-nulo sobre ambas paredes y obtiene una fórmula cerrada para la densidad
-inducida. Explica por qué esta densidad tiende a cero, como el cuadrado de la
-distancia, al aproximarse a la arista. Contiene un esquema TikZ y una
-visualización numérica reproducible desde el script Python.
+Problema del **método de imágenes para una cuña conductora de $60^\circ$**.
+Dos semiplanos conectados a tierra se encuentran en $\phi=0$ y
+$\phi=\pi/3$; una carga puntual está sobre la bisectriz. Se busca el
+potencial dentro de la cuña,
+
+```math
+V(s,\phi,z)=\frac{1}{4\pi\varepsilon_0}
+\sum_{j=0}^{5}\frac{q_j}{R_j},
+```
+
+junto con la densidad de carga inducida en ambas caras. El desarrollo sigue
+los tres apartados del enunciado: construcción de las imágenes, potencial y
+densidad superficial. Esta última se obtiene a partir de la componente
+normal del campo, cuidando el sentido de la normal en cada pared. Al final
+se comprueban el signo de la carga y los límites cerca de la arista y lejos
+de la carga.
+
+Las figuras muestran la carga real, sus imágenes y mapas numéricos del
+potencial y de la densidad inducida.
+
+---
+
+Los archivos `.py` usan Matplotlib y NumPy. Al ejecutar cada script en la
+carpeta de su problema se genera la figura SVG correspondiente. Las
+dependencias están indicadas en `requirements.txt`.

@@ -36,16 +36,30 @@
 \encabezado{Potencial y densidad inducida en una cuña conductora de $60^\circ$}
 {Electrodinámica I}{P.S., J.A., J.R.}
 
-\problema{1}{Dos semiplanos conductores ideales conectados a tierra se intersectan sobre el
-eje $z$ y delimitan la región $0<\phi<\alpha$, con $\alpha=\pi/3$. Una carga
-puntual $q>0$ se encuentra en $(s,\phi,z)=(d,\pi/6,0)$, sobre la bisectriz.
-Determine las cargas imagen, el potencial dentro de la cuña y la densidad
-superficial inducida en ambas caras. Compruebe el comportamiento cerca de la
-arista y lejos de la carga.}
+\problema{1}{Considere dos semiplanos conductores ideales, conectados a
+tierra ($V=0$), que se intersectan a lo largo del eje $z$ y forman una cuña
+de $60^\circ$. En coordenadas cilíndricas $(s,\phi,z)$, las caras están en
+$\phi=0$ y $\phi=\pi/3$. Una carga puntual $q$ se ubica sobre la bisectriz,
+a distancia $d$ de la arista y en $z=0$; su posición es
+$(s_0,\phi_0,z_0)=(d,\pi/6,0)$.}
+
+\textbf{Se pide:}
+\begin{enumerate}
+ \item \textbf{Sistema de imágenes.} Determinar el número total de cargas
+ (la real y las imágenes), así como sus valores, signos y posiciones en el
+ plano transversal $z=0$.
+ \item \textbf{Potencial eléctrico.} Escribir $V(s,\phi,z)$ en la región
+ física $0<\phi<\pi/3$.
+ \item \textbf{Densidad superficial.} Calcular la carga inducida por unidad
+ de área en cada cara conductora, $\phi=0$ y $\phi=\pi/3$.
+\end{enumerate}
+Al terminar, haremos dos comprobaciones físicas adicionales: el signo de
+la carga inducida y su comportamiento cerca de la arista y a grandes
+distancias. Para discutir el signo supondremos $q>0$.
 
 \textbf{Solución:}
 
-\textbf{1. Geometría y cargas imagen.}\par
+\textbf{1. Sistema de cargas imagen.}\par
 Cada plano conductor está conectado a tierra, de modo que buscamos un
 potencial nulo sobre $\phi=0$ y $\phi=\alpha$. La imagen de $+q$ respecto
 del primer plano es $-q$ en $-\pi/6$; respecto del segundo, es $-q$ en
@@ -70,6 +84,7 @@ q_j/q&+1&-1&+1&-1&+1&-1
 Solo $j=0$ se encuentra dentro de la cuña física. Las otras cinco
 posiciones son auxiliares matemáticos situados detrás de los conductores.
 
+\clearpage
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[
@@ -119,8 +134,7 @@ $s=d$. Las flechas señalan las normales de los conductores hacia la cuña.}
 \label{fig:imagenes-cuna}
 \end{figure}
 
-\clearpage
-\textbf{2. Potencial y condiciones de borde.}\par
+\textbf{2. Potencial eléctrico en la cuña.}\par
 Fijamos un punto de observación $(s,\phi,z)$ dentro de la cuña. Su
 distancia a la carga $j$, situada en $(d,\theta_j,0)$, es
 \[
@@ -149,7 +163,7 @@ Dentro de la cuña, solo la carga real actúa como fuente en la ecuación de
 Poisson; en los demás puntos el potencial satisface Laplace. Así se cumplen
 tanto la ecuación como las condiciones de frontera.
 
-\textbf{3. Densidad inducida: normales y signo.}\par
+\textbf{3. Densidad superficial inducida en ambas caras.}\par
 La densidad superficial sobre cada conductor se obtiene evaluando la
 componente del campo normal a su superficie:
 \[
@@ -227,7 +241,7 @@ negativa hacia ambos conductores. También se comprueba directamente,
 pues $C=(A+B)/2$ y la función $u^{-3/2}$ es convexa para $u>0$.
 Así, $A^{-3/2}+B^{-3/2}>2C^{-3/2}$ si $s>0$.
 
-\textbf{4. Chequeos físicos.}\par
+\textbf{Comprobaciones físicas adicionales.}\par
 La forma de \eqref{eq:sigma} permite estudiar la arista y el campo
 lejano con la misma expansión. Si $f(u)=u^{-3/2}$ y
 $\delta=\sqrt3\,sd$, entonces $A=C-\delta$, $B=C+\delta$ y
