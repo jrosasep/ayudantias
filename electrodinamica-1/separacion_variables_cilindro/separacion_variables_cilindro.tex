@@ -38,12 +38,13 @@
 
 \problema{1}{Una superficie cilíndrica de radio $R$, infinita en la
 dirección $z$, separa dos regiones de vacío sin carga volumétrica. El potencial
-no depende de $z$ y está impuesto sobre la superficie:
+impuesto sobre la superficie es el mismo en toda su longitud:
 \begin{equation}
-  V(R,\phi)=V_0\sin(2\phi).
+  V(R,\phi,z)=V_0\sin(2\phi).
   \label{eq:borde}
 \end{equation}
-El potencial es finito en el eje y tiende a cero cuando $s\to\infty$.
+Se buscan soluciones que permanezcan acotadas al variar $z$, finitas en $s=0$ y
+que tiendan a cero cuando $s\to\infty$ en la región exterior.
 Determine $V$ y $\mathbf E$ en ambas regiones y la densidad de carga
 superficial necesaria para sostener la condición de borde. La superficie se
 trata como una interfaz con carga; no como un único conductor en equilibrio,
@@ -88,38 +89,88 @@ $\hat{\mathbf s}$ apunta del interior ($s<R$) al exterior ($s>R$).}
 
 \textbf{Solución:}
 
-\textbf{1. Separación de variables.}\par
-En ausencia de carga volumétrica,
+\textbf{1. Separación de variables en tres dimensiones.}\par
+Aunque el dato de frontera no varía con $z$, todavía no supondremos que el
+potencial tenga esa simetría. En las dos regiones sin carga satisface
 \begin{equation}
  \nabla^2V=\frac1s\frac{\partial}{\partial s}
  \left(s\frac{\partial V}{\partial s}\right)
- +\frac1{s^2}\frac{\partial^2V}{\partial\phi^2}=0.
+ +\frac1{s^2}\frac{\partial^2V}{\partial\phi^2}
+ +\frac{\partial^2V}{\partial z^2}=0.
  \label{eq:laplace}
 \end{equation}
-Con $V(s,\phi)=S(s)\Phi(\phi)$, multiplicamos por $s^2/(S\Phi)$:
+Proponemos $V(s,\phi,z)=S(s)\Phi(\phi)Z(z)$. Al sustituir y dividir por
+$S\Phi Z$,
 \[
- \frac{s}{S}\frac{d}{ds}\left(s\frac{dS}{ds}\right)
+ \frac{1}{sS}\frac{d}{ds}\left(s\frac{dS}{ds}\right)
+ +\frac{\Phi''}{s^2\Phi}+\frac{Z''}{Z}=0.
+\]
+El último sumando solo depende de $z$; por ello debe ser una constante.
+Para las soluciones acotadas a lo largo del eje escribimos
+\[
+ \frac{Z''}{Z}=-k^2,\qquad k\geq0.
+\]
+Si $k>0$, $Z$ es una combinación de $\cos(kz)$ y $\sin(kz)$. Si $k=0$,
+$Z=c_0+c_1z$, pero la acotación para $z\to\pm\infty$ obliga a $c_1=0$.
+Multiplicamos la ecuación restante por $s^2$ y separamos la dependencia
+angular de la radial:
+\[
+ \frac{s}{S}\frac{d}{ds}\left(s\frac{dS}{ds}\right)-k^2s^2
  =-\frac{\Phi''}{\Phi}=m^2.
 \]
-Por lo tanto,
+Así obtenemos
 \begin{equation}
- \Phi''+m^2\Phi=0,\qquad s^2S''+sS'-m^2S=0.
+ \Phi''+m^2\Phi=0,\qquad
+ s^2S''+sS'-(m^2+k^2s^2)S=0.
  \label{eq:edos}
 \end{equation}
-La periodicidad $\Phi(\phi+2\pi)=\Phi(\phi)$ exige $m=0,1,2,\ldots$.
-Para $m\geq1$ las soluciones son
-\[
- \Phi_m=a_m\cos(m\phi)+b_m\sin(m\phi),\qquad
- S_m=c_ms^m+d_ms^{-m}.
-\]
-Para $m=0$, la solución angular periódica es constante y las dos soluciones
-radiales son $1$ y $\ln s$. El logaritmo diverge en el eje y en el infinito;
-la constante exterior tampoco cumple $V\to0$.
+La periodicidad en $\phi$ exige $m=0,1,2,\ldots$ y permite los factores
+$\cos(m\phi)$ y $\sin(m\phi)$.
 
-\textbf{2. Potenciales.}\par
-La finitud en $s=0$ elimina $s^{-m}$ y $\ln s$
-del interior. El decaimiento al infinito elimina $s^m$, $\ln s$ y la constante
-del exterior. Por superposición,
+\textbf{2. Modos radiales y simetría longitudinal.}\par
+Para $k>0$, la ecuación radial de \eqref{eq:edos} es la ecuación de Bessel
+modificada. Sus dos soluciones son $I_m(ks)$ y $K_m(ks)$. La primera es
+regular en el eje, pero crece al alejarnos radialmente; la segunda decae al
+infinito, pero es singular en el eje. Un modo admisible se compone,
+por tanto, de los factores
+\[
+ \begin{aligned}
+ S_{m,k}^{\mathrm{int}}(s)&\propto I_m(ks),&
+ S_{m,k}^{\mathrm{ext}}(s)&\propto K_m(ks),\\
+ \Phi_m(\phi)&=a\cos(m\phi)+b\sin(m\phi),&
+ Z_k(z)&=c\cos(kz)+d\sin(kz).
+ \end{aligned}\qquad(k>0)
+\]
+La solución general se construye superponiendo estos modos y los de $k=0$.
+Para estos últimos, la ecuación radial se reduce a la de Euler. Si
+$m\geq1$, probar $S=s^p$ entrega
+\[
+ p(p-1)+p-m^2=0
+ \quad\Longrightarrow\quad p=\pm m;
+ \qquad S_m=c_ms^m+d_ms^{-m}.
+\]
+Para $m=0$ se obtiene $S_0=c_0+d_0\ln s$. La regularidad en el eje elimina
+$s^{-m}$ y $\ln s$ del interior; el decaimiento exterior elimina $s^m$,
+$\ln s$ y la constante.
+
+Ahora imponemos el dato de frontera. En $s=R$ no aparece ninguna oscilación
+en $z$, así que la unicidad de la expansión de Fourier obliga a que todos
+los modos con $k>0$ tengan coeficiente cero. En efecto, ni $I_m(kR)$ ni
+$K_m(kR)$ se anulan para $kR>0$: ninguno podría permanecer oculto en la
+frontera. Solo sobrevive $k=0$, cuyo factor $Z$ ya vimos que es constante.
+De esta manera la separación completa confirma
+\[
+ \boxed{\frac{\partial V}{\partial z}=0.}
+\]
+Físicamente se llega a lo mismo: trasladar el sistema cualquier distancia
+en $z$ no cambia ni las fuentes ni el dato de frontera; la solución física
+acotada es única y debe ser igual a su versión trasladada. La condición
+de acotación importa: sin ella se podrían agregar soluciones homogéneas
+que crecen sin límite a lo largo del eje.
+
+\textbf{3. Potenciales en ambas regiones.}\par
+Con los modos longitudinales descartados, las soluciones generales
+compatibles con el eje y el infinito son
 \begin{align*}
  V_{\mathrm{int}}(s,\phi)
  &=a_0+\sum_{m=1}^{\infty}s^m
@@ -128,9 +179,18 @@ del exterior. Por superposición,
  &=\sum_{m=1}^{\infty}s^{-m}
    [c_m\cos(m\phi)+d_m\sin(m\phi)].
 \end{align*}
-La condición \eqref{eq:borde} contiene solamente el armónico $\sin(2\phi)$.
-La ortogonalidad de Fourier anula todos los demás coeficientes. Al imponer
-el valor $V_0$ en $s=R$ queda
+El lado derecho de \eqref{eq:borde} contiene un único armónico:
+$\sin(2\phi)$. Por ortogonalidad, todos los coeficientes salvo el de $m=2$
+son cero. En particular, no hay término constante. El coeficiente radial
+se fija evaluando en $s=R$:
+\[
+ V_{\mathrm{int}}=B_{\mathrm{int}}s^2\sin(2\phi),\quad
+ B_{\mathrm{int}}R^2=V_0;
+ \qquad
+ V_{\mathrm{ext}}=B_{\mathrm{ext}}s^{-2}\sin(2\phi),\quad
+ B_{\mathrm{ext}}R^{-2}=V_0.
+\]
+Por lo tanto,
 \begin{equation}
  \boxed{V_{\mathrm{int}}=V_0\left(\frac{s}{R}\right)^2\sin(2\phi),
  \qquad
@@ -139,14 +199,27 @@ el valor $V_0$ en $s=R$ queda
 \end{equation}
 Ambas expresiones valen $V_0\sin(2\phi)$ al llegar a la superficie.
 
-\textbf{3. Campo eléctrico.}\par
-Como no hay dependencia de $z$,
+\textbf{4. Campo eléctrico.}\par
+La separación anterior justificó que $E_z=0$. Las otras dos componentes
+se obtienen del gradiente cilíndrico:
 \[
  \mathbf E=-\nabla V
  =-\frac{\partial V}{\partial s}\hat{\mathbf s}
  -\frac1s\frac{\partial V}{\partial\phi}\hat{\mathbf e}_{\phi}.
 \]
-Al derivar \eqref{eq:potenciales},
+Para hacer explícitos los signos, derivamos cada potencial antes de
+formar el campo:
+\begin{align*}
+\partial_s V_{\mathrm{int}}
+ &=\frac{2V_0s}{R^2}\sin(2\phi),&
+\frac1s\partial_\phi V_{\mathrm{int}}
+ &=\frac{2V_0s}{R^2}\cos(2\phi),\\
+\partial_s V_{\mathrm{ext}}
+ &=-\frac{2V_0R^2}{s^3}\sin(2\phi),&
+\frac1s\partial_\phi V_{\mathrm{ext}}
+ &=\frac{2V_0R^2}{s^3}\cos(2\phi).
+\end{align*}
+Al cambiar el signo de estas derivadas obtenemos
 \begin{align}
  \boxed{\mathbf E_{\mathrm{int}}
  =-\frac{2V_0s}{R^2}
@@ -166,15 +239,19 @@ En particular, las componentes tangenciales coinciden en la frontera:
  =-\frac{2V_0}{R}\cos(2\phi).
 \]
 
-\textbf{4. Carga superficial.}\par
-Con la normal de la figura y vacío a ambos
-lados, la condición de salto de Gauss es
+\textbf{5. Carga superficial.}\par
+Tomamos la normal $\hat{\mathbf s}$ de la figura, dirigida del interior
+al exterior. Como hay vacío a ambos lados, la condición de salto de Gauss
+relaciona la carga superficial con la diferencia de las componentes
+radiales:
 \[
  \sigma(\phi)=\varepsilon_0
  [E_{s}^{\mathrm{ext}}(R,\phi)-E_{s}^{\mathrm{int}}(R,\phi)].
 \]
-Como $E_s^{\mathrm{ext}}=2V_0\sin(2\phi)/R$ y
-$E_s^{\mathrm{int}}=-2V_0\sin(2\phi)/R$ en $s=R$,
+Al evaluar los dos campos en $s=R$, sus componentes radiales tienen
+igual magnitud y signos opuestos:
+$E_s^{\mathrm{ext}}=2V_0\sin(2\phi)/R$ y
+$E_s^{\mathrm{int}}=-2V_0\sin(2\phi)/R$. Por ello,
 \begin{equation}
  \boxed{\sigma(\phi)=\frac{4\varepsilon_0V_0}{R}\sin(2\phi).}
  \label{eq:sigma}

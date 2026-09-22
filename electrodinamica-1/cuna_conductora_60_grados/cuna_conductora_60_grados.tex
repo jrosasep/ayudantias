@@ -46,24 +46,29 @@ arista y lejos de la carga.}
 \textbf{Solución:}
 
 \textbf{1. Geometría y cargas imagen.}\par
-Para $\alpha=\pi/N$ con $N=3$, las reflexiones sucesivas cierran un conjunto
-de $2N=6$ cargas: una real y cinco imágenes. Es útil separarlas en dos
-familias, para $k=0,1,2$:
+Cada plano conductor está conectado a tierra, de modo que buscamos un
+potencial nulo sobre $\phi=0$ y $\phi=\alpha$. La imagen de $+q$ respecto
+del primer plano es $-q$ en $-\pi/6$; respecto del segundo, es $-q$ en
+$\pi/2$. Para satisfacer simultáneamente las dos fronteras debemos seguir
+reflejando esas cargas. Como $\alpha=\pi/3$, después de seis posiciones
+volvemos a la primera. Las cargas quedan todas a la misma distancia $d$
+de la arista y en $z=0$.
+
+Numeramos sus posiciones en sentido antihorario, comenzando por la carga
+real. Con $j=0,\ldots,5$ podemos escribir
 \[
-\theta_k^+=\phi_0+2k\alpha,\qquad q_k^+=+q;
-\qquad
-\theta_k^-=-\phi_0+2k\alpha,\qquad q_k^-=-q,
-\quad \phi_0=\frac{\pi}{6}.
+\theta_j=\frac{\pi}{6}+j\frac{\pi}{3},
+\qquad q_j=(-1)^j q.
 \]
 \[
-\begin{array}{c|ccc}
- & k=0 & k=1 & k=2\\ \hline
-\theta_k^+ & 30^\circ\;(\text{real}) & 150^\circ & 270^\circ\\
-\theta_k^- & 330^\circ & 90^\circ & 210^\circ
+\begin{array}{c|cccccc}
+j&0&1&2&3&4&5\\ \hline
+\theta_j&30^\circ&90^\circ&150^\circ&210^\circ&270^\circ&330^\circ\\
+q_j/q&+1&-1&+1&-1&+1&-1
 \end{array}
 \]
-Todas se sitúan en $s=d$, $z=0$. Solo la carga en $30^\circ$ pertenece a la
-región física.
+Solo $j=0$ se encuentra dentro de la cuña física. Las otras cinco
+posiciones son auxiliares matemáticos situados detrás de los conductores.
 
 \begin{figure}[htbp]
 \centering
@@ -114,47 +119,102 @@ $s=d$. Las flechas señalan las normales de los conductores hacia la cuña.}
 \label{fig:imagenes-cuna}
 \end{figure}
 
+\clearpage
 \textbf{2. Potencial y condiciones de borde.}\par
-La distancia entre $(s,\phi,z)$ y una carga en $(d,\theta,0)$ es
+Fijamos un punto de observación $(s,\phi,z)$ dentro de la cuña. Su
+distancia a la carga $j$, situada en $(d,\theta_j,0)$, es
 \[
-R(s,\phi,z;\theta)=
-\sqrt{s^2+d^2-2sd\cos(\phi-\theta)+z^2}.
+R_j=\sqrt{s^2+d^2-2sd\cos(\phi-\theta_j)+z^2}.
 \]
-La solución dentro de $0<\phi<\pi/3$ es
+El potencial se obtiene sumando los seis términos de Coulomb, con el
+signo de cada carga indicado en la tabla:
 \begin{equation}
 \boxed{\displaystyle
 V(s,\phi,z)=\frac{q}{4\pi\varepsilon_0}
-\sum_{k=0}^{2}
-\left[\frac{1}{R(s,\phi,z;\theta_k^+)}
-     -\frac{1}{R(s,\phi,z;\theta_k^-)}\right].}
+\sum_{j=0}^{5}\frac{(-1)^j}{R_j},
+\qquad 0<\phi<\frac{\pi}{3}.}
 \label{eq:potential}
 \end{equation}
-En $\phi=0$ cada carga en $\theta$ se empareja con otra de signo opuesto en
-$-\theta$, a igual distancia del punto de observación. La reflexión respecto
-de $\phi=\alpha$ da el mismo resultado para la otra pared. Por lo tanto,
-$V(s,0,z)=V(s,\alpha,z)=0$. La solución cumple la ecuación de Poisson en la
-carga real, Laplace en el resto de la cuña y decae en el infinito.
+Conviene verificar las paredes antes de continuar. Sobre $\phi=0$, los
+pares de ángulos $(30^\circ,330^\circ)$, $(90^\circ,270^\circ)$ y
+$(150^\circ,210^\circ)$ se encuentran a igual distancia del punto de
+observación y tienen signos opuestos; sus contribuciones se cancelan.
+Sobre $\phi=\alpha$ ocurre lo mismo con los pares
+$(30^\circ,90^\circ)$, $(150^\circ,330^\circ)$ y
+$(210^\circ,270^\circ)$. Por lo tanto,
+\[
+V(s,0,z)=V(s,\alpha,z)=0.
+\]
+Dentro de la cuña, solo la carga real actúa como fuente en la ecuación de
+Poisson; en los demás puntos el potencial satisface Laplace. Así se cumplen
+tanto la ecuación como las condiciones de frontera.
 
 \textbf{3. Densidad inducida: normales y signo.}\par
-La derivada correcta de cada término es
+La densidad superficial sobre cada conductor se obtiene evaluando la
+componente del campo normal a su superficie:
 \[
-\frac{\partial}{\partial\phi}\frac{1}{R(s,\phi,z;\theta)}
-=-\frac{sd\sin(\phi-\theta)}{R(s,\phi,z;\theta)^3},
+\sigma=\varepsilon_0 E_n.
+\]
+En coordenadas cilíndricas, la normal del plano $\phi=0$ hacia la cuña
+es $+\hat{\boldsymbol\phi}$, mientras que la del plano $\phi=\alpha$
+es $-\hat{\boldsymbol\phi}$, como muestra la figura~\ref{fig:imagenes-cuna}.
+Puesto que $E_\phi=-s^{-1}\partial_\phi V$, esto significa que
+\[
+\sigma_0(s,z)=-\left.\frac{\varepsilon_0}{s}
+\frac{\partial V}{\partial\phi}\right|_{\phi=0},
 \qquad
-E_\phi=-\frac{1}{s}\frac{\partial V}{\partial\phi}.
+\sigma_\alpha(s,z)=+\left.\frac{\varepsilon_0}{s}
+\frac{\partial V}{\partial\phi}\right|_{\phi=\alpha}.
 \]
-La normal que sale del conductor hacia la cuña es $+\hat{\boldsymbol\phi}$
-en $\phi=0$ y $-\hat{\boldsymbol\phi}$ en $\phi=\alpha$. Así,
+
+Calculemos primero la derivada angular de un término de
+\eqref{eq:potential}. Como
+$R_j^2=s^2+d^2+z^2-2sd\cos(\phi-\theta_j)$, la regla de la cadena da
 \[
-\sigma_0(s,z)=\varepsilon_0 E_\phi(s,0,z),\qquad
-\sigma_\alpha(s,z)=-\varepsilon_0 E_\phi(s,\alpha,z).
+\frac{\partial R_j^2}{\partial\phi}
+=2sd\sin(\phi-\theta_j),\qquad
+\frac{\partial}{\partial\phi}\frac1{R_j}
+=-\frac12(R_j^2)^{-3/2}
+  \frac{\partial R_j^2}{\partial\phi}
+=-\frac{sd\sin(\phi-\theta_j)}{R_j^3}.
 \]
-Definamos
+Al derivar la suma y cancelar el factor $s$ que aparece en $E_\phi$,
+\[
+E_\phi(s,\phi,z)=\frac{qd}{4\pi\varepsilon_0}
+\sum_{j=0}^{5}
+\frac{(-1)^j\sin(\phi-\theta_j)}{R_j^3}.
+\]
+Para evaluar esta expresión en $\phi=0$, agrupamos los mismos tres
+pares usados al verificar la frontera. Escribimos, solo para abreviar
+los denominadores,
 \[
 C=s^2+d^2+z^2,\qquad
 A=C-\sqrt{3}\,sd,\qquad B=C+\sqrt{3}\,sd.
 \]
-Al sustituir las seis cargas y agrupar pares reflejados se obtiene
+Sobre $\phi=0$, las contribuciones de los tres pares son
+\[
+\begin{array}{rcl}
+(30^\circ,330^\circ)&\longmapsto&-A^{-3/2},\\
+(90^\circ,270^\circ)&\longmapsto& 2C^{-3/2},\\
+(150^\circ,210^\circ)&\longmapsto&-B^{-3/2}.
+\end{array}
+\]
+Al sumarlas,
+\[
+E_\phi(s,0,z)=\frac{qd}{4\pi\varepsilon_0}
+\left(-A^{-3/2}+2C^{-3/2}-B^{-3/2}\right).
+\]
+Sobre el otro plano, $\phi=\alpha$, agrupamos los pares
+$(30^\circ,90^\circ)$, $(150^\circ,330^\circ)$ y
+$(210^\circ,270^\circ)$. Sus contribuciones son ahora
+$A^{-3/2}$, $-2C^{-3/2}$ y $B^{-3/2}$, de manera que
+\[
+E_\phi(s,\alpha,z)=\frac{qd}{4\pi\varepsilon_0}
+\left(A^{-3/2}-2C^{-3/2}+B^{-3/2}\right)
+=-E_\phi(s,0,z).
+\]
+La igualdad de magnitudes concuerda con la simetría respecto de la
+bisectriz. Al proyectar cada campo sobre la normal de su propio plano,
 \begin{equation}
 \boxed{\displaystyle
 \sigma_0(s,z)=\sigma_\alpha(s,z)=
@@ -162,25 +222,43 @@ Al sustituir las seis cargas y agrupar pares reflejados se obtiene
 \left(A^{-3/2}+B^{-3/2}-2C^{-3/2}\right).}
 \label{eq:sigma}
 \end{equation}
-La igualdad de las dos caras también sigue de la simetría respecto de la
-bisectriz. Como $u^{-3/2}$ es estrictamente convexa para $u>0$ y
-$C=(A+B)/2$, la expresión entre paréntesis es positiva para $s>0$:
-ambas paredes adquieren carga inducida negativa si $q>0$.
+El signo tiene sentido físico: una carga real positiva atrae carga
+negativa hacia ambos conductores. También se comprueba directamente,
+pues $C=(A+B)/2$ y la función $u^{-3/2}$ es convexa para $u>0$.
+Así, $A^{-3/2}+B^{-3/2}>2C^{-3/2}$ si $s>0$.
 
 \textbf{4. Chequeos físicos.}\par
-En la arista, con $z$ fijo y $s\to0^+$, la expansión de
-\eqref{eq:sigma} da
+La forma de \eqref{eq:sigma} permite estudiar la arista y el campo
+lejano con la misma expansión. Si $f(u)=u^{-3/2}$ y
+$\delta=\sqrt3\,sd$, entonces $A=C-\delta$, $B=C+\delta$ y
+\[
+f(C-\delta)+f(C+\delta)-2f(C)
+=f''(C)\delta^2+O(\delta^4),
+\qquad f''(C)=\frac{15}{4}C^{-7/2}.
+\]
+Al sustituir en \eqref{eq:sigma} obtenemos, para $s\to0^+$ con $z$
+fijo,
 \[
 \sigma(s,z)=
 -\frac{45qd^3}{16\pi(d^2+z^2)^{7/2}}\,s^2+O(s^4).
 \]
-La densidad \emph{tiende a cero}, no diverge, en esta cuña de $60^\circ$.
-En cambio, para $s\to\infty$ a $z$ fijo,
+La densidad \emph{tiende a cero} cuadráticamente, no diverge, en esta
+cuña de $60^\circ$. Si ahora $s\to\infty$ con $z$ fijo, $C\sim s^2$
+y la misma expresión muestra que
 $\sigma(s,z)\sim-45qd^3/(16\pi s^5)$.
-Las imágenes cancelan los momentos lejanos de orden bajo, de modo que el
-flujo eléctrico a través de una superficie lejana se anula. Por la ley de
-Gauss, la carga total inducida entre ambas caras es $-q$; la simetría
-asigna $-q/2$ a cada cara.
+
+Finalmente, la suma de la carga real y las cinco imágenes es cero; el
+campo lejano decrece lo bastante rápido para que el flujo por una
+superficie distante se anule. Aplicamos Gauss al volumen de vacío
+delimitado por las dos paredes y esa superficie. La normal exterior del
+vacío sobre las paredes apunta \emph{hacia} los conductores, es decir,
+en sentido opuesto a la normal usada para definir $\sigma$. Por ello,
+\[
+0-\frac{Q_{\mathrm{ind}}}{\varepsilon_0}
+=\frac{q}{\varepsilon_0}
+\quad\Longrightarrow\quad Q_{\mathrm{ind}}=-q.
+\]
+La simetría entre las paredes asigna $-q/2$ a cada una.
 
 \clearpage
 \section*{Visualización numérica}
