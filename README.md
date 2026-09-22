@@ -13,17 +13,17 @@ Cada carpeta contiene sus propios problemas, desarrollos, etc. En general, las c
 ## Simulaciones y visualizaciones destacadas
 
 **Evolución de la ecuación de Schrödinger en la esfera**  
-Visualización de una solución dependiente del tiempo en geometría esférica ([código](fisica-matematica-2/schrodinger_esfera/schrodinger_esfera.ipynb)).
+Visualización de una solución dependiente del tiempo en geometría esférica (fisica-matematica-2/schrodinger_esfera/schrodinger_esfera.ipynb).
 
 ![Evolución de la ecuación de Schrödinger en la esfera](fisica-matematica-2/schrodinger_esfera/evol_2d.gif)
 
 **Ondas 2D en disco**  
-Evolución de una solución de la ecuación de ondas sobre un tambor circular mediante funciones de Bessel ([código](fisica-matematica-2/onda_2d_tambor_bessel/onda_disco_funcion_rara.ipynb)).
+Evolución de una solución de la ecuación de ondas sobre un tambor circular mediante funciones de Bessel (fisica-matematica-2/onda_2d_tambor_bessel/onda_disco_funcion_rara.ipynb).
 
 ![Ondas 2D en disco](fisica-matematica-2/onda_2d_tambor_bessel/onda-disco-funcion-rara-ani.gif)
 
 **Difusión del calor 2D en un rectángulo**  
-Evolución temporal de una solución de la ecuación del calor en dos dimensiones ([código](fisica-matematica-2/calor_2d_rectangulo/calor_2d_rectangulo.py)).
+Evolución temporal de una solución de la ecuación del calor en dos dimensiones (fisica-matematica-2/calor_2d_rectangulo/calor_2d_rectangulo.py).
 
 ![Difusión del calor 2D en un rectángulo](fisica-matematica-2/calor_2d_rectangulo/figuras/calor_2d_evolucion_seno_gaussiana.svg)
 ## Agradecimientos
