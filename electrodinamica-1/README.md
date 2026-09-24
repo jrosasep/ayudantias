@@ -16,9 +16,9 @@ La distribución de carga está dada por
 ```math
 \rho(r)=
 \begin{cases}
-0, & 0\leq r<a,\\
-\dfrac{\rho_0}{r}, & a<r<b,\\
-0, & r>b.
+0, & 0\leq r \lt a,\\
+\dfrac{\rho_0}{r}, & a \lt r \lt b,\\
+0, & r \gt b.
 \end{cases}
 ```
 
@@ -57,8 +57,8 @@ El plano $z=0$ divide el vacío en dos regiones, con potencial
 ```math
 \phi(x,y,z)=
 \begin{cases}
-\dfrac{V_0z}{(x^2+y^2+z^2)^{3/2}}, & z>0,\\
-\dfrac{V_0z}{2(x^2+y^2+z^2)^{3/2}}, & z<0.
+\dfrac{V_0z}{(x^2+y^2+z^2)^{3/2}}, & z \gt 0,\\
+\dfrac{V_0z}{2(x^2+y^2+z^2)^{3/2}}, & z \lt 0.
 \end{cases}
 ```
 
