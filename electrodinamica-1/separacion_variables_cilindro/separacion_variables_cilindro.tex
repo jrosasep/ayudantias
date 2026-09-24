@@ -5,13 +5,13 @@
 \usepackage{amsmath,amssymb}
 \usepackage[a4paper,margin=2.3cm]{geometry}
 \usepackage{graphicx}
+\usepackage[inkscapelatex=false]{svg}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,babel}
-\IfFileExists{separacion_variables_visualizacion.pdf}{%
-  \newcommand{\includevisualizacion}[1][]{\includegraphics[##1]{separacion_variables_visualizacion.pdf}}%
-}{%
-  \usepackage[inkscapelatex=false]{svg}
-  \newcommand{\includevisualizacion}[1][]{\includesvg[##1]{separacion_variables_visualizacion}}%
+
+% La visualización se carga directamente desde el archivo SVG.
+\newcommand{\includevisualizacion}[1][]{%
+  \includesvg[#1]{separacion_variables_visualizacion}%
 }
 \spanishdecimal{.}
 \setlength{\parindent}{0pt}
@@ -36,36 +36,24 @@
 \encabezado{Potencial y campo electrostático por separación de variables en un cilindro}
 {Electrodinámica I}{P.S., J.A., J.R.}
 
-\problema{1}{Considere un cilindro circular largo, aproximado como
-infinitamente largo, de radio $R$ y centrado en el eje $z$. No hay cargas
-volumétricas en ninguna de las dos regiones de vacío, por lo que el potencial
-satisface la ecuación de Laplace. En el enunciado original se supone
-invarianza a lo largo de $z$ y se escribe $V(s,\phi)$, de modo que
-\[
- \nabla^2V=\frac1s\frac{\partial}{\partial s}
- \left(s\frac{\partial V}{\partial s}\right)
- +\frac1{s^2}\frac{\partial^2V}{\partial\phi^2}=0.
-\]
-Sobre la superficie del cilindro se impone la distribución angular
-\begin{equation}
-  V(R,\phi)=V_0\sin(2\phi),
-  \label{eq:borde}
+\problema{1}{Considere un cilindro circular largo (aproximado como infinitamente largo) de radio $R$ centrado en el eje $z$. No hay cargas libres en el espacio ($q = 0$), por lo que el potencial eléctrico $V(s, \phi)$ satisface la ecuación de Laplace en dos dimensiones (asumiendo invarianza a lo largo de $z$):
+\begin{equation*}
+\nabla^2 V = \frac{1}{s} \frac{\partial}{\partial s}\left(s \frac{\partial V}{\partial s}\right) + \frac{1}{s^2} \frac{\partial^2 V}{\partial \phi^2} = 0
+\end{equation*}
+Suponga que el potencial sobre la superficie del cilindro ($s = R$) está fijado mediante la siguiente distribución angular:
+\begin{equation}\label{eq:borde}
+V(R, \phi) = V_0 \sin(2\phi)
 \end{equation}
-donde $V_0$ es una constante con unidades de potencial.}
+donde $V_0$ es una constante con unidades de potencial eléctrico.}
 
-\textbf{Se pide:}
+Se pide:
 \begin{enumerate}
- \item \textbf{Separación de variables.} Proponer
- $V(s,\phi)=S(s)\Phi(\phi)$ y obtener las ecuaciones diferenciales ordinarias
- que satisfacen $S$ y $\Phi$.
- \item \textbf{Región interior ($s<R$).} Hallar $V_{\mathrm{int}}(s,\phi)$,
- exigiendo que sea finito en el origen.
- \item \textbf{Región exterior ($s>R$).} Hallar $V_{\mathrm{ext}}(s,\phi)$,
- exigiendo que tienda a cero cuando $s\to\infty$.
- \item \textbf{Campo y carga superficial.} Calcular
- $\mathbf E=-\nabla V$ en ambas regiones y determinar la densidad
- $\sigma(\phi)$ sobre $s=R$.
+    \item \textbf{Separación de Variables:} Plantee la solución general en forma de producto $V(s, \phi) = S(s)\Phi(\phi)$ y obtenga las ecuaciones diferenciales ordinarias para $S(s)$ y $\Phi(\phi)$.
+    \item \textbf{Solución Interior ($s < R$):} Halle el potencial eléctrico $V_{\text{int}}(s, \phi)$ en el interior del cilindro, aplicando la condición física de finitud en el origen ($s = 0$).
+    \item \textbf{Solución Exterior ($s > R$):} Halle el potencial eléctrico $V_{\text{ext}}(s, \phi)$ en el exterior del cilindro, aplicando la condición de que el potencial decaiga adecuadamente cuando $s \to \infty$.
+    \item \textbf{Campo Eléctrico y Densidad de Carga:} Calcule el campo eléctrico $\mathbf{E}(s, \phi)$ en ambas regiones ($s < R$ y $s > R$) utilizando la relación $\mathbf{E} = -\nabla V$, y determine la densidad superficial de carga $\sigma(\phi)$ distribuida sobre la superficie del cilindro ($s = R$).
 \end{enumerate}
+
 \emph{Ampliación de la solución:} antes de usar la invarianza axial asumida
 en el enunciado, separaremos las tres coordenadas y comprobaremos que las
 condiciones de borde la justifican, siempre que el potencial permanezca
@@ -112,192 +100,270 @@ $\hat{\mathbf s}$ apunta del interior ($s<R$) al exterior ($s>R$).}
 \textbf{Solución:}
 
 \textbf{1. Separación de variables.}\par
-Aunque el dato de frontera no varía con $z$, todavía no supondremos que el
-potencial tenga esa simetría. En las dos regiones sin carga satisface
-\begin{equation}
- \nabla^2V=\frac1s\frac{\partial}{\partial s}
- \left(s\frac{\partial V}{\partial s}\right)
- +\frac1{s^2}\frac{\partial^2V}{\partial\phi^2}
- +\frac{\partial^2V}{\partial z^2}=0.
- \label{eq:laplace}
-\end{equation}
-Proponemos $V(s,\phi,z)=S(s)\Phi(\phi)Z(z)$. Al sustituir y dividir por
-$S\Phi Z$,
-\[
- \frac{1}{sS}\frac{d}{ds}\left(s\frac{dS}{ds}\right)
- +\frac{\Phi''}{s^2\Phi}+\frac{Z''}{Z}=0.
-\]
-El último sumando solo depende de $z$; por ello debe ser una constante.
-Para las soluciones acotadas a lo largo del eje escribimos
-\[
- \frac{Z''}{Z}=-k^2,\qquad k\geq0.
-\]
-Si $k>0$, $Z$ es una combinación de $\cos(kz)$ y $\sin(kz)$. Si $k=0$,
-$Z=c_0+c_1z$, pero la acotación para $z\to\pm\infty$ obliga a $c_1=0$.
-Multiplicamos la ecuación restante por $s^2$ y separamos la dependencia
-angular de la radial:
-\[
- \frac{s}{S}\frac{d}{ds}\left(s\frac{dS}{ds}\right)-k^2s^2
- =-\frac{\Phi''}{\Phi}=m^2.
-\]
-Así obtenemos
-\begin{equation}
- \Phi''+m^2\Phi=0,\qquad
- s^2S''+sS'-(m^2+k^2s^2)S=0.
- \label{eq:edos}
-\end{equation}
-La periodicidad en $\phi$ exige $m=0,1,2,\ldots$ y permite los factores
-$\cos(m\phi)$ y $\sin(m\phi)$.
+Proponemos una solución de la forma factorizada:
+\begin{equation*}
+V(s, \phi) = S(s) \Phi(\phi)
+\end{equation*}
+Sustituyendo esta expresión en la ecuación de Laplace en coordenadas cilíndricas:
+\begin{equation*}
+\frac{1}{s} \frac{d}{ds}\left(s \frac{dS}{ds}\right) \Phi + \frac{1}{s^2} S \frac{d^2\Phi}{d\phi^2} = 0
+\end{equation*}
+Multiplicamos toda la ecuación por $\frac{s^2}{S(s)\Phi(\phi)}$ para separar las variables:
+\begin{equation*}
+\frac{s}{S(s)} \frac{d}{ds}\left(s \frac{dS}{ds}\right) = - \frac{1}{\Phi(\phi)} \frac{d^2\Phi}{d\phi^2}
+\end{equation*}
+Como el lado izquierdo depende exclusivamente de $s$ y el derecho exclusivamente de $\phi$, ambos lados deben ser iguales a una constante de separación, la cual denotaremos como $k^2$:
+\begin{align*}
+\frac{1}{\Phi(\phi)} \frac{d^2\Phi}{d\phi^2} &= -k^2 \implies \frac{d^2\Phi}{d\phi^2} + k^2 \Phi = 0 \\
+\frac{s}{S(s)} \frac{d}{ds}\left(s \frac{dS}{ds}\right) &= k^2 \implies s \frac{d}{ds}\left(s \frac{dS}{ds}\right) - k^2 S = 0
+\end{align*}
 
-\emph{Resolución de los modos y comprobación de la simetría axial.}\par
-Para $k>0$, la ecuación radial de \eqref{eq:edos} es la ecuación de Bessel
-modificada. Sus dos soluciones son $I_m(ks)$ y $K_m(ks)$. La primera es
-regular en el eje, pero crece al alejarnos radialmente; la segunda decae al
-infinito, pero es singular en el eje. Un modo admisible se compone,
-por tanto, de los factores
-\[
- \begin{aligned}
- S_{m,k}^{\mathrm{int}}(s)&\propto I_m(ks),&
- S_{m,k}^{\mathrm{ext}}(s)&\propto K_m(ks),\\
- \Phi_m(\phi)&=a\cos(m\phi)+b\sin(m\phi),&
- Z_k(z)&=c\cos(kz)+d\sin(kz).
- \end{aligned}\qquad(k>0)
-\]
-La solución general se construye superponiendo estos modos y los de $k=0$.
-Para estos últimos, la ecuación radial se reduce a la de Euler. Si
-$m\geq1$, probar $S=s^p$ entrega
-\[
- p(p-1)+p-m^2=0
- \quad\Longrightarrow\quad p=\pm m;
- \qquad S_m=c_ms^m+d_ms^{-m}.
-\]
-Para $m=0$ se obtiene $S_0=c_0+d_0\ln s$. La regularidad en el eje elimina
-$s^{-m}$ y $\ln s$ del interior; el decaimiento exterior elimina $s^m$,
-$\ln s$ y la constante.
+\subsection*{Resolución de la Ecuación Angular y Radial}
 
-Ahora imponemos el dato de frontera. En $s=R$ no aparece ninguna oscilación
-en $z$, así que la unicidad de la expansión de Fourier obliga a que todos
-los modos con $k>0$ tengan coeficiente cero. En efecto, ni $I_m(kR)$ ni
-$K_m(kR)$ se anulan para $kR>0$: ninguno podría permanecer oculto en la
-frontera. Solo sobrevive $k=0$, cuyo factor $Z$ ya vimos que es constante.
-De esta manera la separación completa confirma
-\[
- \boxed{\frac{\partial V}{\partial z}=0.}
-\]
-Físicamente se llega a lo mismo: trasladar el sistema cualquier distancia
-en $z$ no cambia ni las fuentes ni el dato de frontera; la solución física
-acotada es única y debe ser igual a su versión trasladada. La condición
-de acotación importa: sin ella se podrían agregar soluciones homogéneas
-que crecen sin límite a lo largo del eje.
+\paragraph{Parte Angular ($\Phi$):}
+La solución general para la ecuación armónica angular es:
+\begin{equation*}
+\Phi(\phi) = A \cos(k\phi) + B \sin(k\phi)
+\end{equation*}
+Debido a la naturaleza cilíndrica del sistema, el potencial debe ser
+unívoco y periódico con período $2\pi$:
+\begin{equation*}
+    \Phi(\phi)=\Phi(\phi+2\pi).
+\end{equation*}
+
+Para determinar los valores permitidos de la constante de separación $k$,
+podemos considerar una solución angular compleja de la forma
+\begin{equation*}
+    \Phi(\phi)=C e^{ik\phi}.
+\end{equation*}
+Al imponer la condición de periodicidad,
+\begin{align*}
+    \Phi(\phi+2\pi)
+    &= C e^{ik(\phi+2\pi)} \\
+    &= C e^{ik\phi}e^{i2\pi k}
+    = \Phi(\phi),
+\end{align*}
+se obtiene
+\begin{equation*}
+    e^{i2\pi k}=1.
+\end{equation*}
+Esta igualdad se satisface únicamente cuando
+\begin{equation*}
+    2\pi k = 2\pi m,
+    \qquad m\in\mathbb{Z},
+\end{equation*}
+por lo que
+\begin{equation*}
+    k=m,
+    \qquad m\in\mathbb{Z}.
+\end{equation*}
+
+Como los valores $m$ y $-m$ generan los mismos modos trigonométricos,
+pues
+\begin{equation*}
+    \cos(-m\phi)=\cos(m\phi),
+    \qquad
+    \sin(-m\phi)=-\sin(m\phi),
+\end{equation*}
+basta considerar, sin pérdida de generalidad,
+\begin{equation*}
+    m=0,1,2,\dots
+\end{equation*}
+
+Por lo tanto:
+\begin{equation*}
+    \Phi_m(\phi)
+    =
+    A_m\cos(m\phi)+B_m\sin(m\phi).
+\end{equation*}
+\paragraph{Parte Radial ($S$):}
+Para $m \neq 0$, la ecuación radial es de tipo Euler-Cauchy:
+\begin{equation}\label{eq:radial}
+s^2 \frac{d^2 S}{ds^2} + s \frac{dS}{ds} - m^2 S = 0
+\end{equation}
+Proponiendo soluciones de la forma $S(s) = s^n$, obtenemos $n = \pm m$. Así, la solución radial general es una combinación lineal de potencias:
+\begin{equation*}
+S_m(s) = C_m s^m + D_m s^{-m}
+\end{equation*}
+\emph{Nota: si $m=0$, las soluciones radiales son $S_0(s)=C_0+D_0\ln s$. Si hubiese dependencia en el eje $z$, la ecuación radial análoga a \eqref{eq:radial} conduce a funciones de Bessel.}
 
 \textbf{2. Potencial en la región interior ($s<R$).}\par
-Con los modos longitudinales descartados, las soluciones generales
-compatibles con el eje y el infinito son
-\begin{align*}
- V_{\mathrm{int}}(s,\phi)
- &=a_0+\sum_{m=1}^{\infty}s^m
-   [a_m\cos(m\phi)+b_m\sin(m\phi)],\\
- V_{\mathrm{ext}}(s,\phi)
- &=\sum_{m=1}^{\infty}s^{-m}
-   [c_m\cos(m\phi)+d_m\sin(m\phi)].
-\end{align*}
-El lado derecho de \eqref{eq:borde} contiene un único armónico:
-$\sin(2\phi)$. Por ortogonalidad, todos los coeficientes salvo el de $m=2$
-son cero. En particular, no hay término constante. Para el interior, la
-finitud en $s=0$ ya eliminó la solución singular y la frontera determina
-el coeficiente restante:
-\[
- V_{\mathrm{int}}=B_{\mathrm{int}}s^2\sin(2\phi),\qquad
- B_{\mathrm{int}}R^2=V_0.
-\]
-Así,
-\begin{equation}
- \boxed{V_{\mathrm{int}}(s,\phi)
- =V_0\left(\frac{s}{R}\right)^2\sin(2\phi).}
- \label{eq:potencial-int}
-\end{equation}
+Para determinar el potencial en el interior del cilindro $V_{\text{int}}(s, \phi)$, aplicamos la condición de contorno física: el potencial debe ser finito en el origen ($s = 0$). Como $\ln(0)$ y $s^{-m}$ divergen cuando $s \to 0$, debemos descartar los términos con coeficientes $D_m$ y $D_0$ fijándolos a cero ($D_m = 0$).
 
-\textbf{3. Potencial en la región exterior ($s>R$).}\par
-El decaimiento en el infinito descarta las potencias crecientes, el
-logaritmo y la constante. El mismo dato angular selecciona $m=2$:
-\[
- V_{\mathrm{ext}}=B_{\mathrm{ext}}s^{-2}\sin(2\phi),\qquad
- B_{\mathrm{ext}}R^{-2}=V_0.
-\]
-Por consiguiente,
-\begin{equation}
- \boxed{V_{\mathrm{ext}}(s,\phi)
- =V_0\left(\frac{R}{s}\right)^2\sin(2\phi).}
- \label{eq:potencial-ext}
+La solución general interior se escribe como una serie superpuesta:
+\begin{equation*}
+V_{\text{int}}(s, \phi) = \sum_{m=0}^{\infty} s^m \left( A_m \cos(m\phi) + B_m \sin(m\phi) \right)
+\end{equation*}
+
+Aplicamos la condición de frontera \eqref{eq:borde} en la superficie del cilindro ($s = R$):
+\begin{equation*}
+V_{\text{int}}(R, \phi) = \sum_{m=0}^{\infty} R^m \left( A_m \cos(m\phi) + B_m \sin(m\phi) \right) = V_0 \sin(2\phi)
+\end{equation*}
+
+Por comparación directa con los términos de la serie de Fourier del lado derecho, observamos que todos los coeficientes se anulan excepto para $m = 2$:
+\begin{equation*}
+R^2 B_2 = V_0 \implies B_2 = \frac{V_0}{R^2}
+\end{equation*}
+Todos los demás coeficientes ($A_m$ y los demás $B_m$) son cero. Por lo tanto, el potencial en el interior es:
+\begin{equation}\label{eq:potencial-int}
+V_{\text{int}}(s, \phi) = V_0 \left( \frac{s}{R} \right)^2 \sin(2\phi)
 \end{equation}
-Las expresiones interior y exterior coinciden en $s=R$ y reproducen
-exactamente el potencial impuesto.
+\textbf{3. Potencial en la región exterior ($s>R$).}\par
+Para el exterior del cilindro $V_{\text{ext}}(s, \phi)$, aplicamos la condición física de que el potencial debe permanecer finito o decaer a cero cuando nos alejamos a grandes distancias ($s \to \infty$). Por lo tanto, debemos descartar las potencias crecientes $s^m$ fijando $C_m = 0$.
+
+La solución general exterior es:
+\begin{equation*}
+V_{\text{ext}}(s, \phi) = \sum_{m=0}^{\infty} s^{-m} \left( A'_m \cos(m\phi) + B'_m \sin(m\phi) \right)
+\end{equation*}
+
+Aplicando nuevamente la condición de frontera \eqref{eq:borde} en $s = R$:
+\begin{equation*}
+V_{\text{ext}}(R, \phi) = \sum_{m=0}^{\infty} R^{-m} \left( A'_m \cos(m\phi) + B'_m \sin(m\phi) \right) = V_0 \sin(2\phi)
+\end{equation*}
+
+Nuevamente, por ortogonalidad y comparación de coeficientes, el único término no nulo corresponde a $m = 2$:
+\begin{equation*}
+R^{-2} B'_2 = V_0 \implies B'_2 = V_0 R^2
+\end{equation*}
+
+Por consiguiente, el potencial eléctrico en la región exterior es:
+\begin{equation}\label{eq:potencial-ext}
+V_{\text{ext}}(s, \phi) = V_0 \left( \frac{R}{s} \right)^2 \sin(2\phi)
+\end{equation}
 
 \textbf{4. Campo eléctrico y densidad superficial.}\par
-La separación anterior justificó que $E_z=0$. Las otras dos componentes
-se obtienen del gradiente cilíndrico:
-\[
- \mathbf E=-\nabla V
- =-\frac{\partial V}{\partial s}\hat{\mathbf s}
- -\frac1s\frac{\partial V}{\partial\phi}\hat{\mathbf e}_{\phi}.
-\]
-Para hacer explícitos los signos, derivamos cada potencial antes de
-formar el campo:
-\begin{align*}
-\partial_s V_{\mathrm{int}}
- &=\frac{2V_0s}{R^2}\sin(2\phi),&
-\frac1s\partial_\phi V_{\mathrm{int}}
- &=\frac{2V_0s}{R^2}\cos(2\phi),\\
-\partial_s V_{\mathrm{ext}}
- &=-\frac{2V_0R^2}{s^3}\sin(2\phi),&
-\frac1s\partial_\phi V_{\mathrm{ext}}
- &=\frac{2V_0R^2}{s^3}\cos(2\phi).
-\end{align*}
-Al cambiar el signo de estas derivadas obtenemos
-\begin{align}
- \boxed{\mathbf E_{\mathrm{int}}
- =-\frac{2V_0s}{R^2}
- [\sin(2\phi)\hat{\mathbf s}
- +\cos(2\phi)\hat{\mathbf e}_{\phi}]}&\quad(s<R),
- \label{eq:eint}\\
- \boxed{\mathbf E_{\mathrm{ext}}
- =\frac{2V_0R^2}{s^3}
- [\sin(2\phi)\hat{\mathbf s}
- -\cos(2\phi)\hat{\mathbf e}_{\phi}]}&\quad(s>R).
- \label{eq:eext}
-\end{align}
-En particular, las componentes tangenciales coinciden en la frontera:
-\[
- E_{\phi}^{\mathrm{int}}(R,\phi)
- =E_{\phi}^{\mathrm{ext}}(R,\phi)
- =-\frac{2V_0}{R}\cos(2\phi).
-\]
 
-\emph{Carga superficial.}\par
-Tomamos la normal $\hat{\mathbf s}$ de la figura, dirigida del interior
-al exterior. Como hay vacío a ambos lados, la condición de salto de Gauss
-relaciona la carga superficial con la diferencia de las componentes
-radiales:
-\[
- \sigma(\phi)=\varepsilon_0
- [E_{s}^{\mathrm{ext}}(R,\phi)-E_{s}^{\mathrm{int}}(R,\phi)].
-\]
-Al evaluar los dos campos en $s=R$, sus componentes radiales tienen
-igual magnitud y signos opuestos:
-$E_s^{\mathrm{ext}}=2V_0\sin(2\phi)/R$ y
-$E_s^{\mathrm{int}}=-2V_0\sin(2\phi)/R$. Por ello,
-\begin{equation}
- \boxed{\sigma(\phi)=\frac{4\varepsilon_0V_0}{R}\sin(2\phi).}
- \label{eq:sigma}
+Para obtener la densidad superficial de carga sobre el cilindro utilizamos
+la condición de contorno para la componente normal del campo eléctrico:
+\begin{equation}\label{eq:salto}
+    \sigma(\phi)
+    =
+    \varepsilon_0
+    \left[
+        E_{\text{ext},s}(R,\phi)
+        -
+        E_{\text{int},s}(R,\phi)
+    \right].
 \end{equation}
-La carga neta por unidad de longitud es nula:
-$\int_0^{2\pi}\sigma(\phi)R\,d\phi=0$.
+
+La normal a la superficie cilíndrica $s=R$ apunta en la dirección radial,
+\begin{equation*}
+    \hat{\mathbf n}=\hat{\mathbf s},
+\end{equation*}
+por lo que la componente normal del campo eléctrico es simplemente su
+componente radial. Como
+\begin{equation*}
+    \mathbf E=-\nabla V,
+\end{equation*}
+tenemos
+\begin{equation*}
+    E_s
+    =
+    \mathbf E\cdot\hat{\mathbf s}
+    =
+    -\frac{\partial V}{\partial s}.
+\end{equation*}
+
+Equivalentemente, la derivada normal del potencial sobre la superficie es
+\begin{equation*}
+    \frac{\partial V}{\partial n}
+    =
+    \nabla V\cdot\hat{\mathbf n}
+    =
+    \frac{\partial V}{\partial s},
+\end{equation*}
+de modo que la Ec.~\eqref{eq:salto} puede escribirse directamente en
+terminos de las derivadas radiales de los potenciales interior y exterior.
+
+\medskip
+
+\textbf{Campo radial interior.}\par
+
+A partir del potencial interior \eqref{eq:potencial-int},
+\begin{align*}
+    E_{\text{int},s}(s,\phi)
+    &=
+    -\frac{\partial V_{\text{int}}}{\partial s}
+    \\
+    &=
+    -\frac{\partial}{\partial s}
+    \left[
+        V_0\frac{s^2}{R^2}\sin(2\phi)
+    \right]
+    \\
+    &=
+    -\frac{2V_0s}{R^2}\sin(2\phi).
+\end{align*}
+
+Evaluando justo en la cara interior de la superficie, $s=R^{-}$,
+\begin{equation}\label{eq:eint}
+    E_{\text{int},s}(R,\phi)
+    =
+    -\frac{2V_0}{R}\sin(2\phi).
+\end{equation}
+
+\medskip
+
+\textbf{Campo radial exterior.}\par
+
+A partir del potencial exterior \eqref{eq:potencial-ext},
+\begin{align*}
+    E_{\text{ext},s}(s,\phi)
+    &=
+    -\frac{\partial V_{\text{ext}}}{\partial s}
+    \\
+    &=
+    -\frac{\partial}{\partial s}
+    \left[
+        V_0R^2s^{-2}\sin(2\phi)
+    \right]
+    \\
+    &=
+    \frac{2V_0R^2}{s^3}\sin(2\phi).
+\end{align*}
+
+Evaluando justo en la cara exterior de la superficie, $s=R^{+}$,
+\begin{equation}\label{eq:eext}
+    E_{\text{ext},s}(R,\phi)
+    =
+    \frac{2V_0}{R}\sin(2\phi).
+\end{equation}
+
+Finalmente, sustituyendo \eqref{eq:eint} y \eqref{eq:eext} en la condición
+de salto \eqref{eq:salto},
+\begin{align*}
+    \sigma(\phi)
+    &=
+    \varepsilon_0
+    \left[
+        \frac{2V_0}{R}\sin(2\phi)
+        -
+        \left(
+            -\frac{2V_0}{R}\sin(2\phi)
+        \right)
+    \right]
+    \\
+    &=
+    \frac{4\varepsilon_0V_0}{R}\sin(2\phi).
+\end{align*}
+
+Por consiguiente,
+\begin{equation}\label{eq:sigma}
+    \boxed{
+        \sigma(\phi)
+        =
+        \frac{4\varepsilon_0V_0}{R}\sin(2\phi)
+    }.
+\end{equation}
+
+Este resultado muestra que para sostener esta distribución de potencial armónico en la superficie del cilindro, se requiere una densidad superficial de carga no uniforme que oscila azimutalmente con la misma periodicidad $\sin(2\phi)$.
 
 \clearpage
 \section*{Visualización numérica}
-La figura~\ref{fig:numerica} evalúa \eqref{eq:potencial-int},
-\eqref{eq:potencial-ext} y
-\eqref{eq:eint}--\eqref{eq:sigma} para $R=V_0=1$. El mapa de potencial
+La figura~\ref{fig:numerica} evalúa \eqref{eq:potencial-int} y
+\eqref{eq:potencial-ext} para $R=V_0=1$. El campo eléctrico se obtiene de
+$\mathbf{E}=-\nabla V$, y la densidad superficial se compara con
+\eqref{eq:sigma}. El mapa de potencial
 muestra el modo angular de cuatro sectores; las flechas son valores locales del
 campo, no líneas de campo. Los paneles inferiores comparan la condición de
 borde $V(R,\phi)/V_0=\sin(2\phi)$ con la carga normalizada

@@ -28,9 +28,6 @@ El campo eléctrico se calcula mediante integración directa y mediante la Ley d
 \phi(b)=0.
 ```
 
-Las figuras en TikZ muestran la geometría cilíndrica, el punto fuente, el punto de observación y las superficies gaussianas. La carpeta incluye además una visualización numérica de la densidad de carga y del campo eléctrico.
-
-
 ---
 
 ## `anillo_carga_no_uniforme/`
@@ -48,8 +45,6 @@ Se discute por qué la Ley de Gauss no permite calcular directamente el campo el
 ```math
 E_z=-\frac{d\phi}{dz}.
 ```
-
-La visualización numérica representa la variación angular de la densidad lineal y la estructura tridimensional del campo eléctrico.
 
 ---
 
@@ -78,7 +73,7 @@ El desarrollo calcula el campo eléctrico a ambos lados del plano y estudia sus 
 \frac{\sigma}{\varepsilon_0}.
 ```
 
-Las figuras muestran la geometría de la interfaz y las superficies utilizadas en las condiciones de frontera. La visualización numérica representa la densidad superficial y el campo eléctrico en ambas regiones.
+Las figuras muestran la geometría de la interfaz y las superficies utilizadas en las condiciones de frontera.
 
 ---
 
@@ -93,12 +88,7 @@ V(R,\phi,z)=V_0\sin(2\phi).
 
 El enunciado pide separar las variables, hallar los potenciales interior y
 exterior y, a partir de ellos, calcular el campo eléctrico y la carga
-superficial. Como ampliación, el desarrollo comienza con una separación en
-las tres coordenadas $(s,\phi,z)$ y muestra por qué la solución física no
-depende de $z$. La condición de borde selecciona el modo angular $m=2$.
-
-Las figuras muestran los sectores angulares del potencial y una visualización
-numérica del campo y de la densidad superficial.
+superficial.
 
 ---
 
@@ -116,16 +106,7 @@ V(s,\phi,z)=\frac{1}{4\pi\varepsilon_0}
 
 junto con la densidad de carga inducida en ambas caras. El desarrollo sigue
 los tres apartados del enunciado: construcción de las imágenes, potencial y
-densidad superficial. Esta última se obtiene a partir de la componente
-normal del campo, cuidando el sentido de la normal en cada pared. Al final
-se comprueban el signo de la carga y los límites cerca de la arista y lejos
-de la carga.
-
-Las figuras muestran la carga real, sus imágenes y mapas numéricos del
-potencial y de la densidad inducida.
+densidad superficial.
 
 ---
 
-Los archivos `.py` usan Matplotlib y NumPy. Al ejecutar cada script en la
-carpeta de su problema se genera la figura SVG correspondiente. Las
-dependencias están indicadas en `requirements.txt`.
