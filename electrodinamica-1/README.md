@@ -110,3 +110,36 @@ densidad superficial.
 
 ---
 
+## `repaso_imagenes_polarizacion_conductores/`
+
+Guía de repaso del **método de imágenes** y de la **polarización de conductores**.
+
+El primer ejercicio estudia una carga puntual frente a un plano conductor
+infinito conectado a tierra. Se obtiene el potencial mediante una carga
+imagen,
+
+```math
+V(x,y,z)=\frac{q}{4\pi\varepsilon_0}
+\left[
+\frac{1}{\sqrt{x^2+y^2+(z-d)^2}}
+-\frac{1}{\sqrt{x^2+y^2+(z+d)^2}}
+\right],\qquad z\gt0.
+```
+
+A partir de este potencial se calculan la fuerza, el trabajo externo y la
+densidad superficial inducida. Se comprueba que la carga total del plano es
+$-q$ y se obtiene el momento dipolar efectivo a grandes distancias.
+
+El segundo ejercicio considera un cilindro conductor neutro en un campo
+uniforme. Las condiciones de frontera seleccionan los coeficientes de la
+solución de Laplace y permiten determinar la carga superficial:
+
+```math
+\sigma(\phi)=2\varepsilon_0E_0\cos\phi.
+```
+
+Las figuras TikZ muestran las líneas de campo y la superposición del campo
+externo con el inducido. La carpeta incluye el PDF, su fuente LaTeX y el
+script Python que genera las visualizaciones en SVG.
+
+---

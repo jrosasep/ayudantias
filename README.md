@@ -20,12 +20,12 @@ Visualización de una solución dependiente del tiempo en geometría esférica (
 **Ondas 2D en disco**  
 Evolución de una solución de la ecuación de ondas sobre un tambor circular mediante funciones de Bessel ([véase el notebook aquí](fisica-matematica-2/onda_2d_tambor_bessel/onda_disco_funcion_rara.ipynb)).
 
-![Ondas 2D en disco](fisica-matematica-2/onda_2d_tambor_bessel/onda-disco-funcion-rara-ani.gif)
-
-**Difusión del calor 2D en un rectángulo**  
-Evolución temporal de una solución de la ecuación del calor en dos dimensiones ([véase el script aquí](fisica-matematica-2/calor_2d_rectangulo/calor_2d_rectangulo.py)).
-
 ![Difusión del calor 2D en un rectángulo](fisica-matematica-2/calor_2d_rectangulo/figuras/calor_2d_evolucion_seno_gaussiana.svg)
+
+**Imágenes y polarización de conductores**  
+Guía de repaso de Electrodinámica I sobre una carga frente a un plano conductor y un cilindro en un campo uniforme ([véase la guía aquí](electrodinamica-1/repaso_imagenes_polarizacion_conductores/repaso_imagenes_polarizacion_conductores.pdf)). Incluye desarrollos, figuras TikZ y [visualizaciones reproducibles en Python](electrodinamica-1/repaso_imagenes_polarizacion_conductores/repaso_imagenes_polarizacion_conductores_visualizacion.py).
+
+![Campo y carga inducida en un cilindro conductor](electrodinamica-1/repaso_imagenes_polarizacion_conductores/figuras/cilindro_uniforme_visualizacion.svg)
 
 ## Agradecimientos
 
