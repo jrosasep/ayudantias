@@ -2,7 +2,7 @@
 
 Esta carpeta reúne los desarrollos de los problemas de Electrodinámica I en
 `.tex`, sus versiones compiladas en PDF y los scripts en Python usados para
-las visualizaciones. Agradecemos a Pablo Solano por facilitarnos los problemas
+las visualizaciones. Agradecimientos a Pablo Solano por facilitar los problemas
 que dieron origen a este material.
 
 ---
@@ -138,8 +138,23 @@ solución de Laplace y permiten determinar la carga superficial:
 \sigma(\phi)=2\varepsilon_0E_0\cos\phi.
 ```
 
-Las figuras TikZ muestran las líneas de campo y la superposición del campo
-externo con el inducido. La carpeta incluye el PDF, su fuente LaTeX y el
-script Python que genera las visualizaciones en SVG.
+
+---
+
+## `desplazamiento_electrico_cascaron_dielectrico/`
+
+Problema de electrostática para una **carga puntual en el centro de un cascarón esférico dieléctrico lineal, homogéneo e isótropo**.
+
+El material ocupa $R_1<r<R_2$; la cavidad y el exterior están en el vacío.
+La Ley de Gauss permite obtener el desplazamiento eléctrico:
+
+```math
+\vec D(r)=\frac{q}{4\pi r^2}\hat r.
+```
+
+Luego se calculan el campo eléctrico, la polarización y las cargas ligadas
+de volumen y superficie. Se comprueba la neutralidad del dieléctrico y se
+estudian los límites $\varepsilon_r\to1$ y $\varepsilon_r\to\infty$,
+comparando este último con un cascarón conductor aislado y neutro.
 
 ---
