@@ -1,0 +1,1137 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-noquoting]{babel}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,calc,babel}
+\usepackage{float}
+\usepackage[hidelinks]{hyperref}
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\abovedisplayskip}{5pt}
+\setlength{\belowdisplayskip}{5pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+\setlength{\jot}{6pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[1]
+\tikzset{
+  >=Stealth,line cap=round,line join=round,
+  every node/.style={font=\small},
+  eje/.style={-{Stealth[length=1.7mm]},thin},
+  vector/.style={-{Stealth[length=2mm]},line width=0.8pt},
+  ayuda/.style={densely dashed,thin},
+  corriente/.style={-{Stealth[length=2mm]},line width=1pt}
+}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\ex}{\hat{\mathbf{x}}}
+\newcommand{\ey}{\hat{\mathbf{y}}}
+\newcommand{\ez}{\hat{\mathbf{z}}}
+\newcommand{\ep}{\hat{\boldsymbol{\phi}}}
+\newcommand{\er}{\hat{\mathbf r}}
+\newcommand{\encabezado}[3]{%
+  {\Large\bfseries #1\par}\vspace{2pt}
+  {\normalsize #2\hfill #3\par}
+  \vspace{6pt}\hrule\vspace{8pt}}
+\newcommand{\ideafisica}[1]{%
+  \par\medskip\noindent\textit{Interpretación física.} #1\par}
+\begin{document}
+\encabezado{Magnetostática: problemas 1 a 5}
+{Electrodinámica I}{P.S., J.A., J.R.}
+
+\section*{Enunciados de los Problemas}
+
+\subsection*{Problema 1: Biot-Savart}
+Considere una espira con forma de polígono regular de $n$ lados que transporta una corriente estacionaria $I$. El polígono se encuentra inscrito en una circunferencia de radio $R$ (es decir, la distancia desde el centro del polígono hasta cualquiera de sus vértices es $R$).
+\begin{enumerate}
+    \item[a)] Utilice la Ley de Biot-Savart para calcular el campo magnético $\mathbf{B}$ exactamente en el centro geométrico del polígono. 
+    \item[b)] Demuestre matemáticamente que, al tomar el límite cuando el número de lados tiende a infinito ($n \to \infty$), el campo magnético obtenido se reduce exactamente a la expresión conocida para el centro de una espira circular de radio $R$.
+\end{enumerate}
+
+\subsection*{Problema 2: Ley de Ampère con Corriente Inhomogénea}
+Un cilindro conductor infinito de radio $R$ transporta una corriente total $I_{tot}$ dirigida a lo largo de su eje (eje $z$). Sin embargo, la densidad de corriente no es uniforme, sino que aumenta proporcionalmente con la distancia al eje, descrita por la expresión $\mathbf{J}(s) = \alpha s \hat{\mathbf{z}}$, donde $\alpha$ es una constante y $s$ es la distancia radial cilíndrica.
+\begin{enumerate}
+    \item[a)] Determine la constante $\alpha$ en función de la corriente total $I_{tot}$ y el radio del cilindro $R$.
+    \item[b)] Utilizando la Ley de Ampère, calcule el campo magnético $\mathbf{B}(s)$ en la región interior del conductor ($s < R$).
+    \item[c)] Calcule el campo magnético $\mathbf{B}(s)$ en la región exterior ($s > R$).
+    \item[d)] Grafique de forma cualitativa la magnitud del campo magnético $|\mathbf{B}|$ en función de la distancia $s$, desde $s=0$ hasta $s=3R$, destacando la continuidad en la frontera $s=R$.
+\end{enumerate}
+
+\subsection*{Problema 3: Ecuaciones de Frontera y Superposición}
+Considere dos láminas planas e infinitas, paralelas al plano $xy$, ubicadas en $z = d$ y $z = -d$. La lámina superior transporta una densidad de corriente superficial uniforme $\mathbf{K}_1 = K_0 \hat{\mathbf{x}}$, mientras que la lámina inferior transporta una corriente opuesta $\mathbf{K}_2 = -K_0 \hat{\mathbf{x}}$.
+\begin{enumerate}
+    \item[a)] Calcule el vector campo magnético $\mathbf{B}$ en todo el espacio (regiones $z > d$, $-d < z < d$, y $z < -d$) utilizando la Ley de Ampère o el principio de superposición.
+    \item[b)] Evalúe analíticamente el salto del campo magnético $\Delta \mathbf{B} = \mathbf{B}_{\text{arriba}} - \mathbf{B}_{\text{abajo}}$ al cruzar exclusivamente la frontera superior en $z = d$. 
+    \item[c)] Compruebe de manera explícita que su resultado del inciso anterior satisface la condición de frontera vectorial general: $\Delta \mathbf{B} = \mu_0 (\mathbf{K} \times \hat{\mathbf{n}})$. Identifique correctamente el vector normal unitario $\hat{\mathbf{n}}$.
+\end{enumerate}
+
+
+\subsection*{Problema 4: Potencial Vectorial Magnético del Solenoide}
+Un solenoide ideal, infinito, de radio $R$, tiene $n$ vueltas por unidad de longitud y transporta una corriente $I$. Se sabe que el campo magnético en su interior es uniforme ($\mathbf{B} = \mu_0 n I \hat{\mathbf{z}}$) y en su exterior es nulo.
+\begin{enumerate}
+    \item[a)] Utilizando la forma integral de $\mathbf{B} = \nabla \times \mathbf{A}$ (mediante el Teorema de Stokes), calcule el potencial vectorial magnético $\mathbf{A}(s, \phi, z)$ en las regiones interior ($s < R$) y exterior ($s > R$). Por simetría, asuma que $\mathbf{A}$ apunta en la dirección $\hat{\boldsymbol{\phi}}$ y solo depende de $s$.
+    \item[b)] Demuestre explícitamente, calculando el rotacional de los vectores $\mathbf{A}$ obtenidos, que se recuperan los campos magnéticos originales en ambas regiones.
+    \item[c)] Compruebe si el potencial vectorial hallado satisface el gauge de Coulomb ($\nabla \cdot \mathbf{A} = 0$).
+\end{enumerate}
+
+\subsection*{Problema 5: Expansión Multipolar (Helmholtz vs. Anti-Helmholtz)}
+Considere un sistema compuesto por dos espiras circulares idénticas de radio $a$, paralelas al plano $xy$. Sus centros están ubicados en el eje $z$ en $z = d/2$ y $z = -d/2$.
+\begin{enumerate}
+    \item[a)] \textbf{Caso A (Corrientes en la misma dirección):} Ambas espiras transportan una corriente $I$ en la dirección azimutal $\hat{\boldsymbol{\phi}}$. Calcule el momento dipolar magnético total $\mathbf{m}$ del sistema y escriba la expresión asintótica para el potencial vectorial $\mathbf{A}(\mathbf{r})$ dominante a grandes distancias ($r \gg a, d$).
+    \item[b)] \textbf{Caso B (Corrientes en direcciones opuestas):} La espira en $z=d/2$ transporta $I$ en la dirección $\hat{\boldsymbol{\phi}}$, pero la espira en $z=-d/2$ transporta $I$ en $-\hat{\boldsymbol{\phi}}$. Demuestre analíticamente que el momento dipolar magnético $\mathbf{m}$ del sistema es idénticamente cero.
+    \item[c)] Concluya físicamente con qué dependencia radial ($1/r^n$) decaerá el potencial vectorial $\mathbf{A}$ y el campo magnético $\mathbf{B}$ dominante a largas distancias para el Caso B.
+\end{enumerate}
+
+\clearpage
+\section*{Soluciones}
+
+\subsection*{Solución Problema 1: Polígono de $n$ lados}
+
+\paragraph{a) Campo en el centro.}
+Tomamos $n\in\mathbb N$, con $n\geq3$, y orientamos la corriente
+en sentido antihorario al mirar desde $+z$. Así, las contribuciones
+de los lados apuntan en $+\ez$. Si invertimos la corriente, se
+invierte el campo.
+
+Primero calculamos la contribución de un segmento rectilíneo de
+longitud $L$. Ubicamos el origen en el centro del polígono y el
+segmento en $y=-r$, con corriente en $+x$. Aquí $r$ es la distancia
+perpendicular al lado, no el radio $R$ de la circunferencia.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{scope}
+    \node at (0,2.6) {Geometría del polígono};
+    \draw[ayuda] (0,0) circle (2);
+    \draw[thick] (0:2)--(60:2)--(120:2)--(180:2)--(240:2)--(300:2)--cycle;
+    \draw[vector] (0,0)--(300:2) node[pos=0.67,right=2pt] {$R$};
+    \draw[thin] (0,0)--(0,{-sqrt(3)});
+    \node[left] at (0,-0.95) {$r$};
+    \draw[thin] (0,{-sqrt(3)+0.18})--(0.18,{-sqrt(3)+0.18})--(0.18,{-sqrt(3)});
+    \draw[thin] (0,-0.65) arc[start angle=-90,end angle=-60,radius=0.65];
+    \node at (-74:0.98) {$\pi/n$};
+    \draw[corriente] (-0.65,{-sqrt(3)})--(0.65,{-sqrt(3)})
+      node[midway,below=4pt] {$I$};
+    \fill (0,0) circle (1.5pt);
+    \node[above left] at (0,0) {$O$};
+    \node at (0,0.65) {$\mathbf B_n\parallel+\ez$};
+  \end{scope}
+  \begin{scope}[xshift=7.1cm]
+    \node at (0,2.6) {Contribución de un lado};
+    \draw[eje] (-0.35,0)--(2.7,0) node[right] {$x$};
+    \draw[eje] (0,-0.3)--(0,1.35) node[above] {$y$};
+    \draw[thick] (-2.2,-1.5)--(2.2,-1.5);
+    \node[below=4pt] at (-.72,-1.5) {$\mathcal C_1$};
+    \node[below] at (-1.65,-1.5) {$y=-r$};
+    \coordinate (P) at ({1.5*tan(30)},-1.5);
+    \draw[vector] (P)--(0,0) node[pos=0.55,right=3pt] {$\mathbf u$};
+    \draw[corriente] (P)--++(0.7,0) node[midway,below=4pt] {$\dd\mathbf l$};
+    \draw[ayuda] (0,0)--(0,-1.5);
+    \draw[thin] (-0.24,0)--(-0.24,-1.5);
+    \draw[thin] (-0.34,0)--(-0.14,0);
+    \draw[thin] (-0.34,-1.5)--(-0.14,-1.5);
+    \node[left] at (-0.24,-0.75) {$r$};
+    \draw[thin] (0,-0.60) arc[start angle=-90,end angle=-60,radius=0.60];
+    \node at (-74:0.92) {$\theta$};
+    \fill (P) circle (1.5pt);
+    \node[above right=2pt] at (P) {$(x,-r)$};
+    \fill (0,0) circle (1.5pt);
+    \node[above left] at (0,0) {$O$};
+    \node[above left=2pt] at (-2.2,-1.5) {$-L/2$};
+    \node[above right=2pt] at (2.2,-1.5) {$L/2$};
+  \end{scope}
+\end{tikzpicture}
+\caption{A la izquierda se ilustra el caso $n=6$; el cálculo vale para
+cualquier $n\geq3$. A la derecha, $\mathbf u$ va desde el elemento de
+corriente al punto de observación $O$.}
+\label{fig:poligono}
+\end{figure}
+
+La ley de Biot-Savart da el aporte de cada elemento de corriente.
+Integramos ese aporte sobre el lado $\mathcal C_1$:
+\begin{equation}
+  \dd\mathbf B
+    =\frac{\mu_0 I}{4\pi}
+      \frac{\dd\mathbf l\times\hat{\mathbf u}}{u^2},
+  \qquad \mathbf B_1=\int_{\mathcal C_1}\dd\mathbf B.
+  \label{p1:biot}
+\end{equation}
+Con la orientación de la figura~\ref{fig:poligono},
+\[
+  \dd\mathbf l=\dd x\,\ex,\qquad
+  \mathbf u=-x\ex+r\ey,\qquad
+  u=\sqrt{x^2+r^2}.
+\]
+El producto vectorial se calcula como
+\begin{align*}
+  \dd\mathbf l\times\hat{\mathbf u}
+    &=\dd x\,\ex\times\frac{-x\ex+r\ey}{u}\\
+    &=\frac{\dd x}{u}
+      \Bigl[-x\underbrace{(\ex\times\ex)}_{\mathbf0}
+             +r\underbrace{(\ex\times\ey)}_{\ez}\Bigr]\\
+    &=\frac{r\dd x}{u}\,\ez.
+\end{align*}
+
+Parametrizamos el segmento mediante el ángulo $\theta$ medido
+desde la perpendicular:
+\begin{equation}
+  x=r\tan\theta,\qquad
+  \dd x=r\sec^2\theta\dd\theta,\qquad
+  u=\frac{r}{\cos\theta}.
+  \label{p1:cambio}
+\end{equation}
+Los extremos del lado corresponden a $\theta=\pm\theta_0$.
+Además, $r/u=\cos\theta$, por lo que el producto anterior es
+$\cos\theta\dd x\,\ez$.
+
+Sustituyendo \eqref{p1:cambio} en \eqref{p1:biot} e integrando
+sobre un lado,
+\begin{align*}
+  \mathbf B_1
+    &=\frac{\mu_0 I}{4\pi}
+      \int_{-\theta_0}^{\theta_0}
+      \frac{(r\sec^2\theta)\cos\theta}
+           {r^2/\cos^2\theta}\dd\theta\,\ez\\
+    &=\frac{\mu_0 I}{4\pi r}
+      \int_{-\theta_0}^{\theta_0}\cos\theta\dd\theta\,\ez\\
+    &=\frac{\mu_0 I}{4\pi r}
+      \Bigl[\sin\theta\Bigr]_{-\theta_0}^{\theta_0}\ez\\
+    &=\frac{\mu_0 I}{4\pi r}
+      \Bigl[\sin\theta_0-\sin(-\theta_0)\Bigr]\ez\\
+    &=\frac{\mu_0 I}{4\pi r}(2\sin\theta_0)\ez.
+\end{align*}
+Por tanto,
+\begin{equation}
+  \mathbf B_1=\frac{\mu_0 I}{2\pi r}\sin\theta_0\,\ez.
+  \label{p1:lado}
+\end{equation}
+
+Ahora conectamos este resultado con la geometría del polígono.
+El triángulo rectángulo de la figura~\ref{fig:poligono} tiene
+hipotenusa $R$ y ángulo $\theta_0=\pi/n$, de modo que
+\begin{equation}
+  \theta_0=\frac{\pi}{n},
+  \qquad
+  r=R\cos\left(\frac{\pi}{n}\right).
+  \label{p1:geometria}
+\end{equation}
+Al sustituir \eqref{p1:geometria} en \eqref{p1:lado},
+\begin{align*}
+  \mathbf B_1
+    &=\frac{\mu_0 I}{2\pi R\cos(\pi/n)}
+      \sin\left(\frac{\pi}{n}\right)\ez\\
+    &=\frac{\mu_0 I}{2\pi R}
+      \tan\left(\frac{\pi}{n}\right)\ez.
+\end{align*}
+Los $n$ lados aportan la misma magnitud y el mismo sentido.
+Al sumar,
+\begin{equation}
+  \boxed{
+    \mathbf B_n=n\mathbf B_1
+      =\frac{\mu_0 nI}{2\pi R}
+       \tan\left(\frac{\pi}{n}\right)\ez.
+  }
+  \label{p1:poligono}
+\end{equation}
+
+\paragraph{b) Límite circular ($n\to\infty$).}
+Mantenemos $R$ e $I$ constantes y hacemos el cambio
+$\xi=\pi/n$. Cuando $n\to\infty$, $\xi\to0^+$ y $n=\pi/\xi$.
+Así, \eqref{p1:poligono} se escribe como
+\begin{align*}
+  \mathbf B_n
+    &=\frac{\mu_0 I}{2\pi R}
+      \frac{\pi}{\xi}\tan\xi\,\ez\\
+    &=\frac{\mu_0 I}{2R}
+      \frac{\tan\xi}{\xi}\,\ez.
+\end{align*}
+El límite trigonométrico es
+\[
+  \lim_{\xi\to0^+}\frac{\tan\xi}{\xi}
+    =\left(\lim_{\xi\to0^+}\frac{\sin\xi}{\xi}\right)
+      \left(\lim_{\xi\to0^+}\frac{1}{\cos\xi}\right)
+    =1\cdot1=1.
+\]
+Por tanto,
+\[
+  \boxed{
+    \lim_{n\to\infty}\mathbf B_n
+      =\frac{\mu_0 I}{2R}\,\ez.
+  }
+\]
+Al aumentar $n$, los lados se acercan a la circunferencia de radio
+$R$ y recuperamos el campo en el centro de una espira circular.
+
+\clearpage
+\subsection*{Solución Problema 2: Ampère en Cilindro Inhomogéneo}
+
+\paragraph{a) Determinación de $\alpha$.}
+La expresión general para la corriente que atraviesa una superficie es
+\begin{equation}
+  I=\int_S\mathbf J\cdot\dd\mathbf a.
+  \label{mag:corriente}
+\end{equation}
+En este problema, elegimos la sección transversal del cilindro con
+normal $+\ez$. Los elementos que sustituiremos en
+\eqref{mag:corriente} son
+\[
+  \mathbf J(s')=\alpha s'\ez,
+  \qquad
+  \dd\mathbf a=s'\dd s'\dd\phi\,\ez.
+\]
+Ambos vectores son paralelos, como muestra la
+figura~\ref{fig:elemento_corriente}. Usamos $s'$ para el radio de
+integración, reservando $s$ para la curva amperiana.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[line join=round]
+  \begin{scope}
+    \node at (0,2.65) {Sección transversal $S$};
+    \begin{scope}[x={(0.90cm,-0.30cm)},
+                  y={(0.55cm,0.48cm)},z={(0cm,1cm)}]
+      \path[draw,thick,fill=black!5]
+        plot[domain=0:360,samples=101,variable=\t]
+          ({1.75*cos(\t)},{1.75*sin(\t)},0) -- cycle;
+      % Pequeña celda de área en el plano perpendicular a la corriente.
+      \path[draw,fill=black!30]
+        plot[domain=25:47,samples=16,variable=\t]
+          ({1.25*cos(\t)},{1.25*sin(\t)},0)
+        -- plot[domain=47:25,samples=16,variable=\t]
+          ({1.02*cos(\t)},{1.02*sin(\t)},0) -- cycle;
+      \coordinate (Q) at ({1.135*cos(36)},{1.135*sin(36)},0);
+      \draw[vector] (0,0,0)--(1.75,0,0)
+        node[pos=0.62,below=2pt] {$R$};
+      \draw[eje] (0,0,0)--(0,0,1.98) node[above] {$z$};
+    \end{scope}
+    \draw[vector] ($(Q)+(-0.12,0)$)--++(0,0.77)
+      node[above left=1pt] {$\dd\mathbf a$};
+    \draw[corriente] ($(Q)+(0.13,0)$)--++(0,1.14)
+      node[above right=1pt] {$\mathbf J$};
+    \fill (0,0) circle (1.4pt);
+    \node[below left] at (0,0) {$O$};
+    \node at (0,-1.55) {$\hat{\mathbf n}=\ez$};
+  \end{scope}
+  \begin{scope}[xshift=6.3cm]
+    \node at (0,2.65) {Elemento de área visto desde $+z$};
+    \fill[black!10,even odd rule]
+      (0,0) circle (1.25) (0,0) circle (1.02);
+    \draw[thick] (0,0) circle (1.75);
+    \draw[ayuda] (0,0) circle (1.02);
+    \draw[ayuda] (0,0) circle (1.25);
+    \path[fill=black!35,draw]
+      (25:1.02)--(25:1.25)
+      arc[start angle=25,end angle=47,radius=1.25]
+      --(47:1.02)
+      arc[start angle=47,end angle=25,radius=1.02]--cycle;
+    \draw[ayuda] (0,0)--(25:1.47);
+    \draw[ayuda] (0,0)--(47:1.47);
+    \draw[thin] (25:0.48)
+      arc[start angle=25,end angle=47,radius=0.48];
+    \node at (36:0.72) {$\dd\phi$};
+    \draw[vector] (0,0)--(-105:1.02)
+      node[pos=0.65,left] {$s'$};
+    \draw[thin] (-55:1.02)--(-55:1.25);
+    \draw[thin] (-55:1.13)--(1.72,-1.23)
+      node[right] {$\dd s'$};
+    \draw[thin] (36:1.25)--(1.92,1.05)
+      node[right] {$s'\dd\phi$};
+    \fill (0,0) circle (1.4pt);
+    \node[above left] at (0,0) {$O$};
+    \node at (0,-2.05) {$\dd a=s'\dd s'\dd\phi$};
+  \end{scope}
+\end{tikzpicture}
+\caption{La densidad de corriente atraviesa el elemento de área
+en la dirección de su normal. A la derecha, la celda tiene lados
+$\dd s'$ y $s'\dd\phi$; al recorrer todo el ángulo forma un anillo
+de área $2\pi s'\dd s'$.}
+\label{fig:elemento_corriente}
+\end{figure}
+
+Sustituyendo en \eqref{mag:corriente} e integrando toda la sección,
+\begin{align*}
+  I_{\mathrm{tot}}
+    &=\int_0^{2\pi}\int_0^R
+      (\alpha s'\ez)\cdot(s'\dd s'\dd\phi\,\ez)\\
+    &=2\pi\alpha\int_0^R s'^2\dd s'
+      \qquad(\ez\cdot\ez=1)\\
+    &=2\pi\alpha\Biggl[\frac{s'^3}{3}\Biggr]_0^R
+      =\frac{2\pi\alpha R^3}{3}.
+\end{align*}
+Despejando,
+\begin{equation}
+  \boxed{\alpha=\frac{3I_{\mathrm{tot}}}{2\pi R^3}.}
+  \label{p2:alpha}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{scope}
+    \draw[fill=black!5] (0,0) circle (1.55);
+    \fill[black!15] (0,0) circle (0.95);
+    \draw[ayuda] (0,0) circle (0.95);
+    \draw[ayuda] (0,0) circle (2.05);
+    \draw[vector] (2.05,0)--(2.05,0.72) node[above] {$\mathbf B$};
+    \draw[vector] (-65:0.95) arc[start angle=-65,end angle=-20,radius=0.95];
+    \draw[vector] (120:2.05)
+      arc[start angle=120,end angle=155,radius=2.05]
+      node[midway,above left=2pt] {$\dd\mathbf l$};
+    \draw[vector] (0,0)--(-40:1.55) node[pos=0.72,below left] {$R$};
+    \node[font=\normalsize] at (135:0.65) {$\odot$};
+    \node[font=\normalsize] at (35:1.15) {$\odot$};
+    \node[font=\normalsize] at (210:1.1) {$\odot$};
+    \fill (0,0) circle (1.1pt);
+    \node[above right=1pt] at (0,0) {$O$};
+    \node at (-0.38,-0.57) {$S_s$};
+    \draw[thin] (0,0)--(-100:0.95)
+      node[pos=0.68,right=1pt] {$s$};
+    \node at (0,2.38) {$\mathcal C_{\mathrm{ext}}$};
+    \node[anchor=east] at (-0.70,0.15) {$\mathcal C_s$};
+    \node at (0,-2.65) {$\odot:\ \mathbf J\text{ en }+z$};
+  \end{scope}
+  \begin{scope}[xshift=5.4cm,yshift=-1.4cm,x=1.55cm,y=1.85cm]
+    \draw[eje] (0,0)--(3.35,0) node[right] {$s/R$};
+    \draw[eje] (0,0)--(0,1.48) node[above] {$B/B_R$};
+    \draw[ayuda] (1,0)--(1,1)--(0,1);
+    \draw[thick,domain=0:1,samples=45] plot (\x,{\x*\x});
+    \draw[thick,domain=1:3,samples=65] plot (\x,{1/\x});
+    \fill (1,1) circle (1.5pt);
+    \foreach \x in {1,2,3} {
+      \draw (\x,0.035)--(\x,-0.035) node[below] {$\x$};
+    }
+    \node[left] at (0,0) {$0$};
+    \node[left] at (0,1) {$1$};
+    \node[anchor=east] at (0.86,0.57) {$s^2$};
+    \node[above] at (2.3,0.49) {$1/s$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Corte transversal y dos elecciones de curva amperiana.
+El disco más oscuro $S_s$ es atravesado por $I_{\mathrm{enc}}(s)$;
+$\mathbf B$ y $\dd\mathbf l$ son tangentes a las circunferencias.
+Los símbolos $\odot$ indican corriente saliendo del plano.
+A la derecha se representa el campo normalizado por
+$B_R=B(R)$: crece dentro y decrece fuera, sin saltar en $s=R$.}
+\label{fig:cilindro}
+\end{figure}
+
+\paragraph{b) Campo interior ($s<R$).}
+Por simetría cilíndrica y la regla de la mano derecha,
+$\mathbf B=B_\phi(s)\ep$. Elegimos una circunferencia de radio
+$s$, como en la figura~\ref{fig:cilindro}. Partimos de la Ley de Ampère,
+\begin{equation}
+  \oint_{\mathcal C}\mathbf B\cdot\dd\mathbf l
+    =\mu_0I_{\mathrm{enc}}.
+  \label{mag:ampere}
+\end{equation}
+En esta curva, $\dd\mathbf l=s\dd\phi\,\ep$ y $B_\phi(s)$ es
+constante. Al sustituir estos elementos en \eqref{mag:ampere},
+\begin{equation}
+  \int_0^{2\pi}(B_\phi(s)\ep)\cdot(s\dd\phi\,\ep)
+    =2\pi sB_\phi(s)=\mu_0I_{\mathrm{enc}}(s).
+  \label{p2:ampere}
+\end{equation}
+Para $0<s<R$, la corriente encerrada se obtiene integrando solo
+hasta $s$. Usando \eqref{p2:alpha},
+\begin{equation}
+  I_{\mathrm{enc}}(s)
+    =2\pi\alpha\int_0^s s'^2\dd s'
+    =\frac{2\pi\alpha s^3}{3}
+    =I_{\mathrm{tot}}\left(\frac{s}{R}\right)^3.
+  \label{p2:Ienc}
+\end{equation}
+Sustituyendo \eqref{p2:Ienc} en \eqref{p2:ampere} y despejando,
+\begin{align*}
+  B_\phi(s)
+    &=\frac{\mu_0I_{\mathrm{enc}}(s)}{2\pi s}
+      =\frac{\mu_0I_{\mathrm{tot}}}{2\pi s}\frac{s^3}{R^3}\\
+    &=\frac{\mu_0I_{\mathrm{tot}}}{2\pi R^3}s^2.
+\end{align*}
+
+\paragraph{c) Campo exterior ($s>R$).}
+La curva encierra toda la sección del conductor, así que
+$I_{\mathrm{enc}}=I_{\mathrm{tot}}$. Usando \eqref{p2:ampere},
+\[
+  2\pi sB_\phi(s)=\mu_0I_{\mathrm{tot}}
+  \quad\Longrightarrow\quad
+  B_\phi(s)=\frac{\mu_0I_{\mathrm{tot}}}{2\pi s}.
+\]
+Reuniendo las dos regiones,
+\begin{equation}
+  \boxed{
+    \mathbf B(s)=
+    \begin{cases}
+      \displaystyle
+      \frac{\mu_0I_{\mathrm{tot}}}{2\pi R^3}s^2\ep,
+        &0<s<R,\\[7pt]
+      \displaystyle
+      \frac{\mu_0I_{\mathrm{tot}}}{2\pi s}\ep,
+        &s>R.
+    \end{cases}
+  }
+  \label{p2:B}
+\end{equation}
+En el eje, $\mathbf B(0)=\mathbf0$.
+
+\paragraph{d) Gráfico cualitativo y continuidad.}
+Al evaluar \eqref{p2:B} a ambos lados de $R$, obtenemos
+\[
+  B(R^-)
+    =\frac{\mu_0I_{\mathrm{tot}}}{2\pi R^3}R^2
+    =\frac{\mu_0I_{\mathrm{tot}}}{2\pi R}
+    =B(R^+).
+\]
+Definimos $B_R:=B(R)=\mu_0I_{\mathrm{tot}}/(2\pi R)$.
+Para trazar el gráfico de la figura~\ref{fig:cilindro} hasta $3R$,
+usamos
+\[
+  \frac{B(s)}{B_R}
+    =\begin{cases}
+       (s/R)^2,&0\leq s/R\leq1,\\[3pt]
+       R/s,&1\leq s/R\leq3.
+     \end{cases}
+\]
+\ideafisica{Dentro del conductor, el campo depende de cómo se
+distribuye la corriente y crece como $s^2$ desde cero. Fuera,
+depende de la corriente total y decrece como $1/s$. Alcanza su
+máximo en $R$ y es continuo allí, aunque su pendiente cambia.}
+
+\par\bigskip\hrule\bigskip
+\subsection*{Solución Problema 3: Superposición y Fronteras}
+
+\paragraph{a) Campo de una lámina individual y superposición.}
+Primero resolvemos una sola lámina en $z=0$, con
+$\mathbf K=K_0\ex$, y después sumaremos los campos de las dos
+láminas del enunciado. Podemos pensar la lámina como muchos alambres
+paralelos al eje $x$: sus contribuciones normales a la lámina se
+cancelan por pares y queda un campo en la dirección $y$.
+Con el pulgar hacia $+x$, la regla de la mano derecha da
+\textbf{$-\ey$ arriba y $+\ey$ abajo}.
+Por simetría traslacional en $x$ e $y$, \textbf{el campo solo depende
+de $z$}, y a alturas opuestas $z=\pm h$ tiene igual magnitud $B$.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.17,every node/.append style={font=\normalsize}]
+  \fill[black!8] (-2.40,-1.30) rectangle (2.40,1.30);
+  \draw[eje] (-3.85,-1.65)--(-3.85,1.72) node[above] {$z$};
+  \draw[eje] (-3.85,-1.65)--(-3.32,-1.65) node[right] {$y$};
+  \draw[line width=.85pt] (-3.22,0)--(3.22,0);
+  \foreach \x in {-2.95,-1.60,0,1.60,2.95}{
+    \node[fill=white,inner sep=1pt] at (\x,0) {$\odot$};
+  }
+  \node[right=3pt] at (3.23,0) {$\mathbf K=K_0\ex$};
+
+  \draw[ayuda] (-2.40,-1.30) rectangle (2.40,1.30);
+  \draw[vector] (-2.40,.98)--(-2.40,.38)
+    node[midway,left=3pt] {$\mathcal C_1$};
+  \draw[vector] (.75,1.30)--(-.75,1.30)
+    node[midway,above=2pt] {$\mathcal C_2$};
+  \draw[vector] (2.40,-.98)--(2.40,-.38)
+    node[midway,right=3pt] {$\mathcal C_3$};
+  \draw[vector] (-.75,-1.30)--(.75,-1.30)
+    node[midway,below=2pt] {$\mathcal C_4$};
+
+  \draw[vector] (.85,.76)--(-.85,.76)
+    node[midway,below=2pt] {$\mathbf B=-B\ey$};
+  \draw[vector] (-.85,-.76)--(.85,-.76)
+    node[midway,above=2pt] {$\mathbf B=+B\ey$};
+  \node[anchor=west] at (-3.20,1.48) {$\hat{\mathbf n}_S=\ex$};
+  \node[right=3pt] at (2.40,1.30) {$z=h$};
+  \node[right=3pt] at (2.40,-1.30) {$z=-h$};
+  \draw[thin] (-2.40,-1.60)--(-2.40,-1.87)
+    (2.40,-1.60)--(2.40,-1.87);
+  \draw[thin,<->] (-2.40,-1.77)--node[below=2pt] {$L$} (2.40,-1.77);
+\end{tikzpicture}
+\caption{Corte $yz$ de una lámina con corriente hacia $+x$,
+saliendo del plano. El rectángulo es la curva amperiana; su
+recorrido es antihorario y su superficie tiene normal $+\ex$.
+Las flechas del borde indican el sentido de cada tramo $\mathcal C_i$.}
+\label{fig:lamina}
+\end{figure}
+
+Elegimos el rectángulo de la figura~\ref{fig:lamina}, de anchura
+$L$, con lados horizontales en $z=\pm h$. Separamos en cuatro tramos
+la circulación de la ley de Ampère \eqref{mag:ampere}. En cada tramo,
+$dl$ es la longitud que avanzamos en el sentido de su flecha.
+\begin{align*}
+  \int_{\mathcal C_1}\mathbf B\cdot\dd\mathbf l
+    &=\int_{\mathcal C_1}\mathbf B(z)\cdot(-\ez)\dd l=0,\\
+  \int_{\mathcal C_2}\mathbf B\cdot\dd\mathbf l
+    &=\int_0^L B\underbrace{(-\ey)\cdot(-\ey)}_{1}\dd l=BL,\\
+  \int_{\mathcal C_3}\mathbf B\cdot\dd\mathbf l
+    &=\int_{\mathcal C_3}\mathbf B(z)\cdot\ez\dd l=0,\\
+  \int_{\mathcal C_4}\mathbf B\cdot\dd\mathbf l
+    &=\int_0^L B\underbrace{\ey\cdot\ey}_{1}\dd l=BL .
+\end{align*}
+El campo es perpendicular al recorrido en $\mathcal C_1$ y
+$\mathcal C_3$. Por tanto,
+\[
+  \oint_{\mathcal C}\mathbf B\cdot\dd\mathbf l
+  =\sum_{i=1}^{4}\int_{\mathcal C_i}\mathbf B\cdot\dd\mathbf l
+  =0+BL+0+BL=2BL .
+\]
+Aquí $K_0$ es corriente por unidad de anchura, medida en $\mathrm{A/m}$.
+La corriente atraviesa el rectángulo solo donde este corta la lámina,
+en un tramo de longitud $L$. Por eso,
+\[
+  I_{\mathrm{enc}}=\int_0^L K_0\dd l=K_0L.
+\]
+Sustituyendo ambas expresiones en \eqref{mag:ampere},
+\[
+  2BL=\mu_0K_0L
+  \quad\Longrightarrow\quad
+  B=\frac{\mu_0K_0}{2}.
+\]
+Como $h$ es arbitrario y el resultado no depende de él,
+el campo es uniforme en cada semiespacio. Para esta lámina,
+\begin{equation}
+  \mathbf B_{\text{lámina}}(z)=
+  \begin{cases}
+    \displaystyle-\frac{\mu_0K_0}{2}\ey,&z>0,\\[5pt]
+    \displaystyle+\frac{\mu_0K_0}{2}\ey,&z<0.
+  \end{cases}
+  \label{p3:lamina}
+\end{equation}
+
+Para aplicar \eqref{p3:lamina} a cada lámina, escribimos
+$B_0=\mu_0K_0/2$ para la magnitud del campo de una lámina.
+La superior, en $z=d$, produce $\mathbf B_1=-B_0\ey$ por
+encima y $\mathbf B_1=+B_0\ey$ por debajo. En la inferior,
+en $z=-d$, la corriente va en sentido opuesto. Por eso
+$\mathbf B_2=+B_0\ey$ por encima y $\mathbf B_2=-B_0\ey$
+por debajo.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1.10,every node/.append style={font=\normalsize},
+  plano/.style={line width=.72pt},
+  referencia/.style={black!62,densely dashed,line width=.45pt},
+  campo/.style={vector,line width=.85pt},
+  giro/.style={font=\small,inner sep=.8pt,fill=white}
+]
+  \fill[black!10] (6.65,-1.0) rectangle (9.35,1.0);
+  \draw[eje] (-2.20,-1.84)--(-2.20,2.05) node[above] {$z$};
+  \draw[eje] (-2.20,-1.84)--(-1.58,-1.84) node[right] {$y$};
+  \draw[thin] (-2.29,1)--(-2.11,1) (-2.29,-1)--(-2.11,-1);
+  \node[left=3pt] at (-2.20,1) {$d$};
+  \node[left=3pt] at (-2.20,-1) {$-d$};
+
+  \begin{scope}
+    \node at (0,2.03) {(a) Campo $\mathbf B_1$};
+    \draw[plano] (-1.35,1)--(1.35,1);
+    \draw[referencia] (-1.35,-1)--(1.35,-1);
+    \foreach \x in {-.91,0,.91}
+      \node[giro] at (\x,1) {$\odot$};
+    \draw[campo] (.56,1.51)--(-.56,1.51);
+    \draw[campo] (-.56,0)--(.56,0);
+    \draw[campo] (-.56,-1.51)--(.56,-1.51);
+  \end{scope}
+
+  \begin{scope}[xshift=4cm]
+    \node at (0,2.03) {(b) Campo $\mathbf B_2$};
+    \draw[referencia] (-1.35,1)--(1.35,1);
+    \draw[plano] (-1.35,-1)--(1.35,-1);
+    \foreach \x in {-.91,0,.91}
+      \node[giro] at (\x,-1) {$\otimes$};
+    \draw[campo] (-.56,1.51)--(.56,1.51);
+    \draw[campo] (-.56,0)--(.56,0);
+    \draw[campo] (.56,-1.51)--(-.56,-1.51);
+  \end{scope}
+
+  \begin{scope}[xshift=8cm]
+    \node at (0,2.03) {(c) Campo $\mathbf B_1+\mathbf B_2$};
+    \draw[plano] (-1.35,1)--(1.35,1) (-1.35,-1)--(1.35,-1);
+    \foreach \x in {-.91,0,.91}{
+      \node[giro] at (\x,1) {$\odot$};
+      \node[giro] at (\x,-1) {$\otimes$};
+    }
+    \node at (0,1.51) {$\mathbf 0$};
+    \node at (0,-1.51) {$\mathbf 0$};
+    \draw[campo] (-1.12,0)--(1.12,0);
+    \draw[vector] (1.35,1)--(1.35,1.56)
+        node[right=1pt] {$\hat{\mathbf n}=\ez$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Corte $yz$ de las dos láminas. Los puntos indican
+corriente hacia $+x$ y las cruces, hacia $-x$. En (a) y (b)
+se muestra el campo de cada lámina y se marca con línea
+discontinua la posición de la otra. En (c) se suman los campos
+de las dos láminas en cada región.}
+\label{fig:doslaminas}
+\end{figure}
+
+Por superposición,
+\begin{equation}
+  \mathbf B(z)=\mathbf B_1(z)+\mathbf B_2(z).
+  \label{p3:superposicion}
+\end{equation}
+Sustituimos en \eqref{p3:superposicion} los campos que se ven
+en la figura~\ref{fig:doslaminas},
+\begin{align*}
+  z>d:\quad
+  \mathbf B(z)&=(-B_0\ey)+(+B_0\ey)=\mathbf 0,\\[3pt]
+  -d<z<d:\quad
+  \mathbf B(z)&=(+B_0\ey)+(+B_0\ey)=\mu_0 K_0\ey,\\[3pt]
+  z<-d:\quad
+  \mathbf B(z)&=(+B_0\ey)+(-B_0\ey)=\mathbf 0.
+\end{align*}
+Así, el campo neto queda
+\begin{equation}
+  \boxed{
+    \mathbf B(z)=
+    \begin{cases}
+      \mathbf0,&z>d,\\[3pt]
+      \mu_0K_0\ey,&-d<z<d,\\[3pt]
+      \mathbf0,&z<-d.
+    \end{cases}
+  }
+  \label{p3:Btotal}
+\end{equation}
+
+\paragraph{b) Salto en $z=d$.}
+El salto compara el campo a ambos lados de la \emph{misma} lámina
+superior. Justo debajo de ella seguimos en la región intermedia.
+De \eqref{p3:Btotal},
+\[
+  \mathbf B(d^+)=\mathbf0,
+  \qquad \mathbf B(d^-)=\mu_0K_0\ey.
+\]
+Sustituyendo en la definición del salto,
+\begin{equation}
+  \Delta\mathbf B
+    =\mathbf B(d^+)-\mathbf B(d^-)
+    =\mathbf0-\mu_0K_0\ey
+    =-\mu_0K_0\ey.
+  \label{p3:salto}
+\end{equation}
+
+\paragraph{c) Condición de frontera general.}
+Partimos de $\Delta\mathbf B=\mu_0(\mathbf K\times\hat{\mathbf n})$.
+Como definimos el salto de abajo hacia arriba, elegimos
+$\hat{\mathbf n}=\ez$, como en la figura~\ref{fig:doslaminas}.
+Esta es la normal de la \emph{lámina} en el plano $xy$; la normal
+$\hat{\mathbf n}_S=\ex$ de antes correspondía al \emph{rectángulo}
+en el plano $yz$.
+
+En esta frontera usamos $\mathbf K_1=K_0\ex$. La lámina inferior
+no se cruza y su campo es el mismo justo arriba y justo abajo de
+$z=d$, por lo que su contribución se cancela en el salto.
+Sustituyendo en la condición del enunciado,
+\[
+  \mu_0(\mathbf K_1\times\hat{\mathbf n})
+    =\mu_0K_0(\ex\times\ez)
+    =-\mu_0K_0\ey
+    =\Delta\mathbf B,
+\]
+que coincide con \eqref{p3:salto}.
+\ideafisica{Entre las láminas, los campos tienen el mismo sentido
+y se suman; fuera, se cancelan. Al cruzar la lámina superior,
+la corriente superficial produce el salto de la componente
+tangencial. La componente normal es cero a ambos lados.}
+
+
+\clearpage
+\subsection*{Solución Problema 4: Potencial Vectorial de Solenoide}
+
+\paragraph{a) Cálculo de $\mathbf A$ mediante Stokes.}
+Escribimos $B_0=\mu_0 nI$: el campo es $B_0\ez$ dentro del
+solenoide y cero fuera. Como indica el enunciado, buscamos
+$\mathbf A=A_\phi(s)\ep$, regular en el eje.
+Tomamos una circunferencia $\mathcal C_s$ de radio $s$, recorrida
+en sentido antihorario al mirar desde $+z$, y el disco $S_s$
+que limita, con normal $+\ez$. El Teorema de Stokes da
+\begin{equation}
+  \oint_{\mathcal C_s}\mathbf A\cdot\dd\mathbf l
+    =\int_{S_s}(\nabla\times\mathbf A)\cdot\dd\mathbf a
+    =\int_{S_s}\mathbf B\cdot\dd\mathbf a
+    =\Phi_B(s).
+  \label{p4:stokes}
+\end{equation}
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \begin{scope}
+    \node at (0,2.65) {Curva interior: $s<R$};
+    \draw[fill=black!4] (0,0) circle (1.35);
+    \fill[black!16] (0,0) circle (1.03);
+    \draw[ayuda] (0,0) circle (1.03);
+    \node at (-1.62,-.33) {$\mathcal C_s$};
+    \draw[vector] (80:1.03)
+      arc[start angle=80,end angle=110,radius=1.03];
+    \node at (95:1.72) {$\dd\mathbf l$};
+    \draw[vector] (1.03,0)--(1.03,0.72)
+      node[above] {$\mathbf A$};
+    \draw[vector] (0,0)--(-135:1.35)
+      node[pos=0.70,below right] {$R$};
+    \draw[thin] (0,0)--(-40:1.03)
+      node[pos=0.67,above right] {$s$};
+    \node[font=\normalsize] at (0,0.18) {$\odot$};
+    \node at (0,0.55) {$\mathbf B=B_0\ez$};
+    \node at (0,-2.48) {$\Phi_B=B_0\pi s^2$};
+  \end{scope}
+  \begin{scope}[xshift=7.3cm]
+    \node at (0,2.65) {Curva exterior: $s>R$};
+    \draw[fill=black!16] (0,0) circle (1.35);
+    \draw[ayuda] (0,0) circle (2.03);
+    \node at (-2.43,-.43) {$\mathcal C_s$};
+    \draw[vector] (120:2.03)
+      arc[start angle=120,end angle=145,radius=2.03];
+    \node at (130:2.35) {$\dd\mathbf l$};
+    \draw[vector] (2.03,0)--(2.03,0.72)
+      node[above] {$\mathbf A$};
+    \draw[vector] (0,0)--(-135:1.35)
+      node[pos=0.70,below right] {$R$};
+    \draw[thin] (0,0)--(-40:2.03)
+      node[pos=0.80,above right] {$s$};
+    \node[font=\normalsize] at (0,0.18) {$\odot$};
+    \node at (0,0.68) {$\mathbf B=B_0\ez$};
+    \node at (0,1.70) {$\mathbf B=\mathbf0$};
+    \node at (0,-2.48) {$\Phi_B=B_0\pi R^2$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Cortes $xy$ del solenoide. Las curvas discontinuas son los
+recorridos de Stokes y la zona más oscura indica dónde contribuye
+$\mathbf B$ al flujo. $\mathbf A$ y $\dd\mathbf l$ son tangentes;
+$\mathbf B$ y la normal del disco apuntan hacia $+z$ ($\odot$).}
+\label{fig:solenoide}
+\end{figure}
+
+Sobre $\mathcal C_s$, $\mathbf A$ es tangente y su magnitud es
+constante. Identificamos $\dd\mathbf l=s\dd\phi\,\ep$ y
+$\dd\mathbf a=s'\dd s'\dd\phi\,\ez$, con la orientación de la
+figura~\ref{fig:solenoide}. Al sustituir en \eqref{p4:stokes},
+\[
+  \int_0^{2\pi}(A_\phi(s)\ep)\cdot(s\dd\phi\,\ep)
+    =2\pi sA_\phi(s)=\Phi_B(s).
+\]
+Por tanto,
+\begin{equation}
+  A_\phi(s)=\frac{\Phi_B(s)}{2\pi s},
+  \qquad s>0.
+  \label{p4:Aflujo}
+\end{equation}
+
+\textbf{Interior ($s<R$).}
+\textbf{Todo el disco tiene campo uniforme} $B_0\ez$, paralelo a su normal.
+El flujo es $\Phi_B=\int_{S_s} B_0\dd a=B_0\pi s^2$.
+Sustituyendo en \eqref{p4:Aflujo},
+\[
+  A_{\phi,\mathrm{int}}(s)
+    =\frac{B_0\pi s^2}{2\pi s}
+    =\frac{B_0s}{2}.
+\]
+
+\textbf{Exterior ($s>R$).}
+El campo solo contribuye al flujo hasta $R$. Calculamos ese flujo
+y lo sustituimos en \eqref{p4:Aflujo}:
+\begin{align*}
+  \Phi_B(s)
+    &=\int_0^R B_0\,2\pi s'\dd s'
+      =B_0\pi R^2,\\
+  A_{\phi,\mathrm{ext}}(s)
+    &=\frac{B_0\pi R^2}{2\pi s}
+      =\frac{B_0R^2}{2s}.
+\end{align*}
+Al reemplazar $B_0=\mu_0nI$, obtenemos
+\begin{equation}
+  \boxed{
+    \mathbf A(s)=
+    \begin{cases}
+      \displaystyle\frac{\mu_0 nI}{2}s\,\ep,
+        &0<s<R,\\[7pt]
+      \displaystyle\frac{\mu_0 nIR^2}{2s}\,\ep,
+        &s>R.
+    \end{cases}
+  }
+  \label{p4:A}
+\end{equation}
+En el eje definimos $\mathbf A(0)=\mathbf0$, y los dos límites
+en $R$ coinciden.
+\ideafisica{Fuera del solenoide, el flujo es constante porque
+el campo solo existe hasta $R$: aumentar el disco no agrega
+flujo. Aunque allí $\mathbf B=\mathbf0$, la circulación de
+$\mathbf A$ sigue siendo igual al flujo interior y obtenemos
+$A_\phi\propto1/s$.}
+
+\paragraph{b) Verificación mediante el rotacional.}
+En coordenadas cilíndricas, para el campo azimutal
+$\mathbf A=A_\phi(s)\ep$, con $A_s=A_z=0$ y sin dependencia
+en $\phi$ ni en $z$, la expresión general del rotacional se reduce a
+\begin{equation}
+  \nabla\times\mathbf A
+    =\frac{1}{s}\frac{\dd(sA_\phi)}{\dd s}\ez.
+  \label{p4:rotacional}
+\end{equation}
+Sustituyendo \eqref{p4:A} en \eqref{p4:rotacional}, en el interior
+\begin{align*}
+  \nabla\times\mathbf A_{\mathrm{int}}
+    &=\frac{1}{s}\frac{\dd}{\dd s}
+      \Biggl[\frac{\mu_0 nI}{2}s^2\Biggr]\ez\\
+    &=\frac{\mu_0 nI}{2s}(2s)\ez
+      =\mu_0 nI\ez
+      =\mathbf B_{\mathrm{int}}.
+\end{align*}
+Para el potencial exterior,
+\begin{align*}
+  \nabla\times\mathbf A_{\mathrm{ext}}
+    &=\frac{1}{s}\frac{\dd}{\dd s}
+      \Biggl[s\,\frac{\mu_0 nIR^2}{2s}\Biggr]\ez
+      =\frac{1}{s}\frac{\dd}{\dd s}
+        \Biggl[\frac{\mu_0 nIR^2}{2}\Biggr]\ez\\
+    &=\mathbf0
+      =\mathbf B_{\mathrm{ext}}.
+\end{align*}
+Así recuperamos los campos del enunciado en ambas regiones.
+
+\paragraph{c) Gauge de Coulomb.}
+La divergencia de un campo vectorial en coordenadas cilíndricas es
+\[
+  \nabla\cdot\mathbf A
+    =\frac{1}{s}\frac{\partial(sA_s)}{\partial s}
+      +\frac{1}{s}\frac{\partial A_\phi}{\partial\phi}
+      +\frac{\partial A_z}{\partial z}.
+\]
+En \eqref{p4:A}, $A_s=A_z=0$ y $A_\phi$ no depende de $\phi$,
+de modo que los tres términos son nulos. Así,
+\textbf{$\nabla\cdot\mathbf A=0$ y el potencial satisface el gauge
+de Coulomb en ambas regiones.}
+
+\clearpage
+\subsection*{Solución Problema 5: Expansión Multipolar}
+
+Ubicamos el origen en el punto medio entre las espiras. El punto
+de observación tiene vector posición $\mathbf r$, con
+$r=|\mathbf r|$, y el ángulo polar $\theta$ se mide desde $+z$.
+Trabajamos con $a>0$ y $d>0$, sin fijar una relación entre ambos.
+
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+  \foreach \xx/\caso/\sgn in {0/A/1,7.3/B/-1} {
+    \begin{scope}[xshift=\xx cm]
+      \node at (0,3.00) {Caso \caso};
+      \draw[ayuda] (0,-2.2)--(0,2.22);
+      \draw[eje] (0,2.12)--(0,2.63) node[right] {$z$};
+      \draw[thick] (0,1.02) ellipse[x radius=1.48,y radius=0.35];
+      \draw[thick] (0,-1.02) ellipse[x radius=1.48,y radius=0.35];
+      \draw[corriente]
+        plot[domain=230:310,samples=25]
+          ({1.48*cos(\x)},{1.02+0.35*sin(\x)});
+      \ifnum\sgn=1
+        \draw[corriente]
+          plot[domain=230:310,samples=25]
+            ({1.48*cos(\x)},{-1.02+0.35*sin(\x)});
+        \draw[vector] (0,-1.02)--(0,-0.26)
+          node[pos=0.55,right=3pt] {$\mathbf m_2$};
+      \else
+        \draw[corriente]
+          plot[domain=310:230,samples=25]
+            ({1.48*cos(\x)},{-1.02+0.35*sin(\x)});
+        \draw[vector] (0,-1.02)--(0,-1.96)
+          node[pos=0.62,right=3pt] {$\mathbf m_2$};
+      \fi
+      \draw[vector] (0,1.02)--(0,1.98)
+        node[pos=0.62,right=3pt] {$\mathbf m_1$};
+      \draw[thin] (0,1.02)--(1.48,1.02)
+        node[pos=0.70,above=2pt] {$a$};
+      \node[anchor=west] at (1.65,1.02) {$z=d/2$};
+      \node[anchor=west] at (1.65,-1.02) {$z=-d/2$};
+      \node[left=2pt] at (-1.48,1.02) {$\mathcal C_1$};
+      \node[left=2pt] at (-1.48,-1.02) {$\mathcal C_2$};
+      \node at (0.95,0.48) {$I$};
+      \node at (0.95,-1.57) {$I$};
+      \fill (0,0) circle (1.3pt);
+      \node[left=3pt] at (0,0) {$O$};
+    \end{scope}
+  }
+\end{tikzpicture}
+\caption{Las flechas sobre las espiras indican la corriente.
+Los momentos se orientan con la regla de la mano derecha:
+en A se suman y en B son opuestos. Los dibujos son esquemáticos.}
+\label{fig:espiras}
+\end{figure}
+
+\paragraph{a) Caso A: corrientes en la misma dirección.}
+El momento dipolar magnético de una espira plana es
+\begin{equation}
+  \mathbf m_i=I_i\mathbf a_i,
+  \qquad
+  \mathbf a_i=\pi a^2\ez,
+  \label{p5:dipolo}
+\end{equation}
+donde orientamos el vector de área hacia $+z$ y tomamos
+$I_i>0$ para la corriente en $+\ep$.
+
+En este caso, $I_1=I_2=I$. Al sustituir en \eqref{p5:dipolo},
+\[
+  \mathbf m_1=I\pi a^2\ez,
+  \qquad
+  \mathbf m_2=I\pi a^2\ez.
+\]
+Sumando las contribuciones,
+\begin{align}
+  \mathbf m_{\mathrm{tot}}
+    &=\mathbf m_1+\mathbf m_2
+      \notag\\
+    &=I\pi a^2\ez+I\pi a^2\ez
+      \notag\\
+    &=\boxed{2I\pi a^2\ez}.
+      \label{p5:mA}
+\end{align}
+
+Para corrientes localizadas usamos el potencial magnetostático
+en el gauge de Coulomb, que se anula al infinito. Su término
+dipolar es
+\begin{equation}
+  \mathbf A_{\mathrm{dip}}(\mathbf r)
+    =\frac{\mu_0}{4\pi}
+      \frac{\mathbf m_{\mathrm{tot}}\times\er}{r^2}.
+  \label{p5:Adip}
+\end{equation}
+Por la definición de los versores esféricos,
+\[
+  \ez\times\er
+    =\sin\theta(-\sin\phi\,\ex+\cos\phi\,\ey)
+    =\sin\theta\,\ep.
+\]
+Sustituyendo \eqref{p5:mA} en \eqref{p5:Adip},
+\begin{align*}
+  \mathbf A_{\mathrm A}(\mathbf r)
+    &\simeq\frac{\mu_0}{4\pi}
+      \frac{2I\pi a^2(\ez\times\er)}{r^2}\\
+    &=\frac{2\mu_0I\pi a^2}{4\pi r^2}
+      \sin\theta\,\ep\\
+    &=\boxed{\frac{\mu_0Ia^2}{2r^2}\sin\theta\,\ep},
+      \qquad r\gg a,d.
+\end{align*}
+A grandes distancias, el sistema se ve como un dipolo de momento
+$2I\pi a^2\ez$, como anticipa la figura~\ref{fig:espiras}.
+
+\paragraph{b) Caso B: corrientes en direcciones opuestas.}
+Mantenemos la orientación $+\ez$ para los vectores de área.
+La inversión de la corriente inferior corresponde a $I_2=-I$.
+Usando \eqref{p5:dipolo},
+\[
+  \mathbf m_1=I\pi a^2\ez,
+  \qquad
+  \mathbf m_2=(-I)\pi a^2\ez=-I\pi a^2\ez.
+\]
+Por tanto,
+\begin{equation}
+  \boxed{
+    \mathbf m_{\mathrm{tot}}
+      =I\pi a^2\ez-I\pi a^2\ez
+      =\mathbf0.
+  }
+  \label{p5:mB}
+\end{equation}
+Se anula el momento dipolar total, pero las espiras no están
+en el mismo lugar. Por eso esta cancelación no implica que
+el campo sea nulo en todo el espacio.
+
+\paragraph{c) Decaimiento dominante en el caso B.}
+Para una espira cerrada, el término $1/r$ del potencial se anula
+porque $\oint\dd\mathbf l'=\mathbf0$. En el par,
+\[
+  \mathbf A_{1/r}(\mathbf r)
+    =\frac{\mu_0}{4\pi r}
+      \sum_{i=1}^2 I_i\oint_{\mathcal C_i}\dd\mathbf l'_i
+    =\mathbf0.
+\]
+Además, \eqref{p5:mB} anula el término dipolar, que decae como
+$1/r^2$. Para identificar el primer término que queda,
+aprovechamos que las espiras son idénticas y están desplazadas.
+
+Sea $\mathbf A_0(x,y,z)$ el potencial de una espira con corriente
+$I$ centrada en el origen. Por superposición,
+\begin{equation}
+  \mathbf A_{\mathrm B}(x,y,z)
+    =\mathbf A_0(x,y,z-d/2)
+      -\mathbf A_0(x,y,z+d/2).
+  \label{p5:desplazadas}
+\end{equation}
+A grandes distancias, $d/r\ll1$, y una expansión de Taylor da
+\begin{align*}
+  \mathbf A_0(x,y,z-d/2)
+    &\simeq\mathbf A_0(x,y,z)
+      -\frac d2\frac{\partial\mathbf A_0}{\partial z},\\
+  \mathbf A_0(x,y,z+d/2)
+    &\simeq\mathbf A_0(x,y,z)
+      +\frac d2\frac{\partial\mathbf A_0}{\partial z}.
+\end{align*}
+Sustituyendo en \eqref{p5:desplazadas},
+\begin{align}
+  \mathbf A_{\mathrm B}
+    &\simeq
+      \Biggl[\mathbf A_0-\frac d2
+        \frac{\partial\mathbf A_0}{\partial z}\Biggr]
+      -\Biggl[\mathbf A_0+\frac d2
+        \frac{\partial\mathbf A_0}{\partial z}\Biggr]
+      \notag\\
+    &=-d\,\frac{\partial\mathbf A_0}{\partial z}.
+      \label{p5:gradiente}
+\end{align}
+
+Ahora usamos el término dipolar de una sola espira,
+con $m_0:=I\pi a^2$. De \eqref{p5:Adip},
+\[
+  \mathbf A_0(\mathbf r)
+    \simeq\frac{\mu_0m_0}{4\pi}
+      \frac{\ez\times\mathbf r}{r^3}
+    =\frac{\mu_0m_0}{4\pi}
+      \frac{-y\ex+x\ey}{(x^2+y^2+z^2)^{3/2}}.
+\]
+El numerador no depende de $z$. Al sustituir en
+\eqref{p5:gradiente} y derivar,
+\begin{align*}
+  \mathbf A_{\mathrm B}
+    &\simeq-\frac{\mu_0m_0d}{4\pi}
+      (-y\ex+x\ey)
+      \frac{\partial}{\partial z}
+      (x^2+y^2+z^2)^{-3/2}\\
+    &=-\frac{\mu_0m_0d}{4\pi}
+      (-y\ex+x\ey)
+      \Biggl[-\frac32(x^2+y^2+z^2)^{-5/2}(2z)\Biggr]\\
+    &=\frac{3\mu_0m_0d}{4\pi}
+      \frac{z(-y\ex+x\ey)}{r^5}.
+\end{align*}
+Como $z=r\cos\theta$ y $-y\ex+x\ey=r\sin\theta\,\ep$,
+\begin{align}
+  \mathbf A_{\mathrm B}
+    &\simeq\frac{3\mu_0m_0d}{4\pi}
+      \frac{r^2\sin\theta\cos\theta}{r^5}\ep
+      \notag\\
+    &=\boxed{
+       \frac{3\mu_0Ia^2d}{4r^3}
+       \sin\theta\cos\theta\,\ep
+      },
+      \qquad r\gg a,d.
+      \label{p5:AB}
+\end{align}
+Este término no es idénticamente nulo. Su dependencia $1/r^3$
+corresponde al término cuadrupolar magnético.
+
+Al calcular $\mathbf B=\nabla\times\mathbf A$, las derivadas
+radiales añaden una potencia de $1/r$ y las derivadas angulares
+del rotacional también llevan un factor $1/r$. Por tanto,
+\[
+  \boxed{
+    \mathbf A_{\mathrm B}\propto\frac1{r^3},
+    \qquad
+    \mathbf B_{\mathrm B}\propto\frac1{r^4},
+    \qquad r\gg a,d.
+  }
+\]
+Estas potencias describen los términos multipolares dominantes;
+sus factores angulares pueden anularse en direcciones particulares.
+Las corrientes opuestas cancelan el dipolo y el campo lejano
+decrece más rápido que en el caso A.
+
+\end{document}

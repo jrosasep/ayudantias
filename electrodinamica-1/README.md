@@ -158,3 +158,21 @@ estudian los límites $\varepsilon_r\to1$ y $\varepsilon_r\to\infty$,
 comparando este último con un cascarón conductor aislado y neutro.
 
 ---
+
+## `magnetostatica/`
+
+Guía de **magnetostática** con cinco problemas resueltos sobre la ley de
+Biot–Savart, la ley de Ampère y las condiciones de frontera del campo
+magnético. También se calcula el potencial vectorial de un solenoide y se
+comparan los campos lejanos de las configuraciones de Helmholtz y anti-Helmholtz.
+
+---
+
+## `induccion_electromagnetica/`
+
+Guía de **inducción electromagnética** con cinco problemas resueltos sobre
+la fem de movimiento, la ley de Faraday y las inductancias mutua y propia.
+El último problema aplica la ley de Ampère–Maxwell para relacionar la
+corriente de desplazamiento con el campo magnético.
+
+---

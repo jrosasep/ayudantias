@@ -1,0 +1,1172 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,babel}
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\newcommand{\encabezado}[3]{%
+  {\Large\bfseries #1\par}
+  \vspace{2pt}
+  {\normalsize #2\hfill #3\par}
+  \vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+  \vspace{0.55em}
+  \noindent\textbf{#1.}\enspace{\small #2}\par
+  \vspace{0.3em}}
+
+
+% Figuras en línea, junto al paso del desarrollo que ilustran.
+\newsavebox{\EDdibujo}
+\makeatletter
+\newenvironment{EDfigura}{%
+  \par\medskip\noindent
+  \begin{minipage}{\linewidth}
+  \def\@captype{figure}%
+  \centering
+  \begin{lrbox}{\EDdibujo}%
+}{%
+  \end{minipage}\par\medskip
+}
+\newcommand{\EDpie}[2]{%
+  \end{lrbox}%
+  \ifdim\wd\EDdibujo>\linewidth
+    \resizebox{\linewidth}{!}{\usebox{\EDdibujo}}%
+  \else
+    \usebox{\EDdibujo}%
+  \fi
+  \caption{#2}\label{#1}%
+}
+\makeatother
+
+\begin{document}
+
+
+
+\encabezado{Inducción electromagnética y ecuaciones de Maxwell}
+{Electrodinámica I}{P.S., J.A., J.R.}
+
+\section*{Enunciados de los Problemas}
+
+
+
+\subsection*{Problema 1: Fuerza Electromotriz de Movimiento vs. Ley del Flujo}
+Un alambre rectilíneo muy largo se ubica sobre el eje $z$ y transporta una corriente estacionaria $I$ en la dirección $+\hat{\mathbf{z}}$. En el semiplano $\phi = 0$ (coordenadas cilíndricas $(s, \phi, z)$), una espira conductora rectangular de ancho radial $a$, altura $b$ (paralela al eje $z$) y resistencia eléctrica total $R$ se aleja perpendicularmente del alambre con velocidad constante $\mathbf{v} = v_0 \hat{\mathbf{s}}$. En un instante arbitrario $t$, el borde vertical más cercano de la espira se encuentra a una distancia $s(t)$ del alambre.
+\begin{enumerate}
+    \item[a)] Calcule el flujo magnético $\Phi_B(t)$ que atraviesa la espira y utilice la regla del flujo de Faraday ($\mathcal{E} = -d\Phi_B/dt$) para determinar la magnitud y el sentido de circulación de la corriente inducida $I_{\text{ind}}$.
+    \item[b)] Vuelva a calcular la fuerza electromotriz $\mathcal{E}$ integrando explícitamente la fuerza magnética por unidad de carga a lo largo del contorno de la espira: $\mathcal{E} = \oint (\mathbf{v} \times \mathbf{B}) \cdot d\mathbf{l}$. Identifique qué segmentos del rectángulo contribuyen a la fem y compruebe que el resultado coincide con el inciso anterior.
+    \item[c)] Determine la fuerza magnética neta $\mathbf{F}_{\text{mag}}$ que ejerce el campo del alambre sobre la espira con corriente inducida y verifique que se opone al movimiento (Ley de Lenz). Calcule la potencia mecánica externa $P_{\text{mec}} = \mathbf{F}_{\text{ext}} \cdot \mathbf{v}$ requerida para mantener la velocidad constante y demuestre que es idéntica a la potencia disipada por efecto Joule ($I_{\text{ind}}^2 R$).
+\end{enumerate}
+
+\subsection*{Problema 2: Campo Eléctrico Inducido No Conservativo}
+Un solenoide ideal muy largo de radio $R$ y $n$ espiras por unidad de longitud tiene su eje coincidente con el eje $z$ y transporta una corriente que crece linealmente con el tiempo según $I(t) = I_0 + \alpha t$, donde $I_0$ y $\alpha$ son constantes positivas.
+\begin{enumerate}
+    \item[a)] Determine el campo magnético $\mathbf{B}(t)$ en el interior ($s < R$) y en el exterior ($s > R$) del solenoide bajo la aproximación cuasiestática.
+    \item[b)] Utilizando la Ley de Faraday en su forma integral y argumentos de simetría cilíndrica, encuentre el vector campo eléctrico inducido $\mathbf{E}(s)$ tanto en el interior ($s < R$) como en el exterior ($s > R$) del solenoide. Compruebe explícitamente que $\nabla \times \mathbf{E} = -\partial \mathbf{B}/\partial t$ en ambas regiones.
+    \item[c)] Considere los puntos $P_1 = (2R, 0, 0)$ y $P_2 = (-2R, 0, 0)$ situados fuera del solenoide. Calcule la integral de línea $-\int_{P_1}^{P_2} \mathbf{E} \cdot d\mathbf{l}$ a lo largo de dos caminos semicirculares distintos de radio $2R$ contenidos en el plano $xy$: el Camino 1 por el semiplano superior ($y > 0$) y el Camino 2 por el semiplano inferior ($y < 0$). Explique físicamente por qué ambos resultados difieren a pesar de evaluarse en una región donde $\mathbf{B} = \mathbf{0}$, y justifique por qué no es posible definir un potencial electrostático escalar unívoco $V$ tal que $\mathbf{E} = -\nabla V$.
+\end{enumerate}
+\newpage
+\subsection*{Problema 3: Inductancia Mutua y Reciprocidad de Neumann}
+Considere un alambre conductor infinito doblado en ángulo recto sobre los semiejes positivos $x$ e $y$: la corriente ingresa desde $x = +\infty$ hacia el origen a lo largo del semieje $+x$, y sale desde el origen hacia $y = +\infty$ a lo largo del semieje $+y$. En el primer cuadrante del plano $xy$ se coloca una pequeña espira circular plana de radio $a$, cuyo centro se ubica en el punto $(d, d, 0)$, a gran distancia de ambos ejes ($d \gg a$).
+\begin{enumerate}
+    \item[a)] Argumente brevemente por qué calcular el flujo magnético generado por la pequeña espira circular a través del circuito infinito en ángulo recto es analíticamente complejo, mientras que el cálculo recíproco resulta elemental.
+    \item[b)] Asumiendo que por el alambre en ángulo recto circula una corriente estacionaria de prueba $I$, utilice la Ley de Biot-Savart para calcular el vector campo magnético $\mathbf{B}$ exactamente en el centro de la espira circular $(d, d, 0)$.
+    \item[c)] Aproximando el campo magnético como uniforme sobre la superficie de la pequeña espira ($a \ll d$), determine el coeficiente de inductancia mutua $M$ entre ambos circuitos.
+    \item[d)] Si en la espira circular pequeña se inyecta una corriente alterna $I_c(t) = I_0 \cos(\omega t)$, determine la fuerza electromotriz $\mathcal{E}(t)$ inducida sobre el alambre infinito en ángulo recto.
+\end{enumerate}
+
+\subsection*{Problema 4: Autoinductancia Interna y Externa de un Cable Coaxial}
+Un cable coaxial rectilíneo muy largo está formado por un conductor cilíndrico interno \textbf{macizo} de radio $a$ y una cáscara conductora cilíndrica externa muy delgada de radio $b$ ($b > a$). Una corriente estacionaria $I$ fluye en dirección $+\hat{\mathbf{z}}$ distribuida uniformemente en toda la sección transversal del núcleo interno, y retorna en dirección $-\hat{\mathbf{z}}$ por la cáscara externa. El medio en todo el sistema tiene permeabilidad $\mu_0$.
+\begin{enumerate}
+    \item[a)] Determine el vector campo magnético $\mathbf{B}(s)$ en las tres regiones del espacio: $s < a$, $a < s < b$, y $s > b$.
+    \item[b)] Calcule la energía magnética almacenada por unidad de longitud $U_B/\ell$ integrando la densidad de energía magnética $u_B = \frac{1}{2\mu_0} B^2$ en todo el espacio transversal.
+    \item[c)] A partir de la definición energética $U_B = \frac{1}{2} L I^2$, determine la autoinductancia total por unidad de longitud $\mathcal{L} = L/\ell$, identificando por separado la contribución de la inductancia interna ($s < a$) y de la inductancia externa ($a < s < b$).
+    \item[d)] Explique conceptual y matemáticamente por qué si se calcula ingenuamente el flujo magnético $\Phi_B = \int_0^b B(s) \ell \, ds$ y se divide por $I$, se obtiene un factor erróneo para la autoinductancia interna del conductor macizo. Muestre cómo ponderar el enlace de flujo parcial para recuperar el resultado exacto.
+\end{enumerate}
+\newpage
+\subsection*{Problema 5: Ecuación de Ampère-Maxwell en un Alambre Semi-Infinito}
+Considere un alambre rectilíneo, muy delgado y semi-infinito que se extiende a lo largo del semieje negativo $z$ (desde $z = -\infty$ hasta terminar en el origen $z = 0$). Por el alambre fluye una corriente constante $I$ en la dirección $+\hat{\mathbf{z}}$. Dado que el conductor termina en el origen, se acumula carga eléctrica puntualmente en $(0,0,0)$ a razón constante $dQ/dt = I$, asumiendo $Q(0) = 0$.
+\begin{enumerate}
+    \item[a)] Bajo la aproximación cuasiestática, escriba el campo eléctrico $\mathbf{E}(\mathbf{r}, t)$ producido en todo el espacio por la carga puntual $Q(t)$ en el origen (asuma que el alambre permanece eléctricamente neutro). Calcule la densidad de corriente de desplazamiento $\mathbf{J}_d(\mathbf{r})$ para $r > 0$ y compruebe que el flujo neto de la corriente generalizada $\mathbf{J} + \mathbf{J}_d$ a través de una esfera cerrada centrada en el origen es idénticamente cero.
+    \item[b)] Sea un punto de observación en coordenadas esféricas $(r, \theta, \phi)$. Defina un lazo circular amperiano $C$ centrado en el eje $z$, de radio cilíndrico $s = r\sin\theta$ y ubicado en el plano horizontal $z = r\cos\theta$. Elija como superficie abierta $S_1$ bordeada por $C$ el casquete esférico de radio constante $r$ que cubre el eje $+z$ ($0 \le \theta' \le \theta$, el cual no es perforado por el alambre). Calcule la corriente de desplazamiento total $I_{d,\text{enc}}$ que atraviesa $S_1$.
+    \item[c)] Argumentando por simetría que $\mathbf{B} = B_\phi(r, \theta) \hat{\boldsymbol{\phi}}$, aplique la Ley de Ampère-Maxwell sobre el casquete $S_1$ para hallar $\mathbf{B}(r, \theta)$ en todo el espacio. Verifique que al utilizar el casquete esférico complementario $S_2$ ($\theta \le \theta' \le \pi$, el cual sí es atravesado por el alambre en $\theta' = \pi$), la suma $I_{\text{enc}} + I_{d,\text{enc}}$ arroja exactamente el mismo campo magnético.
+    \item[d)] Calcule directamente el campo magnético que generaría solo la corriente de conducción $I$ del alambre semi-infinito mediante la Ley de Biot-Savart. Compare este resultado con el campo total del inciso c), deduzca cuánto vale el campo magnético generado por la distribución radial de corrientes de desplazamiento $\mathbf{J}_d$ y explique físicamente este fenómeno.
+\end{enumerate}
+
+\newpage
+
+\section*{Soluciones}
+
+\subsection*{Solución Problema 1}
+
+\paragraph{a) Flujo magnético y corriente inducida:}
+Por simetría, el campo del alambre es azimutal. Aplicamos
+la ley de Ampère en una circunferencia de radio $s'$ centrada en
+el alambre. En esa curva, $B_\phi(s')$ es constante y tangente:
+\[
+    \oint_{\mathcal C_{s'}}\mathbf B\cdot d\mathbf l
+    =2\pi s'B_\phi(s')=\mu_0 I
+    \quad\Longrightarrow\quad
+    \mathbf B(s')=\frac{\mu_0 I}{2\pi s'}\hat{\boldsymbol\phi}.
+\]
+Para la superficie de la espira en el plano $sz$, elegimos el
+vector normal $+\hat{\boldsymbol{\phi}}$. El elemento de área
+vectorial es
+\begin{equation}
+    d\mathbf a = \hat{\boldsymbol{\phi}}\,dz'\,ds'.
+    \label{ind:area-espira}
+\end{equation}
+Por la regla de la mano derecha, el sentido positivo de recorrido alrededor del contorno rectangular (ubicado en $\phi = 0$) va hacia $+\hat{\mathbf{z}}$ en el borde interno $s(t)$, hacia $+\hat{\mathbf{s}}$ en el borde superior $z=b$, hacia $-\hat{\mathbf{z}}$ en el borde externo $s(t)+a$, y hacia $-\hat{\mathbf{s}}$ en el borde inferior $z=0$.
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth,font=\normalsize,line cap=round,line join=round,
+  cuerpo/.style={line width=.85pt},
+  vector/.style={-{Stealth[length=2.2mm]},line width=.68pt},
+  medida/.style={{Stealth[length=1.55mm]}-{Stealth[length=1.55mm]},line width=.38pt},
+  ayuda/.style={black!65,line width=.38pt}
+]
+  \draw[ayuda,->] (0,0)--(8.40,0) node[right] {$s$};
+  \draw[ayuda,->] (0,-.38)--(0,4.10) node[above] {$z$};
+  \draw[cuerpo] (0,-.35)--(0,3.82);
+  \node[anchor=west] at (.14,3.34) {Alambre};
+  \draw[vector] (0,1.14)--(0,2.37) node[midway,left=4pt] {$I$};
+
+  \fill[black!13] (4.63,0) rectangle (5.10,2.75);
+  \draw[ayuda,dashed] (4.63,0)--(4.63,2.75) (5.10,0)--(5.10,2.75);
+  \draw[cuerpo] (2.55,0) rectangle (7.00,2.75);
+  \draw[vector] (2.55,.65)--(2.55,1.62) node[midway,left=4pt] {$I_{\mathrm{ind}}$};
+  \draw[vector] (3.22,2.75)--(4.02,2.75);
+  \draw[vector] (7.00,1.98)--(7.00,1.13);
+  \draw[vector] (6.30,0)--(5.47,0);
+  \node[left=3pt] at (2.55,2.18) {$\mathcal C_1$};
+  \node[above=2pt] at (3.34,2.75) {$\mathcal C_2$};
+  \node[right=2pt] at (7.00,2.18) {$\mathcal C_3$};
+  \node[below=2pt] at (5.63,0) {$\mathcal C_4$};
+  \draw[vector] (6.23,3.94)--(7.61,3.94) node[right] {$\mathbf v$};
+
+  \foreach \xx in {3.32,3.95,5.82,6.46}{
+    \node[inner sep=1pt] at (\xx,1.47) {$\otimes$};
+  }
+  \node at (3.68,.84) {$\mathbf B$};
+  \node[anchor=south east] (inner) at (4.52,3.08) {$s'$};
+  \node[anchor=south west] (outer) at (5.20,3.08) {$s'+ds'$};
+  \draw[ayuda] (inner.south east)--(4.63,2.75);
+  \draw[ayuda] (outer.south west)--(5.10,2.75);
+
+  \draw[ayuda] (0,-.41)--(0,-.72) (2.55,-.09)--(2.55,-.72)
+    (7,-.09)--(7,-.72);
+  \draw[medida] (0,-.63)--node[below=2pt] {$s(t)$} (2.55,-.63);
+  \draw[medida] (2.55,-.63)--node[below=2pt] {$a$} (7,-.63);
+  \draw[ayuda] (7.10,2.75)--(7.77,2.75);
+  \draw[medida] (7.67,0)--node[right=2pt] {$b$} (7.67,2.75);
+\end{tikzpicture}
+\EDpie{fig:espira-flujo}{Espira vista en el plano $sz$. Las cruces indican el campo del alambre entrando en la página, en la dirección $+\hat{\boldsymbol{\phi}}$ de la normal elegida. La franja sombreada va de $s'$ a $s'+ds'$ y tiene área $b\,ds'$. A lo largo de su altura, la distancia al alambre es la misma y el campo no varía con $z$. Los tramos $\mathcal C_1,\ldots,\mathcal C_4$ siguen la orientación positiva de la espira.}
+\end{EDfigura}
+
+En la definición del flujo magnético sustituimos el campo del
+alambre y el elemento de área de \eqref{ind:area-espira}. Como
+$\hat{\boldsymbol{\phi}}\cdot\hat{\boldsymbol{\phi}}=1$, la
+integral en $z'$ suma el flujo a lo largo de toda la altura
+de la franja sombreada en la figura~\ref{fig:espira-flujo}.
+\begin{align}
+    \Phi_B(t)
+    &=\int_{S(t)}\mathbf B\cdot d\mathbf a \notag\\
+    &=\int_{s(t)}^{s(t)+a}\int_0^b
+      \left(\frac{\mu_0 I}{2\pi s'}\hat{\boldsymbol{\phi}}\right)
+      \cdot\left(\hat{\boldsymbol{\phi}}\,dz'\,ds'\right) \notag\\
+    &=\int_{s(t)}^{s(t)+a}\frac{\mu_0 I}{2\pi s'}
+      \underbrace{\left(\int_0^b dz'\right)}_{b}\,ds' \notag\\
+    &=\frac{\mu_0 I b}{2\pi}
+      \ln\!\left(\frac{s(t)+a}{s(t)}\right).
+    \label{ind:flujo-espira}
+\end{align}
+Por la ley de Faraday, $\mathcal E=-d\Phi_B/dt$.
+Usamos el flujo de \eqref{ind:flujo-espira}.
+El campo del alambre es estacionario y el flujo cambia porque
+la espira se aleja. Escribiendo $s=s(t)$ y usando $ds/dt=v_0$,
+obtenemos
+\begin{align}
+    \mathcal{E} = -\frac{d\Phi_B}{dt} &= -\frac{\mu_0 I b}{2\pi} \frac{d}{ds}\Big[ \ln(s + a) - \ln s \Big] \frac{ds}{dt} \nonumber \\
+    &= -\frac{\mu_0 I b v_0}{2\pi} \left( \frac{1}{s + a} - \frac{1}{s} \right) = \frac{\mu_0 I a b v_0}{2\pi s(s + a)}
+\end{align}
+Por la ley de Ohm, $\mathcal E=RI_{\text{ind}}$ en el modelo
+resistivo de la espira. Como $\mathcal E>0$,
+\begin{equation}
+    I_{\text{ind}} = \frac{\mathcal{E}}{R} = \frac{\mu_0 I a b v_0}{2\pi R s(s + a)}
+\end{equation}
+y circula en el sentido positivo definido: sube ($+\hat{\mathbf{z}}$) por el lado cercano $s$ y baja ($-\hat{\mathbf{z}}$) por el lado lejano $s+a$. Esto concuerda con la Ley de Lenz: al alejarse la espira, disminuye el flujo en $+\hat{\boldsymbol{\phi}}$, por lo que la corriente inducida genera un campo propio a favor de $+\hat{\boldsymbol{\phi}}$ para oponerse a dicha disminución.
+
+\paragraph{b) Fuerza electromotriz de movimiento:}
+La fuerza de Lorentz debida al movimiento de la espira es
+$\mathbf F_{\text{mag}}=q\mathbf v\times\mathbf B$. Al dividir
+por $q$ y sustituir $\mathbf v=v_0\hat{\mathbf s}$ y el campo
+del alambre, obtenemos
+\[
+    \mathbf f_{\text{mag}}
+    =\mathbf v\times\mathbf B
+    =\frac{\mu_0 I v_0}{2\pi s'}
+       \bigl(\hat{\mathbf s}\times\hat{\boldsymbol\phi}\bigr)
+    =\frac{\mu_0 I v_0}{2\pi s'}\hat{\mathbf z}.
+\]
+La fem de movimiento es la circulación de $\mathbf f_{\mathrm{mag}}$.
+Llamamos $\mathcal E_i$ al aporte del tramo $\mathcal C_i$ de la
+figura~\ref{fig:espira-flujo}.
+\begin{align*}
+    \mathcal E
+    &=\oint_{\mathcal C}\mathbf f_{\mathrm{mag}}\cdot d\mathbf l\\
+    &=\sum_{i=1}^4
+      \underbrace{\int_{\mathcal C_i}\mathbf f_{\mathrm{mag}}
+        \cdot d\mathbf l}_{\mathcal E_i}.
+\end{align*}
+En $\mathcal C_1$ y $\mathcal C_3$, usamos
+$d\mathbf l=\hat{\mathbf z}\,dz'$. En $\mathcal C_2$ y $\mathcal C_4$,
+usamos $d\mathbf l=\hat{\mathbf s}\,ds'$. El orden de los límites
+sigue el recorrido indicado en la figura.
+\begin{align*}
+    \mathcal E_1
+    &=\int_0^b\frac{\mu_0 I v_0}{2\pi s}
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf z})}_{1}\,dz'\\
+    &=\frac{\mu_0 I v_0}{2\pi s}\bigl[z'\bigr]_0^b\\
+    &=\frac{\mu_0 I b v_0}{2\pi s},\\[3pt]
+    \mathcal E_2
+    &=\int_s^{s+a}\frac{\mu_0 I v_0}{2\pi s'}
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf s})}_{0}\,ds'\\
+    &=0,\\[3pt]
+    \mathcal E_3
+    &=\int_b^0\frac{\mu_0 I v_0}{2\pi(s+a)}
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf z})}_{1}\,dz'\\
+    &=\frac{\mu_0 I v_0}{2\pi(s+a)}\bigl[z'\bigr]_b^0\\
+    &=-\frac{\mu_0 I b v_0}{2\pi(s+a)},\\[3pt]
+    \mathcal E_4
+    &=\int_{s+a}^s\frac{\mu_0 I v_0}{2\pi s'}
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf s})}_{0}\,ds'\\
+    &=0.
+\end{align*}
+Sumamos los aportes de la figura en el mismo orden,
+\begin{align}
+    \mathcal E
+    &=\mathcal E_1+\mathcal E_2+\mathcal E_3+\mathcal E_4
+      \notag\\
+    &=\frac{\mu_0 I b v_0}{2\pi s}
+      +0-\frac{\mu_0 I b v_0}{2\pi(s+a)}+0
+      \notag\\
+    &=\frac{\mu_0 I b v_0}{2\pi}
+       \left(\frac{1}{s}-\frac{1}{s+a}\right)
+      \notag\\
+    &=\frac{\mu_0 I a b v_0}{2\pi s(s+a)}.
+    \label{ind:fem-movimiento}
+\end{align}
+Se recupera de forma idéntica la fem obtenida mediante la derivada temporal del flujo.
+\paragraph{c) Fuerza de frenado y balance energético:}
+
+La fuerza sobre cada tramo es
+$\mathbf F_i=I_{\text{ind}}\int_{\mathcal C_i}d\mathbf l\times\mathbf B$.
+Usamos la misma numeración del contorno.
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth,font=\normalsize,line cap=round,line join=round,
+  cuerpo/.style={line width=.85pt},
+  corriente/.style={-{Stealth[length=1.9mm]},line width=.62pt},
+  fuerza/.style={-{Stealth[length=2.7mm]},line width=1.12pt}
+]
+  \draw[cuerpo] (0,-.45)--(0,3.55);
+  \node[above] at (0,3.55) {Alambre};
+  \draw[corriente] (0,.64)--(0,1.74) node[midway,left=4pt] {$I$};
+  \draw[cuerpo] (3.00,0) rectangle (7.51,2.58);
+  \draw[corriente] (3,.51)--(3,1.15) node[midway,right=5pt] {$I_{\mathrm{ind}}$};
+  \draw[corriente] (4.06,2.58)--(4.65,2.58);
+  \draw[corriente] (7.51,2.04)--(7.51,1.46);
+  \draw[corriente] (6.45,0)--(5.86,0);
+  \node[right=3pt] at (3,2.17) {$\mathcal C_1$};
+  \node[above=2pt] at (4.37,2.58) {$\mathcal C_2$};
+  \node[right=2pt] at (7.51,2.08) {$\mathcal C_3$};
+  \node[below=2pt] at (6.15,0) {$\mathcal C_4$};
+
+  \draw[fuerza] (3.00,1.70)--(.83,1.70)
+    node[midway,above=4pt] {$\mathbf F_{\mathrm{cercano}}$};
+  \draw[fuerza] (7.51,1.15)--(8.70,1.15)
+    node[midway,below=4pt] {$\mathbf F_{\mathrm{lejano}}$};
+  \draw[fuerza] (5.25,2.58)--(5.25,3.42)
+    node[above=2pt] {$\mathbf F_{\mathrm{sup}}$};
+  \draw[fuerza] (5.25,0)--(5.25,-.84)
+    node[below=2pt] {$\mathbf F_{\mathrm{inf}}$};
+  \draw[corriente] (7.49,3.30)--(8.71,3.30) node[right] {$\mathbf v$};
+  \foreach \xx in {4.11,4.87,5.63,6.39}{
+    \node at (\xx,1.20) {$\otimes$};
+  }
+  \node at (5.25,.64) {$\mathbf B$};
+\end{tikzpicture}
+\EDpie{fig:espira-fuerzas}{Fuerzas magnéticas sobre los cuatro lados de la espira. Las corrientes paralelas del alambre y del lado cercano se atraen. El lado lejano es repelido con menor fuerza porque el campo allí es más débil. Las fuerzas verticales se cancelan y la fuerza neta apunta en sentido contrario a $\mathbf v$.}
+\end{EDfigura}
+Tomamos los mismos elementos de línea y los mismos límites que
+en el inciso (b). Al sustituir en la definición de $\mathbf F_i$,
+los productos cruz fijan la dirección de cada fuerza.
+\begin{align*}
+    \mathbf F_1
+    &=I_{\mathrm{ind}}\frac{\mu_0 I}{2\pi s}
+      \int_0^b(\hat{\mathbf z}\times\hat{\boldsymbol\phi})\,dz'\\
+    &=-\frac{\mu_0 I I_{\mathrm{ind}}b}{2\pi s}\hat{\mathbf s},\\[3pt]
+    \mathbf F_2
+    &=I_{\mathrm{ind}}\frac{\mu_0 I}{2\pi}
+      \int_s^{s+a}
+      (\hat{\mathbf s}\times\hat{\boldsymbol\phi})\,\frac{ds'}{s'}\\
+    &=+\frac{\mu_0 I I_{\mathrm{ind}}}{2\pi}
+      \ln\!\left(\frac{s+a}{s}\right)\hat{\mathbf z},\\[3pt]
+    \mathbf F_3
+    &=I_{\mathrm{ind}}\frac{\mu_0 I}{2\pi(s+a)}
+      \int_b^0(\hat{\mathbf z}\times\hat{\boldsymbol\phi})\,dz'\\
+    &=+\frac{\mu_0 I I_{\mathrm{ind}}b}{2\pi(s+a)}\hat{\mathbf s},\\[3pt]
+    \mathbf F_4
+    &=I_{\mathrm{ind}}\frac{\mu_0 I}{2\pi}
+      \int_{s+a}^s
+      (\hat{\mathbf s}\times\hat{\boldsymbol\phi})\,\frac{ds'}{s'}\\
+    &=-\frac{\mu_0 I I_{\mathrm{ind}}}{2\pi}
+      \ln\!\left(\frac{s+a}{s}\right)\hat{\mathbf z}.
+\end{align*}
+En los tramos superior ($+\hat{\mathbf{s}}$) e inferior ($-\hat{\mathbf{s}}$), las fuerzas apuntan en $+\hat{\mathbf{z}}$ y $-\hat{\mathbf{z}}$ respectivamente, con idéntica magnitud en cada punto $s'$, cancelándose mutuamente.
+\begin{align}
+    \mathbf F_{\mathrm{mag}}
+    &=\mathbf F_1+\mathbf F_2+\mathbf F_3+\mathbf F_4
+      \notag\\
+    &=\mathbf F_1+\mathbf F_3
+      \notag\\
+    &=-\frac{\mu_0 I I_{\mathrm{ind}} b}{2\pi}
+      \left(\frac{1}{s}-\frac{1}{s+a}\right)\hat{\mathbf s}
+      \notag\\
+    &=-\frac{\mu_0 I I_{\mathrm{ind}}ab}{2\pi s(s+a)}
+      \hat{\mathbf s}
+      \notag\\
+    &=-\frac{v_0}{R}
+      \left[\frac{\mu_0 Iab}{2\pi s(s+a)}\right]^2\hat{\mathbf s}.
+\end{align}
+Apunta en $-\hat{\mathbf{s}}$, frenando el movimiento de alejamiento. Para sostener velocidad constante se requiere $\mathbf{F}_{\text{ext}} = -\mathbf{F}_{\text{mag}}$. La potencia mecánica suministrada por el agente externo es:
+Al sustituir la fem de \eqref{ind:fem-movimiento} en la potencia,
+\begin{align}
+    P_{\text{mec}}
+    &=\mathbf F_{\text{ext}}\cdot\mathbf v
+      \notag\\
+    &=\frac{1}{R}
+      \left[\frac{\mu_0 Iabv_0}{2\pi s(s+a)}\right]^2
+      \underbrace{(\hat{\mathbf s}\cdot\hat{\mathbf s})}_{1}
+      \notag\\
+    &=\frac{\mathcal E^2}{R}
+      \notag\\
+    &=I_{\mathrm{ind}}^2R=P_{\text{Joule}}.
+\end{align}
+Todo el trabajo mecánico realizado contra el frenado magnético se transforma íntegramente en calor disipado en la resistencia.
+
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\subsection*{Solución Problema 2}
+
+\paragraph{a) Campo magnético cuasiestático:}
+
+En un solenoide finito las líneas de campo salen por un extremo
+y regresan por el otro. Al alargar el solenoide, el retorno se
+aleja de la zona central. En el límite infinito, queda un campo
+uniforme dentro y nulo fuera. La figura~\ref{fig:solenoide-finito-infinito}
+ilustra ese límite, que comprobamos con la ley de Ampère.
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  font=\small, line cap=round, line join=round,
+  devanado/.style={draw=black!50,line width=.52pt},
+  campo/.style={line width=.85pt},
+  sentido/.style={campo,-{Stealth[length=2mm]}}
+]
+  \node at (0,1.78) {(a) Solenoide finito};
+  \foreach \x in {-1.44,-1.08,...,1.44}{
+    \draw[devanado] (\x,0) ellipse[x radius=.13,y radius=.63];
+  }
+  \foreach \lado in {-1,1}{
+    \begin{scope}[yscale=\lado]
+      \draw[campo] (-1.55,.24) -- (1.55,.24)
+        .. controls (2.38,.24) and (2.35,1.37) .. (1.09,1.37)
+        -- (-1.09,1.37)
+        .. controls (-2.35,1.37) and (-2.38,.24) .. (-1.55,.24);
+      \draw[sentido] (-.64,.24)--(.04,.24);
+      \draw[sentido] (.64,1.37)--(-.04,1.37);
+    \end{scope}
+  }
+
+  \begin{scope}[xshift=5.65cm]
+    \node at (0,1.78) {(b) Solenoide infinito};
+    \node at (0,1.16) {$\mathbf B_{\mathrm{ext}}=\mathbf 0$};
+    \foreach \x in {-1.44,-1.08,...,1.44}{
+      \draw[devanado] (\x,0) ellipse[x radius=.13,y radius=.63];
+    }
+    \node at (-1.95,.52) {$\cdots$};
+    \node at (1.95,.52) {$\cdots$};
+    \foreach \y in {-.28,0,.28}{
+      \draw[campo] (-2.05,\y)--(2.05,\y);
+      \draw[sentido] (-.63,\y)--(.08,\y);
+    }
+    \node at (0,-.96) {$\mathbf B_{\mathrm{int}}=B_z\hat{\mathbf z}$};
+  \end{scope}
+\end{tikzpicture}
+\EDpie{fig:solenoide-finito-infinito}{En el solenoide finito las
+líneas retornan por el exterior. Los puntos suspensivos indican
+que el devanado ideal continúa en ambos sentidos del eje $z$.}
+\end{EDfigura}
+
+A un instante fijo, la simetría del solenoide infinito da
+$\mathbf B=B_z(s,t)\hat{\mathbf z}$. Elegimos un lazo rectangular
+orientado como en la figura~\ref{fig:solenoide-ampere} y aplicamos
+la ley de Ampère,
+\[
+    \oint_{\mathcal C}\mathbf B\cdot d\mathbf l
+    =\mu_0 I_{\mathrm{enc}}.
+\]
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth, font=\small, line cap=round, line join=round,
+  recorrido/.style={->,line width=.75pt},
+  lazo/.style={densely dashed,line width=.55pt}
+]
+  \foreach \dx/\izq/\caso in {0/1.95/1,5.26/.73/2}{
+    \begin{scope}[xshift=\dx cm]
+      % Ejes, devanado y superficie del lazo.
+      \fill[black!9] (\izq,.42) rectangle (3.29,2.24);
+      \draw[thin,->] (0,0)--(4.12,0) node[right] {$s$};
+      \draw[thin,->] (0,0)--(0,2.57) node[above] {$z$};
+      \draw[thin] (-.07,.42)--(.07,.42) (-.07,2.24)--(.07,2.24);
+      \node[left=1pt] at (-.07,.42) {$0$};
+      \node[left=1pt] at (-.07,2.24) {$\ell$};
+      \draw[line width=.65pt] (1.43,-.12)--(1.43,2.64);
+      \node[below=2pt] at (1.43,-.12) {$s=R$};
+      \foreach \h in {.61,.99,1.37,1.75,2.13}{
+        \node[inner sep=1pt] at (1.43,\h) {$\otimes$};
+      }
+
+      % Recorrido: sube a la izquierda y baja a la derecha.
+      \draw[lazo] (\izq,.42) rectangle (3.29,2.24);
+      \draw[recorrido] (\izq,.92)--(\izq,1.68);
+      \draw[recorrido] (3.29,1.68)--(3.29,.92);
+      \pgfmathsetmacro{\medio}{(\izq+3.29)/2}
+      \draw[recorrido] ({\medio-.24},2.24)--({\medio+.24},2.24);
+      \draw[recorrido] ({\medio+.24},.42)--({\medio-.24},.42);
+      \node[anchor=west,inner sep=2pt] at (\izq,1.27) {$\mathcal C_1$};
+      \node[below=1pt] at (\medio,2.24) {$\mathcal C_2$};
+      \node[anchor=east,inner sep=2pt] at (3.29,1.27) {$\mathcal C_3$};
+      \node[above=1pt] at (\medio,.42) {$\mathcal C_4$};
+
+      \draw[thin] (3.38,.42)--(3.78,.42) (3.38,2.24)--(3.78,2.24);
+      \draw[thin,<->] (3.68,.42)--node[right=2pt] {$\ell$}
+        (3.68,2.24);
+
+      \ifnum\caso=1
+        \node at (2.02,3.17) {(a) Lazo exterior};
+        \node[above=2pt] at (\izq,2.24) {$s_1$};
+        \node[above=2pt] at (3.29,2.24) {$s_2$};
+        \node at (2.02,-.85) {$I_{\mathrm{enc}}=0$};
+      \else
+        \node at (2.02,3.17) {(b) Lazo que cruza $s=R$};
+        \node[above=2pt] at (\izq,2.24) {$s_1<R$};
+        \node[above=2pt] at (3.29,2.24) {$s_2>R$};
+        \node at (2.02,-.85) {$I_{\mathrm{enc}}=n\ell I(t)$};
+      \fi
+    \end{scope}
+  }
+\end{tikzpicture}
+\EDpie{fig:solenoide-ampere}{Cortes en el plano $sz$. Las cruces
+representan la corriente que entra en la página en la dirección
+$+\hat{\boldsymbol\phi}$. En ambos lazos, $\mathcal C_1$ sube y
+$\mathcal C_3$ baja. Los tramos $\mathcal C_2$ y $\mathcal C_4$
+son radiales.}
+\end{EDfigura}
+
+En ambos lazos, los lados verticales tienen
+$d\mathbf l=\hat{\mathbf z}\,dz'$ y los radiales,
+$d\mathbf l=\hat{\mathbf s}\,ds'$. Los límites de cada integral
+siguen las flechas de la figura~\ref{fig:solenoide-ampere}.
+\begin{align*}
+    \oint_{\mathcal C}\mathbf B\cdot d\mathbf l
+    &=\sum_{i=1}^4\int_{\mathcal C_i}\mathbf B\cdot d\mathbf l.
+\end{align*}
+\begin{align*}
+    \int_{\mathcal C_1}\mathbf B\cdot d\mathbf l
+    &=\int_0^\ell B_z(s_1,t)
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf z})}_{1}\,dz'
+      =\ell B_z(s_1,t),\\[3pt]
+    \int_{\mathcal C_2}\mathbf B\cdot d\mathbf l
+    &=\int_{s_1}^{s_2} B_z(s',t)
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf s})}_{0}\,ds'
+      =0,\\[3pt]
+    \int_{\mathcal C_3}\mathbf B\cdot d\mathbf l
+    &=\int_\ell^0 B_z(s_2,t)
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf z})}_{1}\,dz'
+      =-\ell B_z(s_2,t),\\[3pt]
+    \int_{\mathcal C_4}\mathbf B\cdot d\mathbf l
+    &=\int_{s_2}^{s_1} B_z(s',t)
+      \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf s})}_{0}\,ds'
+      =0.
+\end{align*}
+Al sumar los cuatro aportes,
+\begin{equation}
+    \oint_{\mathcal C}\mathbf B\cdot d\mathbf l
+    =\ell\bigl[B_z(s_1,t)-B_z(s_2,t)\bigr].
+    \label{ind:ampere-tramos-solenoide}
+\end{equation}
+En $\mathcal C_2$ y $\mathcal C_4$,
+$\hat{\mathbf z}\cdot\hat{\mathbf s}=0$ porque el recorrido
+radial es perpendicular al campo. En $\mathcal C_3$, el signo
+menos viene de recorrer el lado desde $z'=\ell$ hasta $z'=0$.
+
+En el panel (a), ninguna espira cruza la superficie, así que
+$I_{\mathrm{enc}}=0$. Al usar \eqref{ind:ampere-tramos-solenoide}
+en la ley de Ampère, queda
+\[
+    \ell\bigl[B_z(s_1,t)-B_z(s_2,t)\bigr]=0.
+\]
+Como $s_1$ y $s_2$ son arbitrarios, el campo exterior es constante.
+Para el solenoide aislado, el campo se anula lejos del eje, así
+que esta constante vale cero.
+
+En el panel (b), la superficie del lazo corta $n\ell$ espiras
+en una altura $\ell$. Cada espira aporta $I(t)$ en el sentido
+de la normal del lazo, de modo que $I_{\mathrm{enc}}=n\ell I(t)$.
+Como ahora $\mathcal C_3$ está en el exterior, su contribución
+también se anula. Así, \eqref{ind:ampere-tramos-solenoide} da
+\[
+    \ell B_z(s_1,t)=\mu_0 n\ell I(t),\qquad s_1<R.
+\]
+Cancelamos $\ell$ y usamos $I(t)=I_0+\alpha t$. Resulta
+\begin{equation}
+    \mathbf B(s,t)=
+    \begin{cases}
+        \mu_0 n(I_0+\alpha t)\hat{\mathbf z}, & s<R,\\
+        \mathbf 0, & s>R.
+    \end{cases}
+\end{equation}
+
+\paragraph{b) Campo eléctrico inducido y verificación diferencial:}
+
+Por simetría cilíndrica, el campo inducido es azimutal,
+$\mathbf E=E_\phi(s)\hat{\boldsymbol\phi}$. Usamos la ley de
+Faraday sobre una circunferencia $\mathcal C_s$ y su disco $S_s$:
+\[
+    \oint_{\mathcal C_s}\mathbf E\cdot d\mathbf l
+    =-\frac{d}{dt}\int_{S_s}\mathbf B\cdot d\mathbf a.
+\]
+El recorrido es antihorario visto desde $+z$, por lo que
+$d\mathbf l=s\,d\phi\,\hat{\boldsymbol\phi}$ y
+$d\mathbf a=da\,\hat{\mathbf z}$. Sustituimos en la circulación,
+\begin{align*}
+    \oint_{\mathcal C_s}\mathbf E\cdot d\mathbf l
+    &=s E_\phi(s)\int_0^{2\pi}
+      (\hat{\boldsymbol\phi}\cdot\hat{\boldsymbol\phi})\,d\phi\\
+    &=2\pi sE_\phi(s).
+\end{align*}
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth,font=\normalsize,line cap=round,line join=round,
+  campo/.style={-{Stealth[length=2.0mm]},line width=.90pt},
+  radio/.style={-{Stealth[length=1.65mm]},thin}
+]
+  \foreach \xx/\ss/\condicion/\area in {0/1.02/{s<R}/{\pi s^2},6.35/1.86/{s>R}/{\pi R^2}}{
+    \begin{scope}[xshift=\xx cm]
+      \ifdim\ss pt<1.42pt
+        \fill[black!14] (0,0) circle[radius=\ss];
+      \else
+        \fill[black!14] (0,0) circle[radius=1.42];
+      \fi
+      \draw[dashed,black!65] (0,0) circle[radius=1.42];
+      \draw[line width=.75pt] (0,0) circle[radius=\ss];
+      % Las flechas del recorrido y del campo tienen sentidos opuestos.
+      \draw[campo] (109:\ss) arc[start angle=109,end angle=151,radius=\ss];
+      \node[anchor=south east,inner sep=1.5pt] at (128:{\ss+.32}) {$d\mathbf l$};
+      \draw[campo] (-22:\ss) arc[start angle=-22,end angle=-64,radius=\ss];
+      \node[anchor=west,inner sep=1.5pt] at (-43:{\ss+.26}) {$\mathbf E$};
+      \draw[radio] (0,0)--node[pos=.54,below=3pt,inner sep=1pt] {$R$} (150:1.42);
+      \draw[radio] (0,0)--node[pos=.77,above=2pt] {$s$} (\ss,0);
+      \fill (0,0) circle[radius=1.1pt];
+      \node at (0,-.48) {$\odot\;\mathbf B$};
+      \node at (.15,-1.54) {$\mathcal C_s$};
+      \node at (0,2.12) {$\condicion$};
+      \node at (0,-2.10) {$A_{\mathrm{flujo}}=\area$};
+    \end{scope}
+  }
+\end{tikzpicture}
+\EDpie{fig:solenoide-flujo}{Secciones del solenoide vistas desde $+z$. La línea discontinua marca el radio $R$ y el círculo grueso es el contorno de Faraday de radio $s$, orientado en sentido antihorario. La zona sombreada es la parte del disco atravesada por $\mathbf B$. Su área crece como $\pi s^2$ dentro del solenoide y se mantiene en $\pi R^2$ para cualquier lazo exterior.}
+\end{EDfigura}
+El flujo resulta del área sombreada de la figura~\ref{fig:solenoide-flujo}.
+En el disco, $\mathbf B\cdot d\mathbf a=B_z\,da$, con $B_z=0$
+fuera del devanado. Por tanto,
+\begin{align*}
+    \Phi_B(s,t)
+    &=\int_{S_s}\mathbf B\cdot d\mathbf a\\
+    &=\mu_0 n(I_0+\alpha t)\,A_{\mathrm{flujo}},\\
+    \frac{d\Phi_B}{dt}
+    &=\mu_0 n\alpha A_{\mathrm{flujo}}.
+\end{align*}
+Con $2\pi sE_\phi=-d\Phi_B/dt$ aplicamos el área de cada caso.
+\begin{itemize}
+    \item \textbf{Interior ($s<R$).} Todo el disco aporta flujo.
+    \begin{align}
+        E_\phi(s)
+        &=-\frac{\mu_0 n\alpha\,\pi s^2}{2\pi s}
+          \notag\\
+        \mathbf E_{\mathrm{int}}(s)
+        &=-\frac{\mu_0 n\alpha s}{2}\hat{\boldsymbol\phi}.
+    \end{align}
+    \item \textbf{Exterior ($s>R$).} El flujo magnético encerrado se
+    satura en el área transversal completa del solenoide.
+    \begin{align}
+        E_\phi(s)
+        &=-\frac{\mu_0 n\alpha\,\pi R^2}{2\pi s}
+          \notag\\
+        \mathbf E_{\mathrm{ext}}(s)
+        &=-\frac{\mu_0 n\alpha R^2}{2s}\hat{\boldsymbol\phi}.
+    \end{align}
+\end{itemize}
+Para verificar $\nabla\times\mathbf E=-\partial\mathbf B/\partial t$,
+usamos el rotacional del campo azimutal,
+\[
+    \nabla\times\mathbf E
+    =\frac{1}{s}\frac{\partial(sE_\phi)}{\partial s}\hat{\mathbf z}.
+\]
+\begin{align*}
+    s<R:\quad
+    \nabla\times\mathbf E_{\mathrm{int}}
+    &=\frac{1}{s}\frac{\partial}{\partial s}
+      \left(-\frac{\mu_0 n\alpha s^2}{2}\right)\hat{\mathbf z}\\
+    &=-\mu_0 n\alpha\hat{\mathbf z}
+      =-\frac{\partial\mathbf B_{\mathrm{int}}}{\partial t},\\[3pt]
+    s>R:\quad
+    \nabla\times\mathbf E_{\mathrm{ext}}
+    &=\frac{1}{s}\frac{\partial}{\partial s}
+      \left(-\frac{\mu_0 n\alpha R^2}{2}\right)\hat{\mathbf z}\\
+    &=\mathbf 0=-\frac{\partial\mathbf B_{\mathrm{ext}}}{\partial t}.
+\end{align*}
+\paragraph{c) Dependencia de trayectoria en el exterior:}
+
+En la circunferencia $s = 2R$, el campo vale $\mathbf{E}(2R) = -\frac{\mu_0 n \alpha R}{4} \hat{\boldsymbol{\phi}}$, y el elemento de arco es $d\mathbf{l} = 2R\, d\phi\, \hat{\boldsymbol{\phi}}$. El punto $P_1$ corresponde a $\phi = 0$ y $P_2$ a $\phi = \pi$ (o $-\pi$).
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth,font=\normalsize,line cap=round,line join=round,
+  trayecto/.style={line width=.78pt},
+  vector/.style={-{Stealth[length=2.15mm]},line width=.75pt}
+]
+  \fill[black!14] (0,0) circle[radius=1.15];
+  \draw[thin,densely dashed] (0,0) circle[radius=1.15];
+  \draw[thin,->] (-2.97,0)--(3.00,0) node[right] {$x$};
+  \draw[thin,->] (0,-2.47)--(0,2.50) node[above] {$y$};
+  \draw[trayecto] (2.30,0) arc[start angle=0,end angle=180,radius=2.30];
+  \draw[trayecto,densely dashed] (2.30,0) arc[start angle=0,end angle=-180,radius=2.30];
+  \draw[vector] (108:2.30) arc[start angle=108,end angle=146,radius=2.30];
+  \draw[vector] (-108:2.30) arc[start angle=-108,end angle=-146,radius=2.30];
+  \draw[vector] (119:1.83) arc[start angle=119,end angle=81,radius=1.83];
+  \draw[vector] (-78:1.83) arc[start angle=-78,end angle=-116,radius=1.83];
+  \node at (-.53,1.46) {$\mathbf E$};
+  \node at (-.53,-1.46) {$\mathbf E$};
+  \node[anchor=west] at (2.05,1.68) {$C_1:\ 0\longrightarrow\pi$};
+  \node[anchor=west] at (2.05,-1.68) {$C_2:\ 0\longrightarrow-\pi$};
+  \fill (2.30,0) circle[radius=1.8pt] node[above right=2pt] {$P_1$}
+    node[below right=2pt] {$(2R,0,0)$};
+  \fill (-2.30,0) circle[radius=1.8pt] node[above left=2pt] {$P_2$}
+    node[below left=2pt] {$(-2R,0,0)$};
+  \node at (.52,.44) {$\odot\;\mathbf B$};
+  \node at (-.48,-.43) {$s<R$};
+\end{tikzpicture}
+\EDpie{fig:solenoide-caminos}{Los dos caminos parten de $P_1$ y llegan a $P_2$. El superior $C_1$ se recorre contra el campo eléctrico y el inferior $C_2$ a favor. Si se vuelve por el camino inferior, el lazo cerrado así formado bordea un disco que atraviesa el solenoide. Los puntos indican el campo magnético en $+\hat{\mathbf z}$.}
+\end{EDfigura}
+\begin{itemize}
+    \item \textbf{Camino 1 ($y > 0$, $\phi$ de $0$ a $\pi$):}
+    \begin{align*}
+        -\int_{P_1, C_1}^{P_2}\mathbf E\cdot d\mathbf l
+        &=-\int_0^{\pi}\left(-\frac{\mu_0 n\alpha R}{4}\right)
+          (2R)(\hat{\boldsymbol\phi}\cdot\hat{\boldsymbol\phi})\,d\phi\\
+        &=\frac{\mu_0 n\alpha R^2}{2}[\phi]_0^{\pi}\\
+        &=+\frac{\pi\mu_0 n\alpha R^2}{2}.
+    \end{align*}
+    \item \textbf{Camino 2 ($y < 0$, $\phi$ de $0$ a $-\pi$):}
+    \begin{align*}
+        -\int_{P_1, C_2}^{P_2}\mathbf E\cdot d\mathbf l
+        &=-\int_0^{-\pi}\left(-\frac{\mu_0 n\alpha R}{4}\right)
+          (2R)(\hat{\boldsymbol\phi}\cdot\hat{\boldsymbol\phi})\,d\phi\\
+        &=\frac{\mu_0 n\alpha R^2}{2}[\phi]_0^{-\pi}\\
+        &=-\frac{\pi\mu_0 n\alpha R^2}{2}.
+    \end{align*}
+\end{itemize}
+\textit{Interpretación física:} Aunque localmente $\nabla \times \mathbf{E} = \mathbf{0}$ en toda la región exterior $s > R$, dicha región no es simplemente conexa al excluir el interior del solenoide. La unión del Camino 1 con el inverso del Camino 2 conforma un lazo cerrado que rodea al solenoide, encerrando un cambio de flujo no nulo ($\oint \mathbf{E}\cdot d\mathbf{l} = -\pi \mu_0 n \alpha R^2 \neq 0$). Como la integral de línea entre dos puntos depende del camino, el campo eléctrico inducido es no conservativo y no admite una representación global de la forma $\mathbf{E} = -\nabla V$.
+
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\subsection*{Solución Problema 3}
+
+\paragraph{a) Conveniencia del teorema de reciprocidad:}
+El campo magnético generado por una espira circular fuera de su eje de simetría involucra integrales elípticas completas sin expresión elemental simple; integrar además ese campo sobre todo el primer cuadrante infinito sería sumamente engorroso. En contraste, el teorema de reciprocidad de Neumann garantiza que $M_{12} = M_{21} = M$. Si hacemos pasar una corriente $I$ por los dos tramos rectilíneos del ángulo recto, calcular su campo magnético en $(d, d, 0)$ mediante Biot-Savart es elemental y, como $a \ll d$, el flujo sobre el pequeño disco es inmediato.
+
+\paragraph{b) Campo magnético del alambre en ángulo recto en $(d, d, 0)$:}
+Por la ley de Biot--Savart, el aporte de un tramo $\mathcal C_i$ es
+\begin{equation}
+    \mathbf B_i(\mathbf r)
+    =\frac{\mu_0 I}{4\pi}
+      \int_{\mathcal C_i}
+      \frac{d\mathbf l'\times\boldsymbol\eta}{|\boldsymbol\eta|^3},
+    \qquad \boldsymbol\eta=\mathbf r-\mathbf r'.
+    \label{ind:biot-savart}
+\end{equation}
+Dividimos el conductor en las dos semirrectas de la figura.
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth,font=\normalsize,line cap=round,line join=round,
+  vector/.style={-{Stealth[length=2.1mm]},line width=.72pt},
+  corriente/.style={-{Stealth[length=2.4mm]},line width=.9pt}
+]
+  \draw[thin,->] (-.46,0)--(7.45,0) node[right] {$x$};
+  \draw[thin,->] (0,-.42)--(0,4.40) node[above] {$y$};
+  \draw[line width=1.05pt] (7.10,0)--(0,0)--(0,4.04);
+  \draw[corriente] (6.88,0)--(6.00,0) node[midway,below=3pt] {$I$};
+  \draw[corriente] (0,3.08)--(0,3.86) node[midway,left=4pt] {$I$};
+  \node[above=3pt] at (6.32,0) {$\mathcal C_1$};
+  \node[right=3pt] at (0,3.50) {$\mathcal C_2$};
+  \coordinate (P) at (2.88,2.88);
+  \coordinate (X) at (5.04,0);
+  \coordinate (Y) at (0,1.15);
+  \draw[thin,densely dashed] (2.88,0)--(P)--(0,2.88);
+  \draw[thin] (2.74,0)--(2.74,.14)--(2.88,.14)
+    (0,2.74)--(.14,2.74)--(.14,2.88);
+  \node[below=3pt] at (2.88,0) {$d$};
+  \node[left=4pt] at (0,2.88) {$d$};
+  \node[below left=2pt] at (0,0) {$O$};
+
+  \fill[black!12] (P) circle[radius=.49];
+  \draw[line width=.70pt] (P) circle[radius=.49];
+  \draw[vector,shorten >=2pt] (X)--node[pos=.50,right=3pt] {$\boldsymbol{\eta}$} (P);
+  \draw[vector,dashed,shorten >=2pt] (Y)--node[pos=.47,above left=2pt] {$\boldsymbol{\eta}_2$} (P);
+  \fill (X) circle[radius=1.6pt] node[below=5pt] {$(x',0)$};
+  \fill (Y) circle[radius=1.6pt] node[left=5pt] {$(0,y')$};
+  \fill (P) circle[radius=1.6pt];
+  \draw[vector] (P)--++(82:.49) node[above=2pt] {$a$};
+  \draw[thin] (3.25,3.19)--(3.64,3.63)
+      node[anchor=west] {$P=(d,d)$};
+  \node[anchor=west] at (4.15,2.58) {$\otimes\;\mathbf B_1,\ \mathbf B_2$};
+  \node[anchor=west] at (4.15,2.03) {$\hat{\mathbf n}_c=-\hat{\mathbf z}$};
+\end{tikzpicture}
+\EDpie{fig:alambre-angulo}{Vista desde $+z$. La corriente entra por el semieje $+x$ y sale por el semieje $+y$. La flecha $\boldsymbol{\eta}$ va desde un elemento fuente del primer tramo hasta el centro de la espira. Los productos cruzados de ambos tramos apuntan en $-\hat{\mathbf z}$ y sus campos se suman. Esquema con $a\ll d$.}
+\end{EDfigura}
+\begin{itemize}
+    \item \textbf{Tramo $\mathcal C_1$ (semieje $+x$):} $\mathbf{r}' = x' \hat{\mathbf{x}}$ con $x' \in [0, \infty)$, llevando corriente en dirección $-\hat{\mathbf{x}}$, por lo que $I d\mathbf{l}' = -I\, dx'\, \hat{\mathbf{x}}$ al integrar con $x'$ creciente.
+    El vector hacia el punto de observación $\mathbf{r} = d\hat{\mathbf{x}} + d\hat{\mathbf{y}}$ es $\boldsymbol{\eta} = (d - x')\hat{\mathbf{x}} + d\hat{\mathbf{y}}$, con $|\boldsymbol{\eta}| = \sqrt{(x' - d)^2 + d^2}$.
+    El producto cruz es $d\mathbf{l}' \times \boldsymbol{\eta} = (-dx'\, \hat{\mathbf{x}}) \times \big((d - x')\hat{\mathbf{x}} + d\hat{\mathbf{y}}\big) = -d\, dx'\, \hat{\mathbf{z}}$.
+    Por Biot-Savart:
+    \begin{equation}
+        \mathbf{B}_1 = -\frac{\mu_0 I d}{4\pi} \hat{\mathbf{z}} \int_0^\infty \frac{dx'}{\left[ (x' - d)^2 + d^2 \right]^{3/2}}
+    \end{equation}
+    Con $u=x'-d$, los límites pasan a ser $-d$ e $\infty$.
+    \begin{align*}
+        \int_{-d}^{\infty}\frac{du}{(u^2+d^2)^{3/2}}
+        &=\left[\frac{u}{d^2\sqrt{u^2+d^2}}\right]_{-d}^{\infty}\\
+        &=\frac{1}{d^2}-\frac{-d}{d^2\sqrt{2d^2}}\\
+        &=\frac{1}{d^2}\left(1+\frac{1}{\sqrt{2}}\right).
+    \end{align*}
+    Luego:
+    \begin{equation}
+        \mathbf{B}_1 = -\frac{\mu_0 I}{4\pi d} \left( 1 + \frac{1}{\sqrt{2}} \right) \hat{\mathbf{z}}
+    \end{equation}
+    \item \textbf{Tramo $\mathcal C_2$ (semieje $+y$):} $\mathbf{r}' = y' \hat{\mathbf{y}}$ con $y' \in [0, \infty)$ y corriente en $+\hat{\mathbf{y}}$, es decir, $I d\mathbf{l}' = +I\, dy'\, \hat{\mathbf{y}}$. Con $\boldsymbol{\eta} = d\hat{\mathbf{x}} + (d - y')\hat{\mathbf{y}}$, el producto cruz da $(dy'\, \hat{\mathbf{y}}) \times (d\hat{\mathbf{x}}) = -d\, dy'\, \hat{\mathbf{z}}$. Por simetría bajo intercambio de $x'$ e $y'$, la integral es idéntica y suma constructivamente en $-\hat{\mathbf{z}}$: $\mathbf{B}_2 = \mathbf{B}_1$.
+\end{itemize}
+El campo magnético total en el centro de la espira es:
+\begin{equation}
+    \mathbf{B}(d, d, 0) = \mathbf{B}_1 + \mathbf{B}_2 = -\frac{\mu_0 I}{2\pi d} \left( 1 + \frac{1}{\sqrt{2}} \right) \hat{\mathbf{z}}
+\end{equation}
+
+\paragraph{c) Inductancia mutua:}
+Bajo la aproximación $a\ll d$, podemos usar el campo del centro
+en todo el disco. Tomamos la normal paralela al campo para que $M>0$.
+\begin{align*}
+    \Phi_c
+    &=\int_{S_c}\mathbf B\cdot d\mathbf a\\
+    &\approx|\mathbf B(d,d,0)|
+        \int_{S_c}\underbrace{
+          (-\hat{\mathbf z})\cdot(-\hat{\mathbf z})}_{1}\,da\\
+    &=\frac{\mu_0 I}{2\pi d}\left(1+\frac{1}{\sqrt{2}}\right)
+         \pi a^2\\
+    &=\frac{\mu_0 I a^2}{2d}\left(1+\frac{1}{\sqrt{2}}\right).
+\end{align*}
+Dividiendo por la corriente de prueba $I$, obtenemos la inductancia mutua:
+\begin{equation}
+    M = \frac{\Phi_c}{I} = \frac{\mu_0 a^2}{2d} \left( 1 + \frac{1}{\sqrt{2}} \right)
+\end{equation}
+
+\paragraph{d) Fuerza electromotriz inducida en el ángulo recto:}
+Si $I_c(t) = I_0 \cos(\omega t)$ recorre la espira circular en sentido horario visto desde $+z$ (de modo que su vector área apunta en $-\hat{\mathbf{z}}$, consistente con el signo positivo de $M$ respecto al sentido de referencia en el ángulo recto), la fem inducida en el alambre infinito es:
+\begin{align*}
+    \mathcal E(t)
+    &=-M\frac{d I_c(t)}{dt}\\
+    &=-M I_0\frac{d}{dt}\cos(\omega t)\\
+    &=M I_0\omega\sin(\omega t)\\
+    &=\frac{\mu_0 a^2 I_0\omega}{2d}
+      \left(1+\frac{1}{\sqrt{2}}\right)\sin(\omega t).
+\end{align*}
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\subsection*{Solución Problema 4}
+
+\paragraph{a) Campo magnético en todo el espacio:}
+Aplicamos la ley de Ampère sobre una circunferencia $\mathcal C_s$.
+Por simetría, $\mathbf B=B_\phi(s)\hat{\boldsymbol\phi}$ y
+$d\mathbf l=s\,d\phi\,\hat{\boldsymbol\phi}$. Así,
+\[
+    \oint_{\mathcal C_s}\mathbf B\cdot d\mathbf l
+    =\int_0^{2\pi}B_\phi(s)s\,d\phi
+    =2\pi sB_\phi(s)=\mu_0 I_{\mathrm{enc}}(s).
+\]
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth,font=\normalsize,line cap=round,line join=round,
+  vector/.style={-{Stealth[length=2.1mm]},line width=.74pt},
+  radio/.style={-{Stealth[length=1.6mm]},thin}
+]
+  \fill[black!14] (0,0) circle[radius=.76];
+  \draw[line width=.75pt] (0,0) circle[radius=.76];
+  \draw[line width=.95pt] (0,0) circle[radius=1.94];
+  \draw[thin,densely dashed] (0,0) circle[radius=1.37];
+  \draw[vector] (58:1.37) arc[start angle=58,end angle=118,radius=1.37];
+  \node at (-1.07,1.15) {$\mathbf B$};
+  \node at (1.16,.99) {$\mathcal C_s$};
+  \draw[radio] (0,0)--node[pos=.60,above=3pt] {$a$} (18:.76);
+  \draw[radio] (0,0)--node[pos=.77,below=3pt] {$b$} (-20:1.94);
+  \draw[radio] (0,0)--node[pos=.74,below=3pt] {$s$} (218:1.37);
+  \foreach \t in {108,182,278}{
+    \node[inner sep=1pt] at (\t:.49) {$\odot$};
+  }
+  \foreach \t in {30,95,154,209,266,322}{
+    \node[fill=white,inner sep=1pt] at (\t:1.94) {$\otimes$};
+  }
+  \node at (0,2.27) {Corte desde $+z$};
+  \node at (0,-2.37) {$\odot\ +I\qquad\otimes\ -I$};
+
+  \begin{scope}[shift={(3.72,-1.55)}]
+    \def\posa{1.10}
+    \def\posb{2.78}
+    \def\altura{2.57}
+    \pgfmathsetmacro{\limiteb}{\altura*\posa/\posb}
+    \draw[thin,->] (-.14,0)--(4.80,0) node[right] {$s$};
+    \draw[thin,->] (0,-.14)--(0,3.28) node[above] {$B_\phi(s)$};
+    \draw[thin,densely dashed] (\posa,0)--(\posa,\altura)
+      (\posb,0)--(\posb,\limiteb);
+    \draw[line width=.95pt] (0,0)--(\posa,\altura);
+    \draw[line width=.95pt,domain=\posa:\posb,samples=65,variable=\t]
+      plot ({\t},{\altura*\posa/\t});
+    \draw[line width=.95pt] (\posb,0)--(4.60,0);
+    \draw[fill=white,line width=.65pt] (\posb,\limiteb) circle[radius=2pt]
+      (\posb,0) circle[radius=2pt];
+    \fill (\posa,\altura) circle[radius=1.5pt];
+    \node[below left=2pt] at (0,0) {$0$};
+    \node[below=3pt] at (\posa,0) {$a$};
+    \node[below=3pt] at (\posb,0) {$b$};
+    \node at (.37,1.83) {$\propto s$};
+    \node at (2.20,1.93) {$\propto1/s$};
+    \node at (3.81,.37) {$0$};
+  \end{scope}
+\end{tikzpicture}
+\EDpie{fig:coaxial}{Cable coaxial visto desde $+z$ y perfil radial esquemático del campo. Los puntos representan la corriente saliente del núcleo y las cruces la corriente entrante de retorno en la cáscara. $B_\phi$ aumenta dentro del núcleo, decrece entre conductores y salta a cero al cruzar la cáscara ideal delgada. El lazo dibujado encierra $I$ y queda entre $a$ y $b$.}
+\end{EDfigura}
+Calculamos $I_{\mathrm{enc}}=\int_{S_s}\mathbf J\cdot d\mathbf a$,
+incluyendo la corriente de la cáscara cuando queda dentro de
+$\mathcal C_s$. En el núcleo, $J_z=I/(\pi a^2)$ es uniforme.
+La normal del disco apunta en $+\hat{\mathbf z}$. Para $s<a$,
+\begin{align*}
+    I_{\mathrm{enc}}(s)
+    &=\int_{S_s}\mathbf J\cdot d\mathbf a\\
+    &=\frac{I}{\pi a^2}\int_{S_s}
+      (\hat{\mathbf z}\cdot\hat{\mathbf z})\,da\\
+    &=I\frac{s^2}{a^2}.
+\end{align*}
+Cuando $a<s<b$, el lazo encierra toda la corriente del núcleo,
+$I_{\mathrm{enc}}(s)=I$. Para $s>b$, también encierra el retorno
+por la cáscara y $I_{\mathrm{enc}}(s)=I-I=0$. Sustituimos estos
+valores en $B_\phi(s)=\mu_0 I_{\mathrm{enc}}(s)/(2\pi s)$,
+\[
+    \mathbf B(s)=
+    \begin{cases}
+      \dfrac{\mu_0 I s}{2\pi a^2}\hat{\boldsymbol\phi}, & s<a,\\[5pt]
+      \dfrac{\mu_0 I}{2\pi s}\hat{\boldsymbol\phi}, & a<s<b,\\[5pt]
+      \mathbf 0, & s>b.
+    \end{cases}
+\]
+\paragraph{b) Energía magnética por unidad de longitud:}
+Partimos de $U_B=\int u_B\,dV$, con $u_B=B^2/(2\mu_0)$.
+En un tramo de longitud $\ell$, una cáscara de radio $s$ y
+espesor $ds$ tiene volumen $dV=2\pi s\,\ell\,ds$. Así,
+\[
+    \frac{U_B}{\ell}
+    =\frac{1}{2\mu_0}\int_0^\infty B^2(s)\,2\pi s\,ds.
+\]
+Como $B=0$ para $s>b$, quedan las contribuciones del núcleo
+y de la región entre los conductores.
+\begin{align*}
+    \frac{U_{\mathrm{int}}}{\ell}
+    &=\frac{1}{2\mu_0}\int_0^a
+      \left(\frac{\mu_0 I s}{2\pi a^2}\right)^2 2\pi s\,ds\\
+    &=\frac{\mu_0 I^2}{4\pi a^4}
+      \left[\frac{s^4}{4}\right]_0^a
+      =\frac{\mu_0 I^2}{16\pi},\\[3pt]
+    \frac{U_{\mathrm{ext}}}{\ell}
+    &=\frac{1}{2\mu_0}\int_a^b
+      \left(\frac{\mu_0 I}{2\pi s}\right)^2 2\pi s\,ds\\
+    &=\frac{\mu_0 I^2}{4\pi}\int_a^b\frac{ds}{s}\\
+    &=\frac{\mu_0 I^2}{4\pi}\ln\!\left(\frac{b}{a}\right).
+\end{align*}
+Por tanto,
+\[
+    \frac{U_B}{\ell}
+    =\frac{\mu_0 I^2}{16\pi}
+     +\frac{\mu_0 I^2}{4\pi}\ln\!\left(\frac{b}{a}\right).
+\]
+\paragraph{c) Autoinductancia por unidad de longitud:}
+De $U_B=\tfrac12 LI^2$ obtenemos, al dividir por $\ell$,
+\begin{align*}
+    \mathcal L
+    &=\frac{2}{I^2}\frac{U_B}{\ell}\\
+    &=\frac{2}{I^2}\left[
+       \frac{\mu_0 I^2}{16\pi}
+       +\frac{\mu_0 I^2}{4\pi}\ln\!\left(\frac{b}{a}\right)\right]\\
+    &=\underbrace{\frac{\mu_0}{8\pi}}_{\mathcal L_{\mathrm{int}}}
+      +\underbrace{\frac{\mu_0}{2\pi}\ln\!\left(\frac{b}{a}\right)}
+       _{\mathcal L_{\mathrm{ext}}}.
+\end{align*}
+Notablemente, la inductancia interna $\mathcal{L}_{\text{int}} = \frac{\mu_0}{8\pi}$ depende únicamente de la permeabilidad magnética y es independiente del radio $a$ del conductor.
+
+\paragraph{d) Flujo interno y enlace de flujo parcial.}
+El flujo magnético a través de la sección radial del núcleo se
+calcula con $d\mathbf a=\hat{\boldsymbol\phi}\,dz'\,ds$.
+Al integrar primero a lo largo de la longitud $\ell$, obtenemos
+\begin{align*}
+    \Phi_{\mathrm{int}}
+    &=\int_{S_{\mathrm{int}}}\mathbf B\cdot d\mathbf a\\
+    &=\int_0^a\frac{\mu_0 I s}{2\pi a^2}\,\ell\,ds\\
+    &=\frac{\mu_0 I\ell}{2\pi a^2}
+      \left[\frac{s^2}{2}\right]_0^a\\
+    &=\frac{\mu_0 I\ell}{4\pi}.
+\end{align*}
+Al dividir el flujo interno sin ponderar por $I\ell$, encontramos
+\[
+    \frac{\Phi_{\mathrm{int}}}{I\ell}=\frac{\mu_0}{4\pi}.
+\]
+Al usar ese cociente como inductancia por unidad de longitud,
+se obtendría el doble del valor correcto. La razón física es que el concepto elemental $L = \Phi_B/I$ asume que las líneas de campo magnético rodean el $100\%$ de la corriente $I$ (conductores filiformes). Dentro del conductor macizo ($s < a$), un tubo de flujo diferencial $d\Phi_B(s) = B(s)\ell\, ds$ ubicado a radio $s$ solo enlaza la fracción de corriente interior $f(s) = I_{\text{enc}}(s)/I = s^2/a^2$. Al ponderar cada elemento diferencial de flujo por la fracción de corriente efectivamente enlazada ($d\Lambda = f(s)\, d\Phi_B$), obtenemos:
+\begin{align}
+    \mathcal L_{\mathrm{int}}
+    &=\frac{1}{I\ell}\int d\Lambda_{\mathrm{int}}
+      \notag\\
+    &=\frac{1}{I\ell}\int_0^a
+      \frac{s^2}{a^2}\frac{\mu_0 I s}{2\pi a^2}\,\ell\,ds
+      \notag\\
+    &=\frac{\mu_0}{2\pi a^4}
+      \left[\frac{s^4}{4}\right]_0^a
+      \notag\\
+    &=\frac{\mu_0}{8\pi}.
+\end{align}
+Así se recupera el valor obtenido a partir de la energía magnética.
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\subsection*{Solución Problema 5}
+
+\paragraph{a) Campo eléctrico y corriente de desplazamiento:}
+Con $Q(t) = I t$ concentrada en el origen, el campo eléctrico cuasiestático es:
+\begin{equation}
+    \mathbf{E}(\mathbf{r}, t) = \frac{I t}{4\pi\varepsilon_0 r^2} \hat{\mathbf{r}}
+\end{equation}
+La densidad de corriente de desplazamiento fuera del origen ($r > 0$) resulta estacionaria y puramente radial:
+\begin{align*}
+    \mathbf J_d(\mathbf r)
+    &=\varepsilon_0\frac{\partial\mathbf E}{\partial t}\\
+    &=\varepsilon_0\frac{\partial}{\partial t}
+      \left(\frac{It}{4\pi\varepsilon_0r^2}\hat{\mathbf r}\right)\\
+    &=\frac{I}{4\pi r^2}\hat{\mathbf r}.
+\end{align*}
+Si integramos sobre una esfera cerrada de radio $r$ centrada en el origen (con vector área exterior $d\mathbf{a} = r^2 \sin\theta'\, d\theta'\, d\phi'\, \hat{\mathbf{r}}$), el alambre ingresa por el polo sur ($\theta' = \pi$, donde $\hat{\mathbf{r}} = -\hat{\mathbf{z}}$) aportando un flujo de conducción $\int \mathbf{J} \cdot d\mathbf{a} = -I$, mientras que la corriente de desplazamiento sale uniformemente por toda la esfera aportando $\oint \mathbf{J}_d \cdot d\mathbf{a} = \frac{I}{4\pi r^2}(4\pi r^2) = +I$. Así, $\oint (\mathbf{J} + \mathbf{J}_d) \cdot d\mathbf{a} = -I + I = 0$, verificando que la corriente total generalizada de Maxwell no tiene fuentes ni sumideros.
+
+\paragraph{b) Corriente de desplazamiento a través del casquete $S_1$:}
+Recorremos el lazo circular $C$ (radio $s = r\sin\theta$) en la dirección $+\hat{\boldsymbol{\phi}}$. Por la regla de la mano derecha, la normal unitaria sobre el casquete superior $S_1$ ($0 \le \theta' \le \theta$) apunta radialmente hacia afuera ($\hat{\mathbf{n}}_1 = +\hat{\mathbf{r}}$). Integrando $\mathbf{J}_d$ sobre $S_1$:
+
+\begin{EDfigura}
+\begin{tikzpicture}[
+  >=Stealth,font=\normalsize,line cap=round,line join=round,
+  vector/.style={-{Stealth[length=2.0mm]},line width=.7pt},
+  normal/.style={-{Stealth[length=2.45mm]},line width=.92pt},
+  casquete/.style={line width=.96pt}
+]
+  \foreach \xx/\caso in {0/1,7.05/2}{
+    \begin{scope}[xshift=\xx cm]
+      \def\radio{1.84}
+      \def\ang{25}
+      \pgfmathsetmacro{\altura}{\radio*sin(\ang)}
+      \pgfmathsetmacro{\ancho}{\radio*cos(\ang)}
+      \coordinate (Cleft) at (-\ancho,\altura);
+      \coordinate (Cright) at (\ancho,\altura);
+      \ifnum\caso=1
+        \fill[black!13] (Cright)
+          arc[start angle=25,end angle=155,radius=\radio]--cycle;
+      \else
+        \fill[black!13] (Cleft)
+          arc[start angle=155,end angle=385,radius=\radio]--cycle;
+      \fi
+      \draw[black!65,thin,densely dashed] (0,0) circle[radius=\radio];
+      \draw[thin,->] (0,-2.38)--(0,2.42) node[above=2pt] {$+z$};
+      \ifnum\caso=1
+        \draw[casquete] (Cright)
+          arc[start angle=25,end angle=155,radius=\radio];
+      \else
+        \draw[casquete] (Cleft)
+          arc[start angle=155,end angle=385,radius=\radio];
+      \fi
+      \draw[black!70,thin,dashed] (Cleft)
+        arc[start angle=180,end angle=0,x radius=\ancho,y radius=.27];
+      \draw[thin] (Cleft)
+        arc[start angle=180,end angle=360,x radius=\ancho,y radius=.27];
+      \draw[vector,domain=222:265,samples=22,variable=\t]
+        plot ({\ancho*cos(\t)},{\altura+.27*sin(\t)});
+      \node at (-1.03,{\altura-.52}) {$+\hat{\boldsymbol{\phi}}$};
+      \node[anchor=west] at (Cright) {$\mathcal C$};
+      \draw[line width=1.08pt] (0,-2.34)--(0,0);
+      \draw[vector] (0,-1.65)--(0,-.85) node[midway,left=4pt] {$I$};
+      \fill (0,0) circle[radius=1.7pt];
+      \ifnum\caso=1
+        \node[below right=2pt] at (0,0) {$Q(t)$};
+        \draw[thin] (0,0)--(Cright) node[pos=.78,below=2pt] {$r$};
+        \draw[thin] (90:.49) arc[start angle=90,end angle=25,radius=.49];
+        \node at (49:.74) {$\theta$};
+        \draw[normal] (115:\radio)--(115:2.50)
+          node[above left=1pt] {$\hat{\mathbf n}_1$};
+        \draw[vector] (62:1.24)--(62:2.17) node[above right=2pt] {$\mathbf J_d$};
+        \node[anchor=east] at (-1.35,1.46) {$S_1$};
+      \else
+        \node[below left=3pt] at (0,0) {$Q(t)$};
+        \draw[normal] (-36:\radio)--(-36:1.12);
+        \node at (1.20,-.51) {$\hat{\mathbf n}_2$};
+        \draw[vector] (222:1.25)--(222:2.07)
+          node[left=2pt] {$\mathbf J_d$};
+        \node[anchor=west] at (1.42,-1.46) {$S_2$};
+        \fill (0,-\radio) circle[radius=1.6pt];
+      \fi
+    \end{scope}
+  }
+\end{tikzpicture}
+\EDpie{fig:ampere-casquetes}{El mismo lazo $\mathcal C$, recorrido en $+\hat{\boldsymbol{\phi}}$, limita los dos casquetes. Su radio es $s=r\sin\theta$. El trazo grueso identifica el casquete elegido. La normal $\hat{\mathbf n}_1=+\hat{\mathbf r}$ sale de la esfera y $\hat{\mathbf n}_2=-\hat{\mathbf r}$ apunta hacia el centro. La corriente de desplazamiento $\mathbf J_d$ es radial saliente en ambos casos. El alambre perfora únicamente $S_2$.}
+\end{EDfigura}
+En $S_1$ el elemento de área es
+$d\mathbf a=+\hat{\mathbf r}\,r^2\sin\theta'\,d\theta'\,d\phi'$.
+Al sustituir $\mathbf J_d$ y este elemento en la definición,
+\begin{align}
+    I_{d,\mathrm{enc}}^{(1)}
+    &=\int_{S_1}\mathbf J_d\cdot d\mathbf a
+      \notag\\
+    &=\int_0^{2\pi}\!\int_0^\theta
+      \frac{I}{4\pi r^2}r^2\sin\theta'
+      \underbrace{(\hat{\mathbf r}\cdot\hat{\mathbf r})}_{1}
+      \,d\theta'\,d\phi'
+      \notag\\
+    &=\frac{I}{4\pi}(2\pi)\bigl[-\cos\theta'\bigr]_0^\theta
+      \notag\\
+    &=\frac{I}{2}(1-\cos\theta).
+    \label{ind:corriente-desplazamiento-s1}
+\end{align}
+\paragraph{c) Campo magnético por Ampère-Maxwell y consistencia de superficies:}
+Como el alambre yace en $\theta'=\pi$, no atraviesa el casquete
+$S_1$ y $I_{\text{enc}}^{(1)}=0$. En la ley de Ampère-Maxwell,
+\[
+    \oint_{\mathcal C}\mathbf B\cdot d\mathbf l
+    =\mu_0\bigl(I_{\mathrm{enc}}+I_{d,\mathrm{enc}}\bigr),
+\]
+sustituimos $d\mathbf l=r\sin\theta\,d\phi\,\hat{\boldsymbol\phi}$.
+Como $B_\phi(r,\theta)$ es constante sobre $\mathcal C$,
+\[
+    \oint_{\mathcal C}\mathbf B\cdot d\mathbf l
+    =B_\phi(r,\theta)\,r\sin\theta\int_0^{2\pi}d\phi
+    =2\pi r\sin\theta\,B_\phi(r,\theta).
+\]
+Con $I_{\mathrm{enc}}^{(1)}=0$ y
+\eqref{ind:corriente-desplazamiento-s1},
+\begin{align}
+    2\pi r\sin\theta\,B_\phi(r,\theta)
+    &=\mu_0\frac I2(1-\cos\theta)
+      \notag\\
+    \mathbf B(r,\theta)
+    &=\frac{\mu_0 I(1-\cos\theta)}{4\pi r\sin\theta}
+      \hat{\boldsymbol\phi}.
+    \label{ind:campo-ampere-maxwell}
+\end{align}
+Si ahora elegimos el casquete complementario inferior $S_2$ ($\theta \le \theta' \le \pi$) bordeado por el \textit{mismo} lazo orientado $C$, la compatibilidad con la regla de la mano derecha exige que el vector normal apunte hacia el origen ($\hat{\mathbf{n}}_2 = -\hat{\mathbf{r}}$). Evaluando ambos términos sobre $S_2$:
+\begin{itemize}
+    \item En $\theta' = \pi$, $\hat{\mathbf{n}}_2 = -\hat{\mathbf{r}}|_{\theta'=\pi} = +\hat{\mathbf{z}}$, paralelo a la corriente $I$ del alambre, de modo que $I_{\text{enc}}^{(2)} = +I$.
+    \item El flujo de $\mathbf J_d$ con
+    $\hat{\mathbf n}_2=-\hat{\mathbf r}$ es
+    \begin{align*}
+        I_{d,\mathrm{enc}}^{(2)}
+        &=\int_{S_2}\mathbf J_d\cdot d\mathbf a\\
+        &=\int_0^{2\pi}\!\int_\theta^\pi
+          \frac{I}{4\pi}\sin\theta'
+          \underbrace{\bigl(\hat{\mathbf r}\cdot(-\hat{\mathbf r})\bigr)}_{-1}
+          \,d\theta'\,d\phi'\\
+        &=-\frac I2\bigl[-\cos\theta'\bigr]_\theta^\pi\\
+        &=-\frac I2(1+\cos\theta).
+    \end{align*}
+\end{itemize}
+Sumando ambas contribuciones en $S_2$:
+\begin{equation}
+    I_{\text{enc}}^{(2)} + I_{d,\text{enc}}^{(2)} = I - \frac{I}{2}(1 + \cos\theta) = \frac{I}{2}(1 - \cos\theta)
+\end{equation}
+Se obtiene exactamente el mismo lado derecho y el mismo campo $\mathbf{B}(r, \theta)$, demostrando cómo el término de Maxwell elimina la ambigüedad en la elección de la superficie.
+
+\paragraph{d) Comparación con Biot-Savart e interpretación física:}
+Aplicamos Biot--Savart \eqref{ind:biot-savart} al alambre,
+con $z'\in(-\infty,0]$ e $I d\mathbf l'=I\,dz'\,\hat{\mathbf z}$.
+Para un punto con $(s,\phi,z)=(r\sin\theta,\phi,r\cos\theta)$,
+$\boldsymbol\eta=s\hat{\mathbf s}+(z-z')\hat{\mathbf z}$ y
+$d\mathbf l'\times\boldsymbol\eta=s\,dz'\,\hat{\boldsymbol\phi}$.
+Al sustituir,
+\begin{equation}
+    \mathbf{B}_{\text{alambre}} = \frac{\mu_0 I s}{4\pi} \hat{\boldsymbol{\phi}} \int_{-\infty}^0 \frac{dz'}{\left[ s^2 + (z - z')^2 \right]^{3/2}}
+\end{equation}
+Con $u=z'-z$, los límites pasan a ser $-\infty$ y $-z$.
+\begin{align*}
+    \int_{-\infty}^{-z}\frac{du}{(s^2+u^2)^{3/2}}
+    &=\left[\frac{u}{s^2\sqrt{s^2+u^2}}\right]_{-\infty}^{-z}\\
+    &=-\frac{z}{s^2\sqrt{s^2+z^2}}+\frac{1}{s^2}\\
+    &=\frac{1}{s^2}\left(1-\frac{z}{r}\right).
+\end{align*}
+Sustituimos en el campo del alambre y usamos $s=r\sin\theta$
+y $z=r\cos\theta$.
+\begin{align*}
+    \mathbf B_{\mathrm{alambre}}
+    &=\frac{\mu_0 I s}{4\pi}\frac{1}{s^2}
+      \left(1-\frac{z}{r}\right)\hat{\boldsymbol\phi}\\
+    &=\frac{\mu_0 I(1-\cos\theta)}{4\pi r\sin\theta}\,
+      \hat{\boldsymbol\phi}.
+\end{align*}
+El resultado coincide con el de Ampère--Maxwell
+en \eqref{ind:campo-ampere-maxwell}.
+Por lo tanto, el campo magnético generado por las corrientes de desplazamiento esféricas es $\mathbf{B}_d = \mathbf{B} - \mathbf{B}_{\text{alambre}} = \mathbf{0}$ en todo el espacio.
+
+\textit{Explicación física:} La densidad de corriente de desplazamiento $\mathbf{J}_d = \frac{I}{4\pi r^2} \hat{\mathbf{r}}$ posee simetría esférica perfecta e irrotacionalidad ($\nabla \times \mathbf{J}_d = \mathbf{0}$). Si se inserta $\mathbf{J}_d$ en una integral tipo Biot-Savart, para cualquier punto de observación $\mathbf{r}$, los elementos simétricos respecto al eje definido por $\mathbf{r}$ producen productos cruz $\mathbf{J}_d(\mathbf{r}') \times (\mathbf{r} - \mathbf{r}')$ opuestos que se cancelan por pares. Así, una corriente radial esféricamente simétrica no genera campo magnético propio, pero su flujo es indispensable en la ecuación de Ampère-Maxwell para mantener la consistencia matemática del rotacional de $\mathbf{B}$ cuando la corriente de conducción termina abruptamente en un punto.
+
+\end{document}
