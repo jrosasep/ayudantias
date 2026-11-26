@@ -1,0 +1,944 @@
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{float}
+\usetikzlibrary{arrows.meta,babel}
+\tikzset{
+  repaso/.style={>=Stealth,line cap=round,line join=round,
+                 every node/.style={font=\small}},
+  borde/.style={black,line width=.72pt},
+  eje/.style={-{Stealth[length=1.45mm]},thin},
+  vector/.style={-{Stealth[length=1.85mm]},line width=.75pt},
+  trayecto/.style={-{Stealth[length=1.6mm]},line width=.65pt},
+  guia/.style={densely dashed,black!66,line width=.5pt},
+  medida/.style={{Stealth[length=1.45mm]}-{Stealth[length=1.45mm]},thin},
+  llamada/.style={black!65,line width=.38pt},
+  corte/.style={fill=white,inner sep=.55pt}
+}
+\spanishdecimal{.}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.35em}
+\setlength{\abovedisplayskip}{4pt}
+\setlength{\belowdisplayskip}{4pt}
+\setlength{\abovedisplayshortskip}{4pt}
+\setlength{\belowdisplayshortskip}{4pt}
+
+\newcommand{\encabezado}[3]{%
+  {\Large\bfseries #1\par}
+  \vspace{2pt}
+  {\normalsize #2\hfill #3\par}
+  \vspace{6pt}\hrule\vspace{8pt}}
+
+\newcommand{\problema}[2]{%
+  \vspace{0.55em}
+  \noindent\textbf{#1.}\enspace{\small #2}\par
+  \vspace{0.3em}}
+
+\begin{document}
+
+
+
+\encabezado{Repaso E2 -- Problemas resueltos}
+{Electrodinámica I}{P.S., J.A., J.R.}
+
+\section*{Enunciados de los Problemas}
+
+
+\section*{Problema 1: Electrostática en la Materia (Esfera Conductora con Corteza Dieléctrica)}
+
+Una esfera metálica conductora maciza de radio $a$ posee una carga libre neta $+Q$. La esfera está rodeada concéntricamente por un cascarón dieléctrico lineal, homogéneo e isotrópico de permitividad eléctrica $\varepsilon$, el cual ocupa la región comprendida entre el radio interno $a$ y el radio externo $b$ ($b > a$). Para $r > b$ el sistema se encuentra rodeado de vacío (permitividad $\varepsilon_0$).
+
+\begin{enumerate}
+    \item[a)] Utilizando la simetría esférica y la Ley de Gauss para medios materiales, determine los vectores desplazamiento eléctrico $\mathbf{D}(r)$, campo eléctrico $\mathbf{E}(r)$ y polarización $\mathbf{P}(r)$ en las tres regiones del espacio: $r < a$, $a < r < b$, y $r > b$.
+    \item[b)] Tomando como referencia de potencial nulo el infinito ($V(\infty) = 0$), calcule el potencial electrostático $V(a)$ de la esfera conductora y deduzca la capacitancia $C$ de este conductor recubierto. Evalúe e interprete físicamente los casos límite $\varepsilon \to \varepsilon_0$ y $b \to \infty$.
+    \item[c)] Determine la densidad volumétrica de carga ligada $\rho_b$ en el interior del dieléctrico ($a < r < b$) y las densidades superficiales de carga ligada $\sigma_b$ en las fronteras $r = a$ y $r = b$. Compruebe explícitamente que la carga ligada total del cascarón es cero y que la suma de la carga libre $+Q$ con la carga ligada en $r = a$ explica el apantallamiento parcial del campo eléctrico dentro del dieléctrico.
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\section*{Problema 2: Magnetostática en el Vacío (Cilindro Cargado en Rotación)}
+
+Un cilindro hueco, muy largo y de paredes aislantes muy delgadas, tiene radio $R$ y posee una densidad superficial de carga eléctrica uniforme $\sigma$ adherida rígidamente a su manto. El cilindro gira alrededor de su eje de simetría (el eje $z$) con velocidad angular constante $\boldsymbol{\omega} = \omega \hat{\mathbf{z}}$.
+
+\begin{enumerate}
+    \item[a)] Determine el vector densidad de corriente superficial $\mathbf{K}$ que aparece sobre la pared del cilindro ($s = R$) producto de la rotación.
+    \item[b)] Utilizando argumentos de simetría cilíndrica y la Ley de Ampère en forma integral (asumiendo que el campo magnético se anula a distancias radiales infinitas), calcule el vector campo magnético $\mathbf{B}(s)$ en el interior ($s < R$) y en el exterior ($s > R$) del cilindro. Verifique explícitamente que su resultado cumple la condición de frontera $\mathbf{B}_{\text{ext}} - \mathbf{B}_{\text{int}} = \mu_0 (\mathbf{K} \times \hat{\mathbf{n}})$.
+    \item[c)] A partir del campo magnético obtenido, encuentre el potencial vectorial magnético continuo $\mathbf{A}(s)$ en todo el espacio imponiendo $\mathbf{A}(0) = \mathbf{0}$, compruebe que satisface el gauge de Coulomb ($\nabla \cdot \mathbf{A} = 0$), y calcule el momento dipolar magnético por unidad de longitud axial del cilindro.
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\section*{Problema 3: Magnetostática en la Materia e Inducción (Toroide con Entrehierro)}
+
+Un núcleo toroidal de radio medio $R$ y sección transversal pequeña de área $A$ ($\sqrt{A} \ll R$, de modo que la magnitud de los campos puede aproximarse como uniforme sobre la sección transversal) está construido con un material magnético lineal de permeabilidad $\mu = \mu_0(1 + \chi_m)$. Al anillo toroidal se le practica un corte transversal muy estrecho de espesor $d$ ($d \ll R$), dejando una ranura de vacío (``entrehierro''). Alrededor del núcleo se enrolla un devanado primario de $N$ espiras por el cual circula una corriente libre $I$.
+
+\begin{enumerate}
+    \item[a)] Despreciando el ensanchamiento de las líneas de campo en los bordes de la ranura, aplique la continuidad de la componente normal de $\mathbf{B}$ en las caras del entrehierro y la Ley de Ampère para el campo auxiliar $\mathbf{H}$ a lo largo de la circunferencia media de longitud $2\pi R$. Determine la magnitud del campo magnético $B$ en el circuito magnético, así como las magnitudes $H_m$ en el material y $H_0$ en la ranura de vacío.
+    \item[b)] Calcule la magnitud de la densidad superficial de corriente de magnetización $K_b$ que circula sobre el manto lateral del núcleo magnético. Explique físicamente por qué $H_0$ y $H_m$ difieren drásticamente al cruzar las caras del entrehierro pese a que no existen corrientes libres en dichas superficies.
+    \item[c)] Si se enrolla una bobina secundaria de $N_2$ vueltas sobre el mismo núcleo y se alimenta el devanado primario con una corriente alterna $I(t) = I_0 \cos(\omega t)$ (en régimen cuasiestático), determine el coeficiente de inductancia mutua $\mathcal{M}$ entre ambas bobinas y la fuerza electromotriz $\mathcal{E}_2(t)$ inducida en el secundario según la Ley de Faraday.
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\section*{Problema 4: Ley de Ampère-Maxwell y Ley de Faraday en Medios Materiales}
+
+Este problema contrasta dos configuraciones cilíndricas no estacionarias en presencia de materia:
+
+\begin{enumerate}
+    \item[a)] \textbf{Descarga óhmica radial:} Dos cilindros conductores coaxiales muy largos de radios $a$ y $b$ ($b > a$) tienen el espacio intermedio relleno de un medio material lineal, homogéneo e isotrópico con permitividad $\varepsilon$, permeabilidad $\mu_0$ y conductividad eléctrica débil $\sigma$ (donde rige $\mathbf{J}_f = \sigma \mathbf{E}$), sin cables externos conectados. En $t = 0$, el cilindro interno posee una densidad lineal de carga libre $+\lambda_0$ y el externo $-\lambda_0$. Utilizando la Ley de Gauss para $\mathbf{D}$ y la conservación de la carga libre, encuentre $\mathbf{D}(s,t)$, $\mathbf{E}(s,t)$ y $\mathbf{J}_f(s,t)$ para $a < s < b$ y $t > 0$, demostrando que $\lambda(t) = \lambda_0 e^{-t/\tau}$ con $\tau = \varepsilon / \sigma$.
+    \item[b)] \textbf{Cancelación magnética exacta:} Para el sistema del inciso anterior, calcule la densidad de corriente de desplazamiento $\mathbf{J}_d = \frac{\partial \mathbf{D}}{\partial t}$ en $a < s < b$ y aplique la Ley de Ampère-Maxwell en la materia ($\oint \mathbf{H} \cdot d\mathbf{l} = I_{f,\text{enc}} + \frac{d\Phi_D}{dt}$) para demostrar que el campo magnético $\mathbf{B}$ inducido durante toda la descarga es idénticamente nulo en todo el espacio.
+\end{enumerate}
+
+\vspace{0.3cm}
+
+\newpage
+
+\section*{Problema 5: Ecuaciones de Maxwell en la Materia (Onda Estacionaria y Fronteras)}
+
+En el interior de un medio dieléctrico y magnético lineal, homogéneo, isotrópico y sin pérdidas ($\rho_f = 0$, $\mathbf{J}_f = \mathbf{0}$, con permitividad $\varepsilon = \varepsilon_r \varepsilon_0$ y permeabilidad $\mu = \mu_r \mu_0$), existe un campo magnético oscilante descrito en coordenadas cartesianas por:
+\begin{equation}
+    \mathbf{B}(x, y, z, t) = B_0 \cos(kz) \sin(\omega t) \hat{\mathbf{y}}
+\end{equation}
+donde $B_0$, $k$ y $\omega$ son constantes positivas.
+
+\begin{enumerate}
+    \item[a)] Compruebe que $\mathbf{B}$ satisface $\nabla \cdot \mathbf{B} = 0$, y escriba explícitamente el campo auxiliar $\mathbf{H}(z,t)$ y el vector magnetización $\mathbf{M}(z,t)$ en el medio.
+    \item[b)] Aplicando la ecuación diferencial de Ampère-Maxwell en la materia ($\nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t}$) y asumiendo ausencia de campos electrostáticos estacionarios, determine los vectores $\mathbf{D}(z,t)$, $\mathbf{E}(z,t)$ y la polarización $\mathbf{P}(z,t)$. Verifique que se cumple la Ley de Gauss macroscópica ($\nabla \cdot \mathbf{D} = 0$).
+    \item[c)] Sustituya los campos en la Ley de Faraday ($\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}$) para deducir la relación algebraica exacta que vincula $\omega$, $k$, $\varepsilon_r$, $\mu_r$ y la rapidez de la luz en el vacío $c = 1/\sqrt{\varepsilon_0 \mu_0}$. Finalmente, si este medio material está confinado entre dos placas conductoras perfectas situadas en $z = 0$ y $z = L$ (sobre las cuales la componente tangencial de $\mathbf{E}$ debe anularse), halle los valores discretos permitidos para $k$ y calcule el vector densidad superficial de corriente libre $\mathbf{K}_f(t)$ inducido sobre la placa en $z = 0$.
+\end{enumerate}
+
+\newpage
+
+\section*{Solución Problema 1:}
+
+\subsection*{a) Vectores $\mathbf{D}$, $\mathbf{E}$ y $\mathbf{P}$ por regiones}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[repaso,scale=1.04]
+  \node at (0,2.16) {(a) Superficie gaussiana};
+  \fill[black!13] (0,0) circle (1.44);
+  \fill[black!32] (0,0) circle (.71);
+  \draw[borde] (0,0) circle (.71) (0,0) circle (1.44);
+  \draw[guia] (0,0) circle (1.08);
+  \fill (0,0) circle (1.25pt) node[below right=-1pt] {$O$};
+  \draw[eje] (0,0)--(181:.71) node[pos=.67,below=1pt] {$a$};
+  \draw[eje] (0,0)--(222:1.44)
+    node[pos=.83,above left=-1pt] {$b$};
+  \draw[eje] (0,0)--(49:1.08)
+    node[pos=.75,above left=-1pt] {$r$};
+  \draw[vector] (7:1.08)--(7:1.79) node[right=1pt] {$\mathrm d\mathbf a$};
+  \node[above=1pt] at (-.51,1.49) {$S_r$};
+  \draw[llamada] (-.51,1.49)--(114:1.08);
+  \node[anchor=east] at (-1.72,.46) {$+Q$ en $r=a$};
+  \draw[llamada] (-1.63,.46)--(135:.71);
+  \node[anchor=east] at (-1.70,-.38) {$\varepsilon$};
+  \draw[llamada] (-1.62,-.38)--(197:1.26);
+  \node[anchor=east] at (-1.70,-1.03) {$\varepsilon_0$};
+
+  \begin{scope}[xshift=6.3cm]
+    \node at (0,2.16) {(b) Polarización y cargas ligadas};
+    \fill[black!13] (0,0) circle (1.44);
+    \fill[black!32] (0,0) circle (.71);
+    \draw[borde] (0,0) circle (.71) (0,0) circle (1.44);
+    \foreach \ang in {27,72,...,342}{
+      \node[inner sep=0pt] at (\ang:.84) {$-$};
+      \node[inner sep=0pt] at (\ang:1.29) {$+$};
+    }
+    \foreach \ang in {6,51,96,186,231,276,321}{
+      \draw[vector] (\ang:.93)--(\ang:1.22);
+    }
+    \draw[vector] (141:.93)--(141:1.22);
+    \node[anchor=east] at (-1.76,.86) {$\mathbf P$};
+    \draw[llamada] (-1.69,.81)--(141:1.10);
+    \draw[vector] (108:.71)--(108:.22)
+      node[below left=-1pt] {$\hat{\mathbf n}_a$};
+    \draw[vector] (49:1.44)--(49:1.94)
+      node[above right=-2pt] {$\hat{\mathbf n}_b$};
+    \node at (0,-1.85) {$\hat{\mathbf n}_a=-\hat{\mathbf r},
+        \qquad\hat{\mathbf n}_b=+\hat{\mathbf r}$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Corte central de la esfera. El gris oscuro identifica el
+conductor y el gris claro, el dieléctrico. En (a), la esfera de Gauss
+$S_r$ se dibuja en la corteza y su área vectorial apunta hacia afuera.
+En (b), para $\varepsilon>\varepsilon_0$, los signos indican la carga
+ligada de cada interfaz. Ambas normales salen del dieléctrico.}
+\label{fig:e2-esfera}
+\end{figure}
+
+Por simetría esférica, los campos son radiales y dependen solo de $r$.
+En la esfera gaussiana $S_r$ de la figura~\ref{fig:e2-esfera},
+$\mathbf D=D_r(r)\hat{\mathbf r}$ y la normal exterior es
+$\hat{\mathbf r}$. El elemento de área vectorial es
+\begin{equation}
+    d\mathbf a=\hat{\mathbf r}\,r^2\sin\theta\,d\theta\,d\phi.
+    \label{eq:e2-area-esferica}
+\end{equation}
+Sustituimos \eqref{eq:e2-area-esferica} en el flujo de $\mathbf D$.
+Sobre $S_r$, el radio es fijo, así que $D_r(r)$ sale de la integral.
+\begin{align*}
+    Q_{f,\mathrm{enc}}
+    &=\oint_{S_r}\mathbf D\cdot d\mathbf a\\
+    &=D_r(r)\int_0^{2\pi}\!\int_0^\pi
+      \underbrace{(\hat{\mathbf r}\cdot\hat{\mathbf r})}_{1}
+        r^2\sin\theta\,d\theta\,d\phi\\
+    &=D_r(r)\,r^2(2\pi)\bigl[-\cos\theta\bigr]_0^\pi\\
+    &=4\pi r^2D_r(r).
+\end{align*}
+En cada región usamos la carga libre encerrada por esa esfera.
+\begin{itemize}
+    \item \textbf{Interior del conductor ($r < a$):} En equilibrio electrostático el campo interno de un conductor es nulo y toda la carga libre $+Q$ reside en su superficie $r = a$. Por tanto:
+    \begin{equation}
+        \mathbf{E} = \mathbf{0}, \qquad \mathbf{D} = \mathbf{0}, \qquad \mathbf{P} = \mathbf{0}
+    \end{equation}
+    \item \textbf{Corteza dieléctrica ($a < r < b$):} La carga libre encerrada es $+Q$, de modo que $D(4\pi r^2) = Q$. Usando $\mathbf{D} = \varepsilon \mathbf{E}$ y $\mathbf{P} = \mathbf{D} - \varepsilon_0 \mathbf{E}$:
+    \begin{equation}
+        \mathbf{D}(r) = \frac{Q}{4\pi r^2} \hat{\mathbf{r}}, \qquad \mathbf{E}(r) = \frac{Q}{4\pi \varepsilon r^2} \hat{\mathbf{r}}, \qquad \mathbf{P}(r) = \frac{Q}{4\pi r^2} \left( 1 - \frac{\varepsilon_0}{\varepsilon} \right) \hat{\mathbf{r}}
+    \end{equation}
+    \item \textbf{Vacío exterior ($r > b$):} La carga libre encerrada sigue siendo $+Q$ y $\varepsilon = \varepsilon_0$:
+    \begin{equation}
+        \mathbf{D}(r) = \frac{Q}{4\pi r^2} \hat{\mathbf{r}}, \qquad \mathbf{E}(r) = \frac{Q}{4\pi \varepsilon_0 r^2} \hat{\mathbf{r}}, \qquad \mathbf{P}(r) = \mathbf{0}
+    \end{equation}
+\end{itemize}
+
+\subsection*{b) Potencial del conductor, capacitancia y casos límite}
+Para llegar desde el infinito hasta la superficie del conductor
+seguimos un camino radial. Usamos $d\mathbf l=\hat{\mathbf r}\,dr$
+con límites decrecientes. El campo cambia de expresión en $r=b$,
+por lo que separamos allí el recorrido.
+\begin{align*}
+    V(a)-V(\infty)
+    &=-\int_\infty^a\mathbf E\cdot d\mathbf l\\
+    &=-\int_\infty^b \frac{Q}{4\pi\varepsilon_0 r^2}\,dr
+      -\int_b^a \frac{Q}{4\pi\varepsilon r^2}\,dr\\
+    &=-\frac{Q}{4\pi\varepsilon_0}
+      \left[-\frac1r\right]_\infty^b
+      -\frac{Q}{4\pi\varepsilon}
+      \left[-\frac1r\right]_b^a\\
+    &=\frac{Q}{4\pi\varepsilon_0 b}
+      +\frac{Q}{4\pi\varepsilon}\left(\frac1a-\frac1b\right).
+\end{align*}
+Con $V(\infty)=0$, reagrupamos,
+\[
+    V(a)=\frac{Q}{4\pi}
+      \left[\frac{1}{\varepsilon a}
+        +\frac1b\left(\frac1{\varepsilon_0}-\frac1\varepsilon\right)\right].
+\]
+La capacitancia del sistema aislado es $C = Q / V(a)$:
+\begin{equation}
+    C = \frac{4\pi}{\dfrac{1}{\varepsilon a} + \dfrac{1}{b}\left( \dfrac{1}{\varepsilon_0} - \dfrac{1}{\varepsilon} \right)}
+\end{equation}
+Verificamos ambos límites físicos:
+\begin{itemize}
+    \item Si $\varepsilon \to \varepsilon_0$ (ausencia de dieléctrico): el segundo término del denominador da $\frac{1}{b}(0) = 0$, recuperando $C = 4\pi \varepsilon_0 a$, la capacitancia clásica de una esfera en el vacío.
+    \item Si $b \to \infty$ (dieléctrico infinito): el término proporcional a $1/b$ se anula, entregando $C = 4\pi \varepsilon a$, correspondiente a una esfera inmersa en un medio dieléctrico ilimitado.
+\end{itemize}
+
+\subsection*{c) Cargas ligadas y verificación de apantallamiento}
+En el volumen $a<r<b$, escribimos $\mathbf P=P_r(r)\hat{\mathbf r}$.
+En coordenadas esféricas, $r^2P_r(r)$ es proporcional al flujo
+de $\mathbf P$ por una esfera concéntrica. Al sustituir,
+\begin{align*}
+    \rho_b(r)
+    &=-\nabla\cdot\mathbf P\\
+    &=-\frac1{r^2}\frac{d}{dr}\bigl[r^2P_r(r)\bigr]\\
+    &=-\frac1{r^2}\frac{d}{dr}
+       \left[\frac{Q}{4\pi}\left(1-\frac{\varepsilon_0}{\varepsilon}\right)\right]\\
+    &=0.
+\end{align*}
+Para las cargas superficiales usamos $\sigma_b=\mathbf P\cdot\hat{\mathbf n}$.
+La figura~\ref{fig:e2-esfera}(b) muestra las dos normales que salen
+del dieléctrico. Evaluamos $\mathbf P$ desde el material en cada caso.
+\begin{align*}
+    \sigma_b(a)
+    &=P_r(a^+)\hat{\mathbf r}\cdot(-\hat{\mathbf r})\\
+    &=-\frac{Q}{4\pi a^2}\left(1-\frac{\varepsilon_0}{\varepsilon}\right),\\[4pt]
+    \sigma_b(b)
+    &=P_r(b^-)\hat{\mathbf r}\cdot\hat{\mathbf r}\\
+    &=+\frac{Q}{4\pi b^2}\left(1-\frac{\varepsilon_0}{\varepsilon}\right).
+\end{align*}
+Cada densidad es uniforme en su esfera. Por eso sale de la integral
+y se multiplica por el área de la interfaz.
+\begin{align*}
+    Q_b(a)
+    &=\oint_{S_a}\sigma_b(a)\,da\\
+    &=4\pi a^2\,\sigma_b(a)=-Q\left(1-\frac{\varepsilon_0}{\varepsilon}\right),\\[4pt]
+    Q_b(b)
+    &=\oint_{S_b}\sigma_b(b)\,da\\
+    &=4\pi b^2\,\sigma_b(b)=+Q\left(1-\frac{\varepsilon_0}{\varepsilon}\right).
+\end{align*}
+La carga ligada neta del cascarón es $Q_{b,\text{tot}} = Q_b(a) + Q_b(b) + \int \rho_b\, dV = 0$, como exige la neutralidad global del dieléctrico. Además, para una esfera gaussiana de radio $r \in (a, b)$, la carga total encerrada (libre más ligada) es:
+\begin{equation}
+    Q_{\text{enc}} = Q + Q_b(a) = Q - Q\left( 1 - \frac{\varepsilon_0}{\varepsilon} \right) = Q \frac{\varepsilon_0}{\varepsilon}
+\end{equation}
+Aplicando la Ley de Gauss fundamental $\oint \mathbf{E}\cdot d\mathbf{a} = Q_{\text{enc}}/\varepsilon_0$, resulta $E(r) = \frac{Q}{4\pi \varepsilon r^2}$, explicando microscópicamente la reducción del campo eléctrico dentro del dieléctrico.
+
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{Solución Problema 2:}
+
+\subsection*{a) Densidad de corriente superficial}
+En el manto, el vector que va desde el eje a un punto de la pared
+es $R\hat{\mathbf s}$. Con $\boldsymbol\omega=\omega\hat{\mathbf z}$,
+la velocidad tangencial resulta
+\begin{align*}
+    \mathbf v
+    &=\boldsymbol\omega\times(R\hat{\mathbf s})\\
+    &=\omega R(\hat{\mathbf z}\times\hat{\mathbf s})\\
+    &=\omega R\,\hat{\boldsymbol\phi}.
+\end{align*}
+Multiplicando por la densidad superficial de carga, obtenemos
+\[
+    \mathbf K=\sigma\mathbf v=\sigma\omega R\,\hat{\boldsymbol\phi}.
+\]
+La figura~\ref{fig:e2-cilindro-ampere}(a) muestra ese sentido
+para $\sigma>0$ y $\omega>0$.
+\subsection*{b) Campo magnético y condición de salto}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[repaso]
+  \node at (0,3.04) {(a) Vista desde $+z$};
+  \draw[borde] (0,1.24) circle (1.04);
+  \node at (0,1.24) {$\odot$};
+  \node[below=2pt] at (0,1.18) {$+\hat{\mathbf z}$};
+  \draw[eje] (0,1.24)--(1.04,1.24)
+    node[pos=.57,above=2pt] {$R$};
+  \draw[vector] (1.04,1.24)--(1.04,2.03)
+    node[right=2pt] {$\mathbf K$};
+  \draw[vector] (18:1.43) ++(0,1.24)
+    arc[start angle=18,end angle=112,radius=1.43];
+  \node[above left=-1pt] at (-.46,2.58) {$\boldsymbol{\omega}$};
+
+  \foreach \dx/\izq/\caso in {2.50/1.49/1,6.72/.59/2}{
+    \begin{scope}[xshift=\dx cm]
+      \fill[black!10] (\izq,.37) rectangle (2.78,2.30);
+      \draw[eje] (0,0)--(3.58,0) node[right=1pt] {$s$};
+      \draw[eje] (0,0)--(0,2.57) node[above=-1pt] {$z$};
+      \draw[borde] (1.04,-.09)--(1.04,2.55);
+      \node[below=2pt] at (1.04,-.09) {$s=R$};
+      \foreach \zz in {.54,.93,1.33,1.73,2.13}
+        \node[corte] at (1.04,\zz) {$\otimes$};
+      \draw[guia] (\izq,.37) rectangle (2.78,2.30);
+      \pgfmathsetmacro{\medio}{(\izq+2.78)/2}
+      \draw[trayecto] (\izq,1.03)--(\izq,1.69);
+      \draw[trayecto] (2.78,1.69)--(2.78,1.03);
+      \draw[trayecto] ({\medio-.33},2.30)--({\medio+.33},2.30);
+      \draw[trayecto] ({\medio+.33},.37)--({\medio-.33},.37);
+      \ifnum\caso=1
+        \node[right=1pt] at (\izq,1.31) {$\mathcal C_1$};
+      \else
+        \node[left=1pt] at (\izq,1.31) {$\mathcal C_1$};
+      \fi
+      \node[below=1pt] at (\medio,2.30) {$\mathcal C_2$};
+      \node[left=1pt] at (2.78,1.65) {$\mathcal C_3$};
+      \node[above=1pt] at (\medio,.37) {$\mathcal C_4$};
+      \draw[medida] (3.18,.37)--(3.18,2.30)
+        node[midway,right=1pt] {$h$};
+      \ifnum\caso=1
+        \node at (1.70,3.04) {(b) Lazo exterior};
+        \node[above=1pt] at (\izq,2.30) {$s_1$};
+        \node[above=1pt] at (2.78,2.30) {$s_2$};
+        \node at (2.11,-.74) {$I_{\mathrm{enc}}=0$};
+      \else
+        \node at (1.70,3.04) {(c) Lazo que cruza el manto};
+        \node[above=1pt] at (\izq,2.30) {$s<R$};
+        \node[above=1pt] at (2.78,2.30) {$s_{\mathrm{ext}}>R$};
+        \node at (2.11,-.74) {$I_{\mathrm{enc}}=Kh$};
+      \fi
+    \end{scope}
+  }
+\end{tikzpicture}
+\caption{Cilindro cargado en rotación para $\omega>0$ y $\sigma>0$.
+En (a), $\mathbf K$ es tangente al manto. En los cortes $sz$ de (b)
+y (c), la corriente azimutal entra en la página ($\otimes$).
+El recorrido sube en $\mathcal C_1$ y baja en $\mathcal C_3$.
+En $\mathcal C_2$ y $\mathcal C_4$, el recorrido radial es
+perpendicular al campo axial. Solo el lazo (c) corta el manto.}
+\label{fig:e2-cilindro-ampere}
+\end{figure}
+
+El sistema es equivalente a un solenoide ideal infinito con corriente azimutal uniforme. Por invarianza rotacional en $\phi$, traslacional en $z$ y simetría de reflexión en planos transversales al eje $z$, el campo magnético tiene únicamente componente axial dependiente de $s$: $\mathbf{B}(s) = B_z(s) \hat{\mathbf{z}}$.
+Para aplicar la ley de Ampère, escogemos los lazos de altura $h$
+de la figura~\ref{fig:e2-cilindro-ampere}. Sean $s_1$ y $s_2$
+los radios de los lados izquierdo y derecho, respectivamente.
+Con $z'=0$ abajo y $z'=h$ arriba, los límites ya incluyen el sentido
+de cada flecha. Partimos de
+\[
+    \oint_{\mathcal C}\mathbf B\cdot d\mathbf l
+    =\sum_{i=1}^4\int_{\mathcal C_i}\mathbf B\cdot d\mathbf l
+    =\mu_0 I_{\mathrm{enc}}.
+\]
+Usamos $d\mathbf l=\hat{\mathbf z}\,dz'$ en $\mathcal C_1$ y
+$\mathcal C_3$, y $d\mathbf l=\hat{\mathbf s}\,ds'$ en $\mathcal C_2$
+y $\mathcal C_4$. Sustituimos $\mathbf B=B_z\hat{\mathbf z}$ en
+cada tramo.
+\begin{align*}
+    \int_{\mathcal C_1}\mathbf B\cdot d\mathbf l
+    &=\int_0^h B_z(s_1)
+          \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf z})}_{1}\,dz'\\
+    &=hB_z(s_1),\\[4pt]
+    \int_{\mathcal C_2}\mathbf B\cdot d\mathbf l
+    &=\int_{s_1}^{s_2} B_z(s')
+          \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf s})}_{0}\,ds'\\
+    &=0,\\[4pt]
+    \int_{\mathcal C_3}\mathbf B\cdot d\mathbf l
+    &=\int_h^0 B_z(s_2)
+          \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf z})}_{1}\,dz'\\
+    &=-hB_z(s_2),\\[4pt]
+    \int_{\mathcal C_4}\mathbf B\cdot d\mathbf l
+    &=\int_{s_2}^{s_1} B_z(s')
+          \underbrace{(\hat{\mathbf z}\cdot\hat{\mathbf s})}_{0}\,ds'\\
+    &=0.
+\end{align*}
+Al sumar,
+\begin{equation}
+    h[B_z(s_1)-B_z(s_2)]=\mu_0 I_{\mathrm{enc}}.
+    \label{eq:e2-ampere-cilindro}
+\end{equation}
+\begin{itemize}
+    \item \textbf{Lazo exterior.} Con $R<s_1<s_2$, la superficie no
+    corta el manto e $I_{\mathrm{enc}}=0$. De
+    \eqref{eq:e2-ampere-cilindro}, $B_z(s_1)=B_z(s_2)$ para cualquier
+    par de radios exteriores. Como $\mathbf B\to\mathbf0$ cuando
+    $s\to\infty$, esa constante vale cero.
+    \item \textbf{Lazo que cruza el manto.} Ahora $s_1=s<R$ y
+    $s_2=s_{\mathrm{ext}}>R$. La superficie corta el manto en un
+    segmento de altura $h$. La normal del lazo apunta en
+    $+\hat{\boldsymbol\phi}$. Proyectamos $\mathbf K$ sobre ella,
+    \[
+        I_{\mathrm{enc}}
+        =\int_0^h\mathbf K\cdot\hat{\boldsymbol\phi}\,dz'
+        =\sigma\omega R\,h.
+    \]
+    Como $B_z(s_{\mathrm{ext}})=0$, en \eqref{eq:e2-ampere-cilindro}
+    solo queda el aporte de $\mathcal C_1$. Al cancelar $h$,
+    \[
+        \mathbf B_{\mathrm{int}}(s)
+        =\mu_0\sigma\omega R\,\hat{\mathbf z},
+        \qquad s<R.
+    \]
+\end{itemize}
+Para verificar el salto en $s = R$, elegimos la normal apuntando del interior al exterior ($\hat{\mathbf{n}} = +\hat{\mathbf{s}}$):
+\begin{equation}
+    \mathbf{B}_{\text{ext}} - \mathbf{B}_{\text{int}} = \mathbf{0} - \mu_0 \sigma \omega R \hat{\mathbf{z}} = -\mu_0 \sigma \omega R \hat{\mathbf{z}}
+\end{equation}
+Evaluando el miembro derecho de la condición de frontera:
+\begin{equation}
+    \mu_0 (\mathbf{K} \times \hat{\mathbf{n}}) = \mu_0 (\sigma \omega R \hat{\boldsymbol{\phi}} \times \hat{\mathbf{s}}) = -\mu_0 \sigma \omega R \hat{\mathbf{z}}
+\end{equation}
+Ambos miembros coinciden idénticamente.
+
+\subsection*{c) Potencial vectorial, gauge de Coulomb y momento dipolar}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[repaso]
+  \foreach \dx/\ss/\condicion/\area in {0/1.02/{s<R}/{\pi s^2},
+                                       5.05/1.63/{s>R}/{\pi R^2}}{
+    \begin{scope}[xshift=\dx cm]
+      \pgfmathsetmacro{\rf}{min(1.32,\ss)}
+      \fill[black!15] (0,0) circle (\rf);
+      \draw[guia] (0,0) circle (1.32);
+      \draw[borde] (0,0) circle (\ss);
+      \draw[vector] (48:\ss) arc[start angle=48,end angle=102,radius=\ss];
+      \node[anchor=west] at (43:{\ss+.22}) {$d\mathbf l$};
+      \draw[eje] (0,0)--(0:\ss) node[pos=.55,above=2pt] {$s$};
+      \draw[eje] (0,0)--(154:1.32) node[pos=.56,above=1pt] {$R$};
+      \node at (0,-.45) {$\odot\;\mathbf B$};
+      \node[anchor=west] at (318:{\ss+.19}) {$\mathcal C_s$};
+      \node at (0,2.04) {$\condicion$};
+      \node at (0,-1.99) {$A_{\mathrm{flujo}}=\area$};
+    \end{scope}
+  }
+\end{tikzpicture}
+\caption{Discos de Stokes vistos desde $+z$. El borde $\mathcal C_s$
+se recorre en el sentido $+\hat{\boldsymbol\phi}$ y la normal
+apunta hacia $+z$. El sombreado es la parte del disco que atraviesa
+el campo magnético. Para todo contorno con $s>R$, el área que
+aporta flujo sigue siendo $\pi R^2$.}
+\label{fig:e2-cilindro-stokes}
+\end{figure}
+
+Por simetría, proponemos $\mathbf A=A_\phi(s)\hat{\boldsymbol\phi}$.
+Aplicamos el teorema de Stokes al disco $S_s$ de la
+figura~\ref{fig:e2-cilindro-stokes}, con normal $+\hat{\mathbf z}$ y
+borde $\mathcal C_s$ orientado en $+\hat{\boldsymbol\phi}$.
+\begin{align*}
+    \oint_{\mathcal C_s}\mathbf A\cdot d\mathbf l
+    &=\int_{S_s}\mathbf B\cdot d\mathbf a,\\
+    \oint_{\mathcal C_s}\mathbf A\cdot d\mathbf l
+    &=A_\phi(s)\int_0^{2\pi}
+        (\hat{\boldsymbol\phi}\cdot\hat{\boldsymbol\phi})\,s\,d\phi\\
+    &=2\pi s\,A_\phi(s).
+\end{align*}
+En el flujo usamos $d\mathbf a=\hat{\mathbf z}\,s'\,ds'\,d\phi$.
+Como el campo se anula para $s'>R$, solo aporta el disco sombreado.
+\begin{align*}
+    \int_{S_s}\mathbf B\cdot d\mathbf a
+    &=(\mu_0\sigma\omega R)
+      \int_0^{2\pi}\!\int_0^{\min(s,R)}
+       (\hat{\mathbf z}\cdot\hat{\mathbf z})\,s'\,ds'\,d\phi\\
+    &=(\mu_0\sigma\omega R)\,\pi\min(s,R)^2.
+\end{align*}
+Igualamos la circulación y el flujo, y dividimos por $2\pi s$.
+\begin{align*}
+    \mathbf A_{\mathrm{int}}(s)
+    &=\frac12\mu_0\sigma\omega R s\,\hat{\boldsymbol\phi},
+      &&0<s<R,\\
+    \mathbf A_{\mathrm{ext}}(s)
+    &=\frac{\mu_0\sigma\omega R^3}{2s}\,\hat{\boldsymbol\phi},
+      &&s>R.
+\end{align*}
+Ambas expresiones coinciden en $s=R$. La solución interior tiende
+a $\mathbf0$ en el eje, como exige $\mathbf A(0)=\mathbf0$.
+En coordenadas cilíndricas, $\nabla \cdot \mathbf{A} = \frac{1}{s}\frac{\partial A_\phi}{\partial \phi} = 0$, ya que $A_\phi$ solo depende de $s$; por ende, pertenece al gauge de Coulomb.
+
+Finalmente, un anillo diferencial de longitud axial $dz$ transporta corriente $dI = K\, dz = \sigma \omega R\, dz$ alrededor del área $\pi R^2 \hat{\mathbf{z}}$. Su momento dipolar es $d\mathbf{m} = dI (\pi R^2 \hat{\mathbf{z}})$, de donde el momento dipolar magnético por unidad de longitud resulta:
+\begin{equation}
+    \frac{d\mathbf{m}}{dz} = \pi \sigma \omega R^3 \hat{\mathbf{z}}
+\end{equation}
+
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{Solución Problema 3:}
+
+\subsection*{a) Campos $B$, $H_m$ y $H_0$ en el circuito magnético}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[repaso]
+  \node at (0,2.58) {(a) Vista superior del toroide};
+  \path[fill=black!14]
+    (11:1.91) arc[start angle=11,end angle=349,radius=1.91]
+    -- (349:1.13) arc[start angle=349,end angle=11,radius=1.13] -- cycle;
+  \draw[borde] (11:1.91) arc[start angle=11,end angle=349,radius=1.91]
+    -- (349:1.13) arc[start angle=349,end angle=11,radius=1.13] -- cycle;
+  \draw[guia] (0,0) circle (1.52);
+  \draw[trayecto] (45:1.52) arc[start angle=45,end angle=78,radius=1.52];
+  \node at (69:2.07) {$\mathcal C_m$};
+  \draw[vector] (349:1.52) arc[start angle=349,end angle=371,radius=1.52];
+  \node[anchor=west] at (1.64,0) {$\mathcal C_0$};
+  \draw[eje] (0,0)--(59:1.52) node[pos=.57,right=2pt] {$R$};
+  \foreach \ang in {127,151,175}{
+    \draw[llamada] (\ang:1.04)--(\ang:2.00);
+    \node[corte] at (\ang:1.20) {$\odot$};
+    \node[corte] at (\ang:1.84) {$\otimes$};
+  }
+  \foreach \ang in {230,254}{
+    \draw[llamada] (\ang:1.03)--(\ang:2.00);
+    \node[corte] at (\ang:1.20) {$\circ$};
+    \node[corte] at (\ang:1.84) {$\circ$};
+  }
+  \node[anchor=east] at (-2.19,.86) {Primario $N$};
+  \draw[llamada] (-2.09,.86)--(151:1.91);
+  \node[anchor=east] at (-1.65,-1.76) {Secundario $N_2$};
+  \draw[llamada] (-1.56,-1.72)--(230:1.91);
+
+  \begin{scope}[xshift=4.36cm]
+    \node at (2.12,2.58) {(b) Detalle del entrehierro};
+    \fill[black!14] (0,-.95) rectangle (1.43,1.48)
+      (2.79,-.95) rectangle (4.22,1.48);
+    \draw[borde] (0,-.95) rectangle (1.43,1.48)
+      (2.79,-.95) rectangle (4.22,1.48);
+    \node at (.71,1.13) {$\mu$};
+    \node at (2.11,1.37) {$\mu_0$};
+    \node at (3.50,1.13) {$\mu$};
+    \draw[llamada] (1.43,1.54)--(1.43,1.96)
+      (2.79,1.54)--(2.79,1.96);
+    \draw[medida] (1.43,1.85)--(2.79,1.85)
+      node[midway,above=2pt] {$d$};
+    \draw[vector] (.28,.63)--(3.94,.63)
+      node[midway,above=2pt] {$\mathbf B$};
+    \draw[vector] (.48,-.04)--(.94,-.04)
+      node[midway,above=1pt] {$\mathbf H_m$};
+    \draw[vector] (1.60,-.04)--(2.62,-.04)
+      node[midway,above=1pt] {$\mathbf H_0$};
+    \draw[vector] (3.28,-.04)--(3.74,-.04)
+      node[midway,above=1pt] {$\mathbf H_m$};
+    \draw[vector] (.36,-.68)--(1.08,-.68)
+      node[midway,above=1pt] {$\mathbf M$};
+    \node[corte] at (.75,-.95) {$\otimes$};
+    \node at (1.00,-1.32) {$\mathbf K_b$ en el manto};
+  \end{scope}
+\end{tikzpicture}
+\caption{Toroide con entrehierro. En (a), el camino amperiano va por
+la circunferencia media y se separa en $\mathcal C_m$ (material) y
+$\mathcal C_0$ (vacío). El primario atraviesa el disco amperiano por
+el lado del hueco, en $+z$ ($\odot$). En (b), $\mathbf B$ cruza
+normalmente las caras de la ranura. Para $\mu>\mu_0$, el campo
+$\mathbf H$ es mayor en el vacío y $\mathbf M$ existe en el material.
+En el borde inferior del dibujo se indica un sentido de $\mathbf K_b$.}
+\label{fig:e2-toroide}
+\end{figure}
+
+Por simetría toroidal y despreciando efectos de borde en la ranura estrecha ($d \ll R$), las líneas de $\mathbf{B}$ siguen circunferencias azimutales concéntricas e inciden perpendicularmente sobre las dos caras planas que delimitan el entrehierro. Como la componente normal de $\mathbf{B}$ es siempre continua ($\Delta B^\perp = 0$), el módulo $B$ en el material es igual al módulo en la ranura de vacío: $B_m = B_0 \equiv B$.
+
+Usando las relaciones constitutivas en cada tramo, los módulos del campo auxiliar son:
+\begin{equation}
+    H_m = \frac{B}{\mu} \quad (\text{en la longitud } 2\pi R - d), \qquad H_0 = \frac{B}{\mu_0} \quad (\text{en la longitud } d)
+\end{equation}
+Aplicamos la ley de Ampère sobre la circunferencia media de la
+figura~\ref{fig:e2-toroide}(a). La superficie limitada por la
+circunferencia es atravesada por las $N$ vueltas del primario
+en el mismo sentido. Por eso $I_{f,\mathrm{enc}}=NI$.
+En los dos tramos, $d\mathbf l=\hat{\boldsymbol\phi}\,dl$.
+\begin{align*}
+    NI
+    &=\oint_{\mathcal C}\mathbf H\cdot d\mathbf l\\
+    &=\int_{\mathcal C_m}\mathbf H_m\cdot d\mathbf l
+       +\int_{\mathcal C_0}\mathbf H_0\cdot d\mathbf l\\
+    &=H_m\int_{\mathcal C_m}
+          (\hat{\boldsymbol\phi}\cdot\hat{\boldsymbol\phi})\,dl
+      +H_0\int_{\mathcal C_0}
+          (\hat{\boldsymbol\phi}\cdot\hat{\boldsymbol\phi})\,dl\\
+    &=H_m(2\pi R-d)+H_0 d\\
+    &=B\left(\frac{2\pi R-d}{\mu}+\frac{d}{\mu_0}\right).
+\end{align*}
+En el último paso usamos que el campo cruza perpendicularmente
+las caras del entrehierro, como se ve en la
+figura~\ref{fig:e2-toroide}(b). La continuidad de su componente
+normal permite usar el mismo $B$ para calcular $H_m$ y $H_0$.
+Despejando $B$, $H_m$ y $H_0$:
+\begin{align}
+    B &= \frac{\mu_0 \mu N I}{\mu_0(2\pi R - d) + \mu d} \\
+    H_m &= \frac{\mu_0 N I}{\mu_0(2\pi R - d) + \mu d}, \qquad H_0 = \frac{\mu N I}{\mu_0(2\pi R - d) + \mu d} = (1 + \chi_m) H_m
+\end{align}
+
+\subsection*{b) Corriente superficial ligada y discontinuidad de $H$ en el entrehierro}
+Dentro del núcleo, $\mathbf M=\chi_m\mathbf H_m$. En el manto
+lateral, $\hat{\mathbf n}$ es perpendicular a $\mathbf M$.
+En las caras del entrehierro, ambas direcciones son colineales.
+Por tanto, la magnitud de la corriente ligada en el manto es
+\begin{align*}
+    K_b
+    &=\bigl|\mathbf M\times\hat{\mathbf n}\bigr|\\
+    &=|\chi_m|\,H_m\sin\left(\frac{\pi}{2}\right)\\
+    &=\frac{|\chi_m|\mu_0 NI}{\mu_0(2\pi R-d)+\mu d}.
+\end{align*}
+En las caras del corte ese producto cruz se anula. La siguiente
+interpretación corresponde al caso $\mu>\mu_0$ de la figura.
+\textit{Explicación física del salto entre $H_m$ y $H_0$:} La ausencia de corrientes libres ($\mathbf{K}_f = \mathbf{0}$) solo garantiza la continuidad de la componente \textbf{tangencial} $\mathbf{H}^\parallel$. En las caras planas del entrehierro, el campo incide de manera \textbf{normal} a la interfaz. Dado que $\nabla \cdot \mathbf{H} = -\nabla \cdot \mathbf{M}$, al pasar abruptamente del material magnetizado ($M^\perp = M$) al vacío ($M^\perp = 0$), aplica la condición normal $\Delta H^\perp = -\Delta M^\perp$, esto es, $H_0 - H_m = -(0 - M) = M$. Esta acumulación efectiva de ``polos magnéticos'' en las caras del corte refuerza $H_0$ en el vacío y genera un campo desmagnetizante que reduce $H_m$ dentro del núcleo.
+
+\subsection*{c) Inductancia mutua y fem inducida en el secundario}
+Tomamos la sección transversal $S_A$ del núcleo con la normal en
+el sentido de $\mathbf B$. En la aproximación del núcleo delgado,
+$B$ es uniforme en esa sección.
+\begin{align*}
+    \Phi_1
+    &=\int_{S_A}\mathbf B\cdot d\mathbf a\\
+    &=B\int_{S_A}
+       (\hat{\boldsymbol\phi}\cdot\hat{\boldsymbol\phi})\,da\\
+    &=BA.
+\end{align*}
+Cada una de las $N_2$ vueltas de la bobina secundaria enlaza el
+mismo flujo. Por tanto, $\Phi_2=N_2\Phi_1=\mathcal M I$.
+\begin{align*}
+    \mathcal M
+    &=\frac{N_2BA}{I}\\
+    &=\frac{\mu_0\mu NN_2 A}{\mu_0(2\pi R-d)+\mu d}.
+\end{align*}
+Si $I(t) = I_0 \cos(\omega t)$, por la Ley de Faraday la fuerza electromotriz inducida en el secundario es:
+\begin{equation}
+    \mathcal{E}_2(t) = -\mathcal{M} \frac{dI}{dt} = \frac{\mu_0 \mu N N_2 A I_0 \omega}{\mu_0(2\pi R - d) + \mu d} \sin(\omega t)
+\end{equation}
+
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{Solución Problema 4:}
+
+\subsection*{a) Descarga radial y tiempo de relajación}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[repaso]
+  \node at (0,2.22) {(a) Corte transversal};
+  \fill[black!13] (0,0) circle (1.55);
+  \fill[white] (0,0) circle (.60);
+  \draw[borde] (0,0) circle (.60) (0,0) circle (1.55);
+  \draw[guia] (0,0) circle (1.04);
+  \fill (0,0) circle (1.15pt);
+  \draw[eje] (0,0)--(142:.60) node[pos=.73,above=1pt] {$a$};
+  \draw[eje] (0,0)--(222:1.55) node[pos=.78,left=1pt] {$b$};
+  \draw[eje] (0,0)--(7:1.04) node[pos=.53,above=2pt] {$s$};
+  \foreach \ang in {45,100,170,270,325}
+    \draw[vector] (\ang:.72)--(\ang:1.37);
+  \node[anchor=west] at (1.69,.75) {$S_s$};
+  \draw[llamada] (1.64,.70)--(30:1.04);
+  \node[anchor=east] at (-1.69,1.06) {$+\lambda(t)$};
+  \draw[llamada] (-1.58,1.00)--(118:.60);
+  \node[anchor=west] at (1.69,-.98) {$-\lambda(t)$};
+  \draw[llamada] (1.59,-.94)--(327:1.55);
+  \node at (0,-1.94) {$\mathbf D,\ \mathbf E,\ \mathbf J_f$
+    apuntan hacia afuera};
+
+  \begin{scope}[xshift=6.61cm]
+    \node at (0,2.22) {(b) Elemento del manto de $S_s$};
+    \path[fill=black!13,draw=black!60,line width=.5pt]
+      (-.60,-.91)--(.20,-.50)--(.20,1.26)--(-.60,.85)--cycle;
+    \draw[guia] (-.20,-.68)--(-.20,.92);
+    \fill (-.20,.05) circle (1.2pt);
+    \draw[vector] (-.20,.05)--(1.29,.05)
+      node[right=2pt] {$\mathbf J_f$};
+    \draw[vector] (-.20,.05)--(-1.69,.05)
+      node[left=2pt] {$\mathbf J_d$};
+    \draw[vector] (-.20,.72)--(1.13,.72)
+      node[right=2pt] {$d\mathbf a\parallel+\hat{\mathbf s}$};
+    \node at (0,-1.42) {$\mathbf J_f\cdot d\mathbf a
+                          +\mathbf J_d\cdot d\mathbf a=0$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Descarga radial para $\lambda(t)>0$. En (a), la línea
+discontinua representa el corte del cilindro gaussiano de radio
+$s$ y longitud $\ell$. En (b), las dos corrientes tienen igual
+magnitud y sentidos opuestos en el mismo elemento del manto.}
+\label{fig:e2-descarga}
+\end{figure}
+
+Sea $\lambda(t)$ la carga libre por unidad de longitud del
+conductor interno. Elegimos la superficie gaussiana $S_s$
+de la figura~\ref{fig:e2-descarga}, con radio $a<s<b$ y longitud $\ell$.
+Por simetría, $\mathbf D=D_s(s,t)\hat{\mathbf s}$. Las tapas tienen
+normal $\pm\hat{\mathbf z}$. En el manto,
+$d\mathbf a=\hat{\mathbf s}\,s\,d\phi\,dz$.
+\begin{align*}
+    \lambda(t)\ell
+    &=\oint_{S_s}\mathbf D\cdot d\mathbf a\\
+    &=\int_{\mathrm{manto}}D_s(s,t)
+        \underbrace{(\hat{\mathbf s}\cdot\hat{\mathbf s})}_{1}\,da
+     +\int_{\mathrm{tapas}}\mathbf D\cdot d\mathbf a\\
+    &=D_s(s,t)\int_0^\ell\!\int_0^{2\pi}s\,d\phi\,dz+0\\
+    &=D_s(s,t)(2\pi s\ell).
+\end{align*}
+El segundo aporte se anula porque
+$\hat{\mathbf s}\cdot(\pm\hat{\mathbf z})=0$.
+Dividimos por el área del manto. Después usamos
+$\mathbf E=\mathbf D/\varepsilon$ y $\mathbf J_f=\sigma\mathbf E$.
+\begin{align*}
+    \mathbf D(s,t)&=\frac{\lambda(t)}{2\pi s}\hat{\mathbf s},\\
+    \mathbf E(s,t)&=\frac{\lambda(t)}{2\pi\varepsilon s}\hat{\mathbf s},\\
+    \mathbf J_f(s,t)&=\frac{\sigma\lambda(t)}{2\pi\varepsilon s}
+                       \hat{\mathbf s}.
+\end{align*}
+Para la corriente libre que sale del cilindro usamos el mismo
+elemento de área vectorial del manto,
+\begin{align*}
+    I_{f,\mathrm{rad}}
+    &=\int_{\mathrm{manto}}\mathbf J_f\cdot d\mathbf a\\
+    &=J_f(s,t)(2\pi s\ell)\\
+    &=\frac{\sigma}{\varepsilon}\lambda(t)\ell.
+\end{align*}
+La carga libre encerrada disminuye al ritmo al que sale la corriente,
+\begin{align*}
+    \frac{d[\lambda(t)\ell]}{dt}&=-I_{f,\mathrm{rad}},\\
+    -\frac{d\lambda}{dt}&=\frac{\sigma}{\varepsilon}\lambda(t).
+\end{align*}
+Con $\lambda(0)=\lambda_0$ resulta
+$\lambda(t)=\lambda_0 e^{-t/\tau}$, con $\tau=\varepsilon/\sigma$.
+Sustituyendo $\lambda(t)$, los campos explícitos para $t > 0$ son:
+\begin{equation}
+    \mathbf{D}(s,t) = \frac{\lambda_0 e^{-t/\tau}}{2\pi s} \hat{\mathbf{s}}, \qquad \mathbf{E}(s,t) = \frac{\lambda_0 e^{-t/\tau}}{2\pi \varepsilon s} \hat{\mathbf{s}}, \qquad \mathbf{J}_f(s,t) = \frac{\lambda_0 e^{-t/\tau}}{2\pi \tau s} \hat{\mathbf{s}}
+\end{equation}
+
+\subsection*{b) Cancelación exacta con la corriente de desplazamiento}
+En el medio, la corriente de desplazamiento se obtiene derivando
+el desplazamiento eléctrico a radio fijo.
+\begin{align*}
+    \mathbf J_d(s,t)
+    &=\frac{\partial\mathbf D}{\partial t}\\
+    &=\frac{\hat{\mathbf s}}{2\pi s}
+       \frac{d}{dt}\bigl[\lambda_0e^{-t/\tau}\bigr]\\
+    &=-\frac{\lambda_0e^{-t/\tau}}{2\pi\tau s}\hat{\mathbf s}\\
+    &=-\mathbf J_f(s,t).
+\end{align*}
+Sobre el elemento del manto de la figura~\ref{fig:e2-descarga}(b),
+proyectamos ambas densidades sobre la misma normal exterior,
+\[
+    \mathbf J_f\cdot d\mathbf a=J_f\,da,
+    \qquad
+    \mathbf J_d\cdot d\mathbf a=-J_f\,da.
+\]
+La densidad de corriente libre de conducción y la densidad de corriente de desplazamiento macroscópica son iguales en magnitud y exactamente opuestas en cada punto del medio ($\mathbf{J}_f + \mathbf{J}_d = \mathbf{0}$).
+Para cualquier superficie delimitada por $\mathcal C$, la ley
+de Ampère--Maxwell da
+\begin{align*}
+    \oint_{\mathcal C}\mathbf H\cdot d\mathbf l
+    &= I_{f,\mathrm{enc}}+\frac{d\Phi_D}{dt}\\
+    &=\int_S(\mathbf J_f+\mathbf J_d)\cdot d\mathbf a\\
+    &=0.
+\end{align*}
+Para el campo inducido, la simetría cilíndrica y la reflexión
+en cualquier plano que contiene el eje permiten solo una componente
+azimutal. Sobre una circunferencia coaxial de radio $s$,
+\[
+    \oint_{\mathcal C_s}\mathbf H\cdot d\mathbf l
+    =H_\phi(s,t)\int_0^{2\pi}s\,d\phi=2\pi s\,H_\phi(s,t).
+\]
+El resultado anterior exige que esta circulación sea cero a todo
+radio. Por tanto, $\mathbf H=\mathbf0$ y $\mathbf B=\mathbf0$
+en todo el espacio durante la descarga.
+
+
+\vspace{0.4cm}
+\hrule
+\vspace{0.5cm}
+
+\section*{Solución Problema 5: Síntesis de las Ecuaciones de Maxwell en la Materia}
+
+\subsection*{a) Divergencia magnética, campo $\mathbf{H}$ y magnetización $\mathbf{M}$}
+La única componente de $\mathbf B$ es $B_y(z,t)$ y su amplitud
+cambia al avanzar en $z$. La divergencia deriva cada componente
+respecto de su propia coordenada.
+\begin{align*}
+    \nabla\cdot\mathbf B
+    &=\frac{\partial B_x}{\partial x}
+      +\frac{\partial B_y}{\partial y}
+      +\frac{\partial B_z}{\partial z}\\
+    &=0+\frac{\partial}{\partial y}
+       [B_0\cos(kz)\sin(\omega t)]+0\\
+    &=0.
+\end{align*}
+Como $\mu = \mu_r \mu_0$ y $\mathbf{B} = \mu_0(\mathbf{H} + \mathbf{M}) = \mu \mathbf{H}$:
+\begin{equation}
+    \mathbf{H}(z,t) = \frac{B_0}{\mu_r \mu_0} \cos(kz) \sin(\omega t) \hat{\mathbf{y}}, \qquad \mathbf{M}(z,t) = \frac{(\mu_r - 1) B_0}{\mu_r \mu_0} \cos(kz) \sin(\omega t) \hat{\mathbf{y}}
+\end{equation}
+
+\subsection*{b) Campos $\mathbf{D}$, $\mathbf{E}$, polarización $\mathbf{P}$ y Ley de Gauss}
+Como $H_y$ depende de $z$, el único término del rotacional es el
+que contiene $\hat{\mathbf z}\times\hat{\mathbf y}=-\hat{\mathbf x}$.
+\begin{align*}
+    \nabla\times\mathbf H
+    &=(\hat{\mathbf z}\times\hat{\mathbf y})
+        \frac{\partial H_y}{\partial z}\\
+    &=-\hat{\mathbf x}\frac{\partial}{\partial z}
+        \left[\frac{B_0}{\mu_r\mu_0}\cos(kz)\sin(\omega t)\right]\\
+    &=\frac{kB_0}{\mu_r\mu_0}\sin(kz)\sin(\omega t)\hat{\mathbf x}.
+\end{align*}
+Por Ampère--Maxwell sin corriente libre,
+$\partial_t\mathbf D=\nabla\times\mathbf H$. Integramos a $z$
+fijo y tomamos nulo el término electrostático.
+\begin{align*}
+    \mathbf D(z,t)
+    &=\frac{kB_0}{\mu_r\mu_0}\sin(kz)
+          \left(\int\sin(\omega t)\,dt\right)\hat{\mathbf x}\\
+    &=-\frac{kB_0}{\omega\mu_r\mu_0}
+        \sin(kz)\cos(\omega t)\hat{\mathbf x}.
+\end{align*}
+Dividiendo por $\varepsilon = \varepsilon_r \varepsilon_0$ y recordando que $\varepsilon_0 \mu_0 = 1/c^2$, hallamos $\mathbf{E}$ y $\mathbf{P} = \mathbf{D} - \varepsilon_0 \mathbf{E}$:
+\begin{align}
+    \mathbf{E}(z,t) &= -\frac{c^2 k B_0}{\omega \varepsilon_r \mu_r} \sin(kz) \cos(\omega t) \hat{\mathbf{x}} \\
+    \mathbf{P}(z,t) &= -\frac{(\varepsilon_r - 1) k B_0}{\varepsilon_r \omega \mu_r \mu_0} \sin(kz) \cos(\omega t) \hat{\mathbf{x}}
+\end{align}
+Como $D_x$ depende únicamente de $z$ y $t$, se verifica $\nabla \cdot \mathbf{D} = \frac{\partial D_x}{\partial x} = 0$, cumpliendo la Ley de Gauss en ausencia de carga libre.
+
+\subsection*{c) Relación de dispersión, modos confinados y corriente superficial en $z = 0$}
+Partimos de la ley de Faraday,
+$\nabla\times\mathbf E=-\partial\mathbf B/\partial t$.
+Como $\mathbf E=E_x(z,t)\hat{\mathbf x}$, la derivada en $z$
+aporta en el sentido $\hat{\mathbf z}\times\hat{\mathbf x}=\hat{\mathbf y}$.
+\begin{align*}
+    \nabla\times\mathbf E
+    &=\hat{\mathbf y}\frac{\partial E_x}{\partial z}\\
+    &=-\frac{c^2 k^2 B_0}{\omega\varepsilon_r\mu_r}
+         \cos(kz)\cos(\omega t)\hat{\mathbf y},\\[4pt]
+    -\frac{\partial\mathbf B}{\partial t}
+    &=-B_0\cos(kz)\frac{d}{dt}\sin(\omega t)\hat{\mathbf y}\\
+    &=-\omega B_0\cos(kz)\cos(\omega t)\hat{\mathbf y}.
+\end{align*}
+Igualamos los coeficientes de $\cos(kz)\cos(\omega t)\hat{\mathbf y}$
+para que la ley se cumpla en todo $z$ y $t$.
+\begin{align*}
+    \frac{c^2 k^2}{\omega\varepsilon_r\mu_r}&=\omega,\\
+    \omega^2&=\frac{c^2 k^2}{\varepsilon_r\mu_r},\\
+    \omega&=\frac{ck}{\sqrt{\varepsilon_r\mu_r}}.
+\end{align*}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[repaso]
+  \node at (2.40,2.30) {(a) Modo $m=1$ entre las placas};
+  \fill[black!14] (-.13,-1.21) rectangle (0,1.24)
+    (4.79,-1.21) rectangle (4.92,1.24);
+  \draw[borde] (0,-1.21)--(0,1.24) (4.79,-1.21)--(4.79,1.24);
+  \draw[eje] (-.32,0)--(5.23,0) node[right=1pt] {$z$};
+  \draw[line width=.88pt,domain=0:4.79,samples=55,variable=\u]
+    plot (\u,{-1.04*sin(180*\u/4.79)});
+  \draw[black!72,line width=.80pt,densely dashed,
+        domain=0:4.79,samples=55,variable=\u]
+    plot (\u,{1.04*cos(180*\u/4.79)});
+  \fill (0,0) circle (1.6pt) (4.79,0) circle (1.6pt);
+  \node at (0,-1.51) {$0$};
+  \node at (4.79,-1.51) {$L$};
+  \node[above right] at (.56,.93) {$H_y/H_*$};
+  \node[below] at (2.36,-1.03) {$E_x/E_*$};
+  \node at (2.40,1.73) {$\omega t=\pi/4$};
+
+  \begin{scope}[xshift=7.1cm]
+    \node at (.69,2.30) {(b) Placa en $z=0$};
+    \fill[black!17] (-1.02,-1.25) rectangle (0,1.45);
+    \draw[borde] (0,-1.25)--(0,1.45);
+    \node at (1.23,1.38) {Medio};
+    \draw[vector] (0,.15)--(1.18,.15)
+      node[right=1pt] {$\hat{\mathbf n}=+\hat{\mathbf z}$};
+    \draw[vector] (0,.15)--(0,-.86);
+    \node[anchor=west] at (.15,-.65) {$\mathbf K_f\parallel-\hat{\mathbf x}$};
+    \node[anchor=west] at (.27,.82) {$\odot\;\mathbf H(0^+,t)$};
+    \node at (.54,-1.58) {$E_x(0,t)=0$};
+  \end{scope}
+\end{tikzpicture}
+\caption{Onda estacionaria en el modo fundamental. En (a), cada
+componente se divide por su propia amplitud máxima en el instante
+indicado. El campo eléctrico tangencial tiene nodos en ambas
+placas. En (b), $+x$ apunta hacia arriba y $+y$ sale de la página,
+de modo que $\hat{\mathbf z}\times\mathbf H(0^+,t)$ apunta hacia
+$-\hat{\mathbf x}$ en ese instante.}
+\label{fig:e2-onda}
+\end{figure}
+
+Las placas de la figura~\ref{fig:e2-onda}(a) son paralelas a
+$xy$. Como $\mathbf E$ apunta en $\hat{\mathbf x}$, todo el campo
+eléctrico es tangencial a sus caras. Por tanto, exigimos
+$E_x(0,t)=E_x(L,t)=0$.
+\begin{itemize}
+    \item En $z = 0$: $E_x(0,t) \propto \sin(0) = 0$ se satisface automáticamente.
+    \item En $z = L$: $E_x(L,t) = 0$ con solución no trivial exige $\sin(kL) = 0$, lo que cuantiza los números de onda permitidos en:
+    \begin{equation}
+        k_m = \frac{m \pi}{L}, \qquad m = 1, 2, 3, \dots
+    \end{equation}
+\end{itemize}
+En la placa de $z=0$ de la figura~\ref{fig:e2-onda}(b), la normal
+del conductor hacia el medio es $+\hat{\mathbf z}$ y
+$\mathbf H_1=\mathbf0$ dentro del conductor. Evaluamos el campo
+del lado del medio usando $\cos(k\,0)=1$,
+\[
+    \mathbf H_2(0^+,t)=\frac{B_0}{\mu_r\mu_0}
+                           \sin(\omega t)\hat{\mathbf y}.
+\]
+Partimos de la condición tangencial
+$\mathbf H_2-\mathbf H_1=\mathbf K_f\times\hat{\mathbf n}$.
+Multiplicamos vectorialmente por $\hat{\mathbf n}$ a la izquierda.
+Como $\mathbf K_f$ es tangencial, $\hat{\mathbf n}\cdot\mathbf K_f=0$,
+y el producto triple se reduce a
+\[
+    \hat{\mathbf n}\times(\mathbf K_f\times\hat{\mathbf n})
+    =\mathbf K_f(\hat{\mathbf n}\cdot\hat{\mathbf n})
+       -\hat{\mathbf n}(\hat{\mathbf n}\cdot\mathbf K_f)
+    =\mathbf K_f.
+\]
+Sustituimos el campo y la normal,
+\begin{align*}
+    \mathbf K_f(t)
+    &=\hat{\mathbf z}\times\mathbf H_2(0^+,t)\\
+    &=\frac{B_0}{\mu_r\mu_0}\sin(\omega t)
+       (\hat{\mathbf z}\times\hat{\mathbf y})\\
+    &=-\frac{B_0}{\mu_r\mu_0}\sin(\omega t)\hat{\mathbf x}.
+\end{align*}
+(Se comprueba de inmediato que $\mathbf{K}_f \times \hat{\mathbf{z}} = (-\hat{\mathbf{x}} \times \hat{\mathbf{z}})\frac{B_0}{\mu_r \mu_0}\sin(\omega t) = +\frac{B_0}{\mu_r \mu_0}\sin(\omega t)\hat{\mathbf{y}} = \mathbf{H}_2(0^+,t)$).
+
+\end{document}
