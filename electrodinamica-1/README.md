@@ -176,3 +176,14 @@ El último problema aplica la ley de Ampère–Maxwell para relacionar la
 corriente de desplazamiento con el campo magnético.
 
 ---
+
+## `repaso_e2/`
+
+Guía de **repaso E2** con cinco problemas resueltos sobre electrostática
+y magnetostática en medios materiales, inducción y ecuaciones de Maxwell.
+Los esquemas TikZ acompañan los pasos de integración y las condiciones
+de frontera.
+
+[PDF con soluciones](repaso_e2/repaso_e2.pdf) · [Fuente LaTeX](repaso_e2/repaso_e2.tex)
+
+---
